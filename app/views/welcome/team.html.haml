@@ -1,0 +1,24 @@
+.panel.panel-primary
+  .panel-heading
+    Team Roster
+  .panel-body
+    %table.table.table-striped.table-bordered
+      %tr
+        %th
+          Player Name
+        %th
+          NAGAAA Rating
+        %th
+      -@roster.each do |playerData|
+        -player = playerData["roster"]
+        -currentRanking = get_current_ranking(player)
+        %tr.player{:class => unranked_class(ranking)}
+          %td="#{player['first']} #{player['last']}"
+          %td
+            - if currentRanking.nil?
+              Not Yet Ranked
+            - else
+              = currentRanking
+          %td=link_to raw('Update Player Ranking'), "/ranking/#{@teamId}/#{@rosterId}/#{player['id']}"
+
+

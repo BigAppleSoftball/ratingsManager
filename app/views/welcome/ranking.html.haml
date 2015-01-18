@@ -1,0 +1,9 @@
+%panel.panel-primary
+  .panel-heading="Set Player Ranking for #{@player['first']} #{@player['last']}"
+  .panel-body
+    - currentRanking = get_current_ranking(@player)
+    Current Ranking
+    - if currentRanking.nil?
+      Not Yet Ranked
+    - else
+      =currentRanking
