@@ -18,7 +18,6 @@ class ApplicationController < ActionController::Base
     conn = connect
     loginHash = Hash.new
     if cookies[:teamsnap_token].nil?
-      puts "LOGINING IN TeamsnapToken #{config.teamsnapToken}"
       conn.params  = {'user' => username, 'password' => password}
       conn.headers = {'Content-Type'=> 'application/json'}
       response = conn.post loginURL
@@ -39,7 +38,6 @@ class ApplicationController < ActionController::Base
   def get_all_teams
     teamsURL = 'https://api.teamsnap.com/v2/teams'
     conn = connect
-    puts "LOGINING IN TeamsnapToken #{config.teamsnapToken}"
     conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
     response = conn.get teamsURL
     JSON.parse(response.body)
@@ -55,7 +53,6 @@ class ApplicationController < ActionController::Base
 
   def get_roster_player(teamId, rosterId, playerId)
     rosterPlayerURL = "https://api.teamsnap.com/v2/teams/#{teamId}/as_roster/#{rosterId}/rosters/#{playerId}"
-    puts rosterPlayerURL
     conn = connect
     conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
     response = conn.get rosterPlayerURL
@@ -97,7 +94,6 @@ class ApplicationController < ActionController::Base
           playerHash[:running][:rating] += customItem['content'].to_i
           playerHash[:running][:ratings][customItem['custom_field_id'].to_i] = customItem['content'].to_i
         elsif customHittingIds.include?(customItem['custom_field_id'])
-          puts "INT HITTING DATA #{customItem['custom_field_id']} -- #{customItem['content']} - #{customItem['custom_field_name']}"
           playerHash[:hitting][:rating] += customItem['content'].to_i
           playerHash[:hitting][:ratings][customItem['custom_field_id'].to_i] = customItem['content'].to_i
         end
