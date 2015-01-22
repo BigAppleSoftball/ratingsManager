@@ -12,8 +12,14 @@ default: &default
   username: blog
   password:
 
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: blog_development
+  pool: 5
+  username: blog
+  password:
 development:
-  <<: *default
   database: db/development.sqlite3
 
 # Warning: The database defined as "test" will be erased and
