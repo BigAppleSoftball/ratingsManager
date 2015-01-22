@@ -1,0 +1,7 @@
+.modal.fade.modal-primary.js-throwing-modal.modal-rating
+  .modal-dialog
+    .modal-content
+      = render :partial => "./modal/modalheader", locals:{ title: 'Throwing', modalClass: 'modal-primary'}
+      .modal-body
+        = render :partial => "./modal/throwingmodalbody"
+      = render :partial => "./modal/modalfooter", locals:{actionBtnClass: 'btn-primary'}

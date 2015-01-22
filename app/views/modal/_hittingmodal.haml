@@ -1,0 +1,7 @@
+.modal.fade.modal-danger.js-hitting-modal.modal-rating
+  .modal-dialog
+    .modal-content
+      = render :partial => "./modal/modalheader", locals:{ title: 'Hitting', modalClass: 'modal-danger'}
+      .modal-body
+        = render :partial => "./modal/hittingmodalbody"
+      = render :partial => "./modal/modalfooter", locals:{actionBtnClass: 'btn-danger'}

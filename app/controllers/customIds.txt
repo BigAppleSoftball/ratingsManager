@@ -1,0 +1,35 @@
+Throwing:
+  custom_field_id = 81159
+  custom_field_id = 81165
+  custom_field_id = 81166
+  custom_field_id = 81169
+  custom_field_id = 81170
+
+fielding
+81173
+81175
+81176
+81178
+81181
+81187
+81190
+81193
+81196
+
+baserunning
+81198
+81199
+81201
+81204
+
+hitting
+
+81207
+81210
+81212
+81215
+81218
+81223
+81224
+81225
+81226

@@ -1,4 +1,4 @@
-.panel.panel-primary
+.panel.panel-primary#team-welcome-panel
   .panel-heading
     Team Roster
   .panel-body
@@ -9,16 +9,42 @@
         %th
           NAGAAA Rating
         %th
+          Throwing
+        %th
+          Fielding
+        %th
+          Baserunning
+        %th
+          Hitting
+      - teamRating = 0
       -@roster.each do |playerData|
         -player = playerData["roster"]
-        -currentRanking = get_current_ranking(player)
-        %tr.player{:class => unranked_class(ranking)}
+        -rankingData = @playerHash["#{player['id']}"]
+        -customData = player['league_custom_data']
+        %tr.player{:class => "#{unranked_class(rankingData[:fullRating])} js-player-row", :data => {:playerid => player['id']}}
           %td="#{player['first']} #{player['last']}"
           %td
-            - if currentRanking.nil?
-              Not Yet Ranked
-            - else
-              = currentRanking
-          %td=link_to raw('Update Player Ranking'), "/ranking/#{@teamId}/#{@rosterId}/#{player['id']}"
+            .btn.btn-default=rankingData[:fullRating]
+          %td
+            .btn.btn-primary.js-throwing-btn=rankingData[:throwing][:rating]
+          %td
+            .btn.btn-success.js-fielding-btn=rankingData[:fielding][:rating]
+          %td
+            .btn.btn-warning.js-running-btn=rankingData[:running][:rating]
+          %td
+            .btn.btn-danger.js-hitting-btn=rankingData[:hitting][:rating]
+  .panel-footer
+    %div
+      Total Team Ranking:
+      =teamRating
+    %a{:href=>"#"}
+      %i{:class=>"glyphicon glyphicon-export"}
+      Export Team Data
+= render :partial => "modal/throwingmodal"
+= render :partial => "modal/fieldingmodal"
+= render :partial => "modal/runningmodal"
+= render :partial => "modal/hittingmodal"
 
+:javascript
+  window.playersJson =#{@playerHash.to_json}
 

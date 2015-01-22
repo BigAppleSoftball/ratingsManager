@@ -1,0 +1,7 @@
+.modal.fade.modal-warning.js-running-modal.modal-rating
+  .modal-dialog
+    .modal-content
+      = render :partial => "./modal/modalheader", locals:{ title: 'Baserunning', modalClass: 'modal-warning'}
+      .modal-body
+        = render :partial => "./modal/runningmodalbody"
+      = render :partial => "./modal/modalfooter", locals:{actionBtnClass: 'btn-warning'}

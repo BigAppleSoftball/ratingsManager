@@ -16,4 +16,12 @@ module ApplicationHelper
     ranking
   end
 
+  def set_current_ranking(currentRanking)
+    if currentRanking.nil?
+      'N/A'
+    else
+      currentRanking
+    end
+  end
+
 end

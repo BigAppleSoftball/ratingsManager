@@ -1,0 +1,7 @@
+.modal.fade.modal-success.js-fielding-modal.modal-rating
+  .modal-dialog
+    .modal-content
+      = render :partial => "./modal/modalheader", locals:{ title: 'Fielding', modalClass: 'modal-success'}
+      .modal-body
+        = render :partial => "./modal/fieldingmodalbody"
+      = render :partial => "./modal/modalfooter", locals:{actionBtnClass: 'btn-success'}
