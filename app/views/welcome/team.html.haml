@@ -18,7 +18,6 @@
           Baserunning
         %th
           Hitting
-      - teamRating = 0
       -@roster.each do |playerData|
         -player = playerData["roster"]
         -rankingData = @playerHash["#{player['id']}"]
@@ -38,7 +37,7 @@
   .panel-footer
     %div
       Total Team Ranking:
-      =teamRating
+      =@teamRating
     %a{:href=>"/teams/#{@team['id']}/#{@rosterId}.csv"}
       %i{:class=>"glyphicon glyphicon-export"}
       Export Team Data

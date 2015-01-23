@@ -70,26 +70,12 @@ class ApplicationController < ActionController::Base
   def get_customIds(ratingSection = nil)
     customHash = Hash.new
     customHash['throwing'] = Hash.new
-    customHash['throwing'][81159] = 1
-    customHash['throwing'][81165] = 2
-    customHash['throwing'][81166] = 3
-    customHash['throwing'][81169] = 4
-    customHash['throwing'][81170] = 5
     customHash['throwing'][1] = 81159
     customHash['throwing'][2] = 81165
     customHash['throwing'][3] = 81166
     customHash['throwing'][4] = 81169
     customHash['throwing'][5] = 81170
     customHash['fielding'] = Hash.new
-    customHash['fielding'][81173] = 6
-    customHash['fielding'][81175] = 7
-    customHash['fielding'][81176] = 8
-    customHash['fielding'][81178] = 9
-    customHash['fielding'][81181] = 10
-    customHash['fielding'][81187] = 11
-    customHash['fielding'][81190] = 12
-    customHash['fielding'][81193] = 13
-    customHash['fielding'][81196] = 14
     customHash['fielding'][6] = 81173
     customHash['fielding'][7] = 81175
     customHash['fielding'][8] =  81176
@@ -100,20 +86,20 @@ class ApplicationController < ActionController::Base
     customHash['fielding'][13] = 81193
     customHash['fielding'][14] = 81196
     customHash['baserunning'] = Hash.new
-    customHash['baserunning'][81198] = 15
-    customHash['baserunning'][81199] = 16
-    customHash['baserunning'][81201] = 17
-    customHash['baserunning'][81204] = 18
+    customHash['baserunning'][15] = 81198
+    customHash['baserunning'][16] = 81199
+    customHash['baserunning'][17] = 81201
+    customHash['baserunning'][18] = 81204
     customHash['hitting'] = Hash.new
-    customHash['hitting'][81207] = 19
-    customHash['hitting'][81210] = 20
-    customHash['hitting'][81212] = 21
-    customHash['hitting'][81215] = 22
-    customHash['hitting'][81218] = 23
-    customHash['hitting'][81223] = 24
-    customHash['hitting'][81224] = 25
-    customHash['hitting'][81225] = 26
-    customHash['hitting'][81226] = 27
+    customHash['hitting'][19] = 81207
+    customHash['hitting'][20] = 81210
+    customHash['hitting'][21] = 81212
+    customHash['hitting'][22] = 81215
+    customHash['hitting'][23] = 81218
+    customHash['hitting'][24] = 81223
+    customHash['hitting'][25] = 81224
+    customHash['hitting'][26] = 81225
+    customHash['hitting'][27] = 81226
     if (ratingSection.nil?)
       customHash
     else
@@ -124,10 +110,10 @@ class ApplicationController < ActionController::Base
   # adds and compiles players rankings
   def preprocess_player_data(roster)
     playersHash = Hash.new
-    customThrowingIds = get_customIds('throwing').keys
-    customFieldingIds = get_customIds('fielding').keys
-    customRunningIds = get_customIds('baserunning').keys
-    customHittingIds = get_customIds('hitting').keys
+    customThrowingIds = get_customIds('throwing').values
+    customFieldingIds = get_customIds('fielding').values
+    customRunningIds = get_customIds('baserunning').values
+    customHittingIds = get_customIds('hitting').values
 
     @roster.each do |playerData|
       playerHash = Hash.new

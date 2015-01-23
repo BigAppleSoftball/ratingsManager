@@ -10,33 +10,67 @@ class WelcomeController < ApplicationController
 
   def team
     puts "Showing a certain team"
+    teamRatingLimit = 10 #we only want to rate the 10 highest Players
+    @teamRating = 0
     @roster = get_roster(params[:teamId], params[:rosterId])
     @playerHash = preprocess_player_data(@roster)
     @rosterId = params[:rosterId]
     @team = get_team(params[:teamId])['team']
-    @customIds = get_customIds
-    test = Hash.new
-    test['here'] = '123123'
-    #ap @roster
-    #ap @playerHash
-    #ap @customIds
-    @roster.each do |playerData|
-      player = playerData["roster"]
-      throwingQ1Id = @customIds['throwing'][1]
-      ap throwingQ1Id
-      data = @playerHash["#{player['id']}"][:throwing][:ratings][throwingQ1Id]
-      ap data
+    @playerHash.sort_by{|k,v| v[:fullRating]}.reverse!.first(10).each do |player|
+      @teamRating += player[1][:fullRating]
     end
-    #ap @customIds['hitting'][81218]
+    @teamRating
+    @customIds = get_customIds
     respond_to do |format|
       format.csv do
-        #response.headers['Content-Type'] = 'text/csv'
+        @playerRows = generate_roster_csv_rows(@playerHash, @customIds, @roster)
         response.headers['Content-Disposition'] = "attachment; filename=#{@team['team_name']}-#{@team['team_season']}.csv"
         render 'team.csv.haml'
       end
       format.html
 
     end
+  end
+
+  def generate_roster_csv_rows(playerHash, customIds, roster)
+    playerArray = Array.new
+    throwingQs = @customIds['throwing'].keys
+    fieldingQs = @customIds['fielding'].keys
+    baserunningQs = @customIds['baserunning'].keys
+    hittingQs = @customIds['hitting'].keys
+    roster.each do |playerData|
+      player = playerData["roster"]
+      playerName = "#{player['first']} #{player['last']}"
+      playerRating = playerHash["#{player['id']}"][:fullRating]
+      playerThrowingData = playerHash["#{player['id']}"][:throwing][:ratings]
+      playerFieldingData = playerHash["#{player['id']}"][:fielding][:ratings]
+      playerHittingData = playerHash["#{player['id']}"][:hitting][:ratings]
+      playerRunningData = playerHash["#{player['id']}"][:running][:ratings]
+      throwingString = ""
+      fieldingString = ""
+      runningString = ""
+      hittingString = ""
+      throwingQs.each do |throwingQ| #an array of 1, 2, 3, 4 the question ids
+        questionCustomId = customIds['throwing'][throwingQ]
+        throwingString += "#{playerThrowingData[questionCustomId]},"
+      end
+      fieldingQs.each do |fieldingQ|
+        questionCustomId = customIds['fielding'][fieldingQ]
+        fieldingString += "#{playerFieldingData[questionCustomId]},"
+      end
+      baserunningQs.each do |runningQ|
+        questionCustomId = customIds['baserunning'][runningQ]
+        puts questionCustomId
+        puts
+        runningString += "#{playerRunningData[questionCustomId]},"
+      end
+      hittingQs.each do |hittingQ|
+        questionCustomId = customIds['hitting'][hittingQ]
+        hittingString += "#{playerHittingData[questionCustomId]},"
+      end
+      playerArray.push("#{playerName},#{throwingString}#{fieldingString}#{runningString}#{hittingString}#{playerRating}")
+    end
+    playerArray
   end
 
   def ranking
