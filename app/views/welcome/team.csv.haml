@@ -1,0 +1,13 @@
+Name, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, Rating
+-throwingQ1Id = @customIds['throwing'][1]
+-throwingQ2Id = @customIds['throwing'][2]
+-throwingQ3Id = @customIds['throwing'][3]
+-throwingQ4Id = @customIds['throwing'][4]
+-throwingQ5Id = @customIds['throwing'][5]
+-@roster.each do |playerData|
+  -player = playerData["roster"]
+  -rankingData = @playerHash["#{player['id']}"]
+  -customData = player['league_custom_data']
+  -playerThrowingData = @playerHash["#{player['id']}"][:throwing][:ratings]
+  ="#{rankingData[:name]},#{playerThrowingData[throwingQ1Id]}, #{playerThrowingData[throwingQ2Id]}, #{playerThrowingData[throwingQ3Id]}, #{playerThrowingData[throwingQ4Id]}, #{playerThrowingData[throwingQ5Id]},6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,  #{rankingData[:fullRating]}"
+

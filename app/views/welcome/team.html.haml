@@ -1,6 +1,8 @@
 .panel.panel-primary#team-welcome-panel
   .panel-heading
-    Team Roster
+    %h2.team-name= @team['team_name']
+    %h4.team-season= @team['team_season']
+    %h5.team-division= @team['team_division']
   .panel-body
     %table.table.table-striped.table-bordered
       %tr
@@ -37,7 +39,7 @@
     %div
       Total Team Ranking:
       =teamRating
-    %a{:href=>"#"}
+    %a{:href=>"/teams/#{@team['id']}/#{@rosterId}.csv"}
       %i{:class=>"glyphicon glyphicon-export"}
       Export Team Data
 = render :partial => "modal/throwingmodal"

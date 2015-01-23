@@ -43,6 +43,14 @@ class ApplicationController < ActionController::Base
     JSON.parse(response.body)
   end
 
+  def get_team(teamId)
+    teamsURL = "https://api.teamsnap.com/v2/teams/#{teamId}"
+    conn = connect
+    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
+    response = conn.get teamsURL
+    JSON.parse(response.body)
+  end
+
   def get_roster(teamId, rosterId)
     rosterURL = "https://api.teamsnap.com/v2/teams/#{teamId}/as_roster/#{rosterId}/rosters"
     conn = connect
@@ -59,13 +67,67 @@ class ApplicationController < ActionController::Base
     JSON.parse(response.body)
   end
 
+  def get_customIds(ratingSection = nil)
+    customHash = Hash.new
+    customHash['throwing'] = Hash.new
+    customHash['throwing'][81159] = 1
+    customHash['throwing'][81165] = 2
+    customHash['throwing'][81166] = 3
+    customHash['throwing'][81169] = 4
+    customHash['throwing'][81170] = 5
+    customHash['throwing'][1] = 81159
+    customHash['throwing'][2] = 81165
+    customHash['throwing'][3] = 81166
+    customHash['throwing'][4] = 81169
+    customHash['throwing'][5] = 81170
+    customHash['fielding'] = Hash.new
+    customHash['fielding'][81173] = 6
+    customHash['fielding'][81175] = 7
+    customHash['fielding'][81176] = 8
+    customHash['fielding'][81178] = 9
+    customHash['fielding'][81181] = 10
+    customHash['fielding'][81187] = 11
+    customHash['fielding'][81190] = 12
+    customHash['fielding'][81193] = 13
+    customHash['fielding'][81196] = 14
+    customHash['fielding'][6] = 81173
+    customHash['fielding'][7] = 81175
+    customHash['fielding'][8] =  81176
+    customHash['fielding'][9] = 81178
+    customHash['fielding'][10] = 81181
+    customHash['fielding'][11] = 81187
+    customHash['fielding'][12] = 81190
+    customHash['fielding'][13] = 81193
+    customHash['fielding'][14] = 81196
+    customHash['baserunning'] = Hash.new
+    customHash['baserunning'][81198] = 15
+    customHash['baserunning'][81199] = 16
+    customHash['baserunning'][81201] = 17
+    customHash['baserunning'][81204] = 18
+    customHash['hitting'] = Hash.new
+    customHash['hitting'][81207] = 19
+    customHash['hitting'][81210] = 20
+    customHash['hitting'][81212] = 21
+    customHash['hitting'][81215] = 22
+    customHash['hitting'][81218] = 23
+    customHash['hitting'][81223] = 24
+    customHash['hitting'][81224] = 25
+    customHash['hitting'][81225] = 26
+    customHash['hitting'][81226] = 27
+    if (ratingSection.nil?)
+      customHash
+    else
+      customHash[ratingSection]
+    end
+  end
+
   # adds and compiles players rankings
   def preprocess_player_data(roster)
     playersHash = Hash.new
-    customThrowingIds = [81159, 81165, 81166, 81169, 81170]
-    customFieldingIds = [81173, 81175, 81176, 81178, 81181, 81187, 81190, 81193, 81196]
-    customRunningIds = [81198, 81199, 81201, 81204]
-    customHittingIds = [81207,81210, 81212, 81215, 81218, 81223, 81224, 81225, 81226]
+    customThrowingIds = get_customIds('throwing').keys
+    customFieldingIds = get_customIds('fielding').keys
+    customRunningIds = get_customIds('baserunning').keys
+    customHittingIds = get_customIds('hitting').keys
 
     @roster.each do |playerData|
       playerHash = Hash.new
@@ -99,10 +161,9 @@ class ApplicationController < ActionController::Base
         end
       end
       playerHash[:fullRating] = playerHash[:hitting][:rating] + playerHash[:running][:rating] + playerHash[:fielding][:rating] + playerHash[:throwing][:rating]
+      playerHash[:name] = "#{player['first']} #{player['last']}"
       playersHash["#{player['id']}"] = playerHash
     end
-
-    puts playersHash
     playersHash
   end
 end

@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
 
-  root 'welcome#index'
+  root 'welcome#login'
 
   get '/teams/:teamId/:rosterId', to: 'welcome#team', as: 'rosterId'
   get '/ranking/:teamId/:rosterId/:playerId', to: 'welcome#ranking', as: 'playerId'
+  get '/welcome', to: 'welcome#index'
   get '/login', to: 'welcome#login'
   post '/teamsnaplogin', to: 'welcome#teamsnaplogin'
   # The priority is based upon order of creation: first created -> highest priority.
