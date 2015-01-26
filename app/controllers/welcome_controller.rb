@@ -13,9 +13,9 @@ class WelcomeController < ApplicationController
     teamRatingLimit = 10 #we only want to rate the 10 highest Players
     @teamRating = 0
     @roster = get_roster(params[:teamId], params[:rosterId])
-    @playerHash = preprocess_player_data(@roster)
     @rosterId = params[:rosterId]
     @team = get_team(params[:teamId])['team']
+    @playerHash = preprocess_player_data(@roster)
     @playerHash.sort_by{|k,v| v[:fullRating]}.reverse!.first(10).each do |player|
       @teamRating += player[1][:fullRating]
     end
@@ -23,7 +23,7 @@ class WelcomeController < ApplicationController
     @customIds = get_customIds
     respond_to do |format|
       format.csv do
-        @playerRows = generate_roster_csv_rows(@playerHash, @customIds, @roster)
+        @playerRows = generate_roster_csv_rows(@playerHash, @customIds, @roster, @team)
         response.headers['Content-Disposition'] = "attachment; filename=#{@team['team_name']}-#{@team['team_season']}.csv"
         render 'team.csv.haml'
       end
@@ -32,16 +32,21 @@ class WelcomeController < ApplicationController
     end
   end
 
-  def generate_roster_csv_rows(playerHash, customIds, roster)
+  # current format
+  #Division,Team,Player,DOB,Rating,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27
+  def generate_roster_csv_rows(playerHash, customIds, roster, team)
     playerArray = Array.new
     throwingQs = @customIds['throwing'].keys
     fieldingQs = @customIds['fielding'].keys
     baserunningQs = @customIds['baserunning'].keys
     hittingQs = @customIds['hitting'].keys
+    teamName = team['team_name']
+    teamDivision = team['team_division']
     roster.each do |playerData|
       player = playerData["roster"]
       playerName = "#{player['first']} #{player['last']}"
       playerRating = playerHash["#{player['id']}"][:fullRating]
+      playerBirthday = player['birthdate']
       playerThrowingData = playerHash["#{player['id']}"][:throwing][:ratings]
       playerFieldingData = playerHash["#{player['id']}"][:fielding][:ratings]
       playerHittingData = playerHash["#{player['id']}"][:hitting][:ratings]
@@ -50,7 +55,7 @@ class WelcomeController < ApplicationController
       fieldingString = ""
       runningString = ""
       hittingString = ""
-      throwingQs.each do |throwingQ| #an array of 1, 2, 3, 4 the question ids
+      throwingQs.each do |throwingQ| 
         questionCustomId = customIds['throwing'][throwingQ]
         throwingString += "#{playerThrowingData[questionCustomId]},"
       end
@@ -68,7 +73,7 @@ class WelcomeController < ApplicationController
         questionCustomId = customIds['hitting'][hittingQ]
         hittingString += "#{playerHittingData[questionCustomId]},"
       end
-      playerArray.push("#{playerName},#{throwingString}#{fieldingString}#{runningString}#{hittingString}#{playerRating}")
+      playerArray.push("#{teamDivision},#{teamName},#{playerName},#{playerBirthday},#{playerRating},#{throwingString}#{fieldingString}#{runningString}#{hittingString}")
     end
     playerArray
   end

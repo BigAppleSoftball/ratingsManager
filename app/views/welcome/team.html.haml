@@ -9,6 +9,8 @@
         %th
           Player Name
         %th
+          DOB
+        %th
           NAGAAA Rating
         %th
           Throwing
@@ -24,6 +26,7 @@
         -customData = player['league_custom_data']
         %tr.player{:class => "#{unranked_class(rankingData[:fullRating])} js-player-row", :data => {:playerid => player['id']}}
           %td="#{player['first']} #{player['last']}"
+          %td=player['birthdate']
           %td
             .btn.btn-default=rankingData[:fullRating]
           %td
@@ -36,7 +39,7 @@
             .btn.btn-danger.js-hitting-btn=rankingData[:hitting][:rating]
   .panel-footer
     %div
-      Total Team Ranking:
+      Total Team Rating (Total Rating of Top 10 Players):
       =@teamRating
     %a{:href=>"/teams/#{@team['id']}/#{@rosterId}.csv"}
       %i{:class=>"glyphicon glyphicon-export"}
