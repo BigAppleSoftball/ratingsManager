@@ -1,0 +1,84 @@
+/**
+ * Style overriding the bootstrap styling
+ */
+@import 'vars',
+        'mixins',
+        "bootstrap-sprockets",
+        'bootstrap',
+        "compass";
+
+.modal-primary {
+  .modal-header {
+    background: $brand-primary;
+    color: #fff;
+  }
+}
+
+.modal-success {
+  .modal-header {
+    background: $brand-success;
+    color: #fff;
+  }
+}
+.modal-warning {
+  .modal-header {
+    background: $brand-warning;
+    color: #fff;
+  }
+}
+
+.modal-danger {
+  .modal-header {
+    background: $brand-danger;
+    color: #fff;
+  }
+}
+
+.modal-header {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.modal-rating {
+  .modal-dialog {
+    width: 900px;
+  }
+}
+
+#team-welcome-panel {
+  .team-name {
+    font-weight: bold;
+  }
+}
+
+.btn-default {
+  @include set-btn-gradient($btn-default-bg);
+}
+
+.btn-success {
+  @include set-btn-gradient($btn-success-bg);
+}
+
+.btn-primary {
+  @include set-btn-gradient($btn-primary-bg);
+}
+
+.btn-danger {
+  @include set-btn-gradient($btn-danger-bg);
+}
+
+.btn-info {
+  @include set-btn-gradient($btn-info-bg);
+}
+
+.btn-warning {
+  @include set-btn-gradient($btn-warning-bg);
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
+
+.navbar-brand {
+  padding: 5px 15px;
+}

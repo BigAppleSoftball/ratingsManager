@@ -14,4 +14,4 @@
     %tr.team
       %td=team['id']
       %td=team['team_name']
-      %td=link_to raw('View Team Roster'), "/teams/#{team['id']}/#{roster['id']}", :title => 'Meet the Team'
+      %td=link_to raw('View Team Roster'), "/teams/#{team['id']}/#{roster['id']}", :title => 'Meet the Team', :class => 'btn btn-default'

@@ -13,49 +13,24 @@
  *= require_tree .
  *= require_self
  */
-@import "bootstrap-sprockets";
-@import "bootstrap";
 
-.modal-primary {
-  .modal-header {
-    background: $brand-primary;
-    color: #fff;
-  }
-}
 
-.modal-success {
-  .modal-header {
-    background: $brand-success;
-    color: #fff;
-  }
-}
-.modal-warning {
-  .modal-header {
-    background: $brand-warning;
-    color: #fff;
-  }
+@import "bootstrap-sprockets",
+        "bootstrap",
+        "compass",
+        "vars",
+        "mixins",
+        "bootstrap-custom";
+
+.brand-logo-40 {
+  width: 40px;
+  height: 40px;
+  background: image-url('logo-40x40.png') no-repeat 0 0;
+  display: inline-block;
+  vertical-align: middle;
 }
 
-.modal-danger {
-  .modal-header {
-    background: $brand-danger;
-    color: #fff;
-  }
+.btn-back {
+  margin-bottom: 20px;
 }
 
-.modal-header {
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-}
-
-.modal-rating {
-  .modal-dialog {
-    width: 900px;
-  }
-}
-
-#team-welcome-panel {
-  .team-name {
-    font-weight: bold;
-  }
-}

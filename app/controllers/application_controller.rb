@@ -109,7 +109,6 @@ class ApplicationController < ActionController::Base
 
   # adds and compiles players rankings
   def preprocess_player_data(roster)
-    #ap roster
     playersHash = Hash.new
     customThrowingIds = get_customIds('throwing').values
     customFieldingIds = get_customIds('fielding').values
@@ -117,7 +116,6 @@ class ApplicationController < ActionController::Base
     customHittingIds = get_customIds('hitting').values
 
     @roster.each do |playerData|
-      ap playerData
       playerHash = Hash.new
       playerHash[:throwing] = Hash.new
       playerHash[:fielding] = Hash.new

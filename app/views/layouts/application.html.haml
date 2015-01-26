@@ -4,11 +4,13 @@
     %title RatingsManager
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = csrf_meta_tags
+    = favicon_link_tag 'favicon.ico'
   %body
     .container
       .navbar.navbar-default
         .container
           .navbar-brand
+            %i.brand-logo-40
             Ratings Manager
       = yield
     = javascript_include_tag 'application', 'data-turbolinks-track' => true

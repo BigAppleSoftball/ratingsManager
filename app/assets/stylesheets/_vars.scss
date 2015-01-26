@@ -1,0 +1,19 @@
+$yellow: #CCCC00;
+$green: #78B653;
+$blue: #50ABD2;
+$purple: #9557d8;
+$red: #FD5961;
+$dark-gray: #3A3A3A;
+
+$throwing-color: $green; // green
+$fielding-color: $blue; // blue
+$running-color: $purple; // purple
+$hitting-color: $red; // red
+
+$brand-primary: $fielding-color;
+$brand-success: $throwing-color;
+$brand-warning: $running-color;
+$brand-danger: $hitting-color;
+$brand-info: $yellow;
+
+$link-color: darken($blue, 10%);
