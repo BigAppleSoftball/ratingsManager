@@ -1,17 +1,20 @@
-%h1
-  Welcome!
-
-%table.table.table-striped.table-bordered
-  %tr
-    %th
-      Team Id
-    %th
-      Team Name
-    %th
-  -@teams.each do |teamData|
-    -team = teamData['team']
-    - roster = team['available_rosters'].first
-    %tr.team
-      %td=team['id']
-      %td=team['team_name']
-      %td=link_to raw('View Team Roster'), "/teams/#{team['id']}/#{roster['id']}", :title => 'Meet the Team', :class => 'btn btn-default'
+#teams-accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
+  -count = 0
+  -@teamsByDivision.keys.each do |divisionKey|
+    -count+=1
+    .panel.panel-primary
+      .panel-heading{:role => "tab", :id =>"heading-#{count}"}
+        %h4.panel-title
+          %a{"aria-controls" => "collapse-#{count}", "aria-expanded" => "#{count == 1? 'true' : 'false'}", "data-parent" => "#teams-accordion", "data-toggle" => "collapse", :href => "#collapse-#{count}"}
+            -if divisionKey.empty?
+              N/A
+            - else
+              =divisionKey
+      .panel-collapse.collapse.in{"aria-labelledby" => "heading-#{count}", :role => "tabpanel", :id => "collapse-#{count}"}
+        .panel-body
+          - teams = @teamsByDivision[divisionKey]
+          %ul.list-group
+            - teams.each do |team|
+              -roster = team['available_rosters'].first
+              %li.list-group-item
+                =link_to raw("View #{team['team_name']} Roster"), "/teams/#{team['id']}/#{roster['id']}", :class => 'btn btn-default'

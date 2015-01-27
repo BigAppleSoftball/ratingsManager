@@ -21,7 +21,6 @@ class ApplicationController < ActionController::Base
       conn.params  = {'user' => username, 'password' => password}
       conn.headers = {'Content-Type'=> 'application/json'}
       response = conn.post loginURL
-      puts response.headers['x-teamsnap-token']
       loginHash[:status] = response.headers['status']
       loginHash[:message] = response.headers['x-rack-cache']
       teamsnapToken = response.headers['x-teamsnap-token']
@@ -36,11 +35,34 @@ class ApplicationController < ActionController::Base
   end
 
   def get_all_teams
+    Rails.cache.fetch("all_teams", :expires_in => 60.minutes) do
+      get_all_teams_api
+    end
+  end
+
+  def get_all_teams_api
     teamsURL = 'https://api.teamsnap.com/v2/teams'
     conn = connect
     conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
     response = conn.get teamsURL
-    JSON.parse(response.body)
+    preprocess_team_data(JSON.parse(response.body))
+  end
+
+  # sort Teams by division
+  def preprocess_team_data(teamsData)
+    divisionsList = Array.new
+    teamsByDivision = Hash.new
+    teamsData.each do |teamData|
+      team = teamData['team']
+      teamDivision = team['team_division']
+      # check to see if division is in the list, if not add it 
+      if (!divisionsList.include?(teamDivision))
+        divisionsList.push(teamDivision)
+        teamsByDivision[teamDivision] = Array.new
+      end
+        teamsByDivision[teamDivision].push(team)
+    end
+    teamsByDivision
   end
 
   def get_team(teamId)

@@ -15,10 +15,7 @@
  */
 
 
-@import "bootstrap-sprockets",
-        "bootstrap",
-        "compass",
-        "vars",
+@import "compass",
         "mixins",
         "bootstrap-custom";
 
@@ -32,5 +29,15 @@
 
 .btn-back {
   margin-bottom: 20px;
+}
+
+.panel-info { 
+  border: 1px solid darken($brand-info, 20%);
+
+  > .panel-heading {
+    background: $brand-info;
+    color: $dark-gray;
+    border-color: darken($brand-info, 20%);
+  }
 }
 

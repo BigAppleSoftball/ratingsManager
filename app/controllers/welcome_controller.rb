@@ -3,13 +3,11 @@ class WelcomeController < ApplicationController
 
 
   def index
-    puts "RENDERING INDEX"
-    @teams = get_all_teams
+    @teamsByDivision = get_all_teams
     render 'index'
   end
 
   def team
-    puts "Showing a certain team"
     teamRatingLimit = 10 #we only want to rate the 10 highest Players
     @teamRating = 0
     @roster = get_roster(params[:teamId], params[:rosterId])
@@ -65,8 +63,6 @@ class WelcomeController < ApplicationController
       end
       baserunningQs.each do |runningQ|
         questionCustomId = customIds['baserunning'][runningQ]
-        puts questionCustomId
-        puts
         runningString += "#{playerRunningData[questionCustomId]},"
       end
       hittingQs.each do |hittingQ|
@@ -83,7 +79,6 @@ class WelcomeController < ApplicationController
     if player
       @player = player['roster']
     end
-    puts @player
     render 'ranking'
   end
 
@@ -97,7 +92,6 @@ class WelcomeController < ApplicationController
   end
 
   def teamsnaplogin
-    puts params
     loginResponse = log_in_to_teamsnap(params[:email], params[:password])
     respond_to do |format|
       format.json { render :json=> loginResponse}
