@@ -1,0 +1,31 @@
+%h1 Listing seasons
+
+%table
+  %tr
+    %th Season
+    %th League
+    %th Pool
+    %th Season desc
+    %th Date start
+    %th 
+    %th Date end
+    %th
+    %th
+    %th
+
+  - @seasons.each do |season|
+    %tr
+      %td= season.season_id
+      %td= season.league_id
+      %td= season.pool_id
+      %td= season.season_desc
+      %td= season.date_start
+      %td= season.
+      %td= season.date_end
+      %td= link_to 'Show', season
+      %td= link_to 'Edit', edit_season_path(season)
+      %td= link_to 'Destroy', season, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Season', new_season_path

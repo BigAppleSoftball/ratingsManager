@@ -1,0 +1,27 @@
+%p#notice= notice
+
+%p
+  %b Season:
+  = @season.season_id
+%p
+  %b League:
+  = @season.league_id
+%p
+  %b Pool:
+  = @season.pool_id
+%p
+  %b Season desc:
+  = @season.season_desc
+%p
+  %b Date start:
+  = @season.date_start
+%p
+  %b :
+  = @season.
+%p
+  %b Date end:
+  = @season.date_end
+
+= link_to 'Edit', edit_season_path(@season)
+\|
+= link_to 'Back', seasons_path

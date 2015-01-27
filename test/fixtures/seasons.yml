@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  season_id: 1
+  league_id: 1
+  pool_id: 1
+  season_desc: MyString
+  date_start: MyString
+  : 2015-01-27 00:23:50
+  date_end: 2015-01-27 00:23:50
+
+two:
+  season_id: 1
+  league_id: 1
+  pool_id: 1
+  season_desc: MyString
+  date_start: MyString
+  : 2015-01-27 00:23:50
+  date_end: 2015-01-27 00:23:50

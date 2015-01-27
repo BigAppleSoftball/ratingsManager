@@ -1,0 +1,8 @@
+.panel.panel-default
+  .panel-heading
+    %h3= link_to "#{division.season.season_desc} #{division.div_description}", division
+  .panel-body
+    -division.teams.each do |team|
+      %ul.list-group
+        %li.list-group-item
+          = link_to "#{team.name}", team 

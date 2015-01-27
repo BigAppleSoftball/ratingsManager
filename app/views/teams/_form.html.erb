@@ -1,0 +1,61 @@
+<%= form_for(@team) do |f| %>
+  <% if @team.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@team.errors.count, "error") %> prohibited this team from being saved:</h2>
+
+      <ul>
+      <% @team.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :division_id %><br>
+    <%= f.number_field :division_id %>
+  </div>
+  <div class="field">
+    <%= f.label :long_name %><br>
+    <%= f.text_field :long_name %>
+  </div>
+  <div class="field">
+    <%= f.label :stat_loss %><br>
+    <%= f.number_field :stat_loss %>
+  </div>
+  <div class="field">
+    <%= f.label :stat_win %><br>
+    <%= f.number_field :stat_win %>
+  </div>
+  <div class="field">
+    <%= f.label :stat_play %><br>
+    <%= f.number_field :stat_play %>
+  </div>
+  <div class="field">
+    <%= f.label :stat_pt_allowed %><br>
+    <%= f.number_field :stat_pt_allowed %>
+  </div>
+  <div class="field">
+    <%= f.label :stat_pt_scored %><br>
+    <%= f.number_field :stat_pt_scored %>
+  </div>
+  <div class="field">
+    <%= f.label :stat_tie %><br>
+    <%= f.number_field :stat_tie %>
+  </div>
+  <div class="field">
+    <%= f.label :teamsnap_id %><br>
+    <%= f.number_field :teamsnap_id %>
+  </div>
+  <div class="field">
+    <%= f.label :team_desc %><br>
+    <%= f.text_area :team_desc %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

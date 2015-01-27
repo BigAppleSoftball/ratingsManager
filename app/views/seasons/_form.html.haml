@@ -1,0 +1,31 @@
+= form_for @season do |f|
+  - if @season.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@season.errors.count, "error")} prohibited this season from being saved:"
+      %ul
+        - @season.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :season_id
+    = f.number_field :season_id
+  .field
+    = f.label :league_id
+    = f.number_field :league_id
+  .field
+    = f.label :pool_id
+    = f.number_field :pool_id
+  .field
+    = f.label :season_desc
+    = f.text_field :season_desc
+  .field
+    = f.label :date_start
+    = f.text_field :date_start
+  .field
+    = f.label :
+    = f.datetime_select :
+  .field
+    = f.label :date_end
+    = f.datetime_select :date_end
+  .actions
+    = f.submit 'Save'

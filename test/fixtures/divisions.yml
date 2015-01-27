@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  div_id: 1
+  season_id: 1
+  pool_id: 1
+  div_description: MyString
+  div_order: 1
+  standings: MyString
+  team_cap: 1
+  waitlist_cap: 1
+  is_active: false
+
+two:
+  div_id: 1
+  season_id: 1
+  pool_id: 1
+  div_description: MyString
+  div_order: 1
+  standings: MyString
+  team_cap: 1
+  waitlist_cap: 1
+  is_active: false

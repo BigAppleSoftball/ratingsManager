@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  resources :seasons
+
+  resources :divisions
+
+  resources :teams
+
   root 'welcome#login'
 
   get '/teams/:teamId/:rosterId', to: 'welcome#team', as: 'rosterId'
