@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :rosters
+
+  resources :profiles
+
   resources :teams_sponsors
 
   resources :sponsors

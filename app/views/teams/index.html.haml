@@ -1,3 +1,4 @@
 - @teams.each do |team|
-  - teamsSponsors = get_team_sponsors(team.teamsnap_id)
-  = render 'team', :team => team, :teamsSponsors => teamsSponsors
+  - teamsSponsors = get_team_sponsors(team.id)
+  - teamsRosters = get_team_rosters(team.id)
+  = render 'team', :team => team, :teamsSponsors => teamsSponsors, :teamsRosters => teamsRosters

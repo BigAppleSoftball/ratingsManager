@@ -1,0 +1,66 @@
+%p#notice= notice
+
+%p
+  %b Profile code:
+  = @profile.profile_code
+%p
+  %b First name:
+  = @profile.first_name
+%p
+  %b Last name:
+  = @profile.last_name
+%p
+  %b Email:
+  = @profile.email
+%p
+  %b Nickname:
+  = @profile.nickname
+%p
+  %b Display name:
+  = @profile.display_name
+%p
+  %b Player number:
+  = @profile.player_number
+%p
+  %b Gender:
+  = @profile.gender
+%p
+  %b Shirt size:
+  = @profile.shirt_size
+%p
+  %b Address:
+  = @profile.address
+%p
+  %b State:
+  = @profile.state
+%p
+  %b Zip:
+  = @profile.zip
+%p
+  %b Phone:
+  = @profile.phone
+%p
+  %b Emergency name:
+  = @profile.emergency_name
+%p
+  %b Emergency relation:
+  = @profile.emergency_relation
+%p
+  %b Emergency phone:
+  = @profile.emergency_phone
+%p
+  %b Emergency email:
+  = @profile.emergency_email
+%p
+  %b Position:
+  = @profile.position
+%p
+  %b Dob:
+  = @profile.dob
+%p
+  %b Team:
+  = @profile.team_id
+
+= link_to 'Edit', edit_profile_path(@profile)
+\|
+= link_to 'Back', profiles_path

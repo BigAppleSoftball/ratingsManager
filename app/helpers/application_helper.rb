@@ -33,4 +33,15 @@ module ApplicationHelper
     teamSponsors
   end
 
+  def get_team_rosters(teamId)
+    ap 'GETTING TEAMS ________________'
+    teams_roster = Roster.where(:team_id => teamId)
+    teamRosters = Array.new
+    ap teams_roster
+    teams_roster.each do |roster|
+      teamRosters.push(roster)
+    end
+    teamRosters
+  end
+
 end

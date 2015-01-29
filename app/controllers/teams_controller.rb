@@ -13,11 +13,13 @@ class TeamsController < ApplicationController
     teams_sponsors = TeamsSponsor.where(:team_id => params[:id])
     @teamSponsors = Array.new
     teams_sponsors.each do |team_sponsor|
-      sponsors = Sponsor.where(:sponsor_id => team_sponsor[:sponsor_id])
       @teamSponsors.push(team_sponsor)
     end
-    ap @teamSponsors
-    @teamSponsors
+    rosters = Roster.where(:team_id => params[:id])
+    @teamsRosters = Array.new
+    rosters.each do |roster|
+      @teamsRosters.push(roster)
+    end
   end
 
   # GET /teams/new

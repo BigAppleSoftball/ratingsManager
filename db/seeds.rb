@@ -13,7 +13,7 @@ def generate_division_backup
   csvRows = get_csv_file('divisions.csv')
   csvRows.each do |row|
     division = Division.new(
-      :div_id => row[:divid],
+      :id => row[:divid],
       :season_id => row[:seasonid], 
       :pool_id => row[:poolid],
       :div_description => row[:divdesc],
@@ -32,7 +32,7 @@ def generate_season_backup
   csvRows = get_csv_file('seasons.csv')
   csvRows.each do |row|
     season = Season.new(
-      :season_id => row[:seasonid],
+      :id => row[:seasonid],
       :league_id => row[:leagueid],
       :pool_id => row[:poolid],
       :season_desc=> row[:seasondesc], 
@@ -47,7 +47,7 @@ def generate_sponsors_backup
   csvRows = get_csv_file('sponsors.csv')
   csvRows.each do |row|
     sponsor = Sponsor.new(
-      :sponsor_id => row[:sponsorid], 
+      :id => row[:sponsorid], 
       :name => row[:sponsorname],
       :url => row[:sponsorurl], 
       :email => row[:sponsoremail], 
@@ -84,7 +84,26 @@ def generate_profile_backup
   csvRows.each do |row|
     profile = Profile.new(
       :id => row[:profileid],
-
+      :profile_code => row[:profilecode],
+      :first_name => row[:firstname],
+      :last_name => row[:lastname],
+      :email => row[:email],
+      :nickname => row[:nickname],
+      :display_name => row[:displayname],
+      :player_number => row[:playernumber],
+      :gender => row[:gender],
+      :shirt_size => row[:shirtsize],
+      :address => row[:address],
+      :state => row[:state],
+      :zip => row[:zip],
+      :phone => row[:phone],
+      :emergency_name => row[:emergencyname],
+      :emergency_relation => row[:emergencyrelation],
+      :emergency_phone => row[:emergencyphone],
+      :emergency_email => row[:emergencyemail],
+      :position => row[:prefosositions],
+      :dob => row[:datedob],
+      :team_id => row[:teamid]
     )
     profile.save
   end
@@ -95,6 +114,7 @@ def generate_team_backup
   csvRows = get_csv_file('teams.csv')
   csvRows.each do |row|
     team = Team.new(
+    :id => row[:teamid], 
     :division_id => row[:divid], 
     :long_name => row[:longname], 
     :stat_loss => row[:statlosses], 
@@ -103,7 +123,6 @@ def generate_team_backup
     :stat_pt_allowed => row[:statptsallowed],
     :stat_pt_scored => row[:statptsscored], 
     :stat_tie => row[:statties], 
-    :teamsnap_id => row[:teamid], 
     :team_desc => row[:teamdesc], 
     :name => row[:teamname],
     :team_code => row[:teamcode],
@@ -121,6 +140,28 @@ def generate_team_backup
   end
 end
 
+#RosterID TeamID  ProfileID DateCreated DateApproved  DateUpdated ByCreated ByUpdated ByApproved  IsApproved  IsPlayer  IsRep IsManager IsActive  IsConfirmed  
+# rails generate scaffold Rosters team_id:integer profile_id:integer date_created:datetime date_approved:datetime date_updated:date_updated is_approved:boolean is_player:boolean is_rep:boolean is_manager:boolean is_active:boolean is_confirmed:boolean
+def generate_roster_backup
+  csvRows = get_csv_file('rosters.csv')
+  csvRows.each do |row|
+    roster = Roster.new(
+    :id => row[:rosterid],
+    :team_id => row[:teamid],
+    :profile_id => row[:profileid],
+    :date_created => row[:datecreated],
+    :date_approved => row[:dateapproved],
+    :date_updated => row[:dateupdated],
+    :is_approved => row[:isapproved],
+    :is_player => row[:isplayer],
+    :is_rep => row[:isrep],
+    :is_manager => row[:ismanager],
+    :is_active => row[:isactive],
+    :is_confirmed => row[:isconfirmed]
+    )
+    roster.save
+  end
+end                                                  
 def get_csv_file(fileName)
   file = File.join(Rails.root,'db', 'seeds', fileName)
   data = File.read(file)
@@ -129,8 +170,10 @@ def get_csv_file(fileName)
   csvRows
 end
 
-#generate_team_backup
-#generate_division_backup
-#generate_season_backup
-#generate_sponsors_backup
-#generate_team_sponsors_backup
+generate_team_backup
+generate_division_backup
+generate_season_backup
+generate_sponsors_backup
+generate_team_sponsors_backup
+generate_profile_backup
+generate_roster_backup

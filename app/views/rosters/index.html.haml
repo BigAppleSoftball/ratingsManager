@@ -1,0 +1,32 @@
+%h1 Listing rosters
+
+%table.table.table-striped.table-bordered.table-condensed
+  %tr
+    %th Team
+    %th Player
+    %th Created
+    %th Updated
+    %th approved?
+    %th player?
+    %th rep?
+    %th manager?
+    %th active?
+    %th confirmed?
+
+  - @rosters.each do |roster|
+    %tr
+      %td
+        -if roster.team
+          = "#{roster.team.name} (#{roster.team.division.season.season_desc})"
+      %td
+        - if roster.profile
+          =roster.profile.display_name
+      %td= roster.date_created
+      %td= roster.date_approved
+      %td= roster.date_updated
+      %td= roster.is_approved
+      %td= roster.is_player
+      %td= roster.is_rep
+      %td= roster.is_manager
+      %td= roster.is_active
+      %td= roster.is_confirmed

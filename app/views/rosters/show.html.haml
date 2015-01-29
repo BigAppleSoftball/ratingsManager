@@ -1,0 +1,39 @@
+%p#notice= notice
+
+%p
+  %b Team:
+  = @roster.team_id
+%p
+  %b Profile:
+  = @roster.profile_id
+%p
+  %b Date created:
+  = @roster.date_created
+%p
+  %b Date approved:
+  = @roster.date_approved
+%p
+  %b Date updated:
+  = @roster.date_updated
+%p
+  %b Is approved:
+  = @roster.is_approved
+%p
+  %b Is player:
+  = @roster.is_player
+%p
+  %b Is rep:
+  = @roster.is_rep
+%p
+  %b Is manager:
+  = @roster.is_manager
+%p
+  %b Is active:
+  = @roster.is_active
+%p
+  %b Is confirmed:
+  = @roster.is_confirmed
+
+= link_to 'Edit', edit_roster_path(@roster)
+\|
+= link_to 'Back', rosters_path

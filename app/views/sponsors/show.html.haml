@@ -10,7 +10,6 @@
       .panel-body
         %ul
           -@teamSponsors.each do |team_sponsor|
-            =team_sponsor.team_id
             %li=link_to "#{team_sponsor.team.name} (#{team_sponsor.team.division.season.season_desc})", team_sponsor.team
 
 

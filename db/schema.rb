@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150128235121) do
+ActiveRecord::Schema.define(version: 20150129023450) do
 
   create_table "divisions", force: true do |t|
     t.integer  "div_id"
@@ -23,6 +23,47 @@ ActiveRecord::Schema.define(version: 20150128235121) do
     t.integer  "team_cap"
     t.integer  "waitlist_cap"
     t.boolean  "is_active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "profiles", force: true do |t|
+    t.string   "profile_code"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "nickname"
+    t.string   "display_name"
+    t.integer  "player_number"
+    t.string   "gender"
+    t.string   "shirt_size"
+    t.string   "address"
+    t.string   "state"
+    t.integer  "zip"
+    t.string   "phone"
+    t.string   "emergency_name"
+    t.string   "emergency_relation"
+    t.string   "emergency_phone"
+    t.string   "emergency_email"
+    t.string   "position"
+    t.string   "dob"
+    t.integer  "team_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rosters", force: true do |t|
+    t.integer  "team_id"
+    t.integer  "profile_id"
+    t.datetime "date_created"
+    t.datetime "date_approved"
+    t.datetime "date_updated"
+    t.boolean  "is_approved"
+    t.boolean  "is_player"
+    t.boolean  "is_rep"
+    t.boolean  "is_manager"
+    t.boolean  "is_active"
+    t.boolean  "is_confirmed"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

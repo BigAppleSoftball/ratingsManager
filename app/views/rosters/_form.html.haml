@@ -1,0 +1,43 @@
+= form_for @roster do |f|
+  - if @roster.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@roster.errors.count, "error")} prohibited this roster from being saved:"
+      %ul
+        - @roster.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :team_id
+    = f.number_field :team_id
+  .field
+    = f.label :profile_id
+    = f.number_field :profile_id
+  .field
+    = f.label :date_created
+    = f.datetime_select :date_created
+  .field
+    = f.label :date_approved
+    = f.datetime_select :date_approved
+  .field
+    = f.label :date_updated
+    = f.text_field :date_updated
+  .field
+    = f.label :is_approved
+    = f.check_box :is_approved
+  .field
+    = f.label :is_player
+    = f.check_box :is_player
+  .field
+    = f.label :is_rep
+    = f.check_box :is_rep
+  .field
+    = f.label :is_manager
+    = f.check_box :is_manager
+  .field
+    = f.label :is_active
+    = f.check_box :is_active
+  .field
+    = f.label :is_confirmed
+    = f.check_box :is_confirmed
+  .actions
+    = f.submit 'Save'

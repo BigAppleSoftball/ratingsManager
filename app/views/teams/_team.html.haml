@@ -21,6 +21,18 @@
         %td= team.stat_pt_scored
         %td= team.stat_pt_allowed
     %p= raw(team.team_desc)
+    -if teamsRosters.length > 0
+      .panel.panel-default
+        .panel-heading
+          Roster
+        .panel-body
+          %table.table.table-striped.table-bordered.table-condensed
+            -teamsRosters.each do |roster|
+              -if !roster.profile.nil?
+                %tr
+                  %td
+                    =roster.profile.first_name
+                    =roster.profile.last_name
     -if !teamsSponsors.nil?
       .panel.panel-default
         .panel-heading 

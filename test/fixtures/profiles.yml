@@ -1,0 +1,45 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  profile_code: MyString
+  first_name: MyString
+  last_name: MyString
+  email: MyString
+  nickname: MyString
+  display_name: MyString
+  player_number: 1
+  gender: MyString
+  shirt_size: MyString
+  address: MyString
+  state: MyString
+  zip: 1
+  phone: MyString
+  emergency_name: MyString
+  emergency_relation: MyString
+  emergency_phone: MyString
+  emergency_email: MyString
+  position: MyString
+  dob: MyString
+  team_id: 1
+
+two:
+  profile_code: MyString
+  first_name: MyString
+  last_name: MyString
+  email: MyString
+  nickname: MyString
+  display_name: MyString
+  player_number: 1
+  gender: MyString
+  shirt_size: MyString
+  address: MyString
+  state: MyString
+  zip: 1
+  phone: MyString
+  emergency_name: MyString
+  emergency_relation: MyString
+  emergency_phone: MyString
+  emergency_email: MyString
+  position: MyString
+  dob: MyString
+  team_id: 1
