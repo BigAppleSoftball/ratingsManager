@@ -20,8 +20,7 @@ default: &default
 production:
   adapter: postgresql
   encoding: unicode
-  database: basl_backup_prod
+  database: basl_prod
   pool: 5
-  username: basl
-  password: 1234
+  password:
 
