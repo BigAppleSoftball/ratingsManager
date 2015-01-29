@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150127052350) do
+ActiveRecord::Schema.define(version: 20150128235121) do
 
   create_table "divisions", force: true do |t|
     t.integer  "div_id"
@@ -34,6 +34,22 @@ ActiveRecord::Schema.define(version: 20150127052350) do
     t.string   "season_desc"
     t.datetime "date_start"
     t.datetime "date_end"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sponsors", force: true do |t|
+    t.integer  "sponsor_id"
+    t.string   "name"
+    t.string   "url"
+    t.string   "email"
+    t.string   "phone"
+    t.text     "details"
+    t.datetime "date_created"
+    t.datetime "date_updated"
+    t.integer  "created_user_id"
+    t.integer  "updated_user_id"
+    t.boolean  "is_active"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -63,6 +79,15 @@ ActiveRecord::Schema.define(version: 20150127052350) do
     t.string   "email"
     t.integer  "created_user_id"
     t.integer  "updated_user_id"
+  end
+
+  create_table "teams_sponsors", force: true do |t|
+    t.integer  "team_id"
+    t.integer  "sponsor_id"
+    t.boolean  "is_active"
+    t.integer  "link_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

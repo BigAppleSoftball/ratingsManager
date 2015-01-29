@@ -42,7 +42,53 @@ def generate_season_backup
     season.save
   end
 end
+# rails generate scaffold Sponsors sponsor_id:integer name:string url:string email:string phone:string details:string date_created:datetime date_updated:date_time created_user_id:integer updated_user_id:integer is_active:boolean                                                                                                                                       SponsorID  SponsorType SponsorName SponsorURL  SponsorEmail  SponsorPhone  SponsorDetails  DateCreated DateUpdated ByCreated ByUpdated IsActive  
+def generate_sponsors_backup
+  csvRows = get_csv_file('sponsors.csv')
+  csvRows.each do |row|
+    sponsor = Sponsor.new(
+      :sponsor_id => row[:sponsorid], 
+      :name => row[:sponsorname],
+      :url => row[:sponsorurl], 
+      :email => row[:sponsoremail], 
+      :phone => row[:sponsorphone], 
+      :details => row[ :sponsordetails],
+      :date_created => row[:datecreated],
+      :date_updated => row[:dateupdated],
+      :created_user_id => row[:bycreated],
+      :updated_user_id => row[:byupdated],
+      :is_active => row[:isactive]
+      )
+    sponsor.save
+  end
+end
 
+#rails generate scaffold TeamsSponsors team_id:integer sponsor_id:integer is_active:boolean link_id:integer
+def generate_team_sponsors_backup
+  csvRows = get_csv_file('teamsponsors.csv')
+  csvRows.each do |row|
+    teamsponsor = TeamsSponsor.new(
+      :team_id => row[:teamid], 
+      :sponsor_id => row[:sponsorid],
+      :is_active => row[:isactive],
+      :link_id => row[:linkid]
+      )
+    teamsponsor.save
+  end
+end
+#ProfileID ParentOrgID ProfileCode FirstName LastName  Email Nickname  DisplayName Twitter Facebook  GooglePlus  PlayerNumber  Gender  Height  Weight  SizeTShirt  SizeJersey  SizeJacket  SizePants RelStatus Address City  State Zip Phone SMSNumber SMSDomain UrgentName  UrgentRelation  UrgentPhone UrgentEmail PrefLeague  PrefDiv PrefPositions PrefEmail ConfirmCode DateDOB DateCreated DateUpdated DateSignedIn  LeagueInterest  LeagueServed  TourneyInterest TourneyServed CommitteeInterest ByUpdated IsEmail IsPublic  IsFeatured  isRoleWeb isRoleBoard IsRoleLeagues IsRoleTourneys  IsRoleOps IsRolePay IsRoleRosters IsRoleRatings isConfirmed isActive  Password  PasswordHash  PasswordSalt  TeamID                                       
+
+#rails generate scaffold Profiles profile_code:string first_name:string last_name:string email:string nickname:string display_name:string player_number:integer gender:string shirt_size:string address:string state:string zip:integer phone:string emergency_name:string emergency_relation:string emergency_phone:string emergency_email:string position:string dob:string team_id:integer
+def generate_profile_backup
+  csvRows = get_csv_file('profiles.csv')
+  csvRows.each do |row|
+    profile = Profile.new(
+      :id => row[:profileid],
+
+    )
+    profile.save
+  end
+end                                                                                      
 #rails generate scaffold Teams division_id:integer long_name:string stat_loss:integer stat_win:integer stat_play:integer stat_pt_allowed:integer stat_pt_scored:integer stat_tie:integer teamsnap_id:integer team_desc:text name:string 
 
 def generate_team_backup
@@ -85,4 +131,6 @@ end
 
 #generate_team_backup
 #generate_division_backup
-generate_season_backup
+#generate_season_backup
+#generate_sponsors_backup
+#generate_team_sponsors_backup

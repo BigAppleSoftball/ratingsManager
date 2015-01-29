@@ -1,0 +1,17 @@
+%h1 Listing teams_sponsors
+
+%table.table.table-striped.table-bordered
+  %tr
+    %th Team
+    %th Sponsor
+    %th Is active
+
+  - @teams_sponsors.each do |teams_sponsor|
+    %tr
+      %td
+        - if !teams_sponsor.team.nil?
+          = link_to teams_sponsor.team.name,teams_sponsor.team
+      %td
+        - if !teams_sponsor.sponsor.nil?
+          = link_to teams_sponsor.sponsor.name,teams_sponsor.sponsor
+      %td= teams_sponsor.is_active

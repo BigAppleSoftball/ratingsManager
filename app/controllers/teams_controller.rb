@@ -10,6 +10,14 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
+    teams_sponsors = TeamsSponsor.where(:team_id => params[:id])
+    @teamSponsors = Array.new
+    teams_sponsors.each do |team_sponsor|
+      sponsors = Sponsor.where(:sponsor_id => team_sponsor[:sponsor_id])
+      @teamSponsors.push(team_sponsor)
+    end
+    ap @teamSponsors
+    @teamSponsors
   end
 
   # GET /teams/new

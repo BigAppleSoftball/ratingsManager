@@ -1,0 +1,22 @@
+= form_for @teams_sponsor do |f|
+  - if @teams_sponsor.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@teams_sponsor.errors.count, "error")} prohibited this teams_sponsor from being saved:"
+      %ul
+        - @teams_sponsor.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :team_id
+    = f.number_field :team_id
+  .field
+    = f.label :sponsor_id
+    = f.number_field :sponsor_id
+  .field
+    = f.label :is_active
+    = f.check_box :is_active
+  .field
+    = f.label :link_id
+    = f.number_field :link_id
+  .actions
+    = f.submit 'Save'

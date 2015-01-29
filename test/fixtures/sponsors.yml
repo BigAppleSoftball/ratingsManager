@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  Sponsor_id: 1
+  name: MyString
+  url: MyString
+  email: MyString
+  phone: MyString
+  details: MyString
+  date_created: 2015-01-28 17:21:34
+  date_updated: 
+  created_user_id: 1
+  updated_user_id: 1
+  is_active: false
+
+two:
+  Sponsor_id: 1
+  name: MyString
+  url: MyString
+  email: MyString
+  phone: MyString
+  details: MyString
+  date_created: 2015-01-28 17:21:34
+  date_updated: 
+  created_user_id: 1
+  updated_user_id: 1
+  is_active: false

@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Team:
+  = @teams_sponsor.team_id
+%p
+  %b Sponsor:
+  = @teams_sponsor.sponsor_id
+%p
+  %b Is active:
+  = @teams_sponsor.is_active
+%p
+  %b Link:
+  = @teams_sponsor.link_id
+
+= link_to 'Edit', edit_teams_sponsor_path(@teams_sponsor)
+\|
+= link_to 'Back', teams_sponsors_path

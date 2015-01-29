@@ -2,7 +2,32 @@
   .panel-heading
     %h3= link_to "#{division.season.season_desc} #{division.div_description}", division
   .panel-body
-    -division.teams.each do |team|
-      %ul.list-group
-        %li.list-group-item
-          = link_to "#{team.name}", team 
+    %table.table.table-striped.table-bordered
+      %tr
+        %th
+          Team
+        %th
+          Wins
+        %th
+          Losses
+        %th
+          Ties
+        %th
+          Win %
+        %th
+          Runs Scored
+        %th
+          Runs Allowed
+        %th 
+          Games Behind
+      -division.teams.each do |team|
+        %tr
+          %td= link_to "#{team.name}", team 
+          %td=team.stat_win
+          %td=team.stat_loss
+          %td=team.stat_tie
+          %td=team.win_perc
+          %td=team.stat_pt_scored
+          %td=team.stat_pt_allowed
+          %td=team.stat_games_back
+          

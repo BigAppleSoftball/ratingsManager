@@ -1,7 +1,7 @@
 .panel.panel-default
   .panel-heading
     %h3= link_to "#{team.name}", team 
-    %h4= team.long_name
+    %h4= team.division.season.season_desc
     %h4= link_to "#{team.division.div_description}", team.division
     =# link_to 'Edit', edit_team_path(team)
   .panel-body
@@ -21,3 +21,12 @@
         %td= team.stat_pt_scored
         %td= team.stat_pt_allowed
     %p= raw(team.team_desc)
+    -if !teamsSponsors.nil?
+      .panel.panel-default
+        .panel-heading 
+          Sponsors
+        .panel-body
+          %ul
+            -teamsSponsors.each do |team_sponsor|
+              -if !team_sponsor.sponsor.nil?
+                %li=link_to team_sponsor.sponsor.name, team_sponsor.sponsor

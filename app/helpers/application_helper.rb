@@ -24,4 +24,13 @@ module ApplicationHelper
     end
   end
 
+  def get_team_sponsors(teamId)
+    teams_sponsors = TeamsSponsor.where(:team_id => teamId)
+    teamSponsors = Array.new
+    teams_sponsors.each do |team_sponsor|
+      teamSponsors.push(team_sponsor)
+    end
+    teamSponsors
+  end
+
 end

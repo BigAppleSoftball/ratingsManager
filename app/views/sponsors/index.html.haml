@@ -1,0 +1,14 @@
+%h1 BASL Sponsors
+
+%table.table.table-bordered.table-striped
+  %tr
+    %th Name
+    %th Details
+    %th Active?
+
+  - @sponsors.each do |sponsor|
+    %tr
+      %td=link_to sponsor.name, sponsor.url, {:target =>'_blank'}
+      %td= sponsor.details
+      %td= sponsor.is_active
+

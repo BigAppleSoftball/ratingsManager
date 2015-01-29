@@ -1,2 +1,3 @@
 - @teams.each do |team|
-  = render 'team', :team => team
+  - teamsSponsors = get_team_sponsors(team.teamsnap_id)
+  = render 'team', :team => team, :teamsSponsors => teamsSponsors
