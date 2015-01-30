@@ -234,11 +234,11 @@ def get_csv_file(fileName)
   csvRows
 end
 
-generate_team_backup
-generate_division_backup
-generate_season_backup
-generate_sponsors_backup
-generate_team_sponsors_backup
-generate_profile_backup
-generate_roster_backup
+#generate_team_backup
+#generate_division_backup
+#generate_season_backup
+#generate_sponsors_backup
+#generate_team_sponsors_backup
+#generate_profile_backup
+#generate_roster_backup
 generate_ratings_backup
