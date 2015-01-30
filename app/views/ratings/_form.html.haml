@@ -1,0 +1,142 @@
+= form_for @rating do |f|
+  - if @rating.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@rating.errors.count, "error")} prohibited this rating from being saved:"
+      %ul
+        - @rating.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :profile_id
+    = f.number_field :profile_id
+  .field
+    = f.label :rating_notes
+    = f.text_area :rating_notes
+  .field
+    = f.label :approver_notes
+    = f.text_area :approver_notes
+  .field
+    = f.label :rating_list
+    = f.text_field :rating_list
+  .field
+    = f.label :rating_total
+    = f.number_field :rating_total
+  .field
+    = f.label :date_rated
+    = f.datetime_select :date_rated
+  .field
+    = f.label :date_approved
+    = f.datetime_select :date_approved
+  .field
+    = f.label :rated_by_profile_id
+    = f.number_field :rated_by_profile_id
+  .field
+    = f.label :approved_by_profile_id
+    = f.number_field :approved_by_profile_id
+  .field
+    = f.label :is_provisional
+    = f.check_box :is_provisional
+  .field
+    = f.label :is_approved
+    = f.check_box :is_approved
+  .field
+    = f.label :is_active
+    = f.check_box :is_active
+  .field
+    = f.label :history
+    = f.text_area :history
+  .field
+    = f.label :updated
+    = f.text_area :updated
+  .field
+    = f.label :rating_1
+    = f.number_field :rating_1
+  .field
+    = f.label :rating_2
+    = f.number_field :rating_2
+  .field
+    = f.label :rating_3
+    = f.number_field :rating_3
+  .field
+    = f.label :rating_4
+    = f.number_field :rating_4
+  .field
+    = f.label :rating_5
+    = f.number_field :rating_5
+  .field
+    = f.label :rating_6
+    = f.number_field :rating_6
+  .field
+    = f.label :rating_7
+    = f.number_field :rating_7
+  .field
+    = f.label :rating_8
+    = f.number_field :rating_8
+  .field
+    = f.label :rating_9
+    = f.number_field :rating_9
+  .field
+    = f.label :rating_10
+    = f.number_field :rating_10
+  .field
+    = f.label :rating_11
+    = f.number_field :rating_11
+  .field
+    = f.label :rating_12
+    = f.number_field :rating_12
+  .field
+    = f.label :rating_13
+    = f.number_field :rating_13
+  .field
+    = f.label :rating_14
+    = f.number_field :rating_14
+  .field
+    = f.label :rating_15
+    = f.number_field :rating_15
+  .field
+    = f.label :rating_16
+    = f.number_field :rating_16
+  .field
+    = f.label :rating_17
+    = f.number_field :rating_17
+  .field
+    = f.label :rating_18
+    = f.number_field :rating_18
+  .field
+    = f.label :rating_19
+    = f.number_field :rating_19
+  .field
+    = f.label :rating_20
+    = f.number_field :rating_20
+  .field
+    = f.label :rating_21
+    = f.number_field :rating_21
+  .field
+    = f.label :rating_22
+    = f.number_field :rating_22
+  .field
+    = f.label :rating_23
+    = f.number_field :rating_23
+  .field
+    = f.label :rating_24
+    = f.number_field :rating_24
+  .field
+    = f.label :rating_25
+    = f.number_field :rating_25
+  .field
+    = f.label :rating_26
+    = f.number_field :rating_26
+  .field
+    = f.label :rating_27
+    = f.number_field :rating_27
+  .field
+    = f.label :ssma_timestamp
+    = f.datetime_select :ssma_timestamp
+  .field
+    = f.label :ng
+    = f.number_field :ng
+  .field
+    = f.label :nr
+    = f.number_field :nr
+  .actions
+    = f.submit 'Save'

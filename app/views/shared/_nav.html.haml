@@ -1,0 +1,19 @@
+.navbar.navbar-default
+  .container-fluid
+    .navbar-header
+      .navbar-brand
+        %a{:href => "/welcome", :title => "Ratings Manager"}
+          %i.brand-logo-40
+    .collapse.navbar-collapse
+      %ul.nav.navbar-nav
+        %li
+          %a{:href => "/welcome"} Teamsnap Team
+            
+      %ul.nav.navbar-nav.navbar-right
+        %li.dropdown
+          %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+            BASL Archives
+            %span.caret
+          %ul.dropdown-menu{:role => "menu"}
+            %li
+              %a{:href => seasons_path} Seasons

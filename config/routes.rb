@@ -1,22 +1,24 @@
 Rails.application.routes.draw do
 
-  resources :rosters
+  #resources :ratings
 
-  resources :profiles
+  #resources :rosters
 
-  resources :teams_sponsors
+  #resources :profiles
 
-  resources :sponsors
+  resources :teams_sponsors, :only => [:index, :show]
 
-  resources :seasons
+  resources :sponsors, :only => [:index, :show]
 
-  resources :divisions
+  resources :seasons, :only => [:index, :show]
 
-  resources :teams
+  resources :divisions, :only => [:index, :show]
+
+  resources :teams, :only => [:index, :show]
 
   root 'welcome#login'
 
-  get '/teams/:teamId/:rosterId', to: 'welcome#team', as: 'rosterId'
+  get '/teamssnap/:teamId/:rosterId', to: 'welcome#team', as: 'rosterId'
   get '/ranking/:teamId/:rosterId/:playerId', to: 'welcome#ranking', as: 'playerId'
   get '/welcome', to: 'welcome#index'
   get '/login', to: 'welcome#login'

@@ -17,4 +17,4 @@
             - teams.each do |team|
               -roster = team['available_rosters'].first
               %li.list-group-item
-                =link_to raw("View #{team['team_name']} Roster"), "/teams/#{team['id']}/#{roster['id']}", :class => 'btn btn-default'
+                =link_to raw("View #{team['team_name']} Roster"), "/teamssnap/#{team['id']}/#{roster['id']}", :class => 'btn btn-default'

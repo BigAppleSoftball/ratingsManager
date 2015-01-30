@@ -7,10 +7,6 @@
     = favicon_link_tag 'favicon.ico'
   %body
     .container
-      .navbar.navbar-default
-        .container
-          .navbar-brand
-            %i.brand-logo-40
-            Ratings Manager
+      = render 'shared/nav'
       = yield
     = javascript_include_tag 'application', 'data-turbolinks-track' => true

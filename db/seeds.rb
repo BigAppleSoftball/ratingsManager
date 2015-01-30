@@ -161,7 +161,71 @@ def generate_roster_backup
     )
     roster.save
   end
-end                                                  
+end 
+#RatingID  ProfileID RatingNotes ApproverNotes RatingList  RatingTotal RatingDiv DateRated DateApproved  ByRated ByApproved  IsProvisional IsApproved  IsActive  History Updated Rating1 Rating2 Rating3 Rating4 Rating5 Rating6 Rating7 Rating8 Rating9 Rating10  Rating11  Rating12  Rating13  Rating14  Rating15  Rating16  Rating17  Rating18  Rating19  Rating20  Rating21  Rating22  Rating23  Rating24  Rating25  Rating26  Rating27  SSMA_TimeStamp  NG  NR
+#rails generate scaffold Ratings profile_id:integer rating_notes:text approver_notes:text rating_list:string rating_total:integer date_rated:datetime date_approved:datetime rated_by_profile_id:integer approved_by_profile_id:integer is_provisional:boolean is_approved:boolean is_active:boolean history:text updated:text rating_1:integer rating_2:integer rating_3:integer rating_4:integer rating_5:integer rating_6:integer rating_7:integer rating_8:integer rating_9:integer rating_10:integer rating_11:integer rating_12:integer rating_13:integer rating_14:integer rating_15:integer rating_16:integer rating_17:integer rating_18:integer rating_19:integer rating_20:integer rating_21:integer rating_22:integer rating_23:integer rating_24:integer rating_25:integer rating_26:integer rating_27:integer ssma_timestamp:datetime ng:integer nr:integer
+def generate_ratings_backup
+  csvRows = get_csv_file('ratings.csv')
+
+  csvRows.each do |row|
+    row[:rating_list]
+    rating = Rating.new(
+    :id => row[:ratingid],
+    :profile_id => row[:profileid],
+    :rating_notes => row[:ratingnotes],
+    :approver_notes => row[:approvernotes],
+    :rating_list => row[:ratinglist],
+    :rating_total => row[:ratingtotal],
+    :date_rated => row[:daterated],
+    :date_approved => row[:dateapproved],
+    :is_approved => row[:isapproved],
+    :rated_by_profile_id => row[:byrated],
+    :approved_by_profile_id => row[:byapproved],
+    :is_active => row[:isactive],
+    :is_provisional => row[:isprovisional],
+    :is_approved => row[:isapproved],
+    :history => row[:history],
+    :updated => row[:updated],
+    :ssma_timestamp => row[:ssma_timeStamp],
+    :ng => row[:ng],
+    :nr => row[:nr]
+    )
+    generate_ratings_from_list(row, rating)
+    rating.save
+  end
+end
+
+def generate_ratings_from_list(row, rating)
+  ratingsList = row[:ratinglist].split(',')
+  rating[:rating_1] = ratingsList[0]
+  rating[:rating_2] = ratingsList[1]
+  rating[:rating_3] = ratingsList[2]
+  rating[:rating_4] = ratingsList[3]
+  rating[:rating_5] = ratingsList[4]
+  rating[:rating_6] = ratingsList[5]
+  rating[:rating_7] = ratingsList[6]
+  rating[:rating_8] = ratingsList[7]
+  rating[:rating_9] = ratingsList[8]
+  rating[:rating_10] = ratingsList[9]
+  rating[:rating_11] = ratingsList[10]
+  rating[:rating_12] = ratingsList[11]
+  rating[:rating_13] = ratingsList[12]
+  rating[:rating_14] = ratingsList[13]
+  rating[:rating_15] = ratingsList[14]
+  rating[:rating_16] = ratingsList[15]
+  rating[:rating_17] = ratingsList[16]
+  rating[:rating_18] = ratingsList[17]
+  rating[:rating_19] = ratingsList[18]
+  rating[:rating_20] = ratingsList[19]
+  rating[:rating_21] = ratingsList[20]
+  rating[:rating_22] = ratingsList[21]
+  rating[:rating_23] = ratingsList[22]
+  rating[:rating_24] = ratingsList[23]
+  rating[:rating_25] = ratingsList[24]
+  rating[:rating_26] = ratingsList[25]
+  rating[:rating_27] = ratingsList[26]
+end
+
 def get_csv_file(fileName)
   file = File.join(Rails.root,'db', 'seeds', fileName)
   data = File.read(file)
@@ -177,3 +241,4 @@ generate_sponsors_backup
 generate_team_sponsors_backup
 generate_profile_backup
 generate_roster_backup
+generate_ratings_backup

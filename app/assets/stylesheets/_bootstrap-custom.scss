@@ -51,6 +51,10 @@
   }
 }
 
+.navbar-default {
+  @include set-btn-gradient($btn-default-bg);
+}
+
 .btn-default {
   @include set-btn-gradient($btn-default-bg);
 }

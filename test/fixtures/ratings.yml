@@ -1,0 +1,93 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  profile_id: 1
+  rating_notes: MyText
+  approver_notes: MyText
+  rating_list: MyString
+  rating_total: 1
+  date_rated: 2015-01-29 20:07:13
+  date_approved: 2015-01-29 20:07:13
+  rated_by_profile_id: 1
+  approved_by_profile_id: 1
+  is_provisional: false
+  is_approved: false
+  is_active: false
+  history: MyText
+  updated: MyText
+  rating_1: 1
+  rating_2: 1
+  rating_3: 1
+  rating_4: 1
+  rating_5: 1
+  rating_6: 1
+  rating_7: 1
+  rating_8: 1
+  rating_9: 1
+  rating_10: 1
+  rating_11: 1
+  rating_12: 1
+  rating_13: 1
+  rating_14: 1
+  rating_15: 1
+  rating_16: 1
+  rating_17: 1
+  rating_18: 1
+  rating_19: 1
+  rating_20: 1
+  rating_21: 1
+  rating_22: 1
+  rating_23: 1
+  rating_24: 1
+  rating_25: 1
+  rating_26: 1
+  rating_27: 1
+  ssma_timestamp: 2015-01-29 20:07:13
+  ng: 1
+  nr: 1
+
+two:
+  profile_id: 1
+  rating_notes: MyText
+  approver_notes: MyText
+  rating_list: MyString
+  rating_total: 1
+  date_rated: 2015-01-29 20:07:13
+  date_approved: 2015-01-29 20:07:13
+  rated_by_profile_id: 1
+  approved_by_profile_id: 1
+  is_provisional: false
+  is_approved: false
+  is_active: false
+  history: MyText
+  updated: MyText
+  rating_1: 1
+  rating_2: 1
+  rating_3: 1
+  rating_4: 1
+  rating_5: 1
+  rating_6: 1
+  rating_7: 1
+  rating_8: 1
+  rating_9: 1
+  rating_10: 1
+  rating_11: 1
+  rating_12: 1
+  rating_13: 1
+  rating_14: 1
+  rating_15: 1
+  rating_16: 1
+  rating_17: 1
+  rating_18: 1
+  rating_19: 1
+  rating_20: 1
+  rating_21: 1
+  rating_22: 1
+  rating_23: 1
+  rating_24: 1
+  rating_25: 1
+  rating_26: 1
+  rating_27: 1
+  ssma_timestamp: 2015-01-29 20:07:13
+  ng: 1
+  nr: 1
