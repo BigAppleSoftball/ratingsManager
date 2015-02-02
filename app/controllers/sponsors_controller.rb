@@ -1,6 +1,7 @@
 class SponsorsController < ApplicationController
   before_action :set_sponsor, only: [:show, :edit, :update, :destroy]
-
+  after_action :set_access_control_headers
+  
   # GET /sponsors
   # GET /sponsors.json
   def index
@@ -73,6 +74,10 @@ class SponsorsController < ApplicationController
       format.html { redirect_to sponsors_url, notice: 'Sponsor was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def set_access_control_headers
+   headers['Access-Control-Allow-Origin'] = "*"
   end
 
   private
