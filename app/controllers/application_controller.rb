@@ -62,7 +62,6 @@ class ApplicationController < ActionController::Base
       end
         teamsByDivision[teamDivision].push(team)
     end
-    ap teamsByDivision
     teamsByDivision
   end
 
@@ -189,7 +188,6 @@ private
   # logging out removes it.
   def set_current_user(user_data)
     session[:current_user_id] = user_data
-    ap session
   end
 
 #curl -X POST -H "Content-Type: application/json" -H "X-Teamsnap-Token: ca661de3-e8ee-4df6-a536-3a79318c27ac" -k "https://api.teamsnap.com/v2/teams/363571/as_roster/4311961"
