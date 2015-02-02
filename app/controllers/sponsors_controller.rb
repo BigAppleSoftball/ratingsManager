@@ -4,7 +4,7 @@ class SponsorsController < ApplicationController
   # GET /sponsors
   # GET /sponsors.json
   def index
-    @sponsors = Sponsor.all
+    @sponsors = Sponsor.order('name ASC').all
   end
 
   # GET /sponsors/1
@@ -26,6 +26,13 @@ class SponsorsController < ApplicationController
 
   # GET /sponsors/1/edit
   def edit
+  end
+
+  def league_sponsors
+    sponsors = Sponsor.where(:is_league => true, :show_carousel => true)
+    respond_to do |format|
+       format.json { render :json => sponsors }
+     end
   end
 
   # POST /sponsors
@@ -76,6 +83,6 @@ class SponsorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sponsor_params
-      params.require(:sponsor).permit(:Sponsor_id, :name, :url, :email, :phone, :details, :date_created, :date_updated, :created_user_id, :updated_user_id, :is_active)
+      params.require(:sponsor).permit(:Sponsor_id, :name, :url, :email, :phone, :details, :date_created, :date_updated, :created_user_id, :updated_user_id, :is_active, :is_league, :show_carousel, :logo_url)
     end
 end

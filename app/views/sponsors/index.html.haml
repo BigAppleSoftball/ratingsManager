@@ -5,10 +5,12 @@
     %th Name
     %th Details
     %th Active?
+    %th Actions
 
   - @sponsors.each do |sponsor|
     %tr
       %td=link_to sponsor.name, sponsor.url, {:target =>'_blank'}
       %td= sponsor.details
       %td= sponsor.is_active
+      %td=link_to "Edit", edit_sponsor_path(sponsor)
 

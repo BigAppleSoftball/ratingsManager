@@ -35,9 +35,9 @@ class ApplicationController < ActionController::Base
   end
 
   def get_all_teams
-    Rails.cache.fetch("all_teams", :expires_in => 60.minutes) do
+    #Rails.cache.fetch("all_teams", :expires_in => 60.minutes) do
       get_all_teams_api
-    end
+    #end
   end
 
   def get_all_teams_api
@@ -62,6 +62,7 @@ class ApplicationController < ActionController::Base
       end
         teamsByDivision[teamDivision].push(team)
     end
+    ap teamsByDivision
     teamsByDivision
   end
 
@@ -180,6 +181,16 @@ def get_token_cookie
   cookies[:teamsnap_token]
 end
 
+private 
+
+  # Finds the User with the ID stored in the session with the key
+  # :current_user_id This is a common way to handle user login in
+  # a Rails application; logging in sets the session value and
+  # logging out removes it.
+  def set_current_user(user_data)
+    session[:current_user_id] = user_data
+    ap session
+  end
 
 #curl -X POST -H "Content-Type: application/json" -H "X-Teamsnap-Token: ca661de3-e8ee-4df6-a536-3a79318c27ac" -k "https://api.teamsnap.com/v2/teams/363571/as_roster/4311961"
 #

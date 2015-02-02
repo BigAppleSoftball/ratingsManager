@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150130010713) do
+ActiveRecord::Schema.define(version: 20150131214931) do
 
   create_table "divisions", force: true do |t|
     t.integer  "div_id"
@@ -142,6 +142,9 @@ ActiveRecord::Schema.define(version: 20150130010713) do
     t.boolean  "is_active"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_league"
+    t.boolean  "show_carousel"
+    t.string   "logo_url"
   end
 
   create_table "teams", force: true do |t|

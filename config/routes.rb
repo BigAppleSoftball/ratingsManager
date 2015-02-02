@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :teams_sponsors, :only => [:index, :show]
 
-  resources :sponsors, :only => [:index, :show]
+  resources :sponsors
 
   resources :seasons, :only => [:index, :show]
 
@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   resources :teams, :only => [:index, :show]
 
+  get '/getleaguesponsors', to: 'sponsors#league_sponsors'
   root 'welcome#login'
 
   get '/teamssnap/:teamId/:rosterId', to: 'welcome#team', as: 'rosterId'

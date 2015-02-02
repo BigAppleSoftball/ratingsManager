@@ -12,6 +12,9 @@ class CreateSponsors < ActiveRecord::Migration
       t.integer :created_user_id
       t.integer :updated_user_id
       t.boolean :is_active
+      t.boolean :is_league
+      t.boolean :show_carousel
+      t.string :logo_url
 
       t.timestamps
     end

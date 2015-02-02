@@ -1,87 +1,85 @@
-SponsorID,SponsorType,SponsorName,SponsorURL,SponsorEmail,SponsorPhone,SponsorDetails,DateCreated,DateUpdated,ByCreated,ByUpdated,IsActive
-1,,Gym Sportsbar,http://www.gymsportsbar.com/,,,"Gym Sportsbar brings a new game to town as NYC’s first and only gay sports bar. It's the perfect place to catch your game on one of the nine big screen TVs, play a game of pool and hang out with New York’s gay jocks and sports fans.",,,,,1
-2,,Therapy,http://www.therapy-nyc.com/,,,"Therapy is two floors of relaxing “spa” atmosphere, good food, happy hour every day from 5-8 p.m. and comfortable friendly conversation for any person—straight or gay. Come join the Therapy Warriors after games on Saturdays and enjoy the 2-for-1 from 5-8.",,,,,1
-3,,Village Apothecary,http://www.villageapothecary.com/,,,Neighborhood pharmacy operated by long-time Buddies member and sponsor.,,,,,1
-4,,Splash,http://www.splashbar.com/,,,"Wet-and-wild fun at popular Chelsea hot spot, featuring lounge, dance floor and four bars.",,,,,1
-5,,Bamboo 52,http://www.bamboo52nyc.com/,,,"Located in the heart of Hell’s Kitchen, Bamboo 52 is a brand new beautiful and spacious bar/lounge. With a live deejay, outside patio and an exotic sushi bar, it is the perfect place to hang with friends and meet new and interesting people. An ultra friendly and great looking staff, cutting edge audio-visual technology, incredible drink specials and more are all helping make Bamboo 52 the hottest spot in an already hip and happening neighborhood.",,,,,1
-6,,The Ritz,http://nymag.com/listings/bar/the-ritz-bar-and-lounge/,,,"Anchoring Restaurant Row’s brimming sink of sudsy gay and lesbian bars and post-theater eateries, the nautical-themed Ritz Bar & Lounge keeps people afloat with a half-price happy hour and DJs spinning nearly every night of the week. This Hell’s Kitchen hot spot (boasting outdoor patios, summertime BBQs and guest DJs) was the winner of the 2007 HX Award for Best New Venue.",,,,,1
-7,,New York Dermatology Group,http://www.nydermatologygroup.com/,,,A unique Manhattan practice that incorporates state-of-the-art dermatology with other essential medical disciplines to provide an exceptional treatment experience.,,,,,1
-8,,Eagle,http://www.eaglenyc.com/index.php,,,"New York’s premiere leather bar continues its tradition of having the hottest men, great pool tables, and serious cruising.",,,,,1
-9,,Michael Conboy,,,,,,,,,1
-10,,Precision Custom Coating,http://www.pcc-usa.com/aboutPCC.htm,,,,,,,,1
-11,,Julius',http://juliusbarnyc.com/,,,"A rustic bar that features saw-dust on the floor, great music and, for the hungry, great hamburgers!",,,,,1
-12,,Boots & Saddle,http://bootsnsaddle.com/,,,,,,,,1
-13,,Posh,http://www.poshbarnyc.com/,,,"Swanky midtown lounge “where the boys are.“ Open 4 p.m.-4 a.m. Happy hour 2-for-1, 4-8 p.m. daily. Come on down, you might just see a Saint sitting on one of the bar stools.",,,,,1
-14,,Philip Marie,http://philipmarie.com/,,,"Philip Marie, located in New YorkÕs West Village, is, quite frankly, a neighborhood gem. The menu is a brilliant fusion of New American Cuisine and the wine list offers incredible wines from all over the world. Philip Marie is known not only for consistently innovative cuisine, but also for its warm and attentive staff, maintaining an extremely devoted clientele. Tue.-Sun. 12:00 p.m.-11:30 p.m.; brunch Sat.-Sun. 10:00 a.m.-4:00 p.m. Kitchen open until 1:00 a.m. Friday and Saturday nights, closed Mondays. Innovative American cuisine set with mystery and romance.",,,,,1
-15,,"Mark E. Seitelman Law Offices, PC",http://www.seitelman.com/,,,Full service personal injury law firm that provides personal attention to each client. Mr. Seitelman is a member of the Million Dollar Advocates Forum and is listed in “New York Super Lawyers.” He also writes and lectures to fellow trial lawyers through the New York State Trial Lawyers Association where he sits on its board of directors.,,,,,1
-16,,The Dish Café,http://thedishnyc.com/,,,"his hot-spot eatery in the heart of Chelsea offers great food, terrific service and very reasonable prices. Join your hosts Andreas, Kostas and Steve, and their wonderful staff for your favorite breakfast, lunch or dinner dish at the Dish.",,,,,1
-17,,NoWhere Bar,http://www.myspace.com/nowherenyc,,,"Fun East Village bar for everyone. Pool table, great jukebox. Happy hour 2-for-1 domestics 3-9 p.m. daily, plus drink specials 10 p.m.-4 a.m. A great lineup of DJs all week long... Monday: “Magic Touch” hot Hispanic jockstrap boyz; Tuesday night “My Buddy”; Wed: ÒLushÓ; Thursday: “Sound Bites”; Saturday: “Numbers“; check for other theme night and events; and Sunday: Free Pool and Pizza while drinking, 3 p.m-3 a.m.",,,,,0
-18,,"Chiro Clinix (Dr. Rocco Tetro, D.C.)",http://www.chiroclinix.net/,,,"Gay-, lesbian-, bisexual- and transgendered-friendly chiropractor who specializes in treatment of sports injuries, back pain, neck pain and headaches. Official chiropractor of the Saints.",,,,,0
-19,,Ty's,http://nymag.com/listings/bar/tys/,,,"Friendly West Village saloon, with mostly guys in their 20s, 30s and 40s, with picture window looking out on Christopher Street.",,,,,1
-20,,'El Nuevo' Caridad Restaurant,http://www.menupages.com/restaurants/el-nuevo-caridad/,,,,,,,,1
-21,,Malibu Diner,http://www.menupages.com/restaurants/malibu-diner/,,,"Malibu Diner is your quintessential friendly eatery. Everyone is welcome here to enjoy breakfast, lunch, or even dinner!",,,,,1
-22,,Mario's Trattoria,http://www.menupages.com/restaurants/marios-trattoria/,,,"A short walk from Times Square, Port Authority, Penn Station into New York’s world famous Hell’s Kitchen neighborhood will bring you into our urban oasis. Sit, relax and take in the smells and tastes of Napoli. Combined with the warmth of our beautiful, intimate space and attentive staff, you’ll eat plenty, enjoying one of New York’s best new dining experiences!",,,,,1
-23,,BareNecessities.com,http://www.barenecessities.com/?acode=BASL2006&source=basl,,,"Find 2(x)ist, Calvin Klein, Hugo Boss and more for him; La Perla, Cosabella, Chantelle and more for her. Click on the link above for your special BASL discount!",,,,,0
-24,,"Arriba, Arriba",http://www.arribarriba.com/,,,Mexican restaurant in the theatre district.,,,,,1
-25,,Kettle of Fish,http://kettleoffishnyc.com/,,,"Your neighborhood bar whether you’re from New York or Wisconsin. Enjoy cheap drinks in a cozy atmosphere. Watch the game, play video games or darts, catch up with old friends and even make some new ones.",,,,,1
-26,,"BBT Logistics, Inc.",http://bbtlogistics.com/,,,,,,,,1
-27,,Ramrod,http://www.ramrodny.com/,,,,,,,,1
-28,,K.K Towing,,,,"Anytime...Anywhere, K.K Towing will be there. You’ve tried the rest, now tow with the best: K.K Towing provides 24-hour service to the 5 boroughs and beyond. Lockouts, jump starts, flat bed service, winch outs. Call anytime day or night.",,,,,0
-31,,Go! Magazine,http://www.gomag.com,,,"The premiere magazine for the country’s metropolitan lesbian communities, Go! Magazine is the definitive cultural roadmap for city girls on the Go!. Go! Magazine offers fresh and bold commentary on the national and international lesbian scene and the NYC and national arts and entertainment scenes in general.",,,,,1
-29,,g Lounge,http://glounge.com/,,,"New York City’s premier gay bar has been setting the standard since 1997. g serves quality cocktails in a comfortable, beautiful and creative environment, with a friendly, hardworking staff of sexy bartenders and waiters. DJs spin the hottest house music, R&B, pop and disco nightly. Open daily from 4 p.m. to 4 a.m., with a reduced-price happy hour weeknights until 9 p.m.",,,,,0
-30,,Ginger's,http://gingersbarbklyn.com/,,,This Park Slope pub is relaxed and hip. A usually laid-back and always diverse group of lesbians and their friends fill Ginger’s Bar any night of the week. You’ll find a picnic table at the center of the intimate back garden amid loads of those sexy Park Slope regulars. Show up on Mondays for a friendly pool competition and try to win $100.,,,,,1
-32,,Beast,http://www.brooklynbeast.com/,,,"The brainchild of Deb Bicknese, who was first in her class at Culinary Institute of America, Beast has a laid-back tavern atmosphere, a full menu of unpretentious but innovative and delicious tapas, and regular events including Trivia on Wednesday nights and happy hours! Beast was named as one of the city’s top five brunch places by New York magazine in 2006 and best restaurant/bar by Go magazine in 2007. Happy hours and an unbeatable brunch make this favorite Prospect Heights restaurant a league above the rest.",,,,,0
-33,,Chi Chiz,http://www.chichiz.com,,,,,,,,0
-34,,North Shore Financial Group,,ddercole@metlife.com,,,,,,,0
-35,,RF Lounge,http://rflounge.com/,,,,,,,,0
-36,,Henrietta Hudson,http://www.henriettahudson.com/,,,,,,,,0
-37,,C-IN2,http://www.c-in2.com/c-in2/,,,,,,,,0
-38,,Boxers NYC,http://boxersnyc.com/,,,,,,,,1
-39,,Chelsea Brewing Company,http://www.chelseabrewingco.com/,,,,,,,,1
-40,,Gossip Bar and Restaurant,http://www.gossipbarnyc.com/home.html,,,,,,,,1
-41,,Proposition,http://www.propositionnyc.com,,,,,,,,0
-42,,Slate,http://www.slate-ny.com,,,,,,,,1
-43,,New Venus Diner,http://www2.seamlessweb.com/food-delivery/new-venus-restaurant-new-york-city.2012.r,,,,,,,,1
-44,,Bratenders,http://bratenders.com/,,,,,,,,0
-45,,Rocky Sullivan's,http://www.rockysullivansredhook.com/,,,,,,,,1
-46,,Lou Weiss,,,,,,,,,0
-47,,Stonewall Inn,http://www.thestonewallinnnyc.com/Home_Page.php,,,,,,,,1
-48,,Realm,http://www.realmproducts.com/,,,,,,,,1
-49,,ROCKBAR NYC,http://www.rockbarnyc.com/,,,,,,,,1
-50,,VIG27,http://www.vig27.com/,,,,,,,,0
-51,,Toolbox,http://thetoolboxnyc.com/,,,,,,,,1
-52,,Power Balance,http://www.powerbalance.com/,,,,,,,,0
-53,,NOLA Physical Therapy,http://www.nolany.com/,,,,,,,,0
-54,,Boy Butter,http://www.boybutter.com/,,,,,,,,0
-55,,Out & Active,http://outandactive.com/,,,,,,,,0
-56,,3 Sheets Saloon,http://www.nycbestbar.com/3SheetsSaloon/,,,,,,,,1
-57,,Branded Saloon,http://brandedsaloon.com/,,,,,,,,1
-58,,Industry,http://www.industry-bar.com/,,,,,,,,1
-59,,BRT Realty Trust,http://brtrealty.com/,,,,,,,,1
-60,,KobiBlue,http://www.kobiblue.com,,,,,,,,0
-61,,KobiBlue,http://www.kobiblue.com,,,,,,,,0
-62,,KobiBlue,http://www.kobiblue.com,,,,,,,,0
-63,,Evolve,http://www.evolvebarandloungenyc.com/Evolve/Home.html,,,,,,,,1
-64,,Able Fire,http://www.ablefireprevention.com/,,,,,,,,1
-65,,,h,,,,,,,,0
-66,,Dive Bar,http://www.divebarnyc.com,,,,,,,,1
-67,,two8two Bar & Burger,http://www.two8twoburger.com,,,,,,,,1
-68,,BETTY,http://www.hellobetty.com/,,,,,,,,0
-69,,Bold Strokes Books,http://www.boldstrokesbooks.com/,,,,,,,,1
-70,,Rent Manhattan,http://rentmanhattan.com/index.cfm?page=agents&state=profile&id=4,,,,,,,,1
-71,,POPS & Associates,,pops-law@hotmail.com,,,,,,,1
-72,,Flaming Saddles,http://flamingsaddlessaloon.com/,,,,,,,,1
-73,,Lucky Strike,http://www.bowlluckystrike.com/,,,,,,,,1
-74,,FairyTail Lounge,http://www.facebook.com/FairytailLounge,,,,,,,,1
-75,,Castellanos and Bolivar Families,,,,,,,,,1
-76,,Walter's NYC,http://www.facebook.com/WaltersBarNY,,,,,,,,1
-77,,Phoenix Bar,http://phoenixbarnyc.com/,,,,,,,,1
-78,,Genesis Bar,http://www.genesisbar.com,,,,,,,,1
-79,,Maggie Reilly's Pub,https://www.facebook.com/pages/Maggie-Reillys/512453608816731,,,,,,,,1
-80,,"Law Offices of Thomas Sciacca, PLLC",http://www.sciaccalaw.com,,,,,,,,1
-81,,Swine,http://swinenyc.com,,,,,,,,1
-82,,Western Beef,http://westernbeef.com,,,,,,,,1
-83,,Bua Bar,http://buabar.com,,,,,,,,1
-84,,Kendall Durelle Briggs,http://www.kendallbriggs.com,,,,,,,,1
-85,,Model Bartenders,http://www.modelbartenders.com,,,,,,,,1
-86,,Display Connection,http://www.display-connection.com,,,,,,,,1
+SponsorID,SponsorType,SponsorName,SponsorURL,SponsorEmail,SponsorPhone,SponsorDetails,DateCreated,DateUpdated,ByCreated,ByUpdated,IsActive,IsLeague,ShowCarousel,LogoUrl
+1,,Gym Sportsbar,http://www.gymsportsbar.com/,,,"Gym Sportsbar brings a new game to town as NYC’s first and only gay sports bar. It's the perfect place to catch your game on one of the nine big screen TVs, play a game of pool and hang out with New York’s gay jocks and sports fans.",,,,,1,1,1,https://35b7f1d7d0790b02114c-1b8897185d70b198c119e1d2b7efd8a2.ssl.cf1.rackcdn.com/website_files/31660/original/gym.jpg?1420513644
+2,,Therapy,http://www.therapy-nyc.com/,,,"Therapy is two floors of relaxing “spa” atmosphere, good food, happy hour every day from 5-8 p.m. and comfortable friendly conversation for any person—straight or gay. Come join the Therapy Warriors after games on Saturdays and enjoy the 2-for-1 from 5-8.",,,,,1,,,
+3,,Village Apothecary,http://www.villageapothecary.com/,,,Neighborhood pharmacy operated by long-time Buddies member and sponsor.,,,,,1,,,
+4,,Splash,http://www.splashbar.com/,,,"Wet-and-wild fun at popular Chelsea hot spot, featuring lounge, dance floor and four bars.",,,,,1,,,
+5,,Bamboo 52,http://www.bamboo52nyc.com/,,,"Located in the heart of Hell’s Kitchen, Bamboo 52 is a brand new beautiful and spacious bar/lounge. With a live deejay, outside patio and an exotic sushi bar, it is the perfect place to hang with friends and meet new and interesting people. An ultra friendly and great looking staff, cutting edge audio-visual technology, incredible drink specials and more are all helping make Bamboo 52 the hottest spot in an already hip and happening neighborhood.",,,,,1,,,
+6,,Ritz Bar And Lounge,http://ritzbarandlounge.com/,,,"Anchoring Restaurant Row’s brimming sink of sudsy gay and lesbian bars and post-theater eateries, the nautical-themed Ritz Bar & Lounge keeps people afloat with a half-price happy hour and DJs spinning nearly every night of the week. This Hell’s Kitchen hot spot (boasting outdoor patios, summertime BBQs and guest DJs) was the winner of the 2007 HX Award for Best New Venue.",,,,,1,1,1,https://35b7f1d7d0790b02114c-1b8897185d70b198c119e1d2b7efd8a2.ssl.cf1.rackcdn.com/website_files/31655/original/ritz.jpg?1420513644h
+7,,New York Dermatology Group,http://www.nydermatologygroup.com/,,,A unique Manhattan practice that incorporates state-of-the-art dermatology with other essential medical disciplines to provide an exceptional treatment experience.,,,,,1,,,
+8,,Eagle,http://www.eaglenyc.com/index.php,,,"New York’s premiere leather bar continues its tradition of having the hottest men, great pool tables, and serious cruising.",,,,,1,1,1,https://35b7f1d7d0790b02114c-1b8897185d70b198c119e1d2b7efd8a2.ssl.cf1.rackcdn.com/website_files/31666/original/eagle.jpg?1420513651
+9,,Michael Conboy,,,,,,,,,1,,,
+10,,Precision Custom Coating,http://www.pcc-usa.com/aboutPCC.htm,,,,,,,,1,,,
+11,,Julius',http://juliusbarnyc.com/,,,"A rustic bar that features saw-dust on the floor, great music and, for the hungry, great hamburgers!",,,,,1,,,
+12,,Boots & Saddle,http://bootsnsaddle.com/,,,,,,,,1,,,
+13,,Posh,http://www.poshbarnyc.com/,,,"Swanky midtown lounge “where the boys are.“ Open 4 p.m.-4 a.m. Happy hour 2-for-1, 4-8 p.m. daily. Come on down, you might just see a Saint sitting on one of the bar stools.",,,,,1,,,
+14,,Philip Marie,http://philipmarie.com/,,,"Philip Marie, located in New YorkÕs West Village, is, quite frankly, a neighborhood gem. The menu is a brilliant fusion of New American Cuisine and the wine list offers incredible wines from all over the world. Philip Marie is known not only for consistently innovative cuisine, but also for its warm and attentive staff, maintaining an extremely devoted clientele. Tue.-Sun. 12:00 p.m.-11:30 p.m.; brunch Sat.-Sun. 10:00 a.m.-4:00 p.m. Kitchen open until 1:00 a.m. Friday and Saturday nights, closed Mondays. Innovative American cuisine set with mystery and romance.",,,,,1,,,
+15,,"Mark E. Seitelman Law Offices, PC",http://www.seitelman.com/,,,Full service personal injury law firm that provides personal attention to each client. Mr. Seitelman is a member of the Million Dollar Advocates Forum and is listed in “New York Super Lawyers.” He also writes and lectures to fellow trial lawyers through the New York State Trial Lawyers Association where he sits on its board of directors.,,,,,1,,,
+16,,The Dish Café,http://thedishnyc.com/,,,"his hot-spot eatery in the heart of Chelsea offers great food, terrific service and very reasonable prices. Join your hosts Andreas, Kostas and Steve, and their wonderful staff for your favorite breakfast, lunch or dinner dish at the Dish.",,,,,1,,,
+17,,NoWhere Bar,http://www.myspace.com/nowherenyc,,,"Fun East Village bar for everyone. Pool table, great jukebox. Happy hour 2-for-1 domestics 3-9 p.m. daily, plus drink specials 10 p.m.-4 a.m. A great lineup of DJs all week long... Monday: “Magic Touch” hot Hispanic jockstrap boyz; Tuesday night “My Buddy”; Wed: ÒLushÓ; Thursday: “Sound Bites”; Saturday: “Numbers“; check for other theme night and events; and Sunday: Free Pool and Pizza while drinking, 3 p.m-3 a.m.",,,,,0,,,
+18,,"Chiro Clinix (Dr. Rocco Tetro, D.C.)",http://www.chiroclinix.net/,,,"Gay-, lesbian-, bisexual- and transgendered-friendly chiropractor who specializes in treatment of sports injuries, back pain, neck pain and headaches. Official chiropractor of the Saints.",,,,,0,,,
+19,,Ty's,http://www.tysbarnyc.com/,,,"Friendly West Village saloon, with mostly guys in their 20s, 30s and 40s, with picture window looking out on Christopher Street.",,,,,1,1,1,https://35b7f1d7d0790b02114c-1b8897185d70b198c119e1d2b7efd8a2.ssl.cf1.rackcdn.com/website_files/31667/original/tys.jpg?1420514032
+20,,El Nuevo' Caridad Restaurant,http://www.menupages.com/restaurants/el-nuevo-caridad/,,,,,,,,1,,,
+21,,Malibu Diner,http://www.menupages.com/restaurants/malibu-diner/,,,"Malibu Diner is your quintessential friendly eatery. Everyone is welcome here to enjoy breakfast, lunch, or even dinner!",,,,,1,,,
+22,,Mario's Trattoria,http://www.menupages.com/restaurants/marios-trattoria/,,,"A short walk from Times Square, Port Authority, Penn Station into New York’s world famous Hell’s Kitchen neighborhood will bring you into our urban oasis. Sit, relax and take in the smells and tastes of Napoli. Combined with the warmth of our beautiful, intimate space and attentive staff, you’ll eat plenty, enjoying one of New York’s best new dining experiences!",,,,,1,,,
+23,,BareNecessities.com,http://www.barenecessities.com/?acode=BASL2006&source=basl,,,"Find 2(x)ist, Calvin Klein, Hugo Boss and more for him; La Perla, Cosabella, Chantelle and more for her. Click on the link above for your special BASL discount!",,,,,0,,,
+24,,"Arriba, Arriba",http://www.arribarriba.com/,,,Mexican restaurant in the theatre district.,,,,,1,,,
+25,,Kettle of Fish,http://kettleoffishnyc.com/,,,"Your neighborhood bar whether you’re from New York or Wisconsin. Enjoy cheap drinks in a cozy atmosphere. Watch the game, play video games or darts, catch up with old friends and even make some new ones.",,,,,1,,,
+26,,"BBT Logistics, Inc.",http://bbtlogistics.com/,,,,,,,,1,,,
+27,,Ramrod,http://www.ramrodny.com/,,,,,,,,1,,,
+28,,K.K Towing,,,,"Anytime...Anywhere, K.K Towing will be there. You’ve tried the rest, now tow with the best: K.K Towing provides 24-hour service to the 5 boroughs and beyond. Lockouts, jump starts, flat bed service, winch outs. Call anytime day or night.",,,,,0,,,
+31,,Go! Magazine,http://www.gomag.com,,,"The premiere magazine for the country’s metropolitan lesbian communities, Go! Magazine is the definitive cultural roadmap for city girls on the Go!. Go! Magazine offers fresh and bold commentary on the national and international lesbian scene and the NYC and national arts and entertainment scenes in general.",,,,,1,1,1,https://35b7f1d7d0790b02114c-1b8897185d70b198c119e1d2b7efd8a2.ssl.cf1.rackcdn.com/website_files/31670/original/go.jpg?1420514033
+29,,g Lounge,http://glounge.com/,,,"New York City’s premier gay bar has been setting the standard since 1997. g serves quality cocktails in a comfortable, beautiful and creative environment, with a friendly, hardworking staff of sexy bartenders and waiters. DJs spin the hottest house music, R&B, pop and disco nightly. Open daily from 4 p.m. to 4 a.m., with a reduced-price happy hour weeknights until 9 p.m.",,,,,0,,,
+30,,Ginger's,http://gingersbarbklyn.com/,,,This Park Slope pub is relaxed and hip. A usually laid-back and always diverse group of lesbians and their friends fill Ginger’s Bar any night of the week. You’ll find a picnic table at the center of the intimate back garden amid loads of those sexy Park Slope regulars. Show up on Mondays for a friendly pool competition and try to win $100.,,,,,1,,,
+32,,Beast,http://www.brooklynbeast.com/,,,"The brainchild of Deb Bicknese, who was first in her class at Culinary Institute of America, Beast has a laid-back tavern atmosphere, a full menu of unpretentious but innovative and delicious tapas, and regular events including Trivia on Wednesday nights and happy hours! Beast was named as one of the city’s top five brunch places by New York magazine in 2006 and best restaurant/bar by Go magazine in 2007. Happy hours and an unbeatable brunch make this favorite Prospect Heights restaurant a league above the rest.",,,,,0,,,
+33,,Chi Chiz,http://www.chichiz.com,,,,,,,,0,,,
+34,,North Shore Financial Group,,ddercole@metlife.com,,,,,,,0,,,
+35,,RF Lounge,http://rflounge.com/,,,,,,,,0,,,
+36,,Henrietta Hudson,http://www.henriettahudson.com/,,,,,,,,0,,,
+37,,C-IN2,http://www.c-in2.com/c-in2/,,,,,,,,0,,,
+38,,Boxers NYC,http://boxersnyc.com/,,,,,,,,1,1,1,https://35b7f1d7d0790b02114c-1b8897185d70b198c119e1d2b7efd8a2.ssl.cf1.rackcdn.com/website_files/31654/original/boxers.png?1420513621
+39,,Chelsea Brewing Company,http://www.chelseabrewingco.com/,,,,,,,,1,,,
+40,,Gossip Bar and Restaurant,http://www.gossipbarnyc.com/home.html,,,,,,,,1,,,
+41,,Proposition,http://www.propositionnyc.com,,,,,,,,0,,,
+42,,Slate,http://www.slate-ny.com,,,,,,,,1,,,
+43,,New Venus Diner,http://www2.seamlessweb.com/food-delivery/new-venus-restaurant-new-york-city.2012.r,,,,,,,,1,,,
+44,,Bratenders,http://bratenders.com/,,,,,,,,0,,,
+45,,Rocky Sullivan's,http://www.rockysullivansredhook.com/,,,,,,,,1,,,
+46,,Lou Weiss,,,,,,,,,0,,,
+47,,Stonewall Inn,http://www.thestonewallinnnyc.com/StonewallInnNYC/HOME.html,,,,,,,,1,1,1,https://35b7f1d7d0790b02114c-1b8897185d70b198c119e1d2b7efd8a2.ssl.cf1.rackcdn.com/website_files/31663/original/stonewall.jpg?1420513647
+48,,Realm,http://www.realmproducts.com/,,,,,,,,1,,,
+49,,Rockbar,http://www.rockbarnyc.com/,,,,,,,,1,1,1,https://35b7f1d7d0790b02114c-1b8897185d70b198c119e1d2b7efd8a2.ssl.cf1.rackcdn.com/website_files/31665/original/rockbar.jpg?1420513647
+50,,VIG27,http://www.vig27.com/,,,,,,,,0,,,
+51,,Toolbox,http://thetoolboxnyc.com/,,,,,,,,1,,,
+52,,Power Balance,http://www.powerbalance.com/,,,,,,,,0,,,
+53,,NOLA Physical Therapy,http://www.nolany.com/,,,,,,,,0,,,
+54,,Boy Butter,http://www.boybutter.com/,,,,,,,,0,,,
+55,,Out & Active,http://outandactive.com/,,,,,,,,0,,,
+56,,3 Sheets Saloon,http://www.nycbestbar.com/3SheetsSaloon/,,,,,,,,1,,,
+57,,Branded Saloon,http://brandedsaloon.com/,,,,,,,,1,,,
+58,,Industry,http://www.industry-bar.com/,,,,,,,,1,,,
+59,,BRT Realty Trust,http://brtrealty.com/,,,,,,,,1,,,
+60,,KobiBlue,http://www.kobiblue.com,,,,,,,,0,,,
+63,,Evolve,http://www.evolvebarandloungenyc.com/Evolve/Home.html,,,,,,,,1,,,
+64,,Able Fire,http://www.ablefireprevention.com/,,,,,,,,1,,,
+66,,Dive Bar,http://www.divebarnyc.com,,,,,,,,1,,,
+67,,two8two Bar & Burger,http://www.two8twoburger.com,,,,,,,,1,,,
+68,,BETTY,http://www.hellobetty.com/,,,,,,,,0,,,
+69,,Bold Strokes Books,http://www.boldstrokesbooks.com/,,,,,,,,1,,,
+70,,Rent Manhattan,http://rentmanhattan.com/index.cfm?page=agents&state=profile&id=4,,,,,,,,1,,,
+71,,POPS & Associates,,pops-law@hotmail.com,,,,,,,1,,,
+72,,Flaming Saddles,http://flamingsaddlessaloon.com/,,,,,,,,1,,,
+73,,Lucky Strike,http://www.bowlluckystrike.com/,,,,,,,,1,,,
+74,,FairyTail Lounge,http://www.facebook.com/FairytailLounge,,,,,,,,1,,,
+75,,Castellanos and Bolivar Families,,,,,,,,,1,,,
+76,,Walter's NYC,http://www.facebook.com/WaltersBarNY,,,,,,,,1,,,
+77,,Phoenix Bar,http://phoenixbarnyc.com/,,,,,,,,1,,,
+78,,Genesis Bar,http://www.genesisbar.com,,,,,,,,1,,,
+79,,Maggie Reilly's Pub,https://www.facebook.com/pages/Maggie-Reillys/512453608816731,,,,,,,,1,,,
+80,,"Law Offices of Thomas Sciacca, PLLC",http://www.sciaccalaw.com,,,,,,,,1,,,
+81,,Swine,http://swinenyc.com,,,,,,,,1,,,
+82,,Western Beef,http://westernbeef.com,,,,,,,,1,,,
+83,,Bua Bar,http://buabar.com,,,,,,,,1,,,
+84,,Kendall Durelle Briggs,http://www.kendallbriggs.com,,,,,,,,1,,,
+85,,Model Bartenders,http://www.modelbartenders.com,,,,,,,,1,,,
+86,,Display Connection,http://www.display-connection.com,,,,,,,,1,,,
+87,,Monster,http://manhattan-monster.com/,,,,,,,,1,1,1,https://35b7f1d7d0790b02114c-1b8897185d70b198c119e1d2b7efd8a2.ssl.cf1.rackcdn.com/website_files/31657/original/monster.jpg?1420513644

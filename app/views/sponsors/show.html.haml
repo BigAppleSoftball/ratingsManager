@@ -3,7 +3,10 @@
   .panel-heading
     %h3=link_to @sponsor.name, @sponsor.url
   .panel-body
-    %p=@sponsor.details
+    - if @sponsor.logo_url
+      .sponsors-logo
+        %img{:src => @sponsor.logo_url}
+    .sponsors-description=@sponsor.details
     .panel.panel-default
       .panel-heading
         Sponsored Teams

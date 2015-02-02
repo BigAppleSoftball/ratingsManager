@@ -57,7 +57,11 @@ def generate_sponsors_backup
       :date_updated => row[:dateupdated],
       :created_user_id => row[:bycreated],
       :updated_user_id => row[:byupdated],
-      :is_active => row[:isactive]
+      :is_active => row[:isactive],
+      :is_league => row[:isleague],
+      :show_carousel => row[:showcarousel],
+      :logo_url => row[:logourl]
+
       )
     sponsor.save
   end
@@ -234,11 +238,11 @@ def get_csv_file(fileName)
   csvRows
 end
 
-#generate_team_backup
-#generate_division_backup
-#generate_season_backup
-#generate_sponsors_backup
-#generate_team_sponsors_backup
-#generate_profile_backup
-#generate_roster_backup
+generate_team_backup
+generate_division_backup
+generate_season_backup
+generate_sponsors_backup
+generate_team_sponsors_backup
+generate_profile_backup
+generate_roster_backup
 generate_ratings_backup
