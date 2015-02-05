@@ -8,6 +8,7 @@
       %tr
         %th Profile
         %th Date inducted
+        %th Details
         %th Is active
         %th Is inducted
         %th
@@ -18,8 +19,10 @@
         %tr
           %td= hallof_famer.profile.display_name
           %td= hallof_famer.date_inducted
-          %td= hallof_famer.is_active
-          %td= hallof_famer.is_inducted
+          %td
+            %p= hallof_famer.details
+          %td=yes_or_no_icon(hallof_famer.is_active).html_safe
+          %td=yes_or_no_icon(hallof_famer.is_inducted).html_safe
           %td= link_to 'Show', hallof_famer
           %td= link_to 'Edit', edit_hallof_famer_path(hallof_famer)
           %td= link_to 'Destroy', hallof_famer, :method => :delete, :data => { :confirm => 'Are you sure?' }

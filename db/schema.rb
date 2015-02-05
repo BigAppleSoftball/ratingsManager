@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150205010518) do
+ActiveRecord::Schema.define(version: 20150205032038) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20150205010518) do
     t.boolean  "is_inducted"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "details"
   end
 
   create_table "profiles", force: true do |t|
