@@ -1,6 +1,4 @@
 (function(window, document, undefined){
-
-
   var Welcome = function(options) {
     this.options = $.extend(true, {}, this.defaults, options);
     var $container = $('#team-welcome-panel');
@@ -128,7 +126,7 @@
     return response;
   };
 
-  $(document).ready(function(){
+  $(document).ready(function() {
     var welcome = new Welcome();
   });
 

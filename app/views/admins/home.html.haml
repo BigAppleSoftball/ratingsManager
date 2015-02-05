@@ -1,0 +1,8 @@
+.panel.panel-primary
+  .panel-heading
+    %h1 Admin Actions
+  .panel-body
+    .list-group
+      = link_to 'Edit Sponsors', sponsors_path, :class => 'list-group-item'
+      = link_to 'Edit Admins', admins_path, :class => 'list-group-item'
+      = link_to 'Edit Hall of Fame', hallof_famers_path, :class => 'list-group-item'

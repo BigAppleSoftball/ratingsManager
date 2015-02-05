@@ -66,6 +66,11 @@
 
 .btn-default {
   @include set-btn-gradient($btn-default-bg);
+  color: $dark-gray;
+
+  &:visited {
+    color: $dark-gray
+  }
 }
 
 .btn-success {

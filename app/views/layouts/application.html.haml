@@ -8,5 +8,7 @@
   %body
     .container
       = render 'shared/nav'
+      - if flash[:notice]
+        .alert.alert-info.global-notice= flash[:notice]
       = yield
     = javascript_include_tag 'application', 'data-turbolinks-track' => true

@@ -53,7 +53,7 @@ class WelcomeController < ApplicationController
       fieldingString = ""
       runningString = ""
       hittingString = ""
-      throwingQs.each do |throwingQ| 
+      throwingQs.each do |throwingQ|
         questionCustomId = customIds['throwing'][throwingQ]
         throwingString += "#{playerThrowingData[questionCustomId]},"
       end
@@ -91,10 +91,21 @@ class WelcomeController < ApplicationController
     end
   end
 
+  def logout
+    log_out_user
+    flash[:notice] = 'You have been Logged out.'
+    redirect_to action: "login"
+  end
+
+
   def teamsnaplogin
     loginResponse = log_in_to_teamsnap(params[:email], params[:password])
     respond_to do |format|
       format.json { render :json=> loginResponse}
     end
+  end
+
+  def error403
+    render '403'
   end
 end

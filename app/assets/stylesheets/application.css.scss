@@ -31,7 +31,7 @@
   margin-bottom: 20px;
 }
 
-.panel-info { 
+.panel-info {
   border: 1px solid darken($brand-info, 20%);
 
   > .panel-heading {
@@ -59,3 +59,17 @@ a:hover {
   display: inline-block;
 }
 
+.yes-icon {
+  color: $brand-success;
+}
+
+.no-icon {
+  color: $brand-danger;
+}
+
+.global-notice {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}

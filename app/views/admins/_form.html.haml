@@ -1,0 +1,14 @@
+= form_for @admin,:html => {:class => 'form-horizontal'} do |f|
+  - if @admin.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@admin.errors.count, "error")} prohibited this admin from being saved:"
+      %ul
+        - @admin.errors.full_messages.each do |msg|
+          %li= msg
+  .form-group
+    = f.label :email, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.email_field :email, {:class => 'form-control'}
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit 'Save', {:class => 'btn btn-primary'}
