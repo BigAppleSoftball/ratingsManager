@@ -218,9 +218,10 @@ def generate_HOF_backup
 end
 
 def generate_admin_backup
-  admin - Admin.new(
+  admin = Admin.new(
     :email => 'paigepon@gmail.com'
   )
+  admin.save
 end
 
 
@@ -271,5 +272,5 @@ end
 #generate_profile_backup
 #generate_roster_backup
 #generate_ratings_backup
-generate_HOF_backup
+#generate_HOF_backup
 generate_admin_backup
