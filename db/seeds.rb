@@ -221,6 +221,7 @@ def generate_admin_backup
   admin = Admin.new(
     :email => 'paigepon@gmail.com'
   )
+  admin.save
 end
 
 def generate_name_for_hof
