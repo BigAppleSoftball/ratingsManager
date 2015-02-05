@@ -13,6 +13,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def set_admin(username)
+    admins = Admin.where(:email => username)
+    cookies[:teamsnap_is_admin] = (admins.length > 0)
+  end
+
   def log_in_to_teamsnap(username, password)
     loginURL = 'https://api.teamsnap.com/v2/authentication/login/'
     conn = connect
@@ -29,15 +34,17 @@ class ApplicationController < ActionController::Base
       else
         loginHash[:success] = true
         cookies[:teamsnap_token] = teamsnapToken
+        set_admin(username)
       end
     end
+    # TODO (check if user has admin permissions on app)
     loginHash
   end
 
   def get_all_teams
-    #Rails.cache.fetch("all_teams", :expires_in => 60.minutes) do
+    Rails.cache.fetch("all_teams", :expires_in => 60.minutes) do
       get_all_teams_api
-    #end
+    end
   end
 
   def get_all_teams_api
@@ -55,14 +62,13 @@ class ApplicationController < ActionController::Base
     teamsData.each do |teamData|
       team = teamData['team']
       teamDivision = team['team_division']
-      # check to see if division is in the list, if not add it 
+      # check to see if division is in the list, if not add it
       if (!divisionsList.include?(teamDivision))
         divisionsList.push(teamDivision)
         teamsByDivision[teamDivision] = Array.new
       end
         teamsByDivision[teamDivision].push(team)
     end
-    ap teamsByDivision
     teamsByDivision
   end
 
@@ -181,7 +187,21 @@ def get_token_cookie
   cookies[:teamsnap_token]
 end
 
-private 
+def is_admin?
+  if (cookies[:teamsnap_is_admin])
+    cookies[:teamsnap_is_admin]
+  else
+    false
+  end
+end
+
+def only_for_admin
+  if (!is_admin?)
+    redirect_to :action =>'error403', :controller => 'welcome'
+  end
+end
+
+private
 
   # Finds the User with the ID stored in the session with the key
   # :current_user_id This is a common way to handle user login in

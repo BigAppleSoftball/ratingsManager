@@ -53,7 +53,7 @@ class WelcomeController < ApplicationController
       fieldingString = ""
       runningString = ""
       hittingString = ""
-      throwingQs.each do |throwingQ| 
+      throwingQs.each do |throwingQ|
         questionCustomId = customIds['throwing'][throwingQ]
         throwingString += "#{playerThrowingData[questionCustomId]},"
       end
@@ -96,5 +96,9 @@ class WelcomeController < ApplicationController
     respond_to do |format|
       format.json { render :json=> loginResponse}
     end
+  end
+
+  def error403
+    render '403'
   end
 end

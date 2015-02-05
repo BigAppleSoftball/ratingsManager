@@ -1,7 +1,9 @@
 class SponsorsController < ApplicationController
   before_action :set_sponsor, only: [:show, :edit, :update, :destroy]
+
+  before_filter :only_for_admin, only: [:edit, :update, :destroy]
   after_action :set_access_control_headers
-  
+
   # GET /sponsors
   # GET /sponsors.json
   def index
@@ -30,7 +32,7 @@ class SponsorsController < ApplicationController
   end
 
   def league_sponsors
-    sponsors = Sponsor.where(:is_league => true, :show_carousel => true)
+    sponsors = Sponsor.where(:show_carousel => true)
     respond_to do |format|
        format.json { render :json => sponsors }
      end

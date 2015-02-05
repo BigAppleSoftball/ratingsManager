@@ -7,13 +7,14 @@
     .collapse.navbar-collapse
       %ul.nav.navbar-nav
         %li
-          %a{:href => "/welcome"} Teamsnap Team
-            
-      %ul.nav.navbar-nav.navbar-right
-        %li.dropdown
-          %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
-            BASL Archives
-            %span.caret
-          %ul.dropdown-menu{:role => "menu"}
-            %li
-              %a{:href => seasons_path} Seasons
+          %a{:href => "/welcome"} Teamsnap Teams
+        %li
+          %a{:href => seasons_path} Seasons
+      - if is_admin?
+        %ul.nav.navbar-nav.navbar-right
+          %li.dropdown
+            %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+              %i.glyphicon.glyphicon-wrench
+            %ul.dropdown-menu{:role => "menu"}
+              %li
+                %a{:href => '/admin/home'} Admin

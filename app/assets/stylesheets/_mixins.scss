@@ -1,4 +1,9 @@
 @mixin set-btn-gradient ($btn-bg){
   @include background-image(linear-gradient($btn-bg, darken($btn-bg, 15%)));
   border-color: darken($btn-bg, 20%);
+  color: #fff;
+
+  &:visited {
+    color: #fff;
+  }
 }
