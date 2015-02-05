@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  profile_id: 1
+  date_inducted: 2015-02-04 20:05:18
+  is_active: false
+  is_inducted: false
+
+two:
+  profile_id: 1
+  date_inducted: 2015-02-04 20:05:18
+  is_active: false
+  is_inducted: false

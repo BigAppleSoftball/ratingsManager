@@ -8,26 +8,26 @@
 
 # read team CSV file and populate database
 
-#rails generate scaffold Divisions div_id:integer season_id:integer pool_id:integer div_description:string div_order:integer standings:string team_cap:integer waitlist_cap:integer is_active:boolean 
+#rails generate scaffold Divisions div_id:integer season_id:integer pool_id:integer div_description:string div_order:integer standings:string team_cap:integer waitlist_cap:integer is_active:boolean
 def generate_division_backup
   csvRows = get_csv_file('divisions.csv')
   csvRows.each do |row|
     division = Division.new(
       :id => row[:divid],
-      :season_id => row[:seasonid], 
+      :season_id => row[:seasonid],
       :pool_id => row[:poolid],
       :div_description => row[:divdesc],
       :div_order => row[:divorder],
       :standings => row[:standingstype],
       :team_cap => row[:teamcap],
       :waitlist_cap => row[:waitlistcap],
-      :is_active => row[:isactive] 
+      :is_active => row[:isactive]
       )
     division.save
   end
 end
-#SeasonID LeagueID  SeasonDesc  DateStart DateEnd DateRegOpen DateRegClosed DateCreated DateUpdated                            
-#rails generate scaffold Seasons season_id:integer league_id:integer pool_id:integer season_desc:string  date_start :datetime date_end:datetime 
+#SeasonID LeagueID  SeasonDesc  DateStart DateEnd DateRegOpen DateRegClosed DateCreated DateUpdated
+#rails generate scaffold Seasons season_id:integer league_id:integer pool_id:integer season_desc:string  date_start :datetime date_end:datetime
 def generate_season_backup
   csvRows = get_csv_file('seasons.csv')
   csvRows.each do |row|
@@ -35,23 +35,23 @@ def generate_season_backup
       :id => row[:seasonid],
       :league_id => row[:leagueid],
       :pool_id => row[:poolid],
-      :season_desc=> row[:seasondesc], 
+      :season_desc=> row[:seasondesc],
       :date_start => row[:datestart],
       :date_end => row[:dateend]
       )
     season.save
   end
 end
-# rails generate scaffold Sponsors sponsor_id:integer name:string url:string email:string phone:string details:string date_created:datetime date_updated:date_time created_user_id:integer updated_user_id:integer is_active:boolean                                                                                                                                       SponsorID  SponsorType SponsorName SponsorURL  SponsorEmail  SponsorPhone  SponsorDetails  DateCreated DateUpdated ByCreated ByUpdated IsActive  
+# rails generate scaffold Sponsors sponsor_id:integer name:string url:string email:string phone:string details:string date_created:datetime date_updated:date_time created_user_id:integer updated_user_id:integer is_active:boolean                                                                                                                                       SponsorID  SponsorType SponsorName SponsorURL  SponsorEmail  SponsorPhone  SponsorDetails  DateCreated DateUpdated ByCreated ByUpdated IsActive
 def generate_sponsors_backup
   csvRows = get_csv_file('sponsors.csv')
   csvRows.each do |row|
     sponsor = Sponsor.new(
-      :id => row[:sponsorid], 
+      :id => row[:sponsorid],
       :name => row[:sponsorname],
-      :url => row[:sponsorurl], 
-      :email => row[:sponsoremail], 
-      :phone => row[:sponsorphone], 
+      :url => row[:sponsorurl],
+      :email => row[:sponsoremail],
+      :phone => row[:sponsorphone],
       :details => row[ :sponsordetails],
       :date_created => row[:datecreated],
       :date_updated => row[:dateupdated],
@@ -72,7 +72,7 @@ def generate_team_sponsors_backup
   csvRows = get_csv_file('teamsponsors.csv')
   csvRows.each do |row|
     teamsponsor = TeamsSponsor.new(
-      :team_id => row[:teamid], 
+      :team_id => row[:teamid],
       :sponsor_id => row[:sponsorid],
       :is_active => row[:isactive],
       :link_id => row[:linkid]
@@ -80,7 +80,7 @@ def generate_team_sponsors_backup
     teamsponsor.save
   end
 end
-#ProfileID ParentOrgID ProfileCode FirstName LastName  Email Nickname  DisplayName Twitter Facebook  GooglePlus  PlayerNumber  Gender  Height  Weight  SizeTShirt  SizeJersey  SizeJacket  SizePants RelStatus Address City  State Zip Phone SMSNumber SMSDomain UrgentName  UrgentRelation  UrgentPhone UrgentEmail PrefLeague  PrefDiv PrefPositions PrefEmail ConfirmCode DateDOB DateCreated DateUpdated DateSignedIn  LeagueInterest  LeagueServed  TourneyInterest TourneyServed CommitteeInterest ByUpdated IsEmail IsPublic  IsFeatured  isRoleWeb isRoleBoard IsRoleLeagues IsRoleTourneys  IsRoleOps IsRolePay IsRoleRosters IsRoleRatings isConfirmed isActive  Password  PasswordHash  PasswordSalt  TeamID                                       
+#ProfileID ParentOrgID ProfileCode FirstName LastName  Email Nickname  DisplayName Twitter Facebook  GooglePlus  PlayerNumber  Gender  Height  Weight  SizeTShirt  SizeJersey  SizeJacket  SizePants RelStatus Address City  State Zip Phone SMSNumber SMSDomain UrgentName  UrgentRelation  UrgentPhone UrgentEmail PrefLeague  PrefDiv PrefPositions PrefEmail ConfirmCode DateDOB DateCreated DateUpdated DateSignedIn  LeagueInterest  LeagueServed  TourneyInterest TourneyServed CommitteeInterest ByUpdated IsEmail IsPublic  IsFeatured  isRoleWeb isRoleBoard IsRoleLeagues IsRoleTourneys  IsRoleOps IsRolePay IsRoleRosters IsRoleRatings isConfirmed isActive  Password  PasswordHash  PasswordSalt  TeamID
 
 #rails generate scaffold Profiles profile_code:string first_name:string last_name:string email:string nickname:string display_name:string player_number:integer gender:string shirt_size:string address:string state:string zip:integer phone:string emergency_name:string emergency_relation:string emergency_phone:string emergency_email:string position:string dob:string team_id:integer
 def generate_profile_backup
@@ -111,23 +111,23 @@ def generate_profile_backup
     )
     profile.save
   end
-end                                                                                      
-#rails generate scaffold Teams division_id:integer long_name:string stat_loss:integer stat_win:integer stat_play:integer stat_pt_allowed:integer stat_pt_scored:integer stat_tie:integer teamsnap_id:integer team_desc:text name:string 
+end
+#rails generate scaffold Teams division_id:integer long_name:string stat_loss:integer stat_win:integer stat_play:integer stat_pt_allowed:integer stat_pt_scored:integer stat_tie:integer teamsnap_id:integer team_desc:text name:string
 
 def generate_team_backup
   csvRows = get_csv_file('teams.csv')
   csvRows.each do |row|
     team = Team.new(
-    :id => row[:teamid], 
-    :division_id => row[:divid], 
-    :long_name => row[:longname], 
-    :stat_loss => row[:statlosses], 
-    :stat_win => row[:statwins], 
-    :stat_play => row[:statplayed], 
+    :id => row[:teamid],
+    :division_id => row[:divid],
+    :long_name => row[:longname],
+    :stat_loss => row[:statlosses],
+    :stat_win => row[:statwins],
+    :stat_play => row[:statplayed],
     :stat_pt_allowed => row[:statptsallowed],
-    :stat_pt_scored => row[:statptsscored], 
-    :stat_tie => row[:statties], 
-    :team_desc => row[:teamdesc], 
+    :stat_pt_scored => row[:statptsscored],
+    :stat_tie => row[:statties],
+    :team_desc => row[:teamdesc],
     :name => row[:teamname],
     :team_code => row[:teamcode],
     :team_status => row[:teamcode],
@@ -144,7 +144,7 @@ def generate_team_backup
   end
 end
 
-#RosterID TeamID  ProfileID DateCreated DateApproved  DateUpdated ByCreated ByUpdated ByApproved  IsApproved  IsPlayer  IsRep IsManager IsActive  IsConfirmed  
+#RosterID TeamID  ProfileID DateCreated DateApproved  DateUpdated ByCreated ByUpdated ByApproved  IsApproved  IsPlayer  IsRep IsManager IsActive  IsConfirmed
 # rails generate scaffold Rosters team_id:integer profile_id:integer date_created:datetime date_approved:datetime date_updated:date_updated is_approved:boolean is_player:boolean is_rep:boolean is_manager:boolean is_active:boolean is_confirmed:boolean
 def generate_roster_backup
   csvRows = get_csv_file('rosters.csv')
@@ -165,7 +165,7 @@ def generate_roster_backup
     )
     roster.save
   end
-end 
+end
 #RatingID  ProfileID RatingNotes ApproverNotes RatingList  RatingTotal RatingDiv DateRated DateApproved  ByRated ByApproved  IsProvisional IsApproved  IsActive  History Updated Rating1 Rating2 Rating3 Rating4 Rating5 Rating6 Rating7 Rating8 Rating9 Rating10  Rating11  Rating12  Rating13  Rating14  Rating15  Rating16  Rating17  Rating18  Rating19  Rating20  Rating21  Rating22  Rating23  Rating24  Rating25  Rating26  Rating27  SSMA_TimeStamp  NG  NR
 #rails generate scaffold Ratings profile_id:integer rating_notes:text approver_notes:text rating_list:string rating_total:integer date_rated:datetime date_approved:datetime rated_by_profile_id:integer approved_by_profile_id:integer is_provisional:boolean is_approved:boolean is_active:boolean history:text updated:text rating_1:integer rating_2:integer rating_3:integer rating_4:integer rating_5:integer rating_6:integer rating_7:integer rating_8:integer rating_9:integer rating_10:integer rating_11:integer rating_12:integer rating_13:integer rating_14:integer rating_15:integer rating_16:integer rating_17:integer rating_18:integer rating_19:integer rating_20:integer rating_21:integer rating_22:integer rating_23:integer rating_24:integer rating_25:integer rating_26:integer rating_27:integer ssma_timestamp:datetime ng:integer nr:integer
 def generate_ratings_backup
@@ -198,6 +198,25 @@ def generate_ratings_backup
     rating.save
   end
 end
+
+#NomID ProfileID Bio DateNominated DateInducted  ByNominated IsInducted  IsActive
+
+#rails generate HallofFamers profile_id:integer date_inducted:datetime is_active:boolean is_inducted:boolean
+def generate_HOF_backup
+  csvRows = get_csv_file('hof.csv')
+
+  csvRows.each do |row|
+    hallOfFamers = HallofFamer.new(
+    :id => row[:nomid],
+    :profile_id => row[:profileid],
+    :date_inducted => row[:dateinducted],
+    :is_active => row[:isactive],
+    :is_inducted => row[:isinducted]
+    )
+    hallOfFamers.save
+  end
+end
+
 
 def generate_ratings_from_list(row, rating)
   ratingsList = row[:ratinglist].split(',')
@@ -238,11 +257,12 @@ def get_csv_file(fileName)
   csvRows
 end
 
-generate_team_backup
-generate_division_backup
-generate_season_backup
-generate_sponsors_backup
-generate_team_sponsors_backup
-generate_profile_backup
-generate_roster_backup
-generate_ratings_backup
+#generate_team_backup
+#generate_division_backup
+#generate_season_backup
+#generate_sponsors_backup
+#generate_team_sponsors_backup
+#generate_profile_backup
+#generate_roster_backup
+#generate_ratings_backup
+generate_HOF_backup

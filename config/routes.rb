@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :hallof_famers
+
   resources :admins
 
   #resources :ratings
