@@ -6,8 +6,9 @@
   .panel-body
     %table.table.table-striped.table-bordered
       %tr
-        %th Profile
-        %th Date inducted
+        %th First Name
+        %th Last Name
+        %th Year Inducted
         %th Details
         %th Is active
         %th Is inducted
@@ -17,8 +18,9 @@
 
       - @hallof_famers.each do |hallof_famer|
         %tr
-          %td= hallof_famer.profile.display_name
-          %td= hallof_famer.date_inducted
+          %td= hallof_famer.first_name
+          %td= hallof_famer.last_name
+          %td= hallof_famer.date_inducted.strftime("%Y")
           %td
             %p= hallof_famer.details
           %td=yes_or_no_icon(hallof_famer.is_active).html_safe

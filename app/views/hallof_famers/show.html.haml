@@ -1,17 +1,21 @@
 %p#notice= notice
-
-%p
-  %b Profile:
-  = @hallof_famer.profile_id
-%p
-  %b Date inducted:
-  = @hallof_famer.date_inducted
-%p
-  %b Is active:
-  = @hallof_famer.is_active
-%p
-  %b Is inducted:
-  = @hallof_famer.is_inducted
+.panel.panel-default
+  .panel-heading
+    =@hallof_famer.first_name
+    =@hallof_famer.last_name
+  .panel-body
+    %p
+      %b Profile:
+      = @hallof_famer.profile_id
+    %p
+      %b Year inducted:
+      = @hallof_famer.date_inducted.strftime("%Y")
+    %p
+      %b Is active:
+      = @hallof_famer.is_active
+    %p
+      %b Is inducted:
+      = @hallof_famer.is_inducted
 
 = link_to 'Edit', edit_hallof_famer_path(@hallof_famer)
 \|

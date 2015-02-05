@@ -10,6 +10,14 @@
     .col-sm-10
       = f.number_field :profile_id, {:class => 'form-control', :disabled => true}
   .form-group
+    = f.label :first_name, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_field :first_name, {:class => 'form-control'}
+  .form-group
+    = f.label :last_name, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_field :last_name, {:class => 'form-control'}
+  .form-group
     = f.label :date_inducted, {:class => 'col-sm-2 control-label'}
     .col-sm-10
       = f.datetime_select :date_inducted, {:class => 'form-control'}
@@ -22,7 +30,7 @@
       .checkbox
         %label
           = f.check_box :is_active
-          Is Active Hall of Famer?  
+          Is Active Hall of Famer?
   .form-group
     .col-sm-offset-2.col-sm-10
       .checkbox

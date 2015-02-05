@@ -218,9 +218,18 @@ def generate_HOF_backup
 end
 
 def generate_admin_backup
-  admin - Admin.new(
+  admin = Admin.new(
     :email => 'paigepon@gmail.com'
   )
+end
+
+def generate_name_for_hof
+  hofs = HallofFamer.all
+  hofs.each do |hof|
+    hof[:first_name] = hof.profile.first_name
+    hof[:last_name] = hof.profile.last_name
+    hof.save
+  end
 end
 
 
@@ -271,5 +280,6 @@ end
 #generate_profile_backup
 #generate_roster_backup
 #generate_ratings_backup
-generate_HOF_backup
-generate_admin_backup
+#generate_HOF_backup
+#generate_admin_backup
+generate_name_for_hof
