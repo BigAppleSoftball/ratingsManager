@@ -217,6 +217,12 @@ def generate_HOF_backup
   end
 end
 
+def generate_admin_backup
+  admin - Admin.new(
+    :email => 'paigepon@gmail.com'
+  )
+end
+
 
 def generate_ratings_from_list(row, rating)
   ratingsList = row[:ratinglist].split(',')
@@ -266,3 +272,4 @@ end
 #generate_roster_backup
 #generate_ratings_backup
 generate_HOF_backup
+generate_admin_backup

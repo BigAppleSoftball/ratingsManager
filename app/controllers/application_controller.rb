@@ -201,6 +201,7 @@ def log_out_user
 end
 
 def is_logged_in?
+  ap "IS LOGGED IN?"
   if (cookies[:teamsnap_token].nil?)
     false
   else

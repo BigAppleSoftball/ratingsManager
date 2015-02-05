@@ -1,20 +1,32 @@
-%h1 BASL Sponsors
-- yesIcon = "<i class='glyphicon glyphicon-ok yes-icon'></i>"
-- noIcon = "<i class='glyphicon glyphicon-remove no-icon'></i>"
-%table.table.table-bordered.table-striped
-  %tr
-    %th Name
-    %th Details
-    -if is_admin?
-      %th Active?
-      %th Shown in Carousel?
-      %th Actions
-  - @sponsors.each do |sponsor|
-    %tr
-      %td=link_to sponsor.name, sponsor.url, {:target =>'_blank'}
-      %td= sponsor.details
-      - if is_admin?
-        %td= sponsor.is_active ? yesIcon.html_safe : noIcon.html_safe
-        %td= sponsor.show_carousel ? yesIcon.html_safe : noIcon.html_safe
-        %td=link_to "Edit", edit_sponsor_path(sponsor)
+.panel.panel-primary
+  .panel-heading
+    %h1 BASL Sponsors
+  .panel-body
+    .well
+      Note: 
+      %br
+      ACTIVE sponsors will be shown on the sponsors page
+      %br
+      SHOW IN CAROUSEL sponsors will be shown in the sidebar carousel 
+    %table.table.table-bordered.table-striped
+      %tr
+        %th Logo
+        %th Name
+        %th Details
+        -if is_admin?
+          %th Active?
+          %th Shown in Carousel?
+          %th Actions
+      - @sponsors.each do |sponsor|
+        %tr
+          %td
+            -if sponsor.logo_url
+              .sponsors-logo-small
+                %img{:src =>sponsor.logo_url}
+          %td=link_to sponsor.name, sponsor.url, {:target =>'_blank'}
+          %td= sponsor.details
+          - if is_admin?
+            %td=yes_or_no_icon(sponsor.is_active).html_safe
+            %td=yes_or_no_icon(sponsor.show_carousel).html_safe
+            %td=link_to "Edit", edit_sponsor_path(sponsor)
 

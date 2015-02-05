@@ -42,4 +42,13 @@ module ApplicationHelper
     teamRosters
   end
 
+  def yes_or_no_icon(bool)
+    if (bool)
+      "<i class='glyphicon glyphicon-ok yes-icon'></i>"
+    else
+      "<i class='glyphicon glyphicon-remove no-icon'></i>"
+    end
+  end
+
+
 end
