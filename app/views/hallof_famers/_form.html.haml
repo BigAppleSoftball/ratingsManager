@@ -1,22 +1,30 @@
-= form_for @hallof_famer do |f|
+= form_for @hallof_famer,:html => {:class => 'form-horizontal'} do |f|
   - if @hallof_famer.errors.any?
     #error_explanation
       %h2= "#{pluralize(@hallof_famer.errors.count, "error")} prohibited this hallof_famer from being saved:"
       %ul
         - @hallof_famer.errors.full_messages.each do |msg|
           %li= msg
-
-  .field
-    = f.label :profile_id
-    = f.number_field :profile_id
-  .field
-    = f.label :date_inducted
-    = f.datetime_select :date_inducted
-  .field
-    = f.label :is_active
-    = f.check_box :is_active
-  .field
-    = f.label :is_inducted
-    = f.check_box :is_inducted
-  .actions
-    = f.submit 'Save'
+  .form-group
+    = f.label 'Profile Id (do not edit)', {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.number_field :profile_id, {:class => 'form-control', :disabled => true}
+  .form-group
+    = f.label :date_inducted, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.datetime_select :date_inducted, {:class => 'form-control'}
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      .checkbox
+        %label
+          = f.check_box :is_active
+          Is Active Hall of Famer?  
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      .checkbox
+        %label
+          = f.check_box :is_inducted
+          Is Inducted?
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit 'Save', {:class => 'btn btn-primary'}

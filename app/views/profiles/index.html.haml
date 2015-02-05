@@ -2,25 +2,22 @@
 
 %table.table.table-striped.table-bordered
   %tr
+    %th Profile Id
     %th First name
     %th Last name
     %th Display name
     %th Gender
-    %th Address
     %th Position
     %th Dob
     %th Team
 
   - @profiles.each do |profile|
     %tr
+      %td= profile.id
       %td= profile.first_name
       %td= profile.last_name
       %td= profile.display_name
       %td= profile.gender
-      %td
-        = profile.address
-        = profile.state
-        = profile.zip
       %td= profile.position
       %td= profile.dob
       %td
@@ -28,5 +25,3 @@
           = profile.team.name
 
 %br
-
-= link_to 'New Profile', new_profile_path

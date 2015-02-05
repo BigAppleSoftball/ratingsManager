@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   #resources :rosters
 
-  #resources :profiles
+  resources :profiles, :only => [:index, :show, :edit]
 
   resources :teams_sponsors, :only => [:index, :show]
 

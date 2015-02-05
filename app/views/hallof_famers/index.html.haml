@@ -1,25 +1,26 @@
-%h1 Showing Hall of Famers
 
-%table.table.table-striped.table-bordered
-  %tr
-    %th Profile
-    %th Date inducted
-    %th Is active
-    %th Is inducted
-    %th
-    %th
-    %th
+.panel.panel-info
+  .panel-heading
+    %h1 Current Hall of Famers
+    = link_to 'Create New', new_hallof_famer_path, :class => 'btn btn-info'
+  .panel-body
+    %table.table.table-striped.table-bordered
+      %tr
+        %th Profile
+        %th Date inducted
+        %th Is active
+        %th Is inducted
+        %th
+        %th
+        %th
 
-  - @hallof_famers.each do |hallof_famer|
-    %tr
-      %td= hallof_famer.profile.display_name
-      %td= hallof_famer.date_inducted
-      %td= hallof_famer.is_active
-      %td= hallof_famer.is_inducted
-      %td= link_to 'Show', hallof_famer
-      %td= link_to 'Edit', edit_hallof_famer_path(hallof_famer)
-      %td= link_to 'Destroy', hallof_famer, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      - @hallof_famers.each do |hallof_famer|
+        %tr
+          %td= hallof_famer.profile.display_name
+          %td= hallof_famer.date_inducted
+          %td= hallof_famer.is_active
+          %td= hallof_famer.is_inducted
+          %td= link_to 'Show', hallof_famer
+          %td= link_to 'Edit', edit_hallof_famer_path(hallof_famer)
+          %td= link_to 'Destroy', hallof_famer, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
-%br
-
-= link_to 'New Hallof famer', new_hallof_famer_path
