@@ -91,6 +91,13 @@ class WelcomeController < ApplicationController
     end
   end
 
+  def logout
+    log_out_user
+    flash[:notice] = 'You have been Logged out.'
+    redirect_to action: "login"
+  end
+
+
   def teamsnaplogin
     loginResponse = log_in_to_teamsnap(params[:email], params[:password])
     respond_to do |format|

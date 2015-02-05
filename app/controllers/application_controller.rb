@@ -195,6 +195,19 @@ def is_admin?
   end
 end
 
+def log_out_user
+  cookies.delete :teamsnap_token
+  cookies.delete :teamsnap_is_admin
+end
+
+def is_logged_in?
+  if (cookies[:teamsnap_token].nil?)
+    false
+  else
+    true
+  end
+end
+
 def only_for_admin
   if (!is_admin?)
     redirect_to :action =>'error403', :controller => 'welcome'
@@ -209,9 +222,5 @@ private
   # logging out removes it.
   def set_current_user(user_data)
     session[:current_user_id] = user_data
-    ap session
   end
 
-#curl -X POST -H "Content-Type: application/json" -H "X-Teamsnap-Token: ca661de3-e8ee-4df6-a536-3a79318c27ac" -k "https://api.teamsnap.com/v2/teams/363571/as_roster/4311961"
-#
-#3curl -X GET -H "Content-Type: application/json" -H "X-Teamsnap-Token: ca661de3-e8ee-4df6-a536-3a79318c27ac" -D - -k https://api.teamsnap.com/v2/teams

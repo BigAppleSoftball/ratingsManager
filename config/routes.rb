@@ -25,6 +25,7 @@ Rails.application.routes.draw do
   get '/ranking/:teamId/:rosterId/:playerId', to: 'welcome#ranking', as: 'playerId'
   get '/welcome', to: 'welcome#index'
   get '/login', to: 'welcome#login'
+  get '/logout', to: 'welcome#logout'
   post '/teamsnaplogin', to: 'welcome#teamsnaplogin'
 
   #admin panel
