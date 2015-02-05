@@ -4,6 +4,8 @@
     =@hallof_famer.first_name
     =@hallof_famer.last_name
   .panel-body
+    .image200-wrapper
+      %img{:src => @hallof_famer.image_url}
     %p
       %b Profile:
       = @hallof_famer.profile_id

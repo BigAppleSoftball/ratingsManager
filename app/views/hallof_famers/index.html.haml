@@ -6,6 +6,7 @@
   .panel-body
     %table.table.table-striped.table-bordered
       %tr
+        %th
         %th First Name
         %th Last Name
         %th Year Inducted
@@ -18,6 +19,10 @@
 
       - @hallof_famers.each do |hallof_famer|
         %tr
+          %th
+            -if hallof_famer.image_url
+              .image30-wrapper
+                %img{:src => hallof_famer.image_url}
           %td= hallof_famer.first_name
           %td= hallof_famer.last_name
           %td= hallof_famer.date_inducted.strftime("%Y")

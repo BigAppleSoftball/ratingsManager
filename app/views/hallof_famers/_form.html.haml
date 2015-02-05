@@ -26,6 +26,10 @@
     .col-sm-10
       =f.text_area :details, {:class => 'form-control'}
   .form-group
+    = f.label :image_url, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      =f.text_field :image_url, {:class => 'form-control'}
+  .form-group
     .col-sm-offset-2.col-sm-10
       .checkbox
         %label

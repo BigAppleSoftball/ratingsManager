@@ -70,6 +70,6 @@ class HallofFamersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def hallof_famer_params
-      params.require(:hallof_famer).permit(:profile_id, :date_inducted, :is_active, :is_inducted, :details, :first_name, :last_name)
+      params.require(:hallof_famer).permit(:profile_id, :date_inducted, :is_active, :is_inducted, :details, :first_name, :last_name, :image_url)
     end
 end
