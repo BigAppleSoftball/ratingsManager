@@ -15,7 +15,7 @@
           .js-sponsors-list-item-more.sponsors-list-item-more
             .sponsors-list-item-details
               %a.sponsors-list-item-name{:href=>sponsor.url, :target => '_blank'}=sponsor.name
-              %p=sponsor.details
+              %p.sponsors-list-item-blurb=sponsor.details
 
     = javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"
     = javascript_include_tag "isotope.pkgd.js"

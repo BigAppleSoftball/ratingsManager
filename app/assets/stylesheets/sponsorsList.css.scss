@@ -65,6 +65,11 @@ ul.sponsors-list {
       margin-top: 20px;
     }
 
+    .sponsors-list-item-blurb {
+      max-height: 225px;
+      overflow: auto;
+    }
+
     &:hover {
       border-color: #999;
       -moz-box-shadow: 0 0 30px #999 inset;
@@ -73,6 +78,7 @@ ul.sponsors-list {
     }
 
     .sponsors-list-item-more {
+      display: none;
       opacity: 0;
       position: absolute;
       bottom: 0;
@@ -89,14 +95,15 @@ ul.sponsors-list {
     }
 
     &.active-item {
-      width: 470px;
-      height: 470px;
+      width: 310px;
+      height: 305px;
 
       .sponsors-list-item-name-only {
         font-size: 30px;
       }
 
       .sponsors-list-item-more {
+        display: block;
         opacity: 1;
 
       }
