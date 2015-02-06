@@ -38,7 +38,7 @@ SponsorsPage.prototype.init = function(){
       $otherActive.find('.js-sponsors-list-item-more').hide();
       $otherActive.removeClass('active-item');
       $this.addClass('active-item');
-      $this.find('.js-sponsors-list-item-more').fadeIn();
+      $this.find('.js-sponsors-list-item-more').show();
     }
     self.$container.isotope('layout');
   });

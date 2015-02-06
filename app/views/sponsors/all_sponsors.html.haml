@@ -10,11 +10,11 @@
               .sponsors-list-item-logo
                 %img{:src => sponsor.logo_url}
             - else
-              .sponsors-list-item-name
+              .sponsors-list-item-name-only
                 =sponsor.name
           .js-sponsors-list-item-more.sponsors-list-item-more
             .sponsors-list-item-details
-              %a{:href=>sponsor.url, :target => '_blank'} Visit Site
+              %a.sponsors-list-item-name{:href=>sponsor.url, :target => '_blank'}=sponsor.name
               %p=sponsor.details
 
     = javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"

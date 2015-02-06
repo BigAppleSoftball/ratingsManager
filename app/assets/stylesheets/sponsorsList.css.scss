@@ -1,4 +1,4 @@
-$grey: #666;
+$grey: #252525;
 
 * {
   -webkit-box-sizing: border-box;
@@ -16,34 +16,53 @@ ul.sponsors-list {
     width: 150px;
     height: 150px;
     border: 1px solid #ddd;
-    padding: 10px;
     margin-bottom: 5px;
     background: #f9f9f9;;
     cursor: pointer;
     word-break: break-word;
+    position: relative;
+    overflow: hidden;
 
     .name {
       font-size: 12px;
     }
 
     .sponsors-list-item-logo {
-      width: 120px;
-      height: 120px;
+      width: 100%;
+      height: 100%;
 
       img {
         width: 100%;
         height: 100%;
       }
     }
-    .sponsors-list-item-min {
-      float: left;
-    }
 
     .sponsors-list-item-details {
-      font-size: 13px;
-      line-height: 16px;
+      font-size: 14px;
+      line-height: 17px;
       padding: 10px;
       margin: 5px;
+      letter-spacing: 0.6px;
+    }
+
+    a.sponsors-list-item-name {
+      text-align: center;
+      font-weight: bold;
+      font-size: 18px;
+      line-height: 20px;
+      color: #fff;
+      padding-right: 20px;
+      background: image_url('link.png') no-repeat right 0;
+
+      &:hover {
+        text-decoration: none;
+        opacity: 0.8;
+      }
+    }
+
+    .sponsors-list-item-name-only {
+      text-align: center;
+      margin-top: 20px;
     }
 
     &:hover {
@@ -54,27 +73,32 @@ ul.sponsors-list {
     }
 
     .sponsors-list-item-more {
-      display: none;
-      float: left;
-      margin: 5px;
-      width: 310px;
-      max-height: 280px;
+      opacity: 0;
+      position: absolute;
+      bottom: 0;
+      background: $grey;
+      background: rgba(37, 37, 37, 0.8);
+      width: 100%;
+      color: #fff;
       overflow: hidden;
+      -webkit-transition: opacity 0.5s ease-out;
+      -moz-transition: opacity 0.5s ease-out;
+      -o-transition: opacity 0.5s ease-out;
+      transition: opacity 0.5s ease-out;
 
     }
 
     &.active-item {
-      width: 630px;
-      height: 310px;
+      width: 470px;
+      height: 470px;
 
-      .sponsors-list-item-logo {
-        width: 285px;
-        height: 285px;
-        float: left;
+      .sponsors-list-item-name-only {
+        font-size: 30px;
       }
 
       .sponsors-list-item-more {
-        display: block;
+        opacity: 1;
+
       }
     }
   }
