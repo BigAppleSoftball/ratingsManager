@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   get '/login', to: 'welcome#login'
   get '/logout', to: 'welcome#logout'
   post '/teamsnaplogin', to: 'welcome#teamsnaplogin'
+  get '/showallsponsors', to: 'sponsors#all_sponsors'
 
   #admin panel
   get '/admin/home', to: 'admins#home'

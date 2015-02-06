@@ -43,6 +43,12 @@
   }
 }
 
+.panel.panel-default {
+  .panel-heading a {
+    color: black;
+  }
+}
+
 .modal-header {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;

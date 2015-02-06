@@ -1,0 +1,22 @@
+%html
+  %head
+    =stylesheet_link_tag "sponsorsList.css"
+  %body
+    %ul.js-sponsors-list.sponsors-list
+      - @sponsors.each do |sponsor|
+        %li.js-sponsors-list-item.sponsors-list-item
+          .sponsors-list-item-min
+            - if sponsor.logo_url
+              .sponsors-list-item-logo
+                %img{:src => sponsor.logo_url}
+            - else
+              .sponsors-list-item-name
+                =sponsor.name
+          .js-sponsors-list-item-more.sponsors-list-item-more
+            .sponsors-list-item-details
+              %a{:href=>sponsor.url, :target => '_blank'} Visit Site
+              %p=sponsor.details
+
+    = javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"
+    = javascript_include_tag "isotope.pkgd.js"
+    = javascript_include_tag "sponsorsList.js"

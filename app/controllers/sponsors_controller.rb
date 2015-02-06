@@ -82,6 +82,10 @@ class SponsorsController < ApplicationController
    headers['Access-Control-Allow-Origin'] = "*"
   end
 
+  def all_sponsors
+    @sponsors = Sponsor.where(:is_active => true)
+    render layout: false
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sponsor
