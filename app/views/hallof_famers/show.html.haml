@@ -4,7 +4,7 @@
     =@hallof_famer.first_name
     =@hallof_famer.last_name
   .panel-body
-    .image200-wrapper
+    .hof-players-logo
       %img{:src => @hallof_famer.image_url}
     %p
       %b Profile:
@@ -12,6 +12,9 @@
     %p
       %b Year inducted:
       = @hallof_famer.date_inducted.strftime("%Y")
+    %p
+      %b Player Details:
+      = @hallof_famer.details
     %p
       %b Is active:
       = @hallof_famer.is_active

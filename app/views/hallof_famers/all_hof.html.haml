@@ -1,5 +1,6 @@
 %html
   %head
+    %link{:href => "http://fonts.googleapis.com/css?family=Montserrat", :rel => "stylesheet", :type => "text/css"}/
     =stylesheet_link_tag "hofsList.css"
   %body
     %ul.js-hof-list.hof-list
@@ -12,8 +13,6 @@
             .hof-card-name
               =hof.first_name
               =hof.last_name
-            .hof-card-year
-              =hof.date_inducted.strftime("%Y")
           .hof-card-back
             .hof-card-back-container
               .hof-card-header
@@ -24,7 +23,7 @@
                   Inducted in
                   =hof.date_inducted.strftime("%Y")
               .hof-card-player-details
-                =hof.details
+                %p=hof.details
 
     = javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"
     = javascript_include_tag "hofsList.js"

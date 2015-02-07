@@ -283,4 +283,4 @@ end
 #generate_ratings_backup
 #generate_HOF_backup
 #generate_admin_backup
-#generate_name_for_hof
+generate_name_for_hof
