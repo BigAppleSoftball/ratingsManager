@@ -63,7 +63,7 @@ class HallofFamersController < ApplicationController
   end
 
   def all_hof
-    @hallof_famers = HallofFamer.where(:is_active => true)
+    @hallof_famers = HallofFamer.order('date_inducted ASC').where(:is_active => true)
     render layout: false
   end
 
