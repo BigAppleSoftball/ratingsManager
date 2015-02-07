@@ -86,6 +86,12 @@ class SponsorsController < ApplicationController
     @sponsors = Sponsor.where(:is_active => true)
     render layout: false
   end
+
+  def sponsor_carousel
+    @sponsors = Sponsor.where(:show_carousel => true)
+    render layout: false
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_sponsor

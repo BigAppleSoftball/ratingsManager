@@ -62,6 +62,11 @@ class HallofFamersController < ApplicationController
     end
   end
 
+  def all_hof
+    @hallof_famers = HallofFamer.where(:is_active => true)
+    render layout: false
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_hallof_famer
