@@ -1,0 +1,32 @@
+%h1 Board Members
+
+%table.table.table-striped.table-bordered.table-condensed
+  %tr
+    %th
+    %th Position
+    %th Email
+    %th Display order
+    %th First name
+    %th Last name
+    %th Alt email
+    %th
+    %th
+
+  - @board_members.each do |board_member|
+    %tr
+      %td
+        -if board_member.image_url
+          .image30-wrapper
+            %img{:src => hallof_famer.image_url}
+      %td= link_to board_member.position, board_member
+      %td= board_member.email
+      %td= board_member.display_order
+      %td= board_member.first_name
+      %td= board_member.last_name
+      %td= board_member.alt_email
+      %td= link_to 'Edit', edit_board_member_path(board_member)
+      %td= link_to 'Destroy', board_member, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Board member', new_board_member_path

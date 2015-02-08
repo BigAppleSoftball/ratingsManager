@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :board_members
+
   resources :hallof_famers
 
   resources :admins
@@ -32,6 +34,7 @@ Rails.application.routes.draw do
   get '/showallsponsors', to: 'sponsors#all_sponsors'
   get '/sponsorscarousel', to: 'sponsors#sponsor_carousel'
   get '/showallhof', to: 'hallof_famers#all_hof'
+  get '/showallboard', to: 'board_members#all_board'
 
   #admin panel
   get '/admin/home', to: 'admins#home'

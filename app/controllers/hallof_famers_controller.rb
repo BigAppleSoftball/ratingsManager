@@ -1,6 +1,6 @@
 class HallofFamersController < ApplicationController
   before_action :set_hallof_famer, only: [:show, :edit, :update, :destroy]
-  before_filter :only_for_admin
+  before_filter :only_for_admin, only: [:edit, :update, :destroy]
 
   # GET /hallof_famers
   # GET /hallof_famers.json

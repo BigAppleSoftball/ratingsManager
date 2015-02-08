@@ -1,0 +1,24 @@
+%html
+  %head
+    %link{:href => "http://fonts.googleapis.com/css?family=Montserrat:400,700", :rel => "stylesheet", :type => "text/css"}/
+    =stylesheet_link_tag "boardList.css"
+  %body
+    %ul.board-members-list
+      -@boardMembers.each do |board_member|
+        %li.board-member-card
+          .board-member-card-image
+            %img{:src=>"#{board_member.image_url ? board_member.image_url : 'https://style.anu.edu.au/_anu/4/images/placeholders/person_6x8.png'}"}
+          .board-member-card-overlay
+          .board-member-card-details
+            .board-member-card-name
+              -if board_member.email
+                %a{:href=>"mailto:#{board_member.email}"}
+                  = board_member.first_name
+                  = board_member.last_name
+              - else
+                = board_member.first_name
+                = board_member.last_name
+            .board-member-card-position
+              = board_member.position
+            .board-member-card-email
+              = board_member.email

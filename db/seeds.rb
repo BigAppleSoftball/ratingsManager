@@ -233,6 +233,23 @@ def generate_name_for_hof
   end
 end
 
+def generate_board_members_backup
+  csvRows = get_csv_file('board.csv')
+
+  csvRows.each do |row|
+    board_member = BoardMember.new(
+    :first_name => row[:firstname],
+    :last_name => row[:lastname],
+    :is_division_rep => row[:div_rep],
+    :email => row[:email],
+    :position => row[:position],
+    :display_order => row[:displayorder],
+    :alt_email => row[:altemail]
+    )
+    board_member.save
+  end
+end
+
 
 def generate_ratings_from_list(row, rating)
   ratingsList = row[:ratinglist].split(',')
@@ -283,4 +300,5 @@ end
 #generate_ratings_backup
 #generate_HOF_backup
 #generate_admin_backup
-generate_name_for_hof
+#generate_name_for_hof
+generate_board_members_backup

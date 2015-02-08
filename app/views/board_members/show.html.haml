@@ -1,0 +1,28 @@
+%p#notice= notice
+
+.panel.panel-default
+  .panel-heading
+    %h1= @board_member.position
+  .panel-body
+    %p
+      %b Email:
+      = @board_member.email
+    %p
+      %b Display order:
+      = @board_member.display_order
+    %p
+      %b First name:
+      = @board_member.first_name
+    %p
+      %b Last name:
+      = @board_member.last_name
+    %p
+      %b Alt email:
+      = @board_member.alt_email
+    %p
+      %b Image url:
+      = @board_member.image_url
+
+= link_to 'Edit', edit_board_member_path(@board_member)
+\|
+= link_to 'Back', board_members_path
