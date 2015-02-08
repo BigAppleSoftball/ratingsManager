@@ -1,6 +1,6 @@
 class WelcomeController < ApplicationController
-  protect_from_forgery
-
+  #protect_from_forgery
+  after_action :set_access_control_headers
 
   def index
     @teamsByDivision = get_all_teams
@@ -110,7 +110,16 @@ class WelcomeController < ApplicationController
   end
 
   def basl_sidebar 
+    ap "HERE"
     @sponsors = Sponsor.where(:show_carousel => true)
-    render layout: false
+    respond_to do |format|
+      format.html { render layout: false }
+      format.json { head :no_content }
+    end
+  end
+
+  def set_access_control_headers
+    headers['Access-Control-Allow-Origin'] = '*'  
+    headers['Access-Control-Request-Method'] = '*' 
   end
 end
