@@ -108,4 +108,9 @@ class WelcomeController < ApplicationController
   def error403
     render '403'
   end
+
+  def basl_sidebar 
+    @sponsors = Sponsor.where(:show_carousel => true)
+    render layout: false
+  end
 end

@@ -1,0 +1,85 @@
+/**
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    contenteditable attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that are clearfixed.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+.cf:before,
+.cf:after {
+    content: " "; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}
+
+/**
+ * For IE 6/7 only
+ * Include this rule to trigger hasLayout and contain floats.
+ */
+.cf {
+    *zoom: 1;
+}
+
+.sponsors-carousel-wrapper {
+  width: 200px;
+}
+
+.sponsors-carousel-window {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.sponsors-carousel {
+  list-style: none;
+  position: absolute;
+  -webkit-transition: margin-top 1s ease-in-out;
+  -moz-transition: margin-top 1s ease-in-out;
+  -o-transition: margin-top 1s ease-in-out;
+  transition: margin-top 1s ease-in-out;
+  padding: 0;
+  margin: 0;
+}
+
+.sponsors-carousel li {
+  width: 200px;
+  height: 200px;
+}
+
+.sponsors-carousel img {
+  width: 100%;
+  height: 100%;
+}
+
+.sponsors-carousel-thumbnails {
+  list-style: none;
+}
+
+.sponsors-carousel-thumbnails li {
+  float: left;
+  width: 25px;
+  height: 25px;
+  margin: 5px;
+  opacity: 0.3;
+  -webkit-transition: opacity 1s ease-in-out;
+  -moz-transition: opacity 1s ease-in-out;
+  -o-transition: opacity 1s ease-in-out;
+  transition: opacity 1s ease-in-out;
+}
+
+.sponsors-carousel-thumbnails li.active {
+  opacity: 1;
+  border: 1px solid #666;
+} 
+
+.sponsors-carousel-thumbnails li img {
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,14 @@
+%html
+  %head
+    %link{:href => "https://fonts.googleapis.com/css?family=Montserrat", :rel => "stylesheet", :type => "text/css"}/
+    =stylesheet_link_tag "sponsorCarousel.css"
+  %body
+    .sponsors-carousel-wrapper
+      .sponsors-carousel-window
+        %ul.sponsors-carousel.js-sponsors-carousel
+          -@sponsors.each do |sponsor|
+            %li
+              %a{:href=>sponsor.url, :title => sponsor.name, :target=> '_blank'}
+                %img{:src=>"#{sponsor.logo_url}"}
+    = javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"
+    = javascript_include_tag "sponsorsCarousel.js"
