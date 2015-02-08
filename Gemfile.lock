@@ -78,6 +78,7 @@ GEM
     multi_json (1.10.1)
     multipart-post (2.0.0)
     mysql2 (0.3.16)
+    newrelic_rpm (3.7.1.182)
     parse-ruby-client (0.3.0)
       faraday
       faraday_middleware
@@ -154,6 +155,7 @@ DEPENDENCIES
   jquery-rails
   json
   mysql2
+  newrelic_rpm
   parse-ruby-client
   pg
   rails (= 4.1.6)

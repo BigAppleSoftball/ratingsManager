@@ -43,6 +43,7 @@ gem 'json'
 
 group :production do
   gem 'rails_12factor'
+  gem 'newrelic_rpm'
 end
 
 # Use ActiveModel has_secure_password
