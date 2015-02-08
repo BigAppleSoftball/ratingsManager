@@ -1,32 +1,33 @@
-%h1 Board Members
 
-%table.table.table-striped.table-bordered.table-condensed
-  %tr
-    %th
-    %th Position
-    %th Email
-    %th Display order
-    %th First name
-    %th Last name
-    %th Alt email
-    %th
-    %th
+.panel.panel-warning
+  .panel-heading
+    %h1 Board Members
+    = link_to '+ New Board Member', new_board_member_path, :class => 'btn btn-primary'
+  .panel-body
+    %table.table.table-striped.table-bordered.table-condensed
+      %tr
+        %th
+        %th Position
+        %th Email
+        %th Display order
+        %th Name
+        %th Alt email
+        %th
+        %th
 
-  - @board_members.each do |board_member|
-    %tr
-      %td
-        -if board_member.image_url
-          .image30-wrapper
-            %img{:src => board_member.image_url}
-      %td= link_to board_member.position, board_member
-      %td= board_member.email
-      %td= board_member.display_order
-      %td= board_member.first_name
-      %td= board_member.last_name
-      %td= board_member.alt_email
-      %td= link_to 'Edit', edit_board_member_path(board_member)
-      %td= link_to 'Destroy', board_member, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      - @board_members.each do |board_member|
+        %tr
+          %td
+            -if board_member.image_url
+              .image30-wrapper
+                %img{:src => board_member.image_url}
+          %td= link_to board_member.position, board_member
+          %td= board_member.email
+          %td= board_member.display_order
+          %td
+            = board_member.first_name
+            = board_member.last_name
+          %td= board_member.alt_email
+          %td= link_to 'Edit', edit_board_member_path(board_member), :class=> 'btn btn-default btn-sm'
+          %td= link_to 'Destroy', board_member, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=> 'btn btn-danger btn-sm'
 
-%br
-
-= link_to 'New Board member', new_board_member_path

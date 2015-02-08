@@ -2,13 +2,12 @@
 .panel.panel-info
   .panel-heading
     %h1 Current Hall of Famers
-    = link_to 'Create New', new_hallof_famer_path, :class => 'btn btn-info'
+    = link_to '+ Create New Hall of Famer', new_hallof_famer_path, :class => 'btn btn-default'
   .panel-body
     %table.table.table-striped.table-bordered
       %tr
         %th
-        %th First Name
-        %th Last Name
+        %th Name
         %th Year Inducted
         %th Details
         %th Is active
@@ -23,14 +22,12 @@
             -if hallof_famer.image_url
               .image30-wrapper
                 %img{:src => hallof_famer.image_url}
-          %td= hallof_famer.first_name
-          %td= hallof_famer.last_name
+          %td= link_to "#{hallof_famer.first_name} #{hallof_famer.last_name}", hallof_famer
           %td= hallof_famer.date_inducted.strftime("%Y")
           %td
             %p= hallof_famer.details
           %td=yes_or_no_icon(hallof_famer.is_active).html_safe
           %td=yes_or_no_icon(hallof_famer.is_inducted).html_safe
-          %td= link_to 'Show', hallof_famer
-          %td= link_to 'Edit', edit_hallof_famer_path(hallof_famer)
-          %td= link_to 'Destroy', hallof_famer, :method => :delete, :data => { :confirm => 'Are you sure?' }
+          %td= link_to 'Edit', edit_hallof_famer_path(hallof_famer), :class => 'btn btn-default btn-sm'
+          %td= link_to 'Destroy', hallof_famer, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-danger btn-sm'
 

@@ -99,6 +99,10 @@ a:hover {
 }
 
 .panel {
+  a.btn {
+    text-decoration: none;
+  }
+
   a.btn-default {
     color: #3a3a3a;
     text-decoration: none;

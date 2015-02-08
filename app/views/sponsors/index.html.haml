@@ -29,5 +29,7 @@
           - if is_admin?
             %td=yes_or_no_icon(sponsor.is_active).html_safe
             %td=yes_or_no_icon(sponsor.show_carousel).html_safe
-            %td=link_to "Edit", edit_sponsor_path(sponsor)
+            %td
+              =link_to "Edit", edit_sponsor_path(sponsor), :class =>'btn btn-default btn-sm'
+              = link_to 'Destroy', sponsor, :method => :delete, :class =>'btn btn-danger btn-sm', :data => { :confirm => 'Are you sure?' }
 
