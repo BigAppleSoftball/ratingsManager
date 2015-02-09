@@ -5,7 +5,7 @@ class HallofFamersController < ApplicationController
   # GET /hallof_famers
   # GET /hallof_famers.json
   def index
-    @hallof_famers = HallofFamer.order('date_inducted ASC').all
+    @hallof_famers = HallofFamer.order('display_order ASC').all
   end
 
   # GET /hallof_famers/1
@@ -63,7 +63,7 @@ class HallofFamersController < ApplicationController
   end
 
   def all_hof
-    @hallof_famers = HallofFamer.order('date_inducted ASC').where(:is_active => true)
+    @hallof_famers = HallofFamer.order('display_order ASC').where(:is_active => true)
     render layout: false
   end
 
@@ -75,6 +75,6 @@ class HallofFamersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def hallof_famer_params
-      params.require(:hallof_famer).permit(:profile_id, :date_inducted, :is_active, :is_inducted, :details, :first_name, :last_name, :image_url)
+      params.require(:hallof_famer).permit(:profile_id, :date_inducted, :is_active, :is_inducted, :details, :first_name, :last_name, :image_url, :display_order)
     end
 end

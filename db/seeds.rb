@@ -250,6 +250,16 @@ def generate_board_members_backup
   end
 end
 
+def set_display_order_hof
+  hofs = HallofFamer.order('date_inducted ASC').all
+  order = 0
+  hofs.each do |hof|
+    hof[:display_order] = order
+    hof.save
+    order+=1
+  end
+end
+
 
 def generate_ratings_from_list(row, rating)
   ratingsList = row[:ratinglist].split(',')
@@ -301,4 +311,5 @@ end
 #generate_HOF_backup
 #generate_admin_backup
 #generate_name_for_hof
-generate_board_members_backup
+#generate_board_members_backup
+set_display_order_hof
