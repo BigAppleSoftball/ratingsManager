@@ -12,6 +12,7 @@
         %th Display order
         %th Name
         %th Alt email
+        %th Committee Lead?
         %th
         %th
 
@@ -28,6 +29,7 @@
             = board_member.first_name
             = board_member.last_name
           %td= board_member.alt_email
+          %td=yes_or_no_icon(board_member.is_committee_lead).html_safe
           %td= link_to 'Edit', edit_board_member_path(board_member), :class=> 'btn btn-default btn-sm'
           %td= link_to 'Destroy', board_member, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=> 'btn btn-danger btn-sm'
 

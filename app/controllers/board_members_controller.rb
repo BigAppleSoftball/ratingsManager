@@ -63,7 +63,7 @@ class BoardMembersController < ApplicationController
   end
 
   def all_board
-    @boardMembers = BoardMember.order('display_order ASC')
+    @boardMembers = BoardMember.order('display_order ASC').where(:is_committee_lead => false)
     render layout: false
   end
 
@@ -75,6 +75,6 @@ class BoardMembersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def board_member_params
-      params.require(:board_member).permit(:email, :position, :display_order, :first_name, :last_name, :alt_email, :image_url)
+      params.require(:board_member).permit(:email, :position, :display_order, :first_name, :last_name, :alt_email, :image_url, :is_committee_lead)
     end
 end

@@ -260,6 +260,14 @@ def set_display_order_hof
   end
 end
 
+def set_board_members_committee
+  boards = BoardMember.all
+  boards.each do |board|
+    board[:is_committee_lead] = false
+    board.save
+  end
+end
+
 
 def generate_ratings_from_list(row, rating)
   ratingsList = row[:ratinglist].split(',')
@@ -312,4 +320,5 @@ end
 #generate_admin_backup
 #generate_name_for_hof
 #generate_board_members_backup
-set_display_order_hof
+#set_display_order_hof
+set_board_members_committee

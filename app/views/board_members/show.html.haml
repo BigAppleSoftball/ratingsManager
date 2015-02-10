@@ -22,6 +22,9 @@
     %p
       %b Image url:
       = @board_member.image_url
+    %p
+      %b Is Committee Lead:
+      = @board_member.is_committee_lead
 
 = link_to 'Edit', edit_board_member_path(@board_member)
 \|
