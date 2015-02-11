@@ -308,6 +308,17 @@ def get_csv_file(fileName)
   csvRows
 end
 
+def set_board_members_profile_id
+  boards = BoardMember.all
+  boards.each do |board|
+    profile = Profile.where(:first_name => board.first_name, :last_name => board.last_name)
+    if profile.length == 1
+      board[:profile_id] = profile.first[:id]
+    end
+    board.save
+  end
+end
+
 #generate_team_backup
 #generate_division_backup
 #generate_season_backup
@@ -321,4 +332,5 @@ end
 #generate_name_for_hof
 #generate_board_members_backup
 #set_display_order_hof
-set_board_members_committee
+#set_board_members_committee
+set_board_members_profile_id

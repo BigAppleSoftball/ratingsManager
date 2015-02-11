@@ -11,14 +11,9 @@
       %b Display order:
       = @board_member.display_order
     %p
-      %b First name:
-      = @board_member.first_name
-    %p
-      %b Last name:
-      = @board_member.last_name
-    %p
-      %b Alt email:
-      = @board_member.alt_email
+      %b Profile
+      -if @board_member.profile_id
+        = link_to "#{@board_member.profile.first_name} #{@board_member.profile.last_name}", @board_member.profile
     %p
       %b Image url:
       = @board_member.image_url

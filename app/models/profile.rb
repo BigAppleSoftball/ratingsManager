@@ -3,4 +3,5 @@ class Profile < ActiveRecord::Base
   has_one :hallof_famer
   has_many :rosters
   has_one :rating
+  has_one :board_member
 end

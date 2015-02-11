@@ -10,12 +10,13 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *
+ **= require chosen
  */
 
 @import "compass",
         "mixins",
-        "bootstrap-custom";
+        "bootstrap-custom",
+        "chosen";
 
 .brand-logo-40 {
   width: 40px;

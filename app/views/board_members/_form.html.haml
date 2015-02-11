@@ -19,17 +19,14 @@
     .col-sm-10
       = f.number_field :display_order, {:class => 'form-control'}
   .form-group
-    = f.label :first_name, {:class => 'col-sm-2 control-label'}
+    = f.label :profile_id, {:class => 'col-sm-2 control-label'}
     .col-sm-10
-      = f.text_field :first_name, {:class => 'form-control'}
-  .form-group
-    = f.label :last_name, {:class => 'col-sm-2 control-label'}
-    .col-sm-10
-      = f.text_field :last_name, {:class => 'form-control'}
-  .form-group
-    = f.label :alt_email, {:class => 'col-sm-2 control-label'}
-    .col-sm-10
-      = f.text_field :alt_email, {:class => 'form-control'}
+      %select#board_member_profile_id.chosen-select{:name => 'board_member[profile_id]', :data => {:placeholder => "Choose a Profile"}}
+        -@profiles.each do |profile|
+          -if @board_member && @board_member.profile_id == profile.id
+            %option{:value => profile.id, :selected => 'true'}="#{profile.first_name} #{profile.last_name}"
+          -else
+            %option{:value => profile.id}="#{profile.first_name} #{profile.last_name}"
   .form-group
     = f.label :image_url, {:class => 'col-sm-2 control-label'}
     .col-sm-10

@@ -11,13 +11,15 @@
           .board-member-card-overlay
           .board-member-card-details
             .board-member-card-name
-              -if board_member.email
+              -if board_member.email && board_member.profile
                 %a{:href=>"mailto:#{board_member.email}"}
-                  = board_member.first_name
-                  = board_member.last_name
-              - else
-                = board_member.first_name
-                = board_member.last_name
+                  = board_member.profile.first_name
+                  = board_member.profile.last_name
+              - elsif board_member.profile
+                = board_member.profile.first_name
+                = board_member.profile.last_name
+              - else 
+                TBD
             .board-member-card-position
               = board_member.position
             .board-member-card-email

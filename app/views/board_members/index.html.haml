@@ -8,27 +8,30 @@
       %tr
         %th
         %th Position
-        %th Email
+        %th Position Email
         %th Display order
         %th Name
-        %th Alt email
         %th Committee Lead?
         %th
         %th
 
       - @board_members.each do |board_member|
+        - profile = board_member.profile
         %tr
           %td
             -if board_member.image_url
               .image30-wrapper
                 %img{:src => board_member.image_url}
           %td= link_to board_member.position, board_member
-          %td= board_member.email
-          %td= board_member.display_order
           %td
-            = board_member.first_name
-            = board_member.last_name
-          %td= board_member.alt_email
+            = board_member.email
+          %td= board_member.display_order
+          %td{:class => profile ? '' : 'danger'}
+            - if profile
+              = link_to "#{profile.first_name} #{profile.last_name}", profile 
+            -else
+              %i.glyphicon.glyphicon-warning-sign
+              No Profile!
           %td=yes_or_no_icon(board_member.is_committee_lead).html_safe
           %td= link_to 'Edit', edit_board_member_path(board_member), :class=> 'btn btn-default btn-sm'
           %td= link_to 'Destroy', board_member, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=> 'btn btn-danger btn-sm'

@@ -16,10 +16,12 @@ class BoardMembersController < ApplicationController
   # GET /board_members/new
   def new
     @board_member = BoardMember.order('display_order ASC').new
+    @profiles = Profile.all
   end
 
   # GET /board_members/1/edit
   def edit
+    @profiles = Profile.all
   end
 
   # POST /board_members
@@ -75,6 +77,6 @@ class BoardMembersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def board_member_params
-      params.require(:board_member).permit(:email, :position, :display_order, :first_name, :last_name, :alt_email, :image_url, :is_committee_lead)
+      params.require(:board_member).permit(:email, :position, :display_order, :first_name, :last_name, :alt_email, :image_url, :is_committee_lead, :profile_id)
     end
 end
