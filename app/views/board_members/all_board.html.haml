@@ -21,6 +21,9 @@
               - else 
                 TBD
             .board-member-card-position
-              = board_member.position
+              - if @isCommittee
+                = board_member.name
+              - else
+                = board_member.position
             .board-member-card-email
               = board_member.email

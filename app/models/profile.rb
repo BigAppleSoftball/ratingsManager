@@ -4,4 +4,5 @@ class Profile < ActiveRecord::Base
   has_many :rosters
   has_one :rating
   has_one :board_member
+  has_one :committee
 end

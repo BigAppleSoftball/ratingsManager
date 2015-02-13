@@ -1,0 +1,7 @@
+%select#board_member_profile_id.chosen-select{:name => 'board_member[profile_id]', :data => {:placeholder => placeHolder}}
+  %option{:value => 0}
+  -profiles.each do |profile|
+    -if currentValue == profile.id
+      %option{:value => profile.id, :selected => 'true'}="#{profile.first_name} #{profile.last_name}"
+    -else
+      %option{:value => profile.id}="#{profile.first_name} #{profile.last_name}"

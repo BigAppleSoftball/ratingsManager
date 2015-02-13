@@ -69,11 +69,6 @@ class BoardMembersController < ApplicationController
     render layout: false
   end
 
-  def all_committee
-    @boardMembers = BoardMember.order('display_order ASC').where(:is_committee_lead => true)
-    render 'all_board', layout: false
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_board_member

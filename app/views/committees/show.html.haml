@@ -1,0 +1,18 @@
+.panel.panel-warning
+  .panel-heading
+    %h1 Committees
+    = link_to '<< Edit', edit_committee_path(@committee), :class=> 'btn btn-default'
+    = link_to 'Back', committees_path, :class=> 'btn btn-default'
+  .panel-body
+    %p#notice= notice
+    %p
+      %b Email:
+      = @committee.email
+    %p
+      %b Profile:
+      = @committee.profile_id
+    %p
+      %b Name:
+      = @committee.name
+
+

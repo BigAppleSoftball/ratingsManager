@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150213012433) do
+ActiveRecord::Schema.define(version: 20150213023418) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -32,6 +32,14 @@ ActiveRecord::Schema.define(version: 20150213012433) do
     t.boolean  "is_division_rep"
     t.boolean  "is_committee_lead"
     t.integer  "profile_id"
+  end
+
+  create_table "committees", force: true do |t|
+    t.string   "email"
+    t.integer  "profile_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "divisions", force: true do |t|
