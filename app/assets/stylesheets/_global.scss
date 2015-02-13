@@ -1,0 +1,105 @@
+.brand-logo-40 {
+  width: 40px;
+  height: 40px;
+  background: image-url('logo-40x40.png') no-repeat 0 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.btn-back {
+  margin-bottom: 20px;
+}
+
+.panel-info {
+  border: 1px solid darken($brand-info, 20%);
+
+  > .panel-heading {
+    background: $brand-info;
+    color: $dark-gray;
+    border-color: darken($brand-info, 20%);
+  }
+}
+
+a:hover {
+  background: none;
+}
+
+.sponsors-logo {
+  width: 300px;
+  height: 300px;
+  display: inline-block;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.hof-players-logo {
+  width: 200px;
+  height: 300px;
+}
+
+.sponsors-description {
+  display: inline-block;
+}
+
+.yes-icon {
+  color: $brand-success;
+}
+
+.no-icon {
+  color: $brand-danger;
+}
+
+.global-notice {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+
+.sponsors-logo-small,
+.image30-wrapper {
+  width: 30px;
+  height: 30px;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.image200-wrapper {
+  width: 200px;
+  height: 200px;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.panel {
+  a.btn {
+    text-decoration: none;
+  }
+
+  a.btn-default {
+    color: #3a3a3a;
+    text-decoration: none;
+  }
+}
+
+.card-img-logo {
+  height: 300px;
+  width: 200px;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.chosen-select {
+  width: 300px;
+}

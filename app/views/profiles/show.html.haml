@@ -4,8 +4,10 @@
     %h1
       = @profile.first_name
       = @profile.last_name
+    = render partial: "shared/actions/edit", locals: { editPath: edit_profile_path(@profile), editText: "Edit Profile"
+      }
     = link_to '<<Back', profiles_path, :class => 'btn btn-default'
-    = link_to raw("<i class='glyphicon glyphicon-pencil'></i> Edit Profile"), edit_profile_path(@profile), :class => 'btn btn-default'
+    
   .panel-body
     -if @profile.long_image_url
       .card-img-logo

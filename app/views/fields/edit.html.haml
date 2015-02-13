@@ -1,0 +1,8 @@
+.panel.panel-default
+  .panel-heading
+    %h1 Editing field
+    = link_to link_to '<< Back', fields_path, :class => 'btn btn-default'
+    = link_to 'Show', @field, :class => 'btn btn-default'
+  .panel-body
+
+    = render 'form'

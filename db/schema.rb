@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150213023418) do
+ActiveRecord::Schema.define(version: 20150213161507) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -52,6 +52,16 @@ ActiveRecord::Schema.define(version: 20150213023418) do
     t.integer  "team_cap"
     t.integer  "waitlist_cap"
     t.boolean  "is_active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "fields", force: true do |t|
+    t.integer  "status"
+    t.string   "name"
+    t.text     "directions"
+    t.string   "url"
+    t.string   "google_map_url"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -1,0 +1,22 @@
+.panel.panel-default
+  .panel-heading
+    %h1= @field.name
+    = link_to '<< Back', fields_path, :class => 'btn btn-default'
+    = render partial: "shared/actions/edit", locals: { editPath: edit_field_path(@field), editText: 'Edit Field'}
+  .panel-body
+    %p#notice= notice
+    %p
+      %b Status:
+      = @field.status
+    %p
+      %b Name:
+      = @field.name
+    %p
+      %b Directions:
+      = @field.directions
+    %p
+      %b Url:
+      = link_to 'Field URL', @field.url, {:target => '_blank'}
+    %p
+      %b Google map url:
+      = link_to 'Map URL', @field.google_map_url, {:target => '_blank'}

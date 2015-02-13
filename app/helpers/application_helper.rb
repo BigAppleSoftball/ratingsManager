@@ -50,5 +50,10 @@ module ApplicationHelper
     end
   end
 
+  def get_field_statuses
+    field_statuses = {0 => 'All Open', 1 => 'Some Closed', 2 => 'All Closed'}
+    field_statuses
+  end
+
 
 end
