@@ -1,7 +1,9 @@
-%h1 Editing profile
-
-= render 'form'
-
-= link_to 'Show', @profile
-\|
-= link_to 'Back', profiles_path
+%p#notice= notice
+.panel.panel-warning
+  .panel-heading
+    %h1
+      Editing Profile
+    = link_to '<< Back', profiles_path, :class => 'btn btn-default'
+    = link_to 'Show', @profile, :class => 'btn btn-default'
+  .panel-body
+    = render 'form'

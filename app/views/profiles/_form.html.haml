@@ -1,70 +1,30 @@
-= form_for @profile do |f|
+= form_for @profile,:html => {:class => 'form-horizontal'} do |f|
   - if @profile.errors.any?
     #error_explanation
       %h2= "#{pluralize(@profile.errors.count, "error")} prohibited this profile from being saved:"
       %ul
         - @profile.errors.full_messages.each do |msg|
           %li= msg
-
-  .field
-    = f.label :profile_code
-    = f.text_field :profile_code
-  .field
-    = f.label :first_name
-    = f.text_field :first_name
-  .field
-    = f.label :last_name
-    = f.text_field :last_name
-  .field
-    = f.label :email
-    = f.text_field :email
-  .field
-    = f.label :nickname
-    = f.text_field :nickname
-  .field
-    = f.label :display_name
-    = f.text_field :display_name
-  .field
-    = f.label :player_number
-    = f.number_field :player_number
-  .field
-    = f.label :gender
-    = f.text_field :gender
-  .field
-    = f.label :shirt_size
-    = f.text_field :shirt_size
-  .field
-    = f.label :address
-    = f.text_field :address
-  .field
-    = f.label :state
-    = f.text_field :state
-  .field
-    = f.label :zip
-    = f.number_field :zip
-  .field
-    = f.label :phone
-    = f.text_field :phone
-  .field
-    = f.label :emergency_name
-    = f.text_field :emergency_name
-  .field
-    = f.label :emergency_relation
-    = f.text_field :emergency_relation
-  .field
-    = f.label :emergency_phone
-    = f.text_field :emergency_phone
-  .field
-    = f.label :emergency_email
-    = f.text_field :emergency_email
-  .field
-    = f.label :position
-    = f.text_field :position
-  .field
-    = f.label :dob
-    = f.text_field :dob
-  .field
-    = f.label :team_id
-    = f.number_field :team_id
-  .actions
-    = f.submit 'Save'
+  .form-group
+    = f.label :first_name, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_field :first_name, {:class => 'form-control'}
+  .form-group
+    = f.label :last_name, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_field :last_name, {:class => 'form-control'}
+  .form-group
+    = f.label :email, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_field :email, {:class => 'form-control'}
+  .form-group
+    = f.label :player_number, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.number_field :player_number, {:class => 'form-control'}
+  .form-group
+    = f.label :dob, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_field :dob, {:class => 'form-control', :placeholder => 'YYYY-MM-DD'}
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit 'Save', {:class => 'btn btn-primary'}

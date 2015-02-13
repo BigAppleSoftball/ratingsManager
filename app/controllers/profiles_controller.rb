@@ -1,10 +1,11 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
+  before_filter :only_for_admin, only: [:edit, :update, :destroy, :new]
 
   # GET /profiles
   # GET /profiles.json
   def index
-    @profiles = Profile.all
+    @profiles = Profile.order('last_name ASC').all
   end
 
   # GET /profiles/1

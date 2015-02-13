@@ -1,27 +1,16 @@
-%h1 Profiles
+.panel.panel-warning
+  .panel-heading
+    %h1 Profiles
+    =link_to '+ Create New Profile', new_profile_path, :class => 'btn btn-default'
+  .panel-body
+    %table.table.table-striped.table-bordered.table-condensed
+      %tr
+        %th Profile Id
+        %th Name
 
-%table.table.table-striped.table-bordered
-  %tr
-    %th Profile Id
-    %th First name
-    %th Last name
-    %th Display name
-    %th Gender
-    %th Position
-    %th Dob
-    %th Team
-
-  - @profiles.each do |profile|
-    %tr
-      %td= profile.id
-      %td= profile.first_name
-      %td= profile.last_name
-      %td= profile.display_name
-      %td= profile.gender
-      %td= profile.position
-      %td= profile.dob
-      %td
-        -if profile.team
-          = profile.team.name
-
-%br
+      - @profiles.each do |profile|
+        %tr
+          %td= profile.id
+          %td
+            = link_to "#{profile.first_name} #{profile.last_name}", profile
+            

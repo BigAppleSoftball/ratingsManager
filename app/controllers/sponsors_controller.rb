@@ -1,7 +1,7 @@
 class SponsorsController < ApplicationController
   before_action :set_sponsor, only: [:show, :edit, :update, :destroy]
 
-  before_filter :only_for_admin, only: [:edit, :update, :destroy]
+  before_filter :only_for_admin, only: [:edit, :update, :destroy, :new]
   after_action :set_access_control_headers
 
   # GET /sponsors
