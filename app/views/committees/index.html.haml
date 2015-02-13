@@ -1,26 +1,28 @@
-.panel.panel-warning
-  .panel-heading
-    %h1 Committees
-    = link_to '+ Create New Committee', new_committee_path, :class => 'btn btn-default'
-  .panel-body
-    %table.table-striped.table.table-bordered.table-condensed
-      %tr
-        %th Email
-        %th Profile
-        %th Name
-        %th
+- content_for :panel_head do
+  %h1 Committees
+  = render partial: "shared/actions/view_all_actions", locals: { newPath: new_committee_path}
 
-      - @committees.each do |committee|
-        - profile = committee.profile
-        %tr
-          %td= committee.email
-          %td{:class => profile ? '' : 'danger'}
-            -if profile
-              = link_to "#{profile.first_name} #{profile.first_name}", profile
-            -else
-              %i.glyphicon.glyphicon-warning-sign
-              No Profile!
-          %td= link_to committee.name, committee
-          %td
-            = link_to 'Edit', edit_committee_path(committee), :class => 'btn btn-default'
-            = link_to 'Destroy', committee, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-danger'
+%table.table-striped.table.table-bordered.table-condensed
+  %tr
+    %th
+    %th Email
+    %th Profile
+    %th Name
+    %th.actions-column
+
+  - @committees.each do |committee|
+    - profile = committee.profile
+    %tr
+      %td
+        -if profile && profile.long_image_url
+          .image30-wrapper
+            %img{:src => profile.long_image_url}
+      %td= committee.email
+      %td{:class => profile ? '' : 'danger'}
+        -if profile
+          = link_to "#{profile.first_name} #{profile.first_name}", profile
+        -else
+          = render partial: "shared/warning_column", locals: { text: 'No Profile'}
+      %td= link_to committee.name, committee
+      %td
+        = render partial: "shared/actions/table_actions", locals: { editPath: edit_committee_path(committee), deletePath: committee}

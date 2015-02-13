@@ -1,38 +1,32 @@
+- content_for :panel_head do
+  %h1 Board Members
+  = render partial: "shared/actions/view_all_actions", locals: { newPath: new_board_member_path}
 
-.panel.panel-warning
-  .panel-heading
-    %h1 Board Members
-    = link_to '+ New Board Member', new_board_member_path, :class => 'btn btn-primary'
-  .panel-body
-    %table.table.table-striped.table-bordered.table-condensed
-      %tr
-        %th
-        %th Position
-        %th Position Email
-        %th Display order
-        %th Name
-        %th Committee Lead?
-        %th
-        %th
+%table.table.table-striped.table-bordered.table-condensed
+  %tr
+    %th Order
+    %th
+    %th Position
+    %th Position Email
+    %th Name
+    %th.actions-column
 
-      - @board_members.each do |board_member|
-        - profile = board_member.profile
-        %tr
-          %td
-            -if profile && profile.long_image_url
-              .image30-wrapper
-                %img{:src => profile.long_image_url}
-          %td= link_to board_member.position, board_member
-          %td
-            = board_member.email
-          %td= board_member.display_order
-          %td{:class => profile ? '' : 'danger'}
-            - if profile
-              = link_to "#{profile.first_name} #{profile.last_name}", profile 
-            -else
-              %i.glyphicon.glyphicon-warning-sign
-              No Profile!
-          %td=yes_or_no_icon(board_member.is_committee_lead).html_safe
-          %td= link_to 'Edit', edit_board_member_path(board_member), :class=> 'btn btn-default btn-sm'
-          %td= link_to 'Destroy', board_member, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class=> 'btn btn-danger btn-sm'
+  - @board_members.each do |board_member|
+    - profile = board_member.profile
+    %tr
+      %td= board_member.display_order
+      %td
+        -if profile && profile.long_image_url
+          .image30-wrapper
+            %img{:src => profile.long_image_url}
+      %td= link_to board_member.position, board_member
+      %td
+        = board_member.email
+      %td{:class => profile ? '' : 'danger danger-column'}
+        - if profile
+          = link_to "#{profile.first_name} #{profile.last_name}", profile 
+        -else
+          = render partial: "shared/warning_column", locals: { text: 'No Profile'}
+      %td
+        = render partial: "shared/actions/table_actions", locals: { editPath: edit_board_member_path(board_member), deletePath: board_member}
 

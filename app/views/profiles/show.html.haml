@@ -1,30 +1,37 @@
-%p#notice= notice
-.panel.panel-warning
-  .panel-heading
-    %h1
-      = @profile.first_name
-      = @profile.last_name
-    = render partial: "shared/actions/edit", locals: { editPath: edit_profile_path(@profile), editText: "Edit Profile"
-      }
-    = link_to '<<Back', profiles_path, :class => 'btn btn-default'
-    
-  .panel-body
-    -if @profile.long_image_url
-      .card-img-logo
-        %img{:src => @profile.long_image_url}
-    %p
-      %b First name:
-      = @profile.first_name
-    %p
-      %b Last name:
-      = @profile.last_name
-    %p
-      %b Email:
-      = @profile.email
-    %p
-      %b Player number:
-      = @profile.player_number
-    %p
-      %b Team
-      -if @profile.team
-        = @profile.team.name
+- content_for :panel_head do
+  %h1
+    = @profile.first_name
+    = @profile.last_name
+  = render partial: "shared/actions/show_actions", locals: { editPath: edit_profile_path(@profile), fieldName: 'Field', allPath: profiles_path}
+.profile-card.pull-left
+  -if @profile.long_image_url
+    .card-img-logo
+      %img{:src => @profile.long_image_url}
+.profile-details.pull-left
+  %p
+    %b First name:
+    = @profile.first_name
+  %p
+    %b Last name:
+    = @profile.last_name
+  %p
+    %b Email:
+    = @profile.email
+  %p
+    %b Player number:
+    = @profile.player_number
+  %p
+    %b Team
+    -if @profile.team
+      = @profile.team.name
+  -if @board_members
+    Board Positions:
+    %ul
+      -@board_members.each do |board_member|
+        %li=link_to board_member.position, board_member
+  -if @committees
+    Committees:
+    %ul
+      -@committees.each do |committee|
+        %li=link_to committee.name, committee
+

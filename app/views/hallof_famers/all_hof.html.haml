@@ -5,25 +5,7 @@
   %body
     %ul.js-hof-list.hof-list
       - @hallof_famers.each do |hof|
-        %li.hof-card{:ontouchstart=>"this.classList.toggle('hover');"}
-          .hof-card-front
-            .hof-card-image
-              %img{:src=>"#{hof.image_url ? hof.image_url : 'https://style.anu.edu.au/_anu/4/images/placeholders/person_6x8.png'}"}
-              .hof-card-overlay
-            .hof-card-name
-              =hof.first_name
-              =hof.last_name
-          .hof-card-back
-            .hof-card-back-container
-              .hof-card-header
-                .hof-card-name
-                  =hof.first_name
-                  =hof.last_name
-                .hof-card-inducted
-                  Inducted in
-                  =hof.date_inducted.strftime("%Y")
-              .hof-card-player-details
-                %p=hof.details
-
+        =render partial: 'hallof_famers/hof_card', locals: { hof: hof }
+        
     = javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"
     = javascript_include_tag "hofsList.js"

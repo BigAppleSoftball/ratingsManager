@@ -1,6 +1,5 @@
-.panel.panel-info
-  .panel-heading
-    %h1= "Editing Hall of Fame Plaque for #{@hallof_famer.first_name} #{@hallof_famer.last_name}"
-    = link_to '<< Back', hallof_famers_path, :class => 'btn btn-default'
-    = link_to 'Show', @hallof_famer, :class => 'btn btn-default'
-  .panel-body= render 'form'
+- content_for :panel_head do
+  %h1= "Editing Hall of Fame Plaque for #{@hallof_famer.first_name} #{@hallof_famer.last_name}"
+  = render partial: "shared/actions/edit_actions", locals: { allPath: hallof_famers_path, fieldName: 'HOF', showPath: @hallof_famer}
+
+= render 'form'

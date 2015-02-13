@@ -103,3 +103,12 @@ a:hover {
 .chosen-select {
   width: 300px;
 }
+
+.actions-column {
+  width: 105px;
+}
+
+.danger-column {
+  color: darken($red, 30%);
+  font-size: 16px;
+}

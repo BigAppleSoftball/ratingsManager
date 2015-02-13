@@ -1,20 +1,18 @@
-.panel.panel-warning
-  .panel-heading
-    %h1 Profiles
-    =link_to '+ Create New Profile', new_profile_path, :class => 'btn btn-default'
-  .panel-body
-    %table.table.table-striped.table-bordered.table-condensed
-      %tr
-        %th Profile Id
-        %th Name
-        %th 
+- content_for :panel_head do
+  %h1 Profiles
+  = render partial: "shared/actions/view_all_actions", locals: { newPath: new_profile_path}
 
-      - @profiles.each do |profile|
-        %tr
-          %td= profile.id
-          %td
-            = link_to "#{profile.first_name} #{profile.last_name}", profile
-          %td 
-            = link_to 'Edit', edit_profile_path(profile), :class => 'btn btn-default'
-            = link_to 'Destroy', profile, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-danger'
+%table.table.table-striped.table-bordered.table-condensed
+  %tr
+    %th Profile Id
+    %th Name
+    %th.actions-column
+
+  - @profiles.each do |profile|
+    %tr
+      %td= profile.id
+      %td
+        = link_to "#{profile.first_name} #{profile.last_name}", profile
+      %td
+        = render partial: "shared/actions/table_actions", locals: { editPath: edit_profile_path(profile), deletePath: profile}
             

@@ -1,9 +1,6 @@
-.panel.panel-danger
-  .panel-heading
-    %h1 Showing Admin
-    = link_to '<< Back', admins_path, :class => 'btn btn-default'
-    = link_to 'Edit', edit_admin_path(@admin), :class => 'btn btn-default'
-  .panel-body
-    %p
-      %b Email:
-      = @admin.email
+- content_for :panel_head do
+  %h1 Showing Admin
+  = render partial: "shared/actions/show_actions", locals: { editPath: edit_admin_path(@admin), fieldName: 'Admin', allPath: admins_path}
+%p
+  %b Email:
+  = @admin.email

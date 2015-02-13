@@ -1,20 +1,17 @@
-%p#notice= notice
-.panel.panel-primary
+- content_for :panel_head do
+  %h1=@sponsor.name
+  = render partial: "shared/actions/show_actions", locals: { editPath: edit_sponsor_path(@sponsor), fieldName: 'Sponsor', allPath: sponsors_path}
+
+- if @sponsor.logo_url
+  .sponsors-logo
+    %img{:src => @sponsor.logo_url}
+
+=link_to @sponsor.name, @sponsor.url   
+.sponsors-description=@sponsor.details
+.panel.panel-default
   .panel-heading
-    %h3=link_to @sponsor.name, @sponsor.url
+    Sponsored Teams
   .panel-body
-    - if @sponsor.logo_url
-      .sponsors-logo
-        %img{:src => @sponsor.logo_url}
-    .sponsors-description=@sponsor.details
-    .panel.panel-default
-      .panel-heading
-        Sponsored Teams
-      .panel-body
-        %ul
-          -@teamSponsors.each do |team_sponsor|
-            %li=link_to "#{team_sponsor.team.name} (#{team_sponsor.team.division.season.season_desc})", team_sponsor.team
-
-
-
-= link_to 'View our Sponsors', sponsors_path
+    %ul
+      -@teamSponsors.each do |team_sponsor|
+        %li=link_to "#{team_sponsor.team.name} (#{team_sponsor.team.division.season.season_desc})", team_sponsor.team

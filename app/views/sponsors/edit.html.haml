@@ -1,9 +1,7 @@
-.panel.panel-primary
-  .panel-heading
-    %h1 Editing Sponsor
-    = link_to '<< Back', sponsors_path, :class=> 'btn btn-default'
-    = link_to 'Show', @sponsor, :class=> 'btn btn-default'
-  .panel-body
-    = render 'form'
+- content_for :panel_head do
+  %h1 Editing Sponsor
+  = render partial: "shared/actions/edit_actions", locals: { allPath: sponsors_path, fieldName: 'Field', showPath: @sponsor}
+
+= render 'form'
 
 

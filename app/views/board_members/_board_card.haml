@@ -1,0 +1,22 @@
+%li.board-member-card
+  .board-member-card-image
+    %img{:src=>"#{board_member.profile && board_member.profile.long_image_url  ? board_member.profile.long_image_url : 'https://style.anu.edu.au/_anu/4/images/placeholders/person_6x8.png'}"}
+  .board-member-card-overlay
+  .board-member-card-details
+    .board-member-card-name
+      -if board_member.email && board_member.profile
+        %a{:href=>"mailto:#{board_member.email}"}
+          = board_member.profile.first_name
+          = board_member.profile.last_name
+      - elsif board_member.profile
+        = board_member.profile.first_name
+        = board_member.profile.last_name
+      - else 
+        TBD
+    .board-member-card-position
+      - if isCommittee
+        = board_member.name
+      - else
+        = board_member.position
+    .board-member-card-email
+      = board_member.email

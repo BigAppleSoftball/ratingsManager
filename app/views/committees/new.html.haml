@@ -1,5 +1,5 @@
-.panel.panel-warning
-  .panel-heading
-    %h1 New Committee
-    = link_to '<< Back', committees_path, :class=> 'btn btn-default'
-  .panel-body= render 'form'
+- content_for :panel_head do
+  %h1 New Committee
+  = render partial: "shared/actions/all", locals: { allPath: committees_path}
+
+= render 'form'

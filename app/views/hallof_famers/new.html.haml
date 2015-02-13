@@ -1,7 +1,7 @@
-.panel.panel-info
-  .panel-heading
-    %h1 Create New Hall of Famer
-    = link_to '<< Back', hallof_famers_path, :class => 'btn btn-default'
-  .panel-body= render 'form'
+- content_for :panel_head do
+  %h1 Create New Hall of Famer
+  = render partial: "shared/actions/all", locals: { allPath: hallof_famers_path}
+
+= render 'form'
 
 

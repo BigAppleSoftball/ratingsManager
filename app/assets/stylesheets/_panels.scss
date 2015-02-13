@@ -1,8 +1,66 @@
+$fields-bg: $purple;
+$admins-bg: $red;
+$sponsors-bg: $blue;
+$hofs-bg: $yellow;
+$board_members-bg: $green;
+$committees-bg: $orange;
+$profiles-bg: $pink;
+
+#controller-admins {
+  @include set-panel($admins-bg, white);   
+}
+
 #controller-fields {
-  .panel-default {
-    > .panel-heading {
-      background: $purple;
-      color: #fff;
-    }
-  }   
+  @include set-panel($fields-bg, white);
+}
+
+#controller-sponsors {
+  @include set-panel($sponsors-bg, white);
+}
+
+#controller-hallof_famers {
+  @include set-panel($hofs-bg, black);
+}
+
+#controller-board_members {
+  @include set-panel($board_members-bg, white);
+}
+
+#controller-committees {
+  @include set-panel($committees-bg, white);
+}
+
+#controller-profiles {
+  @include set-panel($profiles-bg, white);
+}
+
+.admin-list-group {
+  .fields-group-item:hover {
+    background: lighten($fields-bg, 30%);
+  }
+  .admins-group-item:hover {
+    background: lighten($admins-bg, 30%);
+  }
+
+  .sponsors-group-item:hover {
+    background: lighten($sponsors-bg, 30%);
+  }
+
+  .hofs-group-item:hover {
+    background: lighten($hofs-bg, 30%);
+  }
+
+  .board_members-group-item:hover {
+    background: lighten($board_members-bg, 30%);
+  }
+
+  .committees-group-item:hover {
+    background: lighten($committees-bg, 30%);
+  }
+
+  .profiles-group-item:hover {
+    background: lighten($profiles-bg, 30%);
+  }
+
+
 }

@@ -1,28 +1,27 @@
+- content_for :panel_head do
+  %h1= @board_member.position
+  = render partial: "shared/actions/show_actions", locals: { editPath: edit_board_member_path(@board_member), fieldName: 'Field', allPath: board_members_path}
+  - if @board_member.profile
+    = link_to raw("<i class='glyphicon glyphicon-pencil'></i> Edit Profile"), edit_profile_path(@board_member.profile), :class => 'btn btn-default'
 %p#notice= notice
-
-.panel.panel-warning
-  .panel-heading
-    %h1= @board_member.position
-    = link_to '<< Back', board_members_path, :class => 'btn btn-default'
-    - if @board_member.profile
-      = link_to raw("<i class='glyphicon glyphicon-pencil'></i> Edit Board Member Profile"), edit_profile_path(@board_member.profile), :class => 'btn btn-default'
-    = link_to raw("<i class='glyphicon glyphicon-pencil'></i> Edit Board Member"), edit_board_member_path(@board_member), :class => 'btn btn-default'
-  .panel-body
-    %p
-      %b Email:
-      = @board_member.email
-    %p
-      %b Display order:
-      = @board_member.display_order
-    %p
-      %b Profile
-      -if @board_member.profile_id
-        = link_to "#{@board_member.profile.first_name} #{@board_member.profile.last_name}", @board_member.profile
-    %p
-      %b Image url:
-      = @board_member.image_url
-    %p
-      %b Is Committee Lead:
-      = @board_member.is_committee_lead
+- if @board_member.profile && @board_member.profile.long_image_url
+  %ul.board-members-list.pull-left
+    =render partial: 'board_members/board_card', locals: { board_member: @board_member, isCommittee: false }
+.board-member-details.pull-left
+  .well
+    To change the Board member name or card image please edit the connected profile
+  %p
+    %b Email:
+    = @board_member.email
+  %p
+    %b Display order:
+    = @board_member.display_order
+  %p
+    %b Profile
+    -if @board_member.profile_id
+      = link_to "#{@board_member.profile.first_name} #{@board_member.profile.last_name}", @board_member.profile
+  %p
+    %b Image url:
+    = @board_member.image_url
 
 

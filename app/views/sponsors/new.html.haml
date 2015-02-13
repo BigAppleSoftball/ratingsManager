@@ -1,7 +1,7 @@
-.panel.panel-primary
-  .panel-heading
-    %h1 Creating New Sponsor
-    = link_to '<< Back', sponsors_path, :class => 'btn btn-default'
-  .panel-body= render 'form'
+- content_for :panel_head do
+  %h1 Creating New Sponsor
+  = render partial: "shared/actions/all", locals: { allPath: sponsors_path}
+
+= render 'form'
 
 

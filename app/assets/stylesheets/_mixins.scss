@@ -7,3 +7,21 @@
     color: #fff;
   }
 }
+
+
+@mixin set-panel ($background, $foreground) {
+  .panel-default.main-panel {
+    > .panel-heading {
+      background: $background;
+      color: $foreground;
+    }
+  }
+}
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}

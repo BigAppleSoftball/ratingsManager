@@ -1,31 +1,25 @@
-%p#notice= notice
-.panel.panel-info
-  .panel-heading
-    %h1
-      =@hallof_famer.first_name
-      =@hallof_famer.last_name
-  .panel-body
-    .hof-players-logo
-      %img{:src => @hallof_famer.image_url}
-    %p
-      %b Display Order:
-      = @hallof_famer.display_order
-    %p
-      %b Profile:
-      = @hallof_famer.profile_id
-    %p
-      %b Year inducted:
-      = @hallof_famer.date_inducted.strftime("%Y")
-    %p
-      %b Player Details:
-      = @hallof_famer.details
-    %p
-      %b Is active:
-      = @hallof_famer.is_active
-    %p
-      %b Is inducted:
-      = @hallof_famer.is_inducted
-
-= link_to 'Edit', edit_hallof_famer_path(@hallof_famer)
-\|
-= link_to 'Back', hallof_famers_path
+- content_for :panel_head do
+  %h1
+    =@hallof_famer.first_name
+    =@hallof_famer.last_name
+  = render partial: "shared/actions/show_actions", locals: { editPath: edit_hallof_famer_path(@hallof_famer), fieldName: 'Field', allPath: hallof_famers_path}
+%ul.js-hof-list.hof-list
+  =render partial: 'hallof_famers/hof_card', locals: { hof: @hallof_famer }
+%p
+  %b Display Order:
+  = @hallof_famer.display_order
+%p
+  %b Profile:
+  = @hallof_famer.profile_id
+%p
+  %b Year inducted:
+  = @hallof_famer.date_inducted.strftime("%Y")
+%p
+  %b Player Details:
+  = @hallof_famer.details
+%p
+  %b Is active:
+  = @hallof_famer.is_active
+%p
+  %b Is inducted:
+  = @hallof_famer.is_inducted

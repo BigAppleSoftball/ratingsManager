@@ -1,12 +1,11 @@
-.panel.panel-primary
-  .panel-heading
-    %h1 Admin Actions
-  .panel-body
-    .list-group
-      = link_to 'Edit Sponsors', sponsors_path, :class => 'list-group-item'
-      = link_to 'Edit Admins', admins_path, :class => 'list-group-item'
-      = link_to 'Edit Hall of Fame', hallof_famers_path, :class => 'list-group-item'
-      = link_to 'Edit Executive Board', board_members_path, :class => 'list-group-item'
-      = link_to 'Edit Committees', committees_path, :class => 'list-group-item'
-      = link_to 'Edit Profiles', profiles_path, :class => 'list-group-item'
-      = link_to 'Edit Fields', fields_path, :class => 'list-group-item'
+- content_for :panel_head do
+  %h1 Admin Actions
+
+.list-group.admin-list-group
+  = link_to 'Edit Sponsors', sponsors_path, :class => 'list-group-item sponsors-group-item'
+  = link_to 'Edit Admins', admins_path, :class => 'list-group-item admins-group-item'
+  = link_to 'Edit Hall of Fame', hallof_famers_path, :class => 'list-group-item hofs-group-item'
+  = link_to 'Edit Executive Board', board_members_path, :class => 'list-group-item board_members-group-item'
+  = link_to 'Edit Committees', committees_path, :class => 'list-group-item committees-group-item'
+  = link_to 'Edit Profiles', profiles_path, :class => 'list-group-item profiles-group-item'
+  = link_to 'Edit Fields', fields_path, :class => 'list-group-item fields-group-item'

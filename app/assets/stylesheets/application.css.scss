@@ -12,12 +12,17 @@
  *
  **= require chosen
  */
-
-@import 'compass',
+@import 'compass/utilities/general/clearfix',
+        'compass',
         'mixins',
         'bootstrap-custom',
         'chosen',
         'global',
         'panels',
         
-        'fields';
+        'fields',
+        'boardList',
+        'hofsList',
+        'board_members',
+        'profiles',
+        'committees';

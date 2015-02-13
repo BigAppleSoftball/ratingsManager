@@ -1,37 +1,34 @@
-.panel.panel-primary
-  .panel-heading
-    %h1 BASL Sponsors
-    = link_to '+ Add New Sponsor', new_sponsor_path, {:class => 'btn btn-default'}
-  .panel-body
-    .well
-      Note: 
-      %br
-      ACTIVE sponsors will be shown on the sponsors page
-      %br
-      SHOW IN CAROUSEL sponsors will be shown in the sidebar carousel 
-    %table.table.table-bordered.table-striped
-      %tr
-        %th Logo
-        %th Name
-        %th External Url
-        %th Details
-        -if is_admin?
-          %th Active?
-          %th Shown in Carousel?
-          %th Actions
-      - @sponsors.each do |sponsor|
-        %tr
-          %td
-            -if sponsor.logo_url
-              .sponsors-logo-small
-                %img{:src =>sponsor.logo_url}
-          %td=link_to sponsor.name, sponsor
-          %td=link_to raw("<i class='glyphicon glyphicon-new-window'></i>"), sponsor.url, :target => '_blank'
-          %td= sponsor.details
-          - if is_admin?
-            %td=yes_or_no_icon(sponsor.is_active).html_safe
-            %td=yes_or_no_icon(sponsor.show_carousel).html_safe
-            %td
-              =link_to "Edit", edit_sponsor_path(sponsor), :class =>'btn btn-default btn-sm'
-              = link_to 'Destroy', sponsor, :method => :delete, :class =>'btn btn-danger btn-sm', :data => { :confirm => 'Are you sure?' }
+- content_for :panel_head do
+  %h1 BASL Sponsors
+  = render partial: "shared/actions/view_all_actions", locals: { newPath: new_sponsor_path}
+.well
+  Note: 
+  %br
+  ACTIVE sponsors will be shown on the sponsors page
+  %br
+  SHOW IN CAROUSEL sponsors will be shown in the sidebar carousel 
+%table.table.table-bordered.table-striped
+  %tr
+    %th Logo
+    %th Name
+    %th
+    %th Details
+    -if is_admin?
+      %th Active?
+      %th Shown in Carousel?
+      %th.actions-column Actions
+  - @sponsors.each do |sponsor|
+    %tr
+      %td
+        -if sponsor.logo_url
+          .sponsors-logo-small
+            %img{:src =>sponsor.logo_url}
+      %td=link_to sponsor.name, sponsor
+      %td=link_to raw("<i class='glyphicon glyphicon-new-window'></i>"), sponsor.url, :target => '_blank'
+      %td= sponsor.details
+      - if is_admin?
+        %td=yes_or_no_icon(sponsor.is_active).html_safe
+        %td=yes_or_no_icon(sponsor.show_carousel).html_safe
+        %td
+          = render partial: "shared/actions/table_actions", locals: { editPath: edit_sponsor_path(sponsor), deletePath: sponsor}
 

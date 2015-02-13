@@ -1,6 +1,4 @@
-.panel.panel-danger
-  .panel-heading
-    %h1 Editing Admin
-    = link_to '<< Back', admins_path, :class => 'btn btn-default'
-    = link_to 'Show', @admin, :class => 'btn btn-default'
-  .panel-body= render 'form'
+- content_for :panel_head do
+  %h1 Editing Admin
+  = render partial: "shared/actions/edit_actions", locals: { allPath: admins_path, fieldName: 'Admin', showPath: @admin}
+= render 'form'

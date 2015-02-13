@@ -1,35 +1,30 @@
+- content_for :panel_head do
+  %h1 Current Hall of Famers
+  = render partial: "shared/actions/view_all_actions", locals: { newPath: new_hallof_famer_path}
 
-.panel.panel-info
-  .panel-heading
-    %h1 Current Hall of Famers
-    = link_to '+ Create New Hall of Famer', new_hallof_famer_path, :class => 'btn btn-default'
-  .panel-body
-    %table.table.table-striped.table-bordered
-      %tr
-        %th Order
-        %th
-        %th Name
-        %th Year Inducted
-        %th Details
-        %th Is active
-        %th Is inducted
-        %th
-        %th
-        %th
+%table.table.table-striped.table-bordered.table-condensed
+  %tr
+    %th Order
+    %th
+    %th Name
+    %th Year Inducted
+    %th Details
+    %th Active?
+    %th Inducted?
+    %th.actions-column
 
-      - @hallof_famers.each do |hallof_famer|
-        %tr
-          %th=hallof_famer.display_order
-          %th
-            -if hallof_famer.image_url
-              .image30-wrapper
-                %img{:src => hallof_famer.image_url}
-          %td= link_to "#{hallof_famer.first_name} #{hallof_famer.last_name}", hallof_famer
-          %td= hallof_famer.date_inducted.strftime("%Y")
-          %td
-            %p= hallof_famer.details
-          %td=yes_or_no_icon(hallof_famer.is_active).html_safe
-          %td=yes_or_no_icon(hallof_famer.is_inducted).html_safe
-          %td= link_to 'Edit', edit_hallof_famer_path(hallof_famer), :class => 'btn btn-default btn-sm'
-          %td= link_to 'Destroy', hallof_famer, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-danger btn-sm'
+  - @hallof_famers.each do |hallof_famer|
+    %tr
+      %th=hallof_famer.display_order
+      %th
+        -if hallof_famer.image_url
+          .image30-wrapper
+            %img{:src => hallof_famer.image_url}
+      %td= link_to "#{hallof_famer.first_name} #{hallof_famer.last_name}", hallof_famer
+      %td= hallof_famer.date_inducted.strftime("%Y")
+      %td
+        %p= hallof_famer.details
+      %td=yes_or_no_icon(hallof_famer.is_active).html_safe
+      %td=yes_or_no_icon(hallof_famer.is_inducted).html_safe
+      %td= render partial: "shared/actions/table_actions", locals: { editPath: edit_hallof_famer_path(hallof_famer), deletePath: hallof_famer}
 

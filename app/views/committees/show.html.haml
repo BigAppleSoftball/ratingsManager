@@ -1,20 +1,24 @@
-.panel.panel-warning
-  .panel-heading
-    %h1 Committees
-    = link_to '<< Back', committees_path, :class=> 'btn btn-default'
-    = link_to raw("<i class='glyphicon glyphicon-pencil'></i> Edit Profile"), edit_committee_path(@committee), :class=> 'btn btn-default'
+- content_for :panel_head do
+  %h1 Committees
+  = render partial: "shared/actions/show_actions", locals: { editPath: edit_committee_path(@committee), fieldName: 'Field', allPath: committees_path}
+  - if @committee.profile
+    = link_to raw("<i class='glyphicon glyphicon-pencil'></i> Edit Profile"), edit_profile_path(@committee.profile), :class => 'btn btn-default'
 
-  .panel-body
-    %p#notice= notice
-    %p
-      %b Email:
-      = @committee.email
-    %p
-      %b Profile:
-      - if @committee.profile
-        = link_to "#{@committee.profile.first_name} #{@committee.profile.last_name}", @committee.profile 
-    %p
-      %b Name:
-      = @committee.name
+- if @committee.profile && @committee.profile.long_image_url
+  %ul.board-members-list.pull-left
+    =render partial: 'board_members/board_card', locals: { board_member: @committee, isCommittee: true }
+.committee-details.pull-left
+  .well
+    To change the Committee Lead name or card image please edit the connected profile
+  %p
+    %b Email:
+    = @committee.email
+  %p
+    %b Profile:
+    - if @committee.profile
+      = link_to "#{@committee.profile.first_name} #{@committee.profile.last_name}", @committee.profile 
+  %p
+    %b Name:
+    = @committee.name
 
 
