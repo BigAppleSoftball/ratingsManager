@@ -7,10 +7,14 @@
       %tr
         %th Profile Id
         %th Name
+        %th 
 
       - @profiles.each do |profile|
         %tr
           %td= profile.id
           %td
             = link_to "#{profile.first_name} #{profile.last_name}", profile
+          %td 
+            = link_to 'Edit', edit_profile_path(profile), :class => 'btn btn-default'
+            = link_to 'Destroy', profile, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-danger'
             
