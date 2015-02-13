@@ -3,6 +3,10 @@
 .panel.panel-warning
   .panel-heading
     %h1= @board_member.position
+    = link_to '<< Back', board_members_path, :class => 'btn btn-default'
+    - if @board_member.profile
+      = link_to raw("<i class='glyphicon glyphicon-pencil'></i> Edit Board Member Profile"), edit_profile_path(@board_member.profile), :class => 'btn btn-default'
+    = link_to raw("<i class='glyphicon glyphicon-pencil'></i> Edit Board Member"), edit_board_member_path(@board_member), :class => 'btn btn-default'
   .panel-body
     %p
       %b Email:
@@ -21,6 +25,4 @@
       %b Is Committee Lead:
       = @board_member.is_committee_lead
 
-= link_to 'Edit', edit_board_member_path(@board_member)
-\|
-= link_to 'Back', board_members_path
+
