@@ -1,8 +1,9 @@
 .panel.panel-warning
   .panel-heading
     %h1 Committees
-    = link_to '<< Edit', edit_committee_path(@committee), :class=> 'btn btn-default'
-    = link_to 'Back', committees_path, :class=> 'btn btn-default'
+    = link_to '<< Back', committees_path, :class=> 'btn btn-default'
+    = link_to raw("<i class='glyphicon glyphicon-pencil'></i> Edit Profile"), edit_committee_path(@committee), :class=> 'btn btn-default'
+
   .panel-body
     %p#notice= notice
     %p
@@ -10,7 +11,8 @@
       = @committee.email
     %p
       %b Profile:
-      = @committee.profile_id
+      - if @committee.profile
+        = link_to "#{@committee.profile.first_name} #{@committee.profile.last_name}", @committee.profile 
     %p
       %b Name:
       = @committee.name

@@ -1,4 +1,4 @@
-%select#board_member_profile_id.chosen-select{:name => 'board_member[profile_id]', :data => {:placeholder => placeHolder}}
+%select.chosen-select{:name => selectName, :data => {:placeholder => placeHolder}, :id => selectId}
   %option{:value => 0}
   -profiles.each do |profile|
     -if currentValue == profile.id

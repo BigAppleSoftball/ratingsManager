@@ -14,7 +14,8 @@
     = f.label :profile_id, {:class => 'col-sm-2 control-label'}
     .col-sm-10
       = render partial: "shared/profile_picker", locals: { profiles: @profiles, currentValue: @committee.profile_id,
-        placeHolder: "Choose a User Profile"}
+        placeHolder: "Choose a User Profile", selectName: 'committee[profile_id]', 
+        selectId: 'committee_profile_id'}
   .form-group
     = f.label :name, {:class => 'col-sm-2 control-label'}
     .col-sm-10
