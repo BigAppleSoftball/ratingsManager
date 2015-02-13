@@ -19,9 +19,9 @@
         - profile = board_member.profile
         %tr
           %td
-            -if board_member.image_url
+            -if profile && profile.long_image_url
               .image30-wrapper
-                %img{:src => board_member.image_url}
+                %img{:src => profile.long_image_url}
           %td= link_to board_member.position, board_member
           %td
             = board_member.email

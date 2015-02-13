@@ -7,6 +7,9 @@
     = link_to '<<Back', profiles_path, :class => 'btn btn-default'
     = link_to raw("<i class='glyphicon glyphicon-pencil'></i> Edit Profile"), edit_profile_path(@profile), :class => 'btn btn-default'
   .panel-body
+    -if @profile.long_image_url
+      .card-img-logo
+        %img{:src => @profile.long_image_url}
     %p
       %b First name:
       = @profile.first_name
