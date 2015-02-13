@@ -22,6 +22,10 @@
     .col-sm-10
       = f.number_field :player_number, {:class => 'form-control'}
   .form-group
+    = f.label :long_image_url, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_field :long_image_url, {:class => 'form-control'}
+  .form-group
     = f.label :dob, {:class => 'col-sm-2 control-label'}
     .col-sm-10
       = f.text_field :dob, {:class => 'form-control', :placeholder => 'YYYY-MM-DD'}
