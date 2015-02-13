@@ -1,8 +1,9 @@
 %p#notice= notice
-.panel.panel-default
+.panel.panel-info
   .panel-heading
-    =@hallof_famer.first_name
-    =@hallof_famer.last_name
+    %h1
+      =@hallof_famer.first_name
+      =@hallof_famer.last_name
   .panel-body
     .hof-players-logo
       %img{:src => @hallof_famer.image_url}

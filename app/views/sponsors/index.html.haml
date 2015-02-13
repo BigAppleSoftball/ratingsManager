@@ -13,6 +13,7 @@
       %tr
         %th Logo
         %th Name
+        %th External Url
         %th Details
         -if is_admin?
           %th Active?
@@ -24,7 +25,8 @@
             -if sponsor.logo_url
               .sponsors-logo-small
                 %img{:src =>sponsor.logo_url}
-          %td=link_to sponsor.name, sponsor.url, {:target =>'_blank'}
+          %td=link_to sponsor.name, sponsor
+          %td=link_to raw("<i class='glyphicon glyphicon-new-window'></i>"), sponsor.url, :target => '_blank'
           %td= sponsor.details
           - if is_admin?
             %td=yes_or_no_icon(sponsor.is_active).html_safe

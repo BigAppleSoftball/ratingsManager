@@ -1,5 +1,5 @@
-%h1 Add New Board Member
-
-= render 'form'
-
-= link_to 'Back', board_members_path
+.panel.panel-warning
+  .panel-heading
+    %h1 Add New Board Member
+    =link_to '<< Back', board_members_path, :class => 'btn btn-default'
+  .panel-body= render 'form'

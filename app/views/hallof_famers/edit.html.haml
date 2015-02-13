@@ -1,7 +1,6 @@
-%h1= "Editing Hall of Fame Plaque for #{@hallof_famer.first_name} #{@hallof_famer.last_name}"
-
-= render 'form'
-
-= link_to 'Show', @hallof_famer
-\|
-= link_to 'Back', hallof_famers_path
+.panel.panel-info
+  .panel-heading
+    %h1= "Editing Hall of Fame Plaque for #{@hallof_famer.first_name} #{@hallof_famer.last_name}"
+    = link_to '<< Back', hallof_famers_path, :class => 'btn btn-default'
+    = link_to 'Show', @hallof_famer, :class => 'btn btn-default'
+  .panel-body= render 'form'

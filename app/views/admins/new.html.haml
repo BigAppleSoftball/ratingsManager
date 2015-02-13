@@ -1,5 +1,7 @@
-%h1 New admin
+.panel.panel-danger
+  .panel-heading
+    %h1 Creating New Admin
+    = link_to '<< Back', admins_path, :class => 'btn btn-default'
+  .panel-body= render 'form'
 
-= render 'form'
 
-= link_to 'Back', admins_path

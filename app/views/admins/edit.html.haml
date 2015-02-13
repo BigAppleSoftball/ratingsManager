@@ -1,7 +1,6 @@
-%h1 Editing admin
-
-= render 'form'
-
-= link_to 'Show', @admin
-\|
-= link_to 'Back', admins_path
+.panel.panel-danger
+  .panel-heading
+    %h1 Editing Admin
+    = link_to '<< Back', admins_path, :class => 'btn btn-default'
+    = link_to 'Show', @admin, :class => 'btn btn-default'
+  .panel-body= render 'form'

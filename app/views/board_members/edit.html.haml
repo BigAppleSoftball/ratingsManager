@@ -1,7 +1,6 @@
-%h1 Editing Board Member
-
-= render 'form'
-
-= link_to 'Show', @board_member
-\|
-= link_to 'Back', board_members_path
+.panel.panel-warning
+  .panel-heading
+    %h1 Editing Board Member
+    =link_to '<< Back', board_members_path, :class => 'btn btn-default'
+    = link_to 'Show', @board_member, :class => 'btn btn-default'
+  .panel-body= render 'form'
