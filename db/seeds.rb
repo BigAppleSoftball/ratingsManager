@@ -319,6 +319,16 @@ def set_board_members_profile_id
   end
 end
 
+def move_long_image_url_to_profile
+  boards = BoardMember.all
+  boards.each do |board|
+    if !board.profile.nil? && board[:image_url]
+      board.profile[:long_image_url] = board[:image_url]
+      board.profile.save
+    end
+  end
+end
+
 #generate_team_backup
 #generate_division_backup
 #generate_season_backup
@@ -334,3 +344,4 @@ end
 #set_display_order_hof
 #set_board_members_committee
 set_board_members_profile_id
+move_long_image_url_to_profile
