@@ -35,6 +35,7 @@ Rails.application.routes.draw do
   get '/sponsorscarousel', to: 'sponsors#sponsor_carousel'
   get '/showallhof', to: 'hallof_famers#all_hof'
   get '/showallboard', to: 'board_members#all_board'
+  get '/showallcommittee', to: 'board_members#all_committee'
   get '/loadsidebar', to: 'welcome#basl_sidebar'
 
   #admin panel
