@@ -1,0 +1,33 @@
+@import 'vars',
+        'compass',
+        'mixins',
+        'stop-light';
+
+.game-status {
+  border: 1px solid $dark-gray;
+  @include border-radius(5px);
+  margin: 10px 0;
+  padding: 5px;
+  @include clearfix;
+  text-transform: none;
+  font-size: 14px;
+
+  &.status-0 {
+    background: lighten($green, 40%);
+  }
+
+  &.status-1 {
+    background: lighten($yellow, 55%);
+  }
+
+  &.status-2 {
+    background: lighten($red, 30%);
+    border: 1px solid $red;
+    font-weight: bold;
+  }
+}
+
+.stop-light {
+  float: left;
+  margin-right: 5px;
+}

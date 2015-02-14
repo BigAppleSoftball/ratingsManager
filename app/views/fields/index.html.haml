@@ -1,7 +1,15 @@
 - content_for :panel_head do
   %h1 Fields
-  = render partial: "shared/actions/view_all_actions", locals: { newPath: new_field_path}
+  = render partial: 'shared/actions/view_all_actions', locals: { newPath: new_field_path}
+- blockClass = 'alert-success'
+-if @anyBadStatus.length > 0
+  - blockClass = 'alert-danger'
 
+.alert{:class => blockClass}
+  -if @anyBadStatus.length > 0
+    Some fields are marked as closed or partially closed, A warning will be shown on the BASL sidebar
+  - else
+    All fields are marked as open.
 %table.table.table-striped.table-condensed.table-bordered
   %tr
     %th Name
@@ -9,16 +17,17 @@
     %th Directions
     %th Url
     %th Google map url
-    %th
-
+    %th.actions-column
+  - statuses = get_field_statuses
   - @fields.each do |field|
     %tr
       %td= link_to field.name, field
-      %td= field.status
-      %td= field.directions
-      %td= link_to 'Field URL', field.url, {:target => '_blank'}
-      %td= link_to 'Field URL', field.google_map_url, {:target => '_blank'}
       %td
-        = render partial: "shared/actions/table_actions", locals: { editPath: edit_field_path(field), deletePath: field}
+        = render partial: 'status_indicator', locals: {statusValue: field.status , statusString: statuses[field.status]}
+      %td= field.directions
+      %td= link_to 'Field', field.url, {:target => '_blank'}
+      %td= link_to 'Google Map', field.google_map_url, {:target => '_blank'}
+      %td
+        = render partial: 'shared/actions/table_actions', locals: { editPath: edit_field_path(field), deletePath: field}
 
 

@@ -1,5 +1,16 @@
-%link{:href => "https://fonts.googleapis.com/css?family=Montserrat", :rel => "stylesheet", :type => "text/css"}/
+%link{:href => "https://fonts.googleapis.com/css?family=Montserrat", :rel => "stylesheet", :type => "text/css"}
+=stylesheet_link_tag "sidebar.css"
 =stylesheet_link_tag "http://#{request.host_with_port}/css/sponsorCarousel.css"
+
+- if @fieldStatus
+  .game-status{:class => "status-#{@fieldStatus}"}
+    = render partial: "fields/status_indicator", locals: {statusValue: @fieldStatus , statusString: @fieldStatus}
+    - if @fieldStatus == 1
+      Some Fields are Partially Closed.
+    - elsif @fieldStatus == 2
+      All Fields are Closed
+    - elsif @fieldStatus == 0
+      All Fields are Open
 
 .sponsors-carousel-wrapper
   .sponsors-carousel-window
@@ -8,6 +19,9 @@
         %li
           %a{:href=>sponsor.url, :title => sponsor.name, :target=> '_blank'}
             %img{:src=>"#{sponsor.logo_url}"}
+
+
+
 
 = javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"
 = javascript_include_tag "http://#{request.host_with_port}/javascripts/sponsorsCarousel.js"

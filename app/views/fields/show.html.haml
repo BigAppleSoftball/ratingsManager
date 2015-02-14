@@ -1,11 +1,10 @@
 - content_for :panel_head do
   %h1= @field.name
   = render partial: "shared/actions/show_actions", locals: { editPath: edit_field_path(@field), fieldName: 'Field', allPath: fields_path}
-
-%p#notice= notice
+- statuses = get_field_statuses
 %p
-  %b Status:
-  = @field.status
+  = render partial: "status_indicator", locals: {statusValue: @field.status , statusString: statuses[@field.status]}
+  = statuses[@field.status]
 %p
   %b Name:
   = @field.name

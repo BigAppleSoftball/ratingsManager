@@ -11,7 +11,10 @@
       - statuses = get_field_statuses
       %select#field_status.chosen-select{:name => 'field[status]'}
         - statuses.keys.each do |key|
-          %option{:value => key}=statuses[key]
+          -if @field && @field.status == key
+            %option{:value => key, :selected => true}=statuses[key]
+          -else
+            %option{:value => key}=statuses[key]
   .form-group
     = f.label :name, {:class => 'col-sm-2 control-label'}
     .col-sm-10
