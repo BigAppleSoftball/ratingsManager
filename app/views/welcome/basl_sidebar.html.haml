@@ -1,7 +1,5 @@
 %link{:href => "https://fonts.googleapis.com/css?family=Montserrat", :rel => "stylesheet", :type => "text/css"}
-=stylesheet_link_tag "sidebar.css"
 =stylesheet_link_tag "http://#{request.host_with_port}/css/sponsorCarousel.css"
-
 - if @fieldStatus
   .game-status{:class => "status-#{@fieldStatus}"}
     = render partial: "fields/status_indicator", locals: {statusValue: @fieldStatus , statusString: @fieldStatus}
