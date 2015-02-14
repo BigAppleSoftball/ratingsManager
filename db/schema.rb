@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150213161507) do
+ActiveRecord::Schema.define(version: 20150214034734) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -61,9 +61,17 @@ ActiveRecord::Schema.define(version: 20150213161507) do
     t.string   "name"
     t.text     "directions"
     t.string   "url"
-    t.string   "google_map_url"
+    t.text     "google_map_url"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "address"
+    t.string   "city"
+    t.string   "zip"
+    t.text     "by_car"
+    t.text     "by_bus"
+    t.text     "by_train"
+    t.text     "parking"
+    t.boolean  "is_active"
   end
 
   create_table "hallof_famers", force: true do |t|

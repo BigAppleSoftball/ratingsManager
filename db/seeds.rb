@@ -259,6 +259,27 @@ def set_display_order_hof
     order+=1
   end
 end
+#LocID LocName LocAddress  LocCity LocState  LocZip  LocPhone  LocFax  LocTollFree LocMapURL LocByCar  LocByBus  LocByTrain  LocParking  LocDocURL DateUpdated ByUpdated IsVisible IsActive                                  
+def generate_fields_backup
+  csvRows = get_csv_file('fields2.csv')
+
+  csvRows.each do |row|
+    field = Field.new(
+    :is_active => row[:isactive],
+    :address => row[:locaddress],
+    :city => row[:city],
+    :zip => row[:zip],
+    :by_car => row[:locbycar],
+    :by_bus => row[:locbybus],
+    :by_train => row[:locbytrain],
+    :parking => row[:locparking],
+    :name => row[:locname],
+    :google_map_url => row[:locmapurl],
+    :status => 0
+    )
+    field.save
+  end
+end
 
 def set_board_members_committee
   boards = BoardMember.all
@@ -343,5 +364,6 @@ end
 #generate_board_members_backup
 #set_display_order_hof
 #set_board_members_committee
-set_board_members_profile_id
-move_long_image_url_to_profile
+#set_board_members_profile_id
+#move_long_image_url_to_profile
+generate_fields_backup
