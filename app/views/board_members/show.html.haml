@@ -18,7 +18,7 @@
     = @board_member.display_order
   %p
     %b Profile
-    -if @board_member.profile_id
+    -if @board_member.profile
       = link_to "#{@board_member.profile.first_name} #{@board_member.profile.last_name}", @board_member.profile
   %p
     %b Image url:
