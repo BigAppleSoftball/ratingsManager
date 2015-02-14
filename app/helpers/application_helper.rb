@@ -55,5 +55,36 @@ module ApplicationHelper
     field_statuses
   end
 
+  def sortable(column, title = nil, isAlphabet = false, isNum = false)
+    title ||= column.titleize
+    
+    css_class = column == sort_column ? "current-column #{sort_direction}" : 'sortable-column'
+    direction = column == sort_column && sort_direction == 'asc' ? 'desc' : 'asc'
+
+    if column == sort_column
+      if sort_direction == 'asc'
+        
+        if isAlphabet 
+          icon = "glyphicon glyphicon-sort-by-alphabet"
+        elsif isNum
+          icon = "glyphicon glyphicon-sort-by-order"
+        else
+          icon = 'glyphicon glyphicon-sort-by-attributes'
+        end
+      else 
+        if isAlphabet 
+          icon = "glyphicon glyphicon-sort-by-alphabet-alt"
+        elsif isNum
+          icon = "glyphicon glyphicon-sort-by-order-alt"
+        else
+          icon = 'glyphicon glyphicon-sort-by-attributes-alt'
+        end
+      end
+    else
+      icon = 'glyphicon glyphicon-sort'
+    end
+
+    link_to raw("#{title} <i class='#{icon}'></i>"), params.merge(:sort => column, :direction => direction, :page => nil), {:class => css_class}
+  end
 
 end

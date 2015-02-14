@@ -1,11 +1,11 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
   before_filter :only_for_admin, only: [:edit, :update, :destroy, :new]
-
+  helper_method :sort_column, :sort_direction
   # GET /profiles
   # GET /profiles.json
   def index
-    @profiles = Profile.order('last_name ASC').all
+    @profiles = Profile.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 100,:page => params[:page])
   end
 
   # GET /profiles/1
@@ -73,5 +73,13 @@ class ProfilesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
       params.require(:profile).permit(:profile_code, :first_name, :last_name, :email, :nickname, :display_name, :player_number, :gender, :shirt_size, :address, :state, :zip, :phone, :emergency_name, :emergency_relation, :emergency_phone, :emergency_email, :position, :dob, :team_id, :long_image_url)
+    end
+
+    def sort_column
+      Profile.column_names.include?(params[:sort]) ? params[:sort] : "last_name"
+    end
+  
+    def sort_direction
+      %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
 end

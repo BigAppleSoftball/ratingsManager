@@ -17,6 +17,7 @@ gem 'haml-rails'
 gem 'jquery-rails'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
+gem 'will_paginate', '~> 3.0.6'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 gem 'render_csv'

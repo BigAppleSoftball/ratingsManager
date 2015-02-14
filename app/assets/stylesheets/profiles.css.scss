@@ -9,4 +9,21 @@
     width: 700px;
     margin-left: 10px;
   }
+
+  #profiles_search {
+    margin: 10px 0;
+    float: left;
+  }
+
+  .pagination {
+    float: right;
+
+    a {
+      font-size: 14px;
+    }
+  }
+
+  .table-filter {
+    @include clearfix;
+  }
 }
