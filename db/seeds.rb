@@ -267,9 +267,10 @@ def generate_fields_backup
     field = Field.new(
     :is_active => row[:isactive],
     :address => row[:locaddress],
-    :city => row[:city],
-    :zip => row[:zip],
+    :city => row[:loccity],
+    :zip => row[:loczip],
     :by_car => row[:locbycar],
+    :state=> row[:locstate],
     :by_bus => row[:locbybus],
     :by_train => row[:locbytrain],
     :parking => row[:locparking],

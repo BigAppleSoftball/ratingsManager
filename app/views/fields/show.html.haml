@@ -9,11 +9,21 @@
   %b Name:
   = @field.name
 %p
-  %b Directions:
-  = @field.directions
+  %b Address:
+  %div
+    = @field.address
+    %br
+    = "#{@field.city}, #{@field.state} #{@field.zip}"
 %p
-  %b Url:
-  = link_to 'Field URL', @field.url, {:target => '_blank'}
+  %b Directions By car:
+  = raw(@field.by_car)
+%p
+  %b Directions By Bus:
+  = raw(@field.by_bus)
+%p
+  %b Parking:
+  = raw(@field.parking)
+
 %p
   %b Google map url:
   = link_to 'Map URL', @field.google_map_url, {:target => '_blank'}

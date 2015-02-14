@@ -12,21 +12,25 @@
     All fields are marked as open.
 %table.table.table-striped.table-condensed.table-bordered
   %tr
-    %th Name
     %th Status
-    %th Directions
-    %th Url
+    %th Name
+    %th Address
     %th Google map url
     %th.actions-column
   - statuses = get_field_statuses
   - @fields.each do |field|
     %tr
-      %td= link_to field.name, field
       %td
         = render partial: 'status_indicator', locals: {statusValue: field.status , statusString: statuses[field.status]}
-      %td= field.directions
-      %td= link_to 'Field', field.url, {:target => '_blank'}
-      %td= link_to 'Google Map', field.google_map_url, {:target => '_blank'}
+      %td= link_to field.name, field
+      %td
+        - if field.address
+          = field.address
+          %br
+          = "#{field.city}, #{field.state} #{field.zip}"
+      %td
+        -if field.google_map_url 
+          = link_to 'Google Map', field.google_map_url, {:target => '_blank'}
       %td
         = render partial: 'shared/actions/table_actions', locals: { editPath: edit_field_path(field), deletePath: field}
 

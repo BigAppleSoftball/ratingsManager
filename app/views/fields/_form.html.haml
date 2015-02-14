@@ -20,9 +20,33 @@
     .col-sm-10
       = f.text_field :name, {:class => 'form-control'}
   .form-group
-    = f.label :directions, {:class => 'col-sm-2 control-label'}
+    = f.label :address, {:class => 'col-sm-2 control-label'}
     .col-sm-10
-      = f.text_area :directions, {:class => 'form-control'}
+      = f.text_field :address, {:class => 'form-control'}
+  .form-group
+    = f.label :city, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_field :city, {:class => 'form-control'}
+  .form-group
+    = f.label :state, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_field :state, {:class => 'form-control'}
+  .form-group
+    = f.label :zip, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_field :zip, {:class => 'form-control'}
+  .form-group
+    = f.label :by_car, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_area :by_car, {:class => 'form-control'}
+  .form-group
+    = f.label :by_bus, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_area :by_bus, {:class => 'form-control'}
+  .form-group
+    = f.label :parking, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_area :parking, {:class => 'form-control'}
   .form-group
     = f.label :url, {:class => 'col-sm-2 control-label'}
     .col-sm-10
@@ -31,6 +55,12 @@
     = f.label :google_map_url, {:class => 'col-sm-2 control-label'}
     .col-sm-10
       = f.text_field :google_map_url, {:class => 'form-control'}
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      .checkbox
+        %label
+          = f.check_box :is_active
+          Is Active Field?
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit 'Save', :class => 'btn btn-primary'
