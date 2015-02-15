@@ -6,7 +6,12 @@ class FieldsController < ApplicationController
   # GET /fields.json
   def index
     @fields = Field.all
-    @anyBadStatus = Field.where(:status => [1, 2])
+    fieldsClosedCount = @fields.where(:status => 2).length
+    fieldsOpenCount = @fields.where(:status => 0).length
+
+    @allFieldsClosed = fieldsClosedCount == @fields.length
+    @allFieldsOpen = fieldsOpenCount == @fields.length
+  @fieldsPartial = (!@allFieldsClosed && !@allFieldsOpen)
   end
 
   # GET /fields/1
@@ -61,6 +66,16 @@ class FieldsController < ApplicationController
       format.html { redirect_to fields_url, notice: 'Field was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def set_all
+    status_num = params[:statusNum]
+    set_to_status = status_num.to_i
+    results = Hash.new
+    Field.all.update_all(:status => set_to_status)
+    results[:success] = true
+    results[:status] = get_field_statuses[set_to_status]
+    render :json => results
   end
 
   private

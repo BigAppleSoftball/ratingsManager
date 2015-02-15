@@ -42,6 +42,7 @@ Rails.application.routes.draw do
   get '/showallcommittee', to: 'committees#all_committee'
   get '/loadsidebar', to: 'welcome#basl_sidebar'
 
+  post '/fields/set_all', to: 'fields#set_all'
   #admin panel
   get '/admin/home', to: 'admins#home'
   get '/403', to: 'welcome#error403'

@@ -92,13 +92,13 @@
   -webkit-border-radius: 5px;
   border-radius: 5px;
 }
-.stop-light.status-0 .light.bottom-light {
+.stop-light[data-status='0'] .light.bottom-light {
   background: #78B653;
 }
-.stop-light.status-1 .light.middle-light {
+.stop-light[data-status='1'] .light.middle-light {
   background: #ffff33;
 }
-.stop-light.status-2 .light.top-light {
+.stop-light[data-status='2'] .light.top-light {
   background: #FD5961;
 }
 .stop-light .light {

@@ -66,6 +66,12 @@
   }
 }
 
+.alert-info {
+  background: lighten($yellow, 50%);
+  color: darken($yellow, 20%);
+  border-color: darken($yellow, 30%);
+}
+
 .navbar-default {
   @include set-btn-gradient($btn-default-bg);
 }

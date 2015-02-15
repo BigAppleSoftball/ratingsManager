@@ -1,16 +1,24 @@
 - content_for :panel_head do
   %h1 Fields
   = render partial: 'shared/actions/view_all_actions', locals: { newPath: new_field_path}
-- blockClass = 'alert-success'
--if @anyBadStatus.length > 0
-  - blockClass = 'alert-danger'
 
-.alert{:class => blockClass}
-  -if @anyBadStatus.length > 0
-    Some fields are marked as closed or partially closed, A warning will be shown on the BASL sidebar
-  - else
-    All fields are marked as open.
-%table.table.table-striped.table-condensed.table-bordered
+.btn-group{"aria-label" => "...", :role => "group"}
+  = link_to 'Set All Fields as Open', '#', :class => 'btn btn-success js-set-all-fields-open'
+  = link_to 'Set All Fields as Partially Closed', '#', :class => 'btn btn-info js-set-all-fields-partially-closed'
+  = link_to 'Set All Fields as Closed', '#', :class => 'btn btn-danger js-set-all-fields-closed'
+%br
+%br
+
+.alert.alert-danger.js-all-closed-notice.js-notices{:style => "#{@allFieldsClosed ? 'display:block' : 'display:none'}"}
+  All Fields are marked as CLOSED.
+
+.alert.alert-info.js-partially-closed-notice.js-notices{:style => "#{@fieldsPartial ? 'display:block' : 'display:none'}"}
+  Fields are marked as CLOSED or partially CLOSED.
+
+.alert.alert-success.js-all-open-notice.js-notices{:style => "#{@allFieldsOpen ? 'display:block' : 'display:none'}"}
+  All fields are marked as Open.
+
+%table.table.table-striped.table-condensed.table-bordered.js-fields-table
   %tr
     %th Status
     %th Name

@@ -5,19 +5,19 @@
   background: $dark-gray;
   @include border-radius(5px);
 
-  &.status-0 {
+  &[data-status='0'] {
     .light.bottom-light {
       background: $green;
     }
   }
 
-  &.status-1 {
+  &[data-status='1']{
     .light.middle-light {
        background: lighten($yellow, 20%);
     }
   }
 
-  &.status-2 {
+  &[data-status='2'] {
     .light.top-light {
       background: $red;
     }

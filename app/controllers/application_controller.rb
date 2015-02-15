@@ -215,6 +215,11 @@ def only_for_admin
   end
 end
 
+def get_field_statuses
+  field_statuses = {0 => 'All Open', 1 => 'Some Closed', 2 => 'All Closed'}
+  field_statuses
+end
+
 private
 
   # Finds the User with the ID stored in the session with the key
