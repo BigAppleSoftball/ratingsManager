@@ -20,7 +20,7 @@
       %td= committee.email
       %td{:class => profile ? '' : 'danger'}
         -if profile
-          = link_to "#{profile.first_name} #{profile.first_name}", profile
+          = link_to "#{profile.first_name} #{profile.last_name}", profile
         -else
           = render partial: "shared/warning_column", locals: { text: 'No Profile'}
       %td= link_to committee.name, committee
