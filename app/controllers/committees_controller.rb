@@ -6,11 +6,13 @@ class CommitteesController < ApplicationController
   # GET /committees.json
   def index
     @committees = Committee.order('name ASC').all
+    
   end
 
   # GET /committees/1
   # GET /committees/1.json
   def show
+    @isCommittee = true
   end
 
   # GET /committees/new

@@ -1,2 +1,3 @@
-= render partial: "shared/actions/edit", locals: { editPath: editPath, editText: ''}
-= render partial: "shared/actions/delete", locals: { deleteItem: deletePath, deleteText: ''}
+- if is_admin?
+  = render partial: "shared/actions/edit", locals: { editPath: editPath, editText: ''}
+  = render partial: "shared/actions/delete", locals: { deleteItem: deletePath, deleteText: ''}

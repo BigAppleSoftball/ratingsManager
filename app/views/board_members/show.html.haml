@@ -1,12 +1,12 @@
 - content_for :panel_head do
   %h1= @board_member.position
   = render partial: "shared/actions/show_actions", locals: { editPath: edit_board_member_path(@board_member), fieldName: 'Field', allPath: board_members_path}
-  - if @board_member.profile
+  - if @board_member.profile && is_admin?
     = link_to raw("<i class='glyphicon glyphicon-pencil'></i> Edit Profile"), edit_profile_path(@board_member.profile), :class => 'btn btn-default'
 %p#notice= notice
 - if @board_member.profile && @board_member.profile.long_image_url
   %ul.board-members-list.pull-left
-    =render partial: 'board_members/board_card', locals: { board_member: @board_member, isCommittee: false }
+    =render partial: 'board_members/board_card', locals: { board_member: @board_member, isCommittee: @isCommittee}
 .board-member-details.pull-left
   .well
     To change the Board member name or card image please edit the connected profile

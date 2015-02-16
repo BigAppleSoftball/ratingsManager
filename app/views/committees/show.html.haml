@@ -1,7 +1,7 @@
 - content_for :panel_head do
   %h1 Committees
   = render partial: "shared/actions/show_actions", locals: { editPath: edit_committee_path(@committee), fieldName: 'Field', allPath: committees_path}
-  - if @committee.profile
+  - if @committee.profile && is_admin?
     = link_to raw("<i class='glyphicon glyphicon-pencil'></i> Edit Profile"), edit_profile_path(@committee.profile), :class => 'btn btn-default'
 
 - if @committee.profile && @committee.profile.long_image_url
