@@ -79,8 +79,13 @@ class FieldsController < ApplicationController
   end
 
   def show_map
-    puts 'showing map'
+
     render layout: false
+  end
+
+  def get_field_json
+    fields = Field.where.not(:lat => nil).to_json
+    render :json => fields
   end
 
   private
@@ -91,6 +96,6 @@ class FieldsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def field_params
-      params.require(:field).permit(:status, :name, :directions, :url, :google_map_url)
+      params.require(:field).permit(:status, :name, :directions, :url, :google_map_url, :long, :lat)
     end
 end

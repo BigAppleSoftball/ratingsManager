@@ -41,6 +41,7 @@ Rails.application.routes.draw do
   get '/showallboard', to: 'board_members#all_board'
   get '/showallcommittee', to: 'committees#all_committee'
   get '/showfields', to: 'fields#show_map'
+  get '/getfieldsjson', to: 'fields#get_field_json'
   get '/loadsidebar', to: 'welcome#basl_sidebar'
 
   post '/fields/set_all', to: 'fields#set_all'
