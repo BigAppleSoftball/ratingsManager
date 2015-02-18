@@ -79,7 +79,7 @@ class FieldsController < ApplicationController
   end
 
   def show_map
-
+    @fields = Field.where.not(:lat => nil)
     render layout: false
   end
 

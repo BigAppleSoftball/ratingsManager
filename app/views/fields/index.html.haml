@@ -25,6 +25,7 @@
     %th Name
     %th Address
     %th Google map url
+    %th Lat/Long
     %th.actions-column
   - statuses = get_field_statuses
   - @fields.each do |field|
@@ -40,6 +41,12 @@
       %td
         -if field.google_map_url 
           = link_to 'Google Map', field.google_map_url, {:target => '_blank'}
+      %td{:class => field.lat && field.long ? '' : 'danger danger-column'}
+        -if field.lat && field.long
+          = field.lat
+          = field.long
+        -else
+          = render partial: "shared/warning_column", locals: { text: 'No Lat or Long'}
       %td
         = render partial: 'shared/actions/table_actions', locals: { editPath: edit_field_path(field), deletePath: field}
 
