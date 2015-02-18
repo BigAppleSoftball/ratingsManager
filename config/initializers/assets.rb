@@ -11,6 +11,8 @@ Rails.application.config.assets.precompile += %w( sponsorCarousel.css )
 Rails.application.config.assets.precompile += %w( sponsorsCarousel.js )
 Rails.application.config.assets.precompile += %w( sidebar.css )
 
+Rails.application.config.assets.precompile += %w( fieldsMap.js )
+
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )

@@ -78,6 +78,11 @@ class FieldsController < ApplicationController
     render :json => results
   end
 
+  def show_map
+    puts 'showing map'
+    render layout: false
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_field

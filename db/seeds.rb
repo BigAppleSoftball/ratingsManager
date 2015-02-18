@@ -259,7 +259,7 @@ def set_display_order_hof
     order+=1
   end
 end
-#LocID LocName LocAddress  LocCity LocState  LocZip  LocPhone  LocFax  LocTollFree LocMapURL LocByCar  LocByBus  LocByTrain  LocParking  LocDocURL DateUpdated ByUpdated IsVisible IsActive                                  
+#LocID LocName LocAddress  LocCity LocState  LocZip  LocPhone  LocFax  LocTollFree LocMapURL LocByCar  LocByBus  LocByTrain  LocParking  LocDocURL DateUpdated ByUpdated IsVisible IsActive
 def generate_fields_backup
   csvRows = get_csv_file('fields2.csv')
 
@@ -367,4 +367,4 @@ end
 #set_board_members_committee
 #set_board_members_profile_id
 #move_long_image_url_to_profile
-generate_fields_backup
+#generate_fields_backup

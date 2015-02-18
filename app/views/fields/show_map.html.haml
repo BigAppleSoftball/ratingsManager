@@ -1,0 +1,11 @@
+!!!
+%html
+  %head
+    :css
+      #map-canvas { height: 700px; width: 700px; margin: 0; padding: 0;}
+  %body
+    #map-canvas
+
+    = javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"
+    = javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyCoGxbgo50sQ98aSQxXUwyeZexTwkWYUlI"
+    = javascript_include_tag "fieldsMap.js"

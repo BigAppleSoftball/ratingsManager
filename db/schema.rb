@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150214035734) do
+ActiveRecord::Schema.define(version: 20150218001251) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -73,6 +73,8 @@ ActiveRecord::Schema.define(version: 20150214035734) do
     t.text     "parking"
     t.boolean  "is_active"
     t.string   "state"
+    t.float    "lat",            limit: 24
+    t.float    "long",           limit: 24
   end
 
   create_table "hallof_famers", force: true do |t|
