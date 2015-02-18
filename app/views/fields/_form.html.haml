@@ -52,6 +52,14 @@
     .col-sm-10
       = f.text_field :url, {:class => 'form-control'}
   .form-group
+    = f.label :lat, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_field :lat, {:class => 'form-control'}
+  .form-group
+    = f.label :long, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_field :long, {:class => 'form-control'}
+  .form-group
     = f.label :google_map_url, {:class => 'col-sm-2 control-label'}
     .col-sm-10
       = f.text_field :google_map_url, {:class => 'form-control'}
