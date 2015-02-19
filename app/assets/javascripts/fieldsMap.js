@@ -8,8 +8,10 @@
     this.yellow = 'CCCC00';
     this.green = '78B653';
     this.infoWindow = null;
-    this.init();
-
+    if ($('#map-canvas').length > 0)
+    {
+      this.init();
+    }
   };
 
   FieldMap.prototype.init = function() {
@@ -52,7 +54,7 @@
         position: myLatlng,
         map: self.map,
         animation: google.maps.Animation.DROP,
-        icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=' + count + '|' + iconColor + '|000000',
+        icon: mapMarker,
         itemCount: count
         // icon: image custom image
     });

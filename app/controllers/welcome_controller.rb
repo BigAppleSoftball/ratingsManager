@@ -140,6 +140,10 @@ class WelcomeController < ApplicationController
     end
   end
 
+  def load_calendar
+
+  end 
+
   def set_access_control_headers
     headers['Access-Control-Allow-Origin'] = '*'  
     headers['Access-Control-Request-Method'] = '*' 
