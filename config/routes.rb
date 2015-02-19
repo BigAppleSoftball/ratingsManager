@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   get '/showfields', to: 'fields#show_map'
   get '/getfieldsjson', to: 'fields#get_field_json'
   get '/loadsidebar', to: 'welcome#basl_sidebar'
+  get '/loadcalendar', to: 'welcome#load_calendar'
 
   post '/fields/set_all', to: 'fields#set_all'
   #admin panel
