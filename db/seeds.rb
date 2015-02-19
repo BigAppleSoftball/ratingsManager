@@ -282,6 +282,19 @@ def generate_fields_backup
   end
 end
 
+def generate_fields_lat
+  csvRows = get_csv_file('fielddslat.csv')
+
+  csvRows.each do |row|
+    field = Field.where('name like ?', row[:name]).first
+    if (field)
+      field[:lat] = row[:fieldlat].to_f
+      field[:long] = row[:fieldlong].to_f
+      field.save
+    end
+  end
+end
+
 def set_board_members_committee
   boards = BoardMember.all
   boards.each do |board|
@@ -368,3 +381,4 @@ end
 #set_board_members_profile_id
 #move_long_image_url_to_profile
 #generate_fields_backup
+generate_fields_lat

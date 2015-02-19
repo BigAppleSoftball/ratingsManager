@@ -1,17 +1,23 @@
 (function(){
+  var openFields = 0,
+    partialFields = 1,
+    closedFields = 2;
 
   var FieldMap = function(){
+        this.red = 'FD5961';
+    this.yellow = 'CCCC00';
+    this.green = '78B653';
+    this.infoWindow = null;
     this.init();
+
   };
 
   FieldMap.prototype.init = function() {
-    console.log("Initing map");
     this.initMap();
-    this.getFieldJson();
+    this.getFields();
   };
 
   FieldMap.prototype.initMap = function() {
-    console.log('initing map');
     var mapOptions = {
           center: { lat: 40.7278797, lng: -73.9719596},
           zoom: 11
@@ -23,29 +29,65 @@
     //google.maps.event.addDomListener(window, 'load', initialize);
   };
 
-  FieldMap.prototype.addMarker = function(field) {
-    // 40.7677135,-73.9749519,21
-    // To add the marker to the map, use the 'map' property
-    console.log(field);
-    var myLatlng = new google.maps.LatLng(field.lat, field.long);
-    var self = this;
+  FieldMap.prototype.addMarker = function($field) {
+    var self = this,
+        lat = $field.data('lat'),
+        long = $field.data('long'),
+        fieldStatus = parseInt($field.data('status')),
+        count = $field.data('count');
+
+    var myLatlng = new google.maps.LatLng(lat, long),
+        self = this,
+        iconColor = self.green;
+
+    if (fieldStatus == partialFields ) {
+      iconColor = self.yellow;
+    } else if (fieldStatus == closedFields) {
+      iconColor = self.red;
+    } // no else needed it should default to green
+
+    var mapMarker = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=' + count + '|' + iconColor + '|000000';
 
     var marker = new google.maps.Marker({
         position: myLatlng,
         map: self.map,
-        animation: google.maps.Animation.DROP
+        animation: google.maps.Animation.DROP,
+        icon: 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=' + count + '|' + iconColor + '|000000',
+        itemCount: count
         // icon: image custom image
     });
+    // add the new marker to the field
+    var markerImg = $('<img>', {src: mapMarker});
+    $field.find('.js-field-count').html(markerImg);
 
-    var infowindow = new google.maps.InfoWindow({
-      content: field.name
-    });
-    infowindow.open(self.map, marker);
 
-    google.maps.event.addListener(marker, 'click', function() {
-      infowindow.open(self.map, marker);
+
+    google.maps.event.addListener(marker, 'click', function(event) {
+      var name = $field.find('.field-item-name').html();
+      // close any info windows the are already open
+      if (self.infoWindow) {
+        self.infoWindow.close();
+      }
+
+      self.infoWindow = new google.maps.InfoWindow({
+        content: name
+      });
+
+      self.infoWindow.open(self.map, marker);
+
+      self.map.panTo(marker.getPosition());
+      var count = this.itemCount;
+      // find the current item in the list and highlight it
+      $('.js-field-item').removeClass('is-active');
+      var $activeField = $('.js-field-item[data-count="' + this.itemCount + '"]');
+      $activeField.addClass('is-active');
+
+      console.log($activeField.offset().top);
+      // scroll to the active field
+       $('.js-field-sidebar').animate({
+        scrollTop: $activeField.offset().top
+    }, 1000);
     });
-    // or marker.setMap(map);
   };
 
   FieldMap.prototype.addFieldsToView = function(fields) {
@@ -55,19 +97,15 @@
     });
   };
 
-  FieldMap.prototype.getFieldJson = function() {
-    var self = this;
-    $.ajax({
-      url: "/getfieldsjson",
-      dataType: 'json'
-    })
-    .done(function( data ) {
-      self.addFieldsToView(data);
+  FieldMap.prototype.getFields = function() {
+    var fields = $('.js-field-item'),
+      self = this;
+    $.each(fields, function(){
+      self.addMarker($(this));
     });
   };
 
   $(document).ready(function(){
-    console.log('here');
     var fieldMap = new FieldMap();
   });
 }());

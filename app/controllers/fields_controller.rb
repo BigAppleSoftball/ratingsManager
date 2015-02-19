@@ -11,7 +11,7 @@ class FieldsController < ApplicationController
 
     @allFieldsClosed = fieldsClosedCount == @fields.length
     @allFieldsOpen = fieldsOpenCount == @fields.length
-  @fieldsPartial = (!@allFieldsClosed && !@allFieldsOpen)
+    @fieldsPartial = (!@allFieldsClosed && !@allFieldsOpen)
   end
 
   # GET /fields/1
@@ -79,7 +79,7 @@ class FieldsController < ApplicationController
   end
 
   def show_map
-    @fields = Field.where.not(:lat => nil)
+    @fields = Field.where.not(:lat => nil).order('name ASC')
     render layout: false
   end
 

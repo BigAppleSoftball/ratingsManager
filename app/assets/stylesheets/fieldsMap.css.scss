@@ -1,48 +1,72 @@
 @import 'vars',
         'mixins',
+        'compass',
         "bootstrap-sprockets",
-        'bootstrap';
+        'bootstrap',
+        'stop-light';
 
 .fields-wrapper {
   @include clearfix;
-
-
   ul {
     margin: 0;
     padding: 0;
+    list-style: none;
+
+    li {
+      margin: 0;
+      padding: 0;
+    }
   }
 }
 
-#map-canvas { 
-  height: 700px; 
-  //width: 700px; 
-  margin: 0; 
+#map-canvas {
+  min-height: 700px;
+  //width: 700px;
+  margin: 0;
   padding: 0;
   float: left;
   width: 70%;
 }
 
+h4 {
+  text-align: center;
+}
 .fields-sidebar {
   float : left;
   width: 30%;
   max-height: 700px;
   overflow: auto;
 
-  h4 {
-    text-align: center;
-  }
-
   .field-list {
     overflow: auto;
     border-bottom: 1px dotted #666;
+
   }
 
   .field-item {
     padding: 10px;
+    border: 1px solid #fff;
     border-top: 1px dotted #666;
+    clear: both;
+    min-height: 80px;
+
+    &.is-active {
+      border-color: $blue;
+      border-top-style: solid;
+      background: #ddd;
+
+      .field-item-name {
+        font-weight: bold;
+      }
+    }
   }
 
-  .field-item-name {
+  .field-item-marker {
+    float: right;
+  }
 
+  .stop-light {
+    float: left;
+    margin-right: 10px;
   }
 }
