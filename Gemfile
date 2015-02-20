@@ -28,11 +28,10 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 gem 'parse-ruby-client'
 gem 'awesome_print'
-gem 'google-api-client'
+gem 'rest_client'
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 group :development do
- 
   gem 'spring'
   gem 'mysql2'
 end

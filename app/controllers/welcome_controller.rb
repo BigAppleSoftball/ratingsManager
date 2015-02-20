@@ -1,6 +1,7 @@
 class WelcomeController < ApplicationController
   #protect_from_forgery
   after_action :set_access_control_headers
+  Time::DATE_FORMATS[:google_date] = "%Y-%m-%d"
 
   def index
     @teamsByDivision = get_all_teams
@@ -109,7 +110,7 @@ class WelcomeController < ApplicationController
     render '403'
   end
 
-  def basl_sidebar 
+  def basl_sidebar
     @sponsors = Sponsor.where(:show_carousel => true)
     fields = Field.all
     closedCount = 0
@@ -130,7 +131,7 @@ class WelcomeController < ApplicationController
       @fieldStatus = 0
     elsif numOfFields == closedCount # all the fields are closed
       @fieldStatus = 2
-    else #some are open, closed or partially open 
+    else #some are open, closed or partially open
       @fieldStatus = 1
     end
     #@fieldsClosed = Field.where(:status => 2)
@@ -141,11 +142,23 @@ class WelcomeController < ApplicationController
   end
 
   def load_calendar
+    time = Time.now
+    maxDate = (time + 6.months)
+    timeNow = "#{time.to_formatted_s(:google_date)}T00:00:00-05:00"
 
-  end 
+    #ap maxDate.strftime('%Y-%M-%d')
+    timeMax = "#{maxDate.to_formatted_s(:google_date)}T00:00:00-05:00"
+    ap timeNow
+    ap timeMax
+    response = RestClient.get "https://www.googleapis.com/calendar/v3/calendars/secretary@bigapplesoftball.com/events?key=AIzaSyCoGxbgo50sQ98aSQxXUwyeZexTwkWYUlI&singleEvents=true&timeMin=#{timeNow}&timeMax=#{timeMax}"
+    responseAsJson = JSON.parse(response)
+    #ap responseAsJson
+    @events = responseAsJson
+    render :layout => false
+  end
 
   def set_access_control_headers
-    headers['Access-Control-Allow-Origin'] = '*'  
-    headers['Access-Control-Request-Method'] = '*' 
+    headers['Access-Control-Allow-Origin'] = '*'
+    headers['Access-Control-Request-Method'] = '*'
   end
 end

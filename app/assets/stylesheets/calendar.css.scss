@@ -1,0 +1,18 @@
+@import 'vars',
+        'compass/reset',
+        'mixins',
+        'compass',
+        "bootstrap-sprockets",
+        'bootstrap';
+
+
+.calendar-event-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  li {
+    border-top: 1px solid #333;
+    padding: 5px;
+  }
+}
