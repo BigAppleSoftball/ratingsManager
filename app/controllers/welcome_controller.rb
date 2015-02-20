@@ -2,6 +2,8 @@ class WelcomeController < ApplicationController
   #protect_from_forgery
   after_action :set_access_control_headers
   Time::DATE_FORMATS[:google_date] = "%Y-%m-%d"
+  Time::DATE_FORMATS[:week_date] = "%a, %b %d"
+  Time::DATE_FORMATS[:event_date] = "%a, %b %d %H:%M"
 
   def index
     @teamsByDivision = get_all_teams
@@ -134,15 +136,13 @@ class WelcomeController < ApplicationController
     else #some are open, closed or partially open
       @fieldStatus = 1
     end
-    #@fieldsClosed = Field.where(:status => 2)
-    #@fieldsParitallyClosed = Field.where(:status => 1)
     respond_to do |format|
       format.html { render layout: false }
     end
   end
 
   def load_calendar
-    time = Time.now
+    time = Time.now.beginning_of_week
     maxDate = (time + 6.months)
     # convert times to google supported format for api query
     timeNow = "#{time.to_formatted_s(:google_date)}T00:00:00-05:00"
@@ -150,27 +150,49 @@ class WelcomeController < ApplicationController
 
     # make request to google api
     googleResponse = RestClient.get "https://www.googleapis.com/calendar/v3/calendars/secretary@bigapplesoftball.com/events?key=AIzaSyCoGxbgo50sQ98aSQxXUwyeZexTwkWYUlI&singleEvents=true&timeMin=#{timeNow}&timeMax=#{timeMax}"
-
     googleResponseAsJson = JSON.parse(googleResponse)
-    #ap googleResponseAsJson
+
     # convert all dates to a universal ruby on rails date object
     googleResponseAsJson['items'].each do |event|
       eventStart = event['start']['dateTime'] || event['start']['date']
       if eventStart
-        #ap eventStart
         event['startDate'] = eventStart.to_time
-        ap eventStart .to_time
-        #ap event
       else
-        ap 'no event'
       end
     end
 
-    @events = googleResponseAsJson['items'].sort_by { |a| a['startDate'] }
-    # so
-    #ap googleResponseAsJson
-    
+    googleEvents = googleResponseAsJson['items'].sort_by { |a| a['startDate'] }
+    startTime = time
+    endTime = maxDate
+    weeks = Array.new
+    count = 0
+
+    while (startTime < endTime && (count < googleEvents.length - 1))
+      weekEndTime =  startTime + 6.days
+      week = Hash.new
+      week[:startTime] = startTime
+      week[:endTime] = weekEndTime
+      week[:events] = Array.new
+
+      while (startTime <= googleEvents[count]['startDate'] && weekEndTime.end_of_day >= googleEvents[count]['startDate'] && (count < googleEvents.length - 1))
+        week[:events].push(googleEvents[count])
+        count += 1
+      end
+      weeks.push(week)
+      startTime = startTime + 1.week
+    end
+
+    @weeks = weeks
+
     render :layout => false
+  end
+
+
+  def event_date_to_system(event)
+    ap 'in event_date to system'
+    firstEventStart = event['start']['dateTime'] || event['start']['date']
+    ap 'returing stuff'
+    firstEventStart.to_time
   end
 
   def set_access_control_headers
