@@ -144,16 +144,32 @@ class WelcomeController < ApplicationController
   def load_calendar
     time = Time.now
     maxDate = (time + 6.months)
+    # convert times to google supported format for api query
     timeNow = "#{time.to_formatted_s(:google_date)}T00:00:00-05:00"
-
-    #ap maxDate.strftime('%Y-%M-%d')
     timeMax = "#{maxDate.to_formatted_s(:google_date)}T00:00:00-05:00"
-    ap timeNow
-    ap timeMax
-    response = RestClient.get "https://www.googleapis.com/calendar/v3/calendars/secretary@bigapplesoftball.com/events?key=AIzaSyCoGxbgo50sQ98aSQxXUwyeZexTwkWYUlI&singleEvents=true&timeMin=#{timeNow}&timeMax=#{timeMax}"
-    responseAsJson = JSON.parse(response)
-    #ap responseAsJson
-    @events = responseAsJson
+
+    # make request to google api
+    googleResponse = RestClient.get "https://www.googleapis.com/calendar/v3/calendars/secretary@bigapplesoftball.com/events?key=AIzaSyCoGxbgo50sQ98aSQxXUwyeZexTwkWYUlI&singleEvents=true&timeMin=#{timeNow}&timeMax=#{timeMax}"
+
+    googleResponseAsJson = JSON.parse(googleResponse)
+    #ap googleResponseAsJson
+    # convert all dates to a universal ruby on rails date object
+    googleResponseAsJson['items'].each do |event|
+      eventStart = event['start']['dateTime'] || event['start']['date']
+      if eventStart
+        #ap eventStart
+        event['startDate'] = eventStart.to_time
+        ap eventStart .to_time
+        #ap event
+      else
+        ap 'no event'
+      end
+    end
+
+    @events = googleResponseAsJson['items'].sort_by { |a| a['startDate'] }
+    # so
+    #ap googleResponseAsJson
+    
     render :layout => false
   end
 
