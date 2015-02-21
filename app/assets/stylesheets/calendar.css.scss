@@ -5,10 +5,14 @@
         "bootstrap-sprockets",
         'bootstrap';
 
+.synced-calendar {
+  text-align: right;
+  margin-right: 20px;
+}
 
 .calendar-event-list {
   list-style: none;
-  padding: 20px;
+  padding: 0 20px;
   margin: 0;
 
   li.week {
@@ -36,6 +40,7 @@
   .no-event {
     margin: 10px 0 0 20px;
     font-style: italic;
+    padding-bottom: 10px;
   }
 
 

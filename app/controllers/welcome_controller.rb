@@ -3,7 +3,7 @@ class WelcomeController < ApplicationController
   after_action :set_access_control_headers
   Time::DATE_FORMATS[:google_date] = "%Y-%m-%d"
   Time::DATE_FORMATS[:week_date] = "%a, %b %d"
-  Time::DATE_FORMATS[:event_date] = "%a, %b %d %H:%M"
+  Time::DATE_FORMATS[:event_date] = "%a, %b %d %l:%M %P"
 
   def index
     @teamsByDivision = get_all_teams
@@ -189,9 +189,7 @@ class WelcomeController < ApplicationController
 
 
   def event_date_to_system(event)
-    ap 'in event_date to system'
     firstEventStart = event['start']['dateTime'] || event['start']['date']
-    ap 'returing stuff'
     firstEventStart.to_time
   end
 

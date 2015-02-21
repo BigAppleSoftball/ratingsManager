@@ -3,6 +3,8 @@
   %head
     =stylesheet_link_tag "calendar.css"
   %body
+    .synced-calendar
+      = link_to 'View Entire Calendar', 'https://www.google.com/calendar/embed?src=c2VjcmV0YXJ5QGJpZ2FwcGxlc29mdGJhbGwuY29t', {:target => '_blank'}
     %ul.calendar-event-list
       - @weeks.each do |week|
         %li.week
@@ -11,7 +13,7 @@
           %ul
             - if week[:events].length == 0
               %li.no-event
-                No Scheduled Events Found
+                No scheduled events found.
             - else
               - week[:events].each do |event|
                 %li.event
