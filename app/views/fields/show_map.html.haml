@@ -16,7 +16,7 @@
               .field-item-address
                 = field.address
                 = "#{field.city}, #{field.state} #{field.zip}"
-              = link_to 'Directions', "https://www.google.com/maps/dir//#{field.lat},#{field.long}/@#{field.lat},#{field.long},17z/"
+              = link_to 'Directions', "https://www.google.com/maps/dir//#{field.lat},#{field.long}/@#{field.lat},#{field.long},17z/", {:target => '_blank'}
               - count+=1
       #map-canvas
       %br

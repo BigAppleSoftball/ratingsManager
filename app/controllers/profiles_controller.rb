@@ -11,6 +11,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/1
   # GET /profiles/1.json
   def show
+
   end
 
   # GET /profiles/new
@@ -68,6 +69,7 @@ class ProfilesController < ApplicationController
       @profile = Profile.find(params[:id])
       @board_members = BoardMember.where(:profile_id => params[:id])
       @committees = Committee.where(:profile_id => params[:id])
+      @rosters = Roster.where(:profile_id => params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -78,7 +80,7 @@ class ProfilesController < ApplicationController
     def sort_column
       Profile.column_names.include?(params[:sort]) ? params[:sort] : "last_name"
     end
-  
+
     def sort_direction
       %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
     end
