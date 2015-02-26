@@ -295,8 +295,8 @@ def generate_games_backup
     :away_team_id => row[:awayteamid],
     :is_flip => row[:isflip],
     :field => row[:field],
-    :home_score => row[:home_score],
-    :away_score => row[:away_score],
+    :home_score => row[:homescore],
+    :away_score => row[:awayscore],
     :is_rainout => row[:israinout]
     )
     game.save
@@ -403,4 +403,4 @@ end
 #move_long_image_url_to_profile
 #generate_fields_backup
 #generate_fields_lat
-#generate_games_backup
+generate_games_backup

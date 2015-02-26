@@ -1,5 +1,6 @@
-%p#notice= notice
-
+- content_for :panel_head do
+  %h1 Game
+  = render partial: "shared/actions/show_actions", locals: { editPath: edit_game_path(@game), fieldName: 'Game', allPath: games_path}
 %p
   %b Day:
   = @game.day_id
@@ -8,25 +9,20 @@
   = @game.start_time
 %p
   %b Home team:
-  = @game.home_team_id
-%p
-  %b Integer:
-  = @game.integer
+  - if @game.home_team_id
+    = @game.home_team.name
+    = @game.home_score
 %p
   %b Away team:
-  = @game.away_team_id
+  - if @game.away_team_id
+    = @game.away_team.name
+    = @game.away_score
 %p
   %b Is flip:
   = @game.is_flip
 %p
   %b Field:
   = @game.field
-%p
-  %b Home score:
-  = @game.home_score
-%p
-  %b Away score:
-  = @game.away_score
 %p
   %b Is rainout:
   = @game.is_rainout

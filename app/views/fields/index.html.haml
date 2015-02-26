@@ -1,7 +1,7 @@
 - content_for :panel_head do
   %h1 Fields
   = render partial: 'shared/actions/view_all_actions', locals: { newPath: new_field_path}
-  
+
 - if is_admin?
   .btn-group{"aria-label" => "...", :role => "group"}
     = link_to 'Set All Fields as Open', '#', :class => 'btn btn-success js-set-all-fields-open'
@@ -39,7 +39,7 @@
           %br
           = "#{field.city}, #{field.state} #{field.zip}"
       %td
-        -if field.google_map_url 
+        -if field.google_map_url
           = link_to 'Google Map', field.google_map_url, {:target => '_blank'}
       %td{:class => field.lat && field.long ? '' : 'danger danger-column'}
         -if field.lat && field.long

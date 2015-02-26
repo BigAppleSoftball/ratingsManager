@@ -1,7 +1,5 @@
-%h1 Editing game
+- content_for :panel_head do
+  %h1 Editing Game
+  = render partial: "shared/actions/edit_actions", locals: { allPath: games_path, fieldName: 'Game', showPath: @game}
 
 = render 'form'
-
-= link_to 'Show', @game
-\|
-= link_to 'Back', games_path

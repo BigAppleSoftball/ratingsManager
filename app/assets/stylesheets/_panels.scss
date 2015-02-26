@@ -5,9 +5,10 @@ $hofs-bg: $yellow;
 $board_members-bg: $green;
 $committees-bg: $orange;
 $profiles-bg: $pink;
+$games-bg: $deep-blue;
 
 #controller-admins {
-  @include set-panel($admins-bg, white);   
+  @include set-panel($admins-bg, white);
 }
 
 #controller-fields {
@@ -32,6 +33,10 @@ $profiles-bg: $pink;
 
 #controller-profiles {
   @include set-panel($profiles-bg, white);
+}
+
+#controller-games {
+  @include set-panel($games-bg, white);
 }
 
 .admin-list-group {
@@ -62,5 +67,8 @@ $profiles-bg: $pink;
     background: lighten($profiles-bg, 30%);
   }
 
+  .games-group-item:hover {
+    background: lighten($games-bg, 30%);
+  }
 
 }
