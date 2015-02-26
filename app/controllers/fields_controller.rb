@@ -96,6 +96,6 @@ class FieldsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def field_params
-      params.require(:field).permit(:status, :name, :directions, :url, :google_map_url, :address, :city, :state, :zip, :by_car, :by_bus, :by_train, :parking, :is_active, :long, :lat)\
+      params.require(:field).permit(:status, :name, :url, :google_map_url, :address, :city, :state, :zip, :by_car, :by_bus, :by_train, :parking, :is_active, :long, :lat)\
     end
 end

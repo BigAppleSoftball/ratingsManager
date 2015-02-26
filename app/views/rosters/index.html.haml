@@ -17,7 +17,7 @@
     %tr
       %td
         -if roster.team
-          = "#{roster.team.name} (#{roster.team.division.season.season_desc})"
+          = "#{roster.team.name} (#{roster.team.division.season.description})"
       %td
         - if roster.profile
           =roster.profile.display_name

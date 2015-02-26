@@ -1,8 +1,8 @@
 %p#notice= notice
 
 .panel.panel-default
-  .panel-heading 
-    = @season.season_desc
+  .panel-heading
+    = @season.description
   .panel-body
     - @season.divisions.each do |division|
       = render '/divisions/division', :division => division

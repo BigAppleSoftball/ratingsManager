@@ -281,6 +281,27 @@ def generate_fields_backup
     field.save
   end
 end
+#GameID DayID dateStartTime HomeTeamID  AwayTeamID  isFlip  Field HomeScore AwayScore isRainOut isActive
+#rails generate scaffold Games day_id:integer start_time:datetime home_team_id: integer away_team_id:integer is_flip:boolean field:integer home_score:integer away_score:integer is_rainout:boolean is_active:boolean
+def generate_games_backup
+  csvRows = get_csv_file('games.csv')
+
+  csvRows.each do |row|
+    game = Game.new(
+    :is_active => row[:isactive],
+    :day_id => row[:dayid],
+    :start_time => row[:datestarttime],
+    :home_team_id => row[:hometeamid],
+    :away_team_id => row[:awayteamid],
+    :is_flip => row[:isflip],
+    :field => row[:field],
+    :home_score => row[:home_score],
+    :away_score => row[:away_score],
+    :is_rainout => row[:israinout]
+    )
+    game.save
+  end
+end
 
 def generate_fields_lat
   csvRows = get_csv_file('fielddslat.csv')
@@ -381,4 +402,5 @@ end
 #set_board_members_profile_id
 #move_long_image_url_to_profile
 #generate_fields_backup
-generate_fields_lat
+#generate_fields_lat
+#generate_games_backup

@@ -1,5 +1,6 @@
 class Team < ActiveRecord::Base
   belongs_to :division
+  has_many :games
 
   has_many :sponsors, :through => :teams_sponsor
   has_many :profiles

@@ -4,7 +4,7 @@ class CreateSeasons < ActiveRecord::Migration
       t.integer :season_id
       t.integer :league_id
       t.integer :pool_id
-      t.string :season_desc
+      t.string :description
       t.datetime :date_start
       t.datetime :date_end
 

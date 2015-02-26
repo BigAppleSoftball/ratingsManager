@@ -1,8 +1,8 @@
 .panel.panel-default
   .panel-heading
-    %h3= link_to "#{team.name}", team 
-    %h4= team.division.season.season_desc
-    %h4= link_to "#{team.division.div_description}", team.division
+    %h3= link_to "#{team.name}", team
+    %h4= team.division.season.description
+    %h4= link_to "#{team.division.description}", team.division
     =# link_to 'Edit', edit_team_path(team)
   .panel-body
     %table.table.table-bordered
@@ -20,7 +20,7 @@
         %td= team.stat_play
         %td= team.stat_pt_scored
         %td= team.stat_pt_allowed
-    %p= raw(team.team_desc)
+    %p= raw(team.description)
     -if teamsRosters.length > 0
       .panel.panel-default
         .panel-heading
@@ -81,7 +81,7 @@
                       =roster.profile.rating.rating_27
     -if !teamsSponsors.nil?
       .panel.panel-default
-        .panel-heading 
+        .panel-heading
           Sponsors
         .panel-body
           %ul

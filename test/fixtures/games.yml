@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  day_id: 1
+  start_time: 2015-02-24 18:36:16
+  home_team_id: MyString
+  integer: MyString
+  away_team_id: 1
+  is_flip: false
+  field: 1
+  home_score: 1
+  away_score: 1
+  is_rainout: false
+  is_active: false
+
+two:
+  day_id: 1
+  start_time: 2015-02-24 18:36:16
+  home_team_id: MyString
+  integer: MyString
+  away_team_id: 1
+  is_flip: false
+  field: 1
+  home_score: 1
+  away_score: 1
+  is_rainout: false
+  is_active: false

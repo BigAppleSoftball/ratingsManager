@@ -69,6 +69,6 @@ class DivisionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def division_params
-      params.require(:division).permit(:div_id, :season_id, :pool_id, :div_description, :div_order, :standings, :team_cap, :waitlist_cap, :is_active)
+      params.require(:division).permit(:season_id,  :description, :display_order, :team_cap, :waitlist_cap, :is_active)
     end
 end

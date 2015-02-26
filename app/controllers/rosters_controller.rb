@@ -69,6 +69,6 @@ class RostersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def roster_params
-      params.require(:roster).permit(:team_id, :profile_id, :date_created, :date_approved, :date_updated, :is_approved, :is_player, :is_rep, :is_manager, :is_active, :is_confirmed)
+      params.require(:roster).permit(:team_id, :profile_id, :date_created, :date_updated, :is_approved, :is_player, :is_rep, :is_manager, :is_active, :is_confirmed)
     end
 end

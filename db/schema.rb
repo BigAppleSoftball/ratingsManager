@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150218001251) do
+ActiveRecord::Schema.define(version: 20150225235943) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -43,12 +43,9 @@ ActiveRecord::Schema.define(version: 20150218001251) do
   end
 
   create_table "divisions", force: true do |t|
-    t.integer  "div_id"
     t.integer  "season_id"
-    t.integer  "pool_id"
-    t.string   "div_description"
+    t.string   "description"
     t.integer  "div_order"
-    t.string   "standings"
     t.integer  "team_cap"
     t.integer  "waitlist_cap"
     t.boolean  "is_active"
@@ -59,7 +56,6 @@ ActiveRecord::Schema.define(version: 20150218001251) do
   create_table "fields", force: true do |t|
     t.integer  "status"
     t.string   "name"
-    t.text     "directions"
     t.string   "url"
     t.text     "google_map_url"
     t.datetime "created_at"
@@ -75,6 +71,21 @@ ActiveRecord::Schema.define(version: 20150218001251) do
     t.string   "state"
     t.float    "lat",            limit: 24
     t.float    "long",           limit: 24
+  end
+
+  create_table "games", force: true do |t|
+    t.integer  "day_id"
+    t.datetime "start_time"
+    t.integer  "home_team_id"
+    t.integer  "away_team_id"
+    t.boolean  "is_flip"
+    t.integer  "field"
+    t.integer  "home_score"
+    t.integer  "away_score"
+    t.boolean  "is_rainout"
+    t.boolean  "is_active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "hallof_famers", force: true do |t|
@@ -96,7 +107,6 @@ ActiveRecord::Schema.define(version: 20150218001251) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
-    t.string   "nickname"
     t.string   "display_name"
     t.integer  "player_number"
     t.string   "gender"
@@ -105,10 +115,6 @@ ActiveRecord::Schema.define(version: 20150218001251) do
     t.string   "state"
     t.integer  "zip"
     t.string   "phone"
-    t.string   "emergency_name"
-    t.string   "emergency_relation"
-    t.string   "emergency_phone"
-    t.string   "emergency_email"
     t.string   "position"
     t.string   "dob"
     t.integer  "team_id"
@@ -119,10 +125,6 @@ ActiveRecord::Schema.define(version: 20150218001251) do
 
   create_table "ratings", force: true do |t|
     t.integer  "profile_id"
-    t.text     "rating_notes"
-    t.text     "approver_notes"
-    t.string   "rating_list"
-    t.integer  "rating_total"
     t.datetime "date_rated"
     t.datetime "date_approved"
     t.integer  "rated_by_profile_id"
@@ -130,8 +132,6 @@ ActiveRecord::Schema.define(version: 20150218001251) do
     t.boolean  "is_provisional"
     t.boolean  "is_approved"
     t.boolean  "is_active"
-    t.text     "history"
-    t.text     "updated"
     t.integer  "rating_1"
     t.integer  "rating_2"
     t.integer  "rating_3"
@@ -159,7 +159,6 @@ ActiveRecord::Schema.define(version: 20150218001251) do
     t.integer  "rating_25"
     t.integer  "rating_26"
     t.integer  "rating_27"
-    t.datetime "ssma_timestamp"
     t.integer  "ng"
     t.integer  "nr"
     t.datetime "created_at"
@@ -170,7 +169,6 @@ ActiveRecord::Schema.define(version: 20150218001251) do
     t.integer  "team_id"
     t.integer  "profile_id"
     t.datetime "date_created"
-    t.datetime "date_approved"
     t.datetime "date_updated"
     t.boolean  "is_approved"
     t.boolean  "is_player"
@@ -183,10 +181,8 @@ ActiveRecord::Schema.define(version: 20150218001251) do
   end
 
   create_table "seasons", force: true do |t|
-    t.integer  "season_id"
     t.integer  "league_id"
-    t.integer  "pool_id"
-    t.string   "season_desc"
+    t.string   "description"
     t.datetime "date_start"
     t.datetime "date_end"
     t.datetime "created_at"
@@ -194,16 +190,11 @@ ActiveRecord::Schema.define(version: 20150218001251) do
   end
 
   create_table "sponsors", force: true do |t|
-    t.integer  "sponsor_id"
     t.string   "name"
     t.string   "url"
     t.string   "email"
     t.string   "phone"
     t.text     "details"
-    t.datetime "date_created"
-    t.datetime "date_updated"
-    t.integer  "created_user_id"
-    t.integer  "updated_user_id"
     t.boolean  "is_active"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -221,20 +212,15 @@ ActiveRecord::Schema.define(version: 20150218001251) do
     t.integer  "stat_pt_allowed"
     t.integer  "stat_pt_scored"
     t.integer  "stat_tie"
-    t.integer  "teamsnap_id"
-    t.text     "team_desc"
+    t.text     "description"
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "team_code"
-    t.string   "team_status"
     t.string   "win_perc"
     t.integer  "stat_games_back"
     t.datetime "date_created"
     t.datetime "date_updated"
     t.datetime "date_approved"
-    t.string   "contact"
-    t.string   "email"
     t.integer  "created_user_id"
     t.integer  "updated_user_id"
   end

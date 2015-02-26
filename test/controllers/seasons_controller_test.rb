@@ -18,7 +18,7 @@ class SeasonsControllerTest < ActionController::TestCase
 
   test "should create season" do
     assert_difference('Season.count') do
-      post :create, season: { : @season., date_end: @season.date_end, date_start: @season.date_start, league_id: @season.league_id, pool_id: @season.pool_id, season_desc: @season.season_desc, season_id: @season.season_id }
+      post :create, season: { : @season., date_end: @season.date_end, date_start: @season.date_start, league_id: @season.league_id, pool_id: @season.pool_id, description: @season.description, season_id: @season.season_id }
     end
 
     assert_redirected_to season_path(assigns(:season))
@@ -35,7 +35,7 @@ class SeasonsControllerTest < ActionController::TestCase
   end
 
   test "should update season" do
-    patch :update, id: @season, season: { : @season., date_end: @season.date_end, date_start: @season.date_start, league_id: @season.league_id, pool_id: @season.pool_id, season_desc: @season.season_desc, season_id: @season.season_id }
+    patch :update, id: @season, season: { : @season., date_end: @season.date_end, date_start: @season.date_start, league_id: @season.league_id, pool_id: @season.pool_id, description: @season.description, season_id: @season.season_id }
     assert_redirected_to season_path(assigns(:season))
   end
 

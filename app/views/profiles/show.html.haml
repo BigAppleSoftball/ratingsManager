@@ -30,7 +30,7 @@
       -@rosters.each do |roster|
         - team = roster.team
         - divison = team.division
-        %li=link_to raw("#{team.name} <span>(#{divison.div_description} #{divison.season.season_desc}</span>)"), team
+        %li=link_to raw("#{team.name} <span>(#{divison.description} #{divison.season.description}</span>)"), team
   -if @board_members.length > 0
     Board Positions:
     %ul
