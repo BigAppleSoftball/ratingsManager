@@ -18,6 +18,8 @@ gem 'jquery-rails'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 gem 'will_paginate', '~> 3.0.6'
+ # To use ActiveModel has_secure_password
+gem 'bcrypt-ruby', '3.1.2'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 gem 'render_csv'
@@ -31,7 +33,7 @@ gem 'awesome_print'
 gem 'rest-client'
 gem 'rails-erd'
 
-# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+# Spring speeds up development by keeping your application running in the background
 group :development do
   gem 'spring'
   gem 'mysql2'

@@ -16,4 +16,10 @@
             %a.glyphicon.glyphicon-wrench{:href => '/admin/home'}
         - if is_logged_in?
           %li
-            %a{:href => '/logout'} Logout
+            %a{:href => '/teamsnaplogout'} Logout
+-if signed_in?
+  .sub-nav-wrapper
+    .pull-right
+      ="#{current_profile.first_name} #{current_profile.last_name}"
+      |
+      =link_to 'signout', '/signout'

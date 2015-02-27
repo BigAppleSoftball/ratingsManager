@@ -126,3 +126,14 @@ a:hover {
     font-weight: bold;
   }
 }
+
+// Navigation
+.navbar.navbar-default {
+  margin-bottom: 0;
+}
+
+.sub-nav-wrapper {
+  @include clearfix;
+  margin-bottom: 20px;
+
+}
