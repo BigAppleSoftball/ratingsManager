@@ -1,0 +1,17 @@
+- if @fieldStatus
+  .game-status{:class => "status-#{@fieldStatus}"}
+    = render partial: "fields/status_indicator", locals: {statusValue: @fieldStatus , statusString: @fieldStatus}
+    - if @fieldStatus == 1
+      Some Fields are Partially Closed.
+    - elsif @fieldStatus == 2
+      All Fields are Closed
+    - elsif @fieldStatus == 0
+      All Fields are Open
+
+.sponsors-carousel-wrapper
+  .sponsors-carousel-window
+    %ul.sponsors-carousel.js-sponsors-carousel
+      -@sponsors.each do |sponsor|
+        %li
+          %a{:href=>sponsor.url, :title => sponsor.name, :target=> '_blank'}
+            %img{:src=>"#{sponsor.logo_url}"}

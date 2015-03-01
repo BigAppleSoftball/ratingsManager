@@ -5,7 +5,6 @@ class GamesController < ApplicationController
   # GET /games.json
   def index
     @games = Game.all
-    ap @games
   end
 
   # GET /games/1
@@ -16,6 +15,7 @@ class GamesController < ApplicationController
   # GET /games/new
   def new
     @game = Game.new
+    get_universal_game_variables
   end
 
   # GET /games/1/edit
@@ -66,6 +66,12 @@ class GamesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_game
       @game = Game.find(params[:id])
+      get_universal_game_variables
+    end
+
+    def get_universal_game_variables
+      @teamsByDivision = get_all_teams_by_division
+      @seasons = get_all_seasons
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

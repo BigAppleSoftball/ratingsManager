@@ -6,10 +6,37 @@
           %i.brand-logo-40
     .collapse.navbar-collapse
       %ul.nav.navbar-nav
+        %li.dropdown
+          %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+            About
+            %span.caret
+          %ul.dropdown-menu{:role => "menu"}
+            %li
+              %a{:href => "#"} About Us
+            %li
+              =link_to 'Board Members', '/showallboard'
+            %li
+              =link_to 'Committees', '/showallcommittee'
+        %li.dropdown
+          %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+            Season
+            %span.caret
+          %ul.dropdown-menu{:role => "menu"}
+            %li
+              %a{:href => "#"} Schedule
+            %li
+              %a{:href => "#"} Standings
+            %li
+              %a{:href => "#"} Registration
+            %li
+              %a{:href => "#"} Stats
+            %li.divider
+            %li
+              =link_to 'Past Seasons', seasons_path
         %li
-          %a{:href => "/welcome"} Teamsnap Teams
+          =link_to 'Calendar', '/loadcalendar'
         %li
-          %a{:href => seasons_path} Seasons
+          =link_to 'Teamsnap Teams', '/welcome'
       %ul.nav.navbar-nav.navbar-right
         - if is_admin?
           %li
@@ -17,8 +44,8 @@
         - if is_logged_in?
           %li
             %a{:href => '/teamsnaplogout'} Logout
--if signed_in?
-  .sub-nav-wrapper
+.sub-nav-wrapper
+  -if signed_in?
     .pull-right
       ="#{current_profile.first_name} #{current_profile.last_name}"
       |

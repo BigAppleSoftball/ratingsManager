@@ -219,6 +219,69 @@ def get_field_statuses
   field_statuses
 end
 
+def get_all_field_statues
+  fields = Field.all
+  closedCount = 0
+  partialCount = 0
+  openCount = 0
+  numOfFields = fields.length
+  fields.each do |field|
+    if field.status == 0
+      openCount += 1
+    elsif field.status == 1
+      partialCount += 1
+    elsif field.status == 2
+      closedCount += 1
+    end
+  end
+
+  if numOfFields == openCount #all The fields are open
+    fieldStatus = 0
+  elsif numOfFields == closedCount # all the fields are closed
+    fieldStatus = 2
+  else #some are open, closed or partially open
+    fieldStatus = 1
+  end
+  fieldStatus
+end
+
+# Gets all the teams and orders them by division
+def get_all_teams_by_division
+  teams = Team.order('division_id ASC').all
+  teams_by_divisions(teams)
+end
+
+def get_teams_by_division(divisionIds)
+  teams = Team.where(:division_id => divisionIds).order('division_id ASC').all
+  teams_by_divisions(teams)
+end
+
+def teams_by_divisions(teams)
+  teamsByDivision = Array.new
+  currentDivision = Hash.new
+  currentDivision[:id] = 0
+  currentDivision[:teams] = Array.new
+  teams.each do |team|
+    if currentDivision[:id] != team.division_id
+      if currentDivision[:teams].length > 0
+        teamsByDivision.push(currentDivision)
+      end
+      
+      currentDivision = Hash.new
+      currentDivision[:id] = team.division_id
+      currentDivision[:name] = team.division.description
+      currentDivision[:teams] = Array.new
+    end
+    currentDivision[:teams].push(team)
+  end
+  teamsByDivision
+end
+
+def get_all_seasons
+  seasons = Season.all
+end
+
+
 private
 
   # Finds the User with the ID stored in the session with the key

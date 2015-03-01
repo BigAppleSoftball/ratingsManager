@@ -114,28 +114,7 @@ class WelcomeController < ApplicationController
 
   def basl_sidebar
     @sponsors = Sponsor.where(:show_carousel => true)
-    fields = Field.all
-    closedCount = 0
-    partialCount = 0
-    openCount = 0
-    numOfFields = fields.length
-    fields.each do |field|
-      if field.status == 0
-        openCount += 1
-      elsif field.status == 1
-        partialCount += 1
-      elsif field.status == 2
-        closedCount += 1
-      end
-    end
-
-    if numOfFields == openCount #all The fields are open
-      @fieldStatus = 0
-    elsif numOfFields == closedCount # all the fields are closed
-      @fieldStatus = 2
-    else #some are open, closed or partially open
-      @fieldStatus = 1
-    end
+    @fieldStatus = get_all_field_statues
     respond_to do |format|
       format.html { render layout: false }
     end

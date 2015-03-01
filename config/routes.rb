@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'welcome#login'
+  root 'static_pages#home'
 
   resources :games
   resources :fields
@@ -17,13 +17,15 @@ Rails.application.routes.draw do
   resources :teams, :only => [:index, :show]
   resources :sessions, only: [:new, :create, :destroy]
 
+  get '/home', to:'static_pages#home'
   # sessions
-  match '/signup',  to: 'profiles#new',            via: 'get'
+  match '/signup',  to: 'profiles#new', via: 'get'
   #match '/help',    to: 'static_pages#help',    via: 'get'
   #match '/about',   to: 'static_pages#about',   via: 'get'
   #match '/contact', to: 'static_pages#contact', via: 'get'
-  match '/signin',  to: 'sessions#new',         via: 'get'
-  get '/signout', to: 'sessions#destroy',     via: 'delete'
+  match '/signin',  to: 'sessions#new', via: 'get'
+  get '/signout', to: 'sessions#destroy', via: 'delete'
+  get '/teams_by_season', to: 'teams#get_teams_by_season'
 
   get '/welcome', to: 'welcome#index'
   #teamsnap api login

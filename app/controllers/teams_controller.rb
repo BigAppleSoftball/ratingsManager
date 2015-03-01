@@ -71,6 +71,18 @@ class TeamsController < ApplicationController
     end
   end
 
+
+  def get_teams_by_season
+    divisions = Division.select('id').where(:season_id => params[:season_id])
+    divisionIds = Array.new
+    divisions.each do |division|
+      divisionIds.push(division.id)
+    end
+    respond_to do |format|
+      format.json { render :json=> teams}
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_team
