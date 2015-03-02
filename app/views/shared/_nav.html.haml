@@ -45,6 +45,8 @@
           %li
             %a{:href => '/teamsnaplogout'} Logout
 .sub-nav-wrapper
+  -if current_staff_user
+    = render 'user_impersonate/header'
   -if signed_in?
     .pull-right
       ="#{current_profile.first_name} #{current_profile.last_name}"

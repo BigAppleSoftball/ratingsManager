@@ -16,6 +16,10 @@ module SessionsHelper
     @current_user ||= Profile.find_by_remember_token(remember_token)
   end
 
+  def current_user
+    current_profile
+  end
+
   def signed_in?
     !current_profile.nil?
   end

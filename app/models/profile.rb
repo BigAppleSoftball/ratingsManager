@@ -17,6 +17,16 @@ class Profile < ActiveRecord::Base
   has_one :board_member
   has_one :committee
 
+  # TODO(paige) implement
+  def staff?
+    true
+  end
+
+  # String to represent a user (e-mail, name, etc.)
+  def to_s
+    email
+  end
+
   def self.search(search)
     if search
       where('last_name LIKE ? OR first_name LIKE ?', "%#{search}%", "%#{search}%")

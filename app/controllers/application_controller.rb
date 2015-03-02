@@ -281,6 +281,15 @@ def get_all_seasons
   seasons = Season.all
 end
 
+# TODO (implement)
+def authenticate_user!
+  true
+end
+
+# if the user is an admin impersonating another account
+def current_admin_user
+  false
+end
 
 private
 

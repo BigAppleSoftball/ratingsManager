@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   root 'static_pages#home'
 
   resources :games
@@ -51,6 +52,7 @@ Rails.application.routes.draw do
 
   #admin panel
   get '/admin/home', to: 'admins#home'
+  mount UserImpersonate::Engine => "/impersonate", as: "impersonate_engine"
 
   #errors
   get '/403', to: 'welcome#error403'
