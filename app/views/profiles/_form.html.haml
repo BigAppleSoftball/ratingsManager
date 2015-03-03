@@ -39,4 +39,10 @@
       = f.password_field :password_confirmation, {:class => 'form-control'}
   .form-group
     .col-sm-offset-2.col-sm-10
+      .checkbox
+        %label
+          = f.check_box :is_admin?
+          Is Site Admin?
+  .form-group
+    .col-sm-offset-2.col-sm-10
       = f.submit 'Save', {:class => 'btn btn-primary'}
