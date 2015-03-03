@@ -5,28 +5,33 @@
 %table.table.table-striped.table-bordered.table-condensed
   %tr
     %th Order
-    %th
     %th Position
     %th Position Email
-    %th Name
+    %th Profile
+    %th Admin
     %th.actions-column
 
   - @board_members.each do |board_member|
     - profile = board_member.profile
     %tr
       %td= board_member.display_order
-      %td
-        -if profile && profile.long_image_url
-          .image30-wrapper
-            %img{:src => profile.long_image_url}
       %td= link_to board_member.position, board_member
-      %td
-        = board_member.email
+      %td= board_member.email
       %td{:class => profile ? '' : 'danger danger-column'}
         - if profile
           = link_to "#{profile.first_name} #{profile.last_name}", profile 
         -else
           = render partial: "shared/warning_column", locals: { text: 'No Profile'}
+      %td
+        - if board_member.is_league_admin
+          %b League Admin
+          %br
+        -if board_member.is_division_rep
+          -if board_member.division_id
+            %p
+              = board_member.division.description
+              = board_member.division.season.description
+              Rep
       %td
         = render partial: "shared/actions/table_actions", locals: { editPath: edit_board_member_path(board_member), deletePath: board_member}
 

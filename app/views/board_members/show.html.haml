@@ -10,6 +10,14 @@
 .board-member-details.pull-left
   .well
     To change the Board member name or card image please edit the connected profile
+  - if @board_member.is_league_admin
+    %p This User is a League Admin
+
+  - if @board_member.is_division_rep && @board_member.division_id
+    %p 
+      This User is a Division Admin for 
+      %b
+        = link_to "#{@board_member.division.description} - #{@board_member.division.season.description}", @board_member.division
   %p
     %b Email:
     = @board_member.email
@@ -23,5 +31,6 @@
   %p
     %b Image url:
     = @board_member.image_url
+
 
 
