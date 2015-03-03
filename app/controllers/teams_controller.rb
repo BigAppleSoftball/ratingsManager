@@ -1,10 +1,12 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update, :destroy]
+  before_filter :only_for_admin, only: [:edit, :update, :destroy, :new]
 
   # GET /teams
   # GET /teams.json
   def index
     @teams = Team.all
+
   end
 
   # GET /teams/1
@@ -24,11 +26,13 @@ class TeamsController < ApplicationController
 
   # GET /teams/new
   def new
+    get_form_presets
     @team = Team.new
   end
 
   # GET /teams/1/edit
   def edit
+    get_form_presets
   end
 
   # POST /teams
@@ -84,6 +88,9 @@ class TeamsController < ApplicationController
   end
 
   private
+    def get_form_presets
+      @profiles = Profile.all
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_team
       @team = Team.find(params[:id])
@@ -91,6 +98,6 @@ class TeamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
-      params.require(:team).permit(:division_id, :long_name, :stat_loss, :stat_win, :stat_play, :stat_pt_allowed, :stat_pt_scored, :stat_tie, :description, :name)
+      params.require(:team).permit(:division_id, :long_name, :stat_loss, :stat_win, :stat_play, :stat_pt_allowed, :stat_pt_scored, :stat_tie, :description, :name, :manager_profile_id)
     end
 end

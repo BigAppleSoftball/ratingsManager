@@ -16,6 +16,7 @@ class Profile < ActiveRecord::Base
   has_one :rating
   has_one :board_member
   has_one :committee
+  has_one :team
 
   def self.search(search)
     if search

@@ -1,0 +1,59 @@
+= form_for @team, :html => {:class => 'form-horizontal'} do |f|
+  - if @team.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@team.errors.count, "error")
+        prohibited this team from being saved:
+      %ul
+        - @team.errors.full_messages.each do |message|
+          %li= message
+  .form-group
+    = f.label :manager_profile_id, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = render partial: "shared/profile_picker", locals: { profiles: @profiles, currentValue: @team.manager_profile_id,
+        placeHolder: "Choose a Team Manager",selectName: 'team[manager_profile_id]', 
+        selectId: 'team_manager_profile_id'}
+
+  .form-group
+    = f.label :division_id, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.number_field :division_id, {:class => 'form-control'}
+  .form-group
+    = f.label :long_name, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_field :long_name, {:class => 'form-control'}
+  .form-group
+    = f.label :stat_loss, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.number_field :stat_loss, {:class => 'form-control'}
+  .form-group
+    = f.label :stat_win, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.number_field :stat_win, {:class => 'form-control'}
+  .form-group
+    = f.label :stat_play, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.number_field :stat_play, {:class => 'form-control'}
+  .form-group
+    = f.label :stat_pt_allowed, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.number_field :stat_pt_allowed, {:class => 'form-control'}
+  .form-group
+    = f.label :stat_pt_scored, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.number_field :stat_pt_scored, {:class => 'form-control'}
+  .form-group
+    = f.label :stat_tie, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.number_field :stat_tie, {:class => 'form-control'}
+  .form-group
+    = f.label :description, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_area :description, {:class => 'form-control'}
+  .form-group
+    = f.label :name, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_field :name, {:class => 'form-control'}
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit 'Save', {:class => 'btn btn-primary'}

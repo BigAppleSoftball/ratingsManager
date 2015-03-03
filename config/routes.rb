@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :hallof_famers
   resources :admins
   #resources :ratings
-  #resources :rosters
+  resources :teams
   resources :profiles
   resources :teams_sponsors, :only => [:index, :show]
   resources :sponsors

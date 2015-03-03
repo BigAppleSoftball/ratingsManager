@@ -28,8 +28,20 @@
     .col-sm-offset-2.col-sm-10
       .checkbox
         %label
-          = f.check_box :is_committee_lead
-          Show only on the Committee Page?
+          = f.check_box :is_league_admin
+          Is League Admin?
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      .checkbox
+        %label
+          = f.check_box :is_division_rep
+          Is Division Rep?
+      %select.chosen-select{:id => 'board_member_division_id', :name => 'board_member[division_id]', :data => {:placeholder => "Select a Division"}}
+        %option
+        -@divisions.each do |division|
+          %option{:value => division.id}
+            =division.description
+            =division.season.description
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit 'Save', {:class => 'btn btn-primary'}
