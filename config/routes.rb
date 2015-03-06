@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   get '/signout', to: 'sessions#destroy', via: 'delete'
   get '/teams_by_season', to: 'teams#get_teams_by_season'
 
+  post '/add_player_to_roster', to: 'rosters#add_player_to_roster'
+
   get '/welcome', to: 'welcome#index'
   #teamsnap api login
   get '/login', to: 'welcome#login'

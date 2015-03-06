@@ -52,9 +52,6 @@ a:hover {
 }
 
 .global-notice {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
 }
 
@@ -127,13 +124,15 @@ a:hover {
   }
 }
 
-// Navigation
-.navbar.navbar-default {
-  margin-bottom: 0;
-}
-
 .sub-nav-wrapper {
   @include clearfix;
   margin-bottom: 20px;
 
+}
+
+// Add Player Modal
+.add-player-modal {
+  .chosen-container {
+    width: 100% !important;
+  }
 }

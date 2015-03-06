@@ -61,6 +61,28 @@ class RostersController < ApplicationController
     end
   end
 
+  # Add a profile to a roster
+  def add_player_to_roster
+    response = Hash.new
+    profileId = params[:profile_id]
+    teamId = params[:team_id]
+    profile = Profile.find_by_id(profileId)
+    roster = Roster.new(
+      :team_id => teamId,
+      :profile_id => profileId
+      )
+    if roster.valid?
+      roster.save
+      response[:success] = true
+      response[:profile_html] = render_to_string "teams/_roster_profile.haml", :layout => false, :locals => { :profile => roster.profile}
+    else
+      response[:errors] = roster.errors.full_messages
+    end
+    respond_to do |format|
+      format.json { render :json=> response}
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_roster

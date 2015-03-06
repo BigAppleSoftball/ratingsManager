@@ -33,6 +33,7 @@ class TeamsController < ApplicationController
   # GET /teams/1/edit
   def edit
     get_form_presets
+    @rosters = Roster.where(:team_id => params[:id])
   end
 
   # POST /teams
