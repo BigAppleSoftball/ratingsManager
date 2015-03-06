@@ -1,23 +1,23 @@
 - content_for :panel_head do
   %h1 Teams
   = render partial: 'shared/actions/view_all_actions', locals: { newPath: new_team_path}
+  
 
 
 %table.table.table-striped.table-condensed.table-bordered.js-fields-table
   %tr
     %th Season
+    %th Division
     %th Name
     %th Manager
-    %th.actions-column
+    - if is_admin?
+      %th.actions-column
   - @teams.each do |team|
     %tr
-      %td= link_to "#{team.division.description} #{team.division.season.description}", team.division
-      %td=team.name
-      %td{:class => team.manager_profile_id ? '' : 'danger danger-column'}
-        -if team.manager_profile_id
-          - manager = team.manager
-          = link_to "#{manager.first_name} #{manager.last_name}", manager 
-        -else
-          = render partial: "shared/warning_column", locals: { text: 'No Team Manager'}
-      %td
-        = render partial: "shared/actions/table_actions", locals: { editPath: edit_team_path(team), deletePath: team}
+      %td=link_to "#{team.division.season.description}", team.division.season
+      %td= link_to "#{team.division.description}" , team.division
+      %td=link_to team.name, team
+      %td{:class => team ? '' : 'danger danger-column'}= render partial: "teams/managers_list", locals: { team: team}
+      - if is_admin?
+        %td
+          = render partial: "shared/actions/table_actions", locals: { editPath: edit_team_path(team), deletePath: team}

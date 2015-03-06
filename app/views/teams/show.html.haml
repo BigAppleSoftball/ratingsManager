@@ -1,13 +1,11 @@
 - content_for :panel_head do
-  %h1= @team.name
-  %h4= link_to "#{@team.division.season.description} #{@team.division.description}", @team.division
-  -if @team.manager_profile_id
-    - manager = @team.manager
-    %p
-      %b Team Manager:
-      = link_to "#{manager.first_name} #{manager.last_name}", manager
-  - else
-    No Team Manager!
-  = render partial: "shared/actions/show_actions", locals: { editPath: edit_team_path(@team), fieldName: 'Team', allPath: teams_path}
+  .team-details-container.pull-left
+    = render partial: "shared/actions/show_actions", locals: { editPath: edit_team_path(@team), fieldName: 'Team', allPath: teams_path}
+    %h1= @team.name
+    %h4= link_to "#{@team.division.season.description} #{@team.division.description}", @team.division
+  .team-admin-container.pull-right
+    = render partial: "teams/managers_list", locals: { team: @team}
+    = render partial: "teams/reps_list", locals: { team: @team}
+  
 
-= render 'team', :team => @team, :teamsSponsors => @teamSponsors, :teamsRosters => @teamsRosters
+= render 'team', :team => @team, :teamsSponsors => @teamSponsors, :teamsRosters => @teamsRosters, :games => @games

@@ -12,16 +12,12 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
-    teams_sponsors = TeamsSponsor.where(:team_id => params[:id])
-    @teamSponsors = Array.new
-    teams_sponsors.each do |team_sponsor|
-      @teamSponsors.push(team_sponsor)
-    end
-    rosters = Roster.where(:team_id => params[:id])
-    @teamsRosters = Array.new
-    rosters.each do |roster|
-      @teamsRosters.push(roster)
-    end
+    @teamSponsors = TeamsSponsor.where(:team_id => params[:id])
+    
+    @teamsRosters = Roster.where(:team_id => params[:id])
+    ap "GETTING GAMES"
+    @games = Game.where("home_team_id = ? OR away_team_id = ?", params[:id], params[:id])
+    ap @games
   end
 
   # GET /teams/new

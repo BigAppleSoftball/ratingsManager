@@ -1,9 +1,6 @@
 class WelcomeController < ApplicationController
   #protect_from_forgery
   after_action :set_access_control_headers
-  Time::DATE_FORMATS[:google_date] = "%Y-%m-%d"
-  Time::DATE_FORMATS[:week_date] = "%a, %b %d"
-  Time::DATE_FORMATS[:event_date] = "%a, %b %d %l:%M %P"
 
   def index
     @teamsByDivision = get_all_teams

@@ -1,3 +1,15 @@
 // Place all the styles related to the Games controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+// attendance padding
+.attendance-tracker-panel {
+  // we need important to make up for the n-th child for the strips
+  .is-attending td{
+    background: rgba($green, 0.3) !important;
+  }
+
+  .is-not-attending td {
+    background: rgba($red, 0.3) !important;
+  }
+}

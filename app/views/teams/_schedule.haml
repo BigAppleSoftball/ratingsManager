@@ -1,0 +1,40 @@
+.panel.panel-default
+  .panel-heading
+    %h3 Schedule
+  %table.table.table-striped.table-bordered.table-condensed.centered-table.team-schedule-table
+    %tr
+      %th Away
+      %th Home
+      %th Time
+      %th Result
+      %th
+    - games.each do |game|
+      %tr
+        %td
+          %span.away_team
+            = game.away_team.name
+            -if game.is_played?
+              %span.team_score="(#{game.away_score})"
+        %td
+          %span.home_team
+            =game.home_team.name
+            -if game.is_played?
+              %span.team_score="(#{game.home_score})"
+        %td
+          = game.start_time.to_s(:event_date)
+        %td
+          - if game.is_played?
+            - if game.is_tied?
+              %span.game-tied
+                T
+            -elsif game.is_winner?(@team.id)
+              %span.game-won
+                W
+            -elsif
+              %span.game-lost
+                L
+          - else
+            ="--"
+        %td
+          =link_to 'View Game', game, :class => 'btn btn-primary'
+

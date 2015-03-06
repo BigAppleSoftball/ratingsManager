@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   root 'static_pages#home'
 
   resources :games
@@ -17,12 +18,13 @@ Rails.application.routes.draw do
   resources :teams, :only => [:index, :show]
   resources :sessions, only: [:new, :create, :destroy]
 
+  # games
+  get '/games/:id/:teamid', to: 'games#game_attendance'
+  post '/set_attendance', to: 'game_attendances#set_attendance'
+
   get '/home', to:'static_pages#home'
   # sessions
   match '/signup',  to: 'profiles#new', via: 'get'
-  #match '/help',    to: 'static_pages#help',    via: 'get'
-  #match '/about',   to: 'static_pages#about',   via: 'get'
-  #match '/contact', to: 'static_pages#contact', via: 'get'
   match '/signin',  to: 'sessions#new', via: 'get'
   get '/signout', to: 'sessions#destroy', via: 'delete'
   get '/teams_by_season', to: 'teams#get_teams_by_season'

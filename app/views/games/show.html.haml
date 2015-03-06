@@ -1,35 +1,47 @@
 - content_for :panel_head do
   %h1 Game
   = render partial: "shared/actions/show_actions", locals: { editPath: edit_game_path(@game), fieldName: 'Game', allPath: games_path}
-%p
-  %b Day:
-  = @game.day_id
-%p
-  %b Start time:
-  = @game.start_time
-%p
-  %b Home team:
-  - if @game.home_team_id
-    = @game.home_team.name
-    = @game.home_score
-%p
-  %b Away team:
-  - if @game.away_team_id
-    = @game.away_team.name
-    = @game.away_score
-%p
-  %b Is flip:
-  = @game.is_flip
-%p
-  %b Field:
-  = @game.field
-%p
-  %b Is rainout:
-  = @game.is_rainout
-%p
-  %b Is active:
-  = @game.is_active
+  -if is_admin?
+    = link_to 'Edit', edit_game_path(@game), :class => 'btn btn-danger'
 
-= link_to 'Edit', edit_game_path(@game)
-\|
-= link_to 'Back', games_path
+- if @game.is_rainout
+  .alert.alert-danger
+    This Game has been rained out
+- if @game.is_flip
+  Teams Flip for home team
+%table.table.table-striped.table-condensed.table-bordered
+  %tr
+    %th Away
+    %th 
+    %th Home
+    %th
+    %th Time
+  %tr
+    %td
+      -if @game.home_team_id
+        = link_to @game.away_team.name, @game.away_team
+    %td= @game.away_score
+    %td
+      -if @game.away_team_id
+        = link_to @game.home_team.name, @game.home_team
+    %td= @game.home_score
+    %td=@game.start_time.to_s(:event_date)
+
+- if @team && @roster
+  .panel.panel-default.attendance-tracker-panel.js-games-attendance-panel
+    .panel-heading
+      Game Attendance
+    .panel-body
+      %table.table.table-bordered.table-striped.table-condensed
+        %tr
+          %th Player
+          %th is Attending?
+        -@roster.each do |player|
+          - player_attendance = @attendance.select{|h| h[:profile_id]==player.profile.id}
+
+          %tr.js-player-row{:class => "#{attendance_class(player_attendance[0])}",:data => {:profile_id => player.profile.id, :game_id => @game.id}}
+            %td=player.profile.name
+            %td
+              %button.btn.btn-success.js-attendance-btn.is-yes Yes
+              %button.btn.btn-danger.js-attendance-btn.is-no No
+

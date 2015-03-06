@@ -135,5 +135,8 @@ a:hover {
 .sub-nav-wrapper {
   @include clearfix;
   margin-bottom: 20px;
+}
 
+.panel-heading {
+  @include clearfix;
 }

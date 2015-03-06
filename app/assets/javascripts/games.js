@@ -7,6 +7,10 @@
     this.$container = $('#controller-games');
     if (this.$container.length > 0) {
       this.init();
+
+      if ($('.js-games-attendance-panel').length > 0) {
+        this.attendancePanel = new AttendancePanel($('.js-games-attendance-panel'));
+      }
     }
   };
 
@@ -48,6 +52,62 @@
       $selectData.append($divisionGroup)
     });
     $('.js-teams-selector').html($selectData.html()).trigger("chosen:updated");;
+  };
+
+  /**
+   * @constructor
+   * The Attendance panel for the game page 
+   */
+  var AttendancePanel = function($container) {
+    this.$container = $container;
+    this.init();
+  };
+
+  /**
+   * intialize the attendance panel
+   */
+  AttendancePanel.prototype.init = function(){
+    this.bindActions();
+  }
+
+  /**
+   * Bind button listeners
+   */
+  AttendancePanel.prototype.bindActions = function(){
+    this.$container.find('.js-attendance-btn').on('click', function() {
+      var $this = $(this),
+          $row = $this.closest('.js-player-row'),
+          profile_id = $row.data('profile-id'),
+          game_id = $row.data('game-id');
+
+      if ($this.hasClass('is-yes')) {
+        // player is attending game
+        is_attending = true;
+        $row.addClass('is-attending').removeClass('is-not-attending');
+      } else {
+        // player isn't attending game
+        is_attending = false;
+        $row.removeClass('is-attending').addClass('is-not-attending');
+      }
+
+      // run ajax to update players attendance
+      $.ajax({
+        url: '/set_attendance',
+        type: 'post',
+        dataType: 'JSON',
+        data: {
+          'is_attending': is_attending,
+          'profile_id': profile_id,
+          'game_id': game_id
+        },
+        success: function(data) {
+          // TODO(paige) show an error if it failed to save
+        },
+        error: function() {
+          // TODO (paige) show an error if it failed to save
+        }
+      })
+    });
   };
 
   var game = new Game();

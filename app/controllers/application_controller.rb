@@ -3,6 +3,9 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   include SessionsHelper
+  Time::DATE_FORMATS[:google_date] = "%Y-%m-%d"
+  Time::DATE_FORMATS[:week_date] = "%a, %b %d"
+  Time::DATE_FORMATS[:event_date] = "%a, %b %d %l:%M %P"
 
   def connect
     url = 'https://api.teamsnap.com/'
