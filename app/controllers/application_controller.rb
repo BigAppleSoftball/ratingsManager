@@ -42,9 +42,9 @@ class ApplicationController < ActionController::Base
   end
 
   def get_all_teams
-    Rails.cache.fetch("all_teams", :expires_in => 60.minutes) do
+    #Rails.cache.fetch("all_teams", :expires_in => 60.minutes) do
       get_all_teams_api
-    end
+    #end
   end
 
   def get_all_teams_api
@@ -52,6 +52,7 @@ class ApplicationController < ActionController::Base
     conn = connect
     conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
     response = conn.get teamsURL
+    ap JSON.parse(response.body)
     preprocess_team_data(JSON.parse(response.body))
   end
 
