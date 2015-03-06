@@ -3,7 +3,7 @@ class Profile < ActiveRecord::Base
   before_create :create_remember_token
 
   has_secure_password
-  validates :password, length: { minimum: 6 }
+  validates :password, length: { minimum: 6 }, on: :create
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :last_name, presence: true
   validates :first_name, presence: true
@@ -16,7 +16,17 @@ class Profile < ActiveRecord::Base
   has_one :rating
   has_one :board_member
   has_one :committee
-  has_one :team
+  #has_one :team
+
+  # TODO(paige) implement
+  def staff?
+    true
+  end
+
+  # String to represent a user (e-mail, name, etc.)
+  def to_s
+    "#{first_name} #{last_name}"
+  end
 
   def self.search(search)
     if search

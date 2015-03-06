@@ -11,6 +11,8 @@
       = render 'shared/nav'
       - if flash[:notice]
         .alert.alert-info.global-notice= flash[:notice]
+      - if flash[:error]
+        .alert.alert-danger.global-notice= flash[:error]
       .panel.panel-default.main-panel
         .panel-heading
           = yield :panel_head 

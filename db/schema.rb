@@ -133,6 +133,7 @@ ActiveRecord::Schema.define(version: 20150306024625) do
     t.string   "long_image_url"
     t.string   "password_digest"
     t.string   "remember_token"
+    t.boolean  "is_admin"
   end
 
   create_table "ratings", force: true do |t|

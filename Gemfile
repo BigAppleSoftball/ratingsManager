@@ -33,6 +33,9 @@ gem 'awesome_print'
 gem 'rest-client'
 gem 'rails-erd'
 
+# admin tools
+gem 'user_impersonate2', :require => 'user_impersonate'
+
 # Spring speeds up development by keeping your application running in the background
 group :development do
   gem 'spring'

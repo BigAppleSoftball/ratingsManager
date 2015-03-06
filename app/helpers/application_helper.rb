@@ -86,5 +86,4 @@ module ApplicationHelper
 
     link_to raw("#{title} <i class='#{icon}'></i>"), params.merge(:sort => column, :direction => direction, :page => nil), {:class => css_class}
   end
-
 end

@@ -385,6 +385,18 @@ def move_long_image_url_to_profile
   end
 end
 
+def create_default_admin_profile
+  profile = Profile.new(
+    :email => 'webteam@bigapplesoftball.com',
+    :first_name => 'Admin',
+    :last_name => 'User',
+    :password => '123456',
+    :password_confirmation => '123456',
+    :is_admin => true
+  )
+  profile.save
+end
+
 #generate_team_backup
 #generate_division_backup
 #generate_season_backup
@@ -404,3 +416,4 @@ end
 #generate_fields_backup
 #generate_fields_lat
 #generate_games_backup
+create_default_admin_profile

@@ -15,7 +15,8 @@
     %th= sortable 'id', 'Id', false, true
     %th= sortable 'last_name', 'Name', true
     %th.actions-column
-
+    -if is_admin?
+      %th Admin Actions
   - @profiles.each do |profile|
     %tr
       %td= profile.id
@@ -23,4 +24,7 @@
         = link_to "#{profile.first_name} #{profile.last_name}", profile
       %td
         = render partial: "shared/actions/table_actions", locals: { editPath: edit_profile_path(profile), deletePath: profile}
+      -if is_admin?
+        %td
+          =link_to 'Impersonate', impersonate_engine.impersonate_user_path(profile)
           

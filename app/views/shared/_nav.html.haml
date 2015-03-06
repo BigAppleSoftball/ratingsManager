@@ -42,11 +42,22 @@
           %li
             %a.glyphicon.glyphicon-wrench{:href => '/admin/home'}
         - if is_logged_in?
+          %li.nav-current-profile
+            = link_to current_profile.to_s, current_profile
           %li
-            %a{:href => '/teamsnaplogout'} Logout
-.sub-nav-wrapper
-  -if signed_in?
-    .pull-right
-      ="#{current_profile.first_name} #{current_profile.last_name}"
-      |
-      =link_to 'signout', '/signout'
+            %a{:href => '/signout'} 
+              Logout
+        - else
+          %li
+            %a{:href => '/signin'} Login
+  -if current_staff_user
+    .sub-nav-wrapper.impersonating-bar
+      .impersonate-notification.pull-left
+        You (
+        %span.admin_name= current_staff_user
+        ) are impersonating
+        %span.profile_name= current_user
+        ( User id: #{current_user.to_param} )
+      .pull-right.impersonate-actions
+        = form_tag impersonate_engine.revert_impersonate_user_url, :method => :delete, :class => 'revert-form' do
+          %button.btn.btn-sm.btn-default{:type => "submit"} Revert

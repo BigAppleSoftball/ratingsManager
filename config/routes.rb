@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   root 'static_pages#home'
 
   resources :games
@@ -29,6 +28,8 @@ Rails.application.routes.draw do
   get '/signout', to: 'sessions#destroy', via: 'delete'
   get '/teams_by_season', to: 'teams#get_teams_by_season'
 
+  post '/add_player_to_roster', to: 'rosters#add_player_to_roster'
+
   get '/welcome', to: 'welcome#index'
   #teamsnap api login
   get '/login', to: 'welcome#login'
@@ -53,6 +54,7 @@ Rails.application.routes.draw do
 
   #admin panel
   get '/admin/home', to: 'admins#home'
+  mount UserImpersonate::Engine => "/impersonate", as: "impersonate_engine"
 
   #errors
   get '/403', to: 'welcome#error403'

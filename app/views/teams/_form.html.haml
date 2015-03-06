@@ -7,6 +7,7 @@
       %ul
         - @team.errors.full_messages.each do |message|
           %li= message
+  = f.hidden_field :id
   .form-group
     = f.label :manager_profile_id, {:class => 'col-sm-2 control-label'}
     .col-sm-10
@@ -54,6 +55,16 @@
     = f.label :name, {:class => 'col-sm-2 control-label'}
     .col-sm-10
       = f.text_field :name, {:class => 'form-control'}
+  .form-group
+    .col-sm-2.control-label
+      Team Roster
+    .col-sm-10
+      %ul.list-group.js-team-roster-list
+        -@rosters.each do |roster|
+          = render partial: "teams/roster_profile", locals: { profile: roster.profile}
+      .btn.btn-success.js-show-add-new-player-modal Add New Player
+      = render :partial => 'teams/add_new_player_modal'
+      
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit 'Save', {:class => 'btn btn-primary'}

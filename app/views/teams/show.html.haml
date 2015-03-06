@@ -6,6 +6,5 @@
   .team-admin-container.pull-right
     = render partial: "teams/managers_list", locals: { team: @team}
     = render partial: "teams/reps_list", locals: { team: @team}
-  
 
 = render 'team', :team => @team, :teamsSponsors => @teamSponsors, :teamsRosters => @teamsRosters, :games => @games

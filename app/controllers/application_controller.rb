@@ -191,11 +191,7 @@ def get_token_cookie
 end
 
 def is_admin?
-  if (cookies[:teamsnap_is_admin])
-    cookies[:teamsnap_is_admin]
-  else
-    false
-  end
+  current_profile && current_profile.is_admin
 end
 
 def log_out_user
@@ -204,11 +200,7 @@ def log_out_user
 end
 
 def is_logged_in?
-  if (cookies[:teamsnap_token].nil?)
-    false
-  else
-    true
-  end
+  !current_profile.nil?
 end
 
 def only_for_admin
@@ -284,6 +276,15 @@ def get_all_seasons
   seasons = Season.all
 end
 
+# TODO (implement)
+def authenticate_user!
+  true
+end
+
+# if the user is an admin impersonating another account
+def current_admin_user
+  false
+end
 
 private
 
