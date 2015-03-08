@@ -203,10 +203,11 @@ def is_manager?
   current_profile && roster.length > 0 
 end
 
+#
+# checks to see if the team id is in the list of user ids
+#
 def is_team_manager?(team_id)
-  roster = Roster.where(:team_id => team_id, :is_manager => true)
-  ap roster
-
+  current_profile.teams_managed_list.include?(team_id)
 end
 
 def log_out_user
@@ -224,6 +225,13 @@ def only_for_admin
   end
 end
 
+def only_for_admin_user
+  ap "ONLY ADMIN USERS"
+  if !(is_admin? || is_manager?)
+    redirect_to :action =>'error403', :controller => 'welcome'
+  end
+end
+
 #
 # Returns an array of teams_ids managed by the current user
 #
@@ -234,14 +242,8 @@ def get_team_managed_by_profile
 end
 
 def only_team_manager_or_admin(team_id)
-  if (!is_admin? && !is_manager?)
+  if (!is_admin? && !is_team_manager?(team_id.to_i))
     redirect_to :action =>'error403', :controller => 'welcome'
-  else
-    if is_manager?
-      if !get_team_managed_by_profile.include?(team_id.to_i)
-        redirect_to :action =>'error403', :controller => 'welcome'
-      end
-    end
   end
 end
 

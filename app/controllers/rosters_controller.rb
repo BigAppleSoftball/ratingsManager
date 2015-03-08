@@ -56,7 +56,7 @@ class RostersController < ApplicationController
   def destroy
     @roster.destroy
     respond_to do |format|
-      format.html { redirect_to rosters_url, notice: 'Roster was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Roster Updated.' }
       format.json { head :no_content }
     end
   end

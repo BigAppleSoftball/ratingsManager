@@ -1,6 +1,6 @@
 - content_for :panel_head do
   .team-details-container.pull-left
-    = render partial: "shared/actions/show_actions", locals: { editPath: edit_team_path(@team), fieldName: 'Team', allPath: teams_path}
+    = link_to 'View All Teams', teams_path, {:class =>'btn btn-default'}
     - if is_team_manager? (@team.id)
       =link_to 'Edit Team', edit_team_path(@team), {:class =>'btn btn-default'}
     %h1= @team.name

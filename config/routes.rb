@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :board_members
   resources :hallof_famers
   resources :admins
+  resources :rosters, :only => [:destroy]
   #resources :ratings
   resources :teams
   resources :profiles
@@ -58,6 +59,7 @@ Rails.application.routes.draw do
 
   #admin panel
   get '/admin/home', to: 'admins#home'
+
   mount UserImpersonate::Engine => "/impersonate", as: "impersonate_engine"
 
   #errors

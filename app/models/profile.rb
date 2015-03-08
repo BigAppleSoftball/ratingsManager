@@ -44,8 +44,38 @@ class Profile < ActiveRecord::Base
     Digest::SHA1.hexdigest(token.to_s)
   end
 
+  #
+  # Display name of the user
   def name
     "#{self.first_name} #{self.last_name}"
+  end
+
+  # returns an array of teams managed by the 
+  # current profile
+  def teams_managed
+    Roster.select('team_id').where(:profile_id => self.id, :is_manager => true)
+  end
+
+  def teams_managed_list
+    teams_managed.map{|i| i.team_id}
+  end
+
+  # returns an array of teams repped by the 
+  # current profile
+  def teams_repped
+    Roster.select('team_id').where(:profile_id => self.id, :is_rep => true)
+  end
+
+  def divisions_repped
+    BoardMember.select('id, position').where(:profile_id => self.id, :is_division_rep => true)
+  end
+
+  #
+  # This is for actual board member adminstrators and not site adminstrators
+  # Returns an array of positions
+  #
+  def league_admin_positions
+    BoardMember.select('id, position').where(:profile_id => self.id, :is_league_admin => true)
   end
   
   private

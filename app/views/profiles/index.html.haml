@@ -22,6 +22,14 @@
       %td= profile.id
       %td
         = link_to profile.name, profile
+        - if !profile.league_admin_positions.empty?
+          = render partial: 'shared/icons/league_admin'
+        - if !profile.teams_managed.empty?
+          = render partial: 'shared/icons/manager'
+        - if !profile.teams_repped.empty?
+          = render partial: 'shared/icons/rep'
+        - if !profile.divisions_repped.empty?
+          = render partial: 'shared/icons/division_rep'
       %td
         = render partial: "shared/actions/table_actions", locals: { editPath: edit_profile_path(profile), deletePath: profile}
       -if is_admin?

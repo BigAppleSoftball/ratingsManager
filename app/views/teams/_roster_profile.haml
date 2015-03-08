@@ -1,9 +1,9 @@
 %li.list-group-item
   =link_to roster.profile, roster.profile.to_s
   -if roster.is_manager
-    %i.icon-team-manager.js-tooltip.fa.fa-user{:title => "Team Manager"}
+    = render partial: "shared/icons/manager"
   -if roster.is_rep
-    %i.icon-team-rep.js-tooltip.fa.fa-user{:title => "Team Rep"}
+    = render partial: "shared/icons/rep"
   -if is_admin? || is_team_manager?(@team.id)
     .pull-right
-      DELETE PLAYER
+      = render partial: "shared/actions/delete", locals: { deleteItem: roster, deleteText: ''}

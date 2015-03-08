@@ -11,9 +11,6 @@ class Game < ActiveRecord::Base
   end
 
   def is_winner?(team_id)
-    ap 'IS WINNDER'
-    ap "away score #{self.away_score}"
-    ap "home score #{self.home_score}"
     if self.is_tied? || !self.is_played?
       false
     else
