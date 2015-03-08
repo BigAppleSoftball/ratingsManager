@@ -22,6 +22,10 @@ Rails.application.routes.draw do
   post '/set_attendance', to: 'game_attendances#set_attendance'
 
   get '/home', to:'static_pages#home'
+
+  # seasons 
+  get '/get_divisions_by_season', to:'seasons#get_divisions_by_season'
+
   # sessions
   match '/signup',  to: 'profiles#new', via: 'get'
   match '/signin',  to: 'sessions#new', via: 'get'

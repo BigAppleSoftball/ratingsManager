@@ -16,6 +16,7 @@ gem 'haml-rails'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'bootstrap-sass', '~> 3.2.0'
+gem 'font-awesome-sass', '~> 4.3.0'
 gem 'autoprefixer-rails'
 gem 'will_paginate', '~> 3.0.6'
  # To use ActiveModel has_secure_password

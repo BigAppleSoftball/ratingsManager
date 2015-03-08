@@ -74,7 +74,7 @@ class RostersController < ApplicationController
     if roster.valid?
       roster.save
       response[:success] = true
-      response[:profile_html] = render_to_string "teams/_roster_profile.haml", :layout => false, :locals => { :profile => roster.profile}
+      response[:profile_html] = render_to_string "teams/_roster_profile.haml", :layout => false, :locals => { :roster => roster}
     else
       response[:errors] = roster.errors.full_messages
     end

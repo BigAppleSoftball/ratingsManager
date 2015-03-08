@@ -1,0 +1,3 @@
+%ul.list-group.js-team-roster-list
+  -rosters.each do |roster|
+    = render partial: "teams/roster_profile", locals: { roster: roster}

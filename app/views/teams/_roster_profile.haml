@@ -1,1 +1,9 @@
-%li.list-group-item=link_to profile, profile.to_s
+%li.list-group-item
+  =link_to roster.profile, roster.profile.to_s
+  -if roster.is_manager
+    %i.icon-team-manager.js-tooltip.fa.fa-user{:title => "Team Manager"}
+  -if roster.is_rep
+    %i.icon-team-rep.js-tooltip.fa.fa-user{:title => "Team Rep"}
+  -if is_admin? || is_team_manager?(@team.id)
+    .pull-right
+      DELETE PLAYER

@@ -1,6 +1,7 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update, :destroy]
-  before_filter :only_for_admin, only: [:edit, :update, :destroy, :new]
+  before_filter :only_for_admin, only: [:destroy, :new]
+  before_filter -> { only_team_manager_or_admin params[:id] }, only: [:edit, :update]
 
   # GET /teams
   # GET /teams.json
@@ -13,11 +14,8 @@ class TeamsController < ApplicationController
   # GET /teams/1.json
   def show
     @teamSponsors = TeamsSponsor.where(:team_id => params[:id])
-    
     @teamsRosters = Roster.where(:team_id => params[:id])
-    ap "GETTING GAMES"
     @games = Game.where("home_team_id = ? OR away_team_id = ?", params[:id], params[:id])
-    ap @games
   end
 
   # GET /teams/new
@@ -87,6 +85,8 @@ class TeamsController < ApplicationController
   private
     def get_form_presets
       @profiles = Profile.all
+      @seasons = Season.all
+
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_team

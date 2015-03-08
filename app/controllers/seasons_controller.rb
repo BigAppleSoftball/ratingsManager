@@ -61,6 +61,20 @@ class SeasonsController < ApplicationController
     end
   end
 
+  def get_divisions_by_season
+    response = Hash.new
+    response_html = "<option></option>"
+    seasonId = params[:season_id]
+    divisions = Division.select('id, description').where(:season_id => seasonId)
+    divisions.each do |division|
+      response_html += "<option value='#{division.id}'>#{division.description}</option>"
+    end
+    response[:html] = response_html
+    respond_to do |format|
+      format.json { render :json=> response}
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_season

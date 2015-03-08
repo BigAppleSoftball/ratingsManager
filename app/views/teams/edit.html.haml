@@ -2,6 +2,7 @@
   %h1 
     Editing 
     =@team.name
+  %h4= link_to "#{@team.division.season.description} #{@team.division.description}", @team.division
   = render partial: "shared/actions/edit_actions", locals: { allPath: teams_path, fieldName: 'Team', showPath: @team}
 
 = render 'form'

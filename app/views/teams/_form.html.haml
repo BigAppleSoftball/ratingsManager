@@ -9,62 +9,63 @@
           %li= message
   = f.hidden_field :id
   .form-group
-    = f.label :manager_profile_id, {:class => 'col-sm-2 control-label'}
+    = f.label :name, {:class => 'col-sm-2 control-label'}
     .col-sm-10
-      = render partial: "shared/profile_picker", locals: { profiles: @profiles, currentValue: @team.manager_profile_id,
-        placeHolder: "Choose a Team Manager",selectName: 'team[manager_profile_id]', 
-        selectId: 'team_manager_profile_id'}
-
-  .form-group
-    = f.label :division_id, {:class => 'col-sm-2 control-label'}
-    .col-sm-10
-      = f.number_field :division_id, {:class => 'form-control'}
-  .form-group
-    = f.label :long_name, {:class => 'col-sm-2 control-label'}
-    .col-sm-10
-      = f.text_field :long_name, {:class => 'form-control'}
-  .form-group
-    = f.label :stat_loss, {:class => 'col-sm-2 control-label'}
-    .col-sm-10
-      = f.number_field :stat_loss, {:class => 'form-control'}
-  .form-group
-    = f.label :stat_win, {:class => 'col-sm-2 control-label'}
-    .col-sm-10
-      = f.number_field :stat_win, {:class => 'form-control'}
-  .form-group
-    = f.label :stat_play, {:class => 'col-sm-2 control-label'}
-    .col-sm-10
-      = f.number_field :stat_play, {:class => 'form-control'}
-  .form-group
-    = f.label :stat_pt_allowed, {:class => 'col-sm-2 control-label'}
-    .col-sm-10
-      = f.number_field :stat_pt_allowed, {:class => 'form-control'}
-  .form-group
-    = f.label :stat_pt_scored, {:class => 'col-sm-2 control-label'}
-    .col-sm-10
-      = f.number_field :stat_pt_scored, {:class => 'form-control'}
-  .form-group
-    = f.label :stat_tie, {:class => 'col-sm-2 control-label'}
-    .col-sm-10
-      = f.number_field :stat_tie, {:class => 'form-control'}
+      = f.text_field :name, {:class => 'form-control'}
   .form-group
     = f.label :description, {:class => 'col-sm-2 control-label'}
     .col-sm-10
       = f.text_area :description, {:class => 'form-control'}
   .form-group
-    = f.label :name, {:class => 'col-sm-2 control-label'}
+    = f.label :long_name, {:class => 'col-sm-2 control-label'}
     .col-sm-10
-      = f.text_field :name, {:class => 'form-control'}
+      = f.text_field :long_name, {:class => 'form-control'}
+  -if is_admin?
+    .admin-action-container
+      .form-group
+        = f.label :division_id, {:class => 'col-sm-2 control-label'}
+        .col-sm-10
+          - selected_division = nil
+          - if @team
+            - selected_division = @team.division
+          = render :partial => 'shared/forms/division_selector', :locals => {:seasons => @seasons, :selected_division => selected_division, :selector_name => 'team[division_id]', :selector_id => 'team_division_id'}
+      .form-group
+        = f.label :stat_loss, {:class => 'col-sm-2 control-label'}
+        .col-sm-10
+          = f.number_field :stat_loss, {:class => 'form-control'}
+      .form-group
+        = f.label :stat_win, {:class => 'col-sm-2 control-label'}
+        .col-sm-10
+          = f.number_field :stat_win, {:class => 'form-control'}
+      .form-group
+        = f.label :stat_play, {:class => 'col-sm-2 control-label'}
+        .col-sm-10
+          = f.number_field :stat_play, {:class => 'form-control'}
+      .form-group
+        = f.label :stat_pt_allowed, {:class => 'col-sm-2 control-label'}
+        .col-sm-10
+          = f.number_field :stat_pt_allowed, {:class => 'form-control'}
+      .form-group
+        = f.label :stat_pt_scored, {:class => 'col-sm-2 control-label'}
+        .col-sm-10
+          = f.number_field :stat_pt_scored, {:class => 'form-control'}
+      .form-group
+        = f.label :stat_tie, {:class => 'col-sm-2 control-label'}
+        .col-sm-10
+          = f.number_field :stat_tie, {:class => 'form-control'}
+
   .form-group
     .col-sm-2.control-label
-      Team Roster
+      %b Team Roster
     .col-sm-10
-      %ul.list-group.js-team-roster-list
-        -@rosters.each do |roster|
-          = render partial: "teams/roster_profile", locals: { profile: roster.profile}
-      .btn.btn-success.js-show-add-new-player-modal Add New Player
-      = render :partial => 'teams/add_new_player_modal'
+      = render :partial => 'teams/roster_list', :locals => {:rosters => @rosters}
+      .btn.btn-success.js-show-add-new-player-modal 
+        %i.fa.fa-user  
+        Add New Player
+
       
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit 'Save', {:class => 'btn btn-primary'}
+
+= render :partial => 'teams/add_new_player_modal'

@@ -124,11 +124,6 @@ a:hover {
   }
 }
 
-.sub-nav-wrapper {
-  @include clearfix;
-  margin-bottom: 20px;
-}
-
 .panel-heading {
   @include clearfix;
 }
@@ -138,4 +133,10 @@ a:hover {
   .chosen-container {
     width: 100% !important;
   }
+}
+
+// admin styling
+.admin-action-container {
+  border: 2px dashed $red;
+  padding: 10px;
 }

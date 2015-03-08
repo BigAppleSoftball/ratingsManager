@@ -190,8 +190,23 @@ def get_token_cookie
   cookies[:teamsnap_token]
 end
 
+#
+# checks if user is a site adminstrator
 def is_admin?
-  current_profile && current_profile.is_admin
+  current_user && current_user.is_admin
+end
+
+#
+#TODO(Paige) improve
+def is_manager?
+  roster = Roster.where(:profile_id => current_profile.id, :is_manager => true)
+  current_profile && roster.length > 0 
+end
+
+def is_team_manager?(team_id)
+  roster = Roster.where(:team_id => team_id, :is_manager => true)
+  ap roster
+
 end
 
 def log_out_user
@@ -200,12 +215,33 @@ def log_out_user
 end
 
 def is_logged_in?
-  !current_profile.nil?
+  !current_user.nil?
 end
 
 def only_for_admin
   if (!is_admin?)
     redirect_to :action =>'error403', :controller => 'welcome'
+  end
+end
+
+#
+# Returns an array of teams_ids managed by the current user
+#
+def get_team_managed_by_profile
+  rosters = Roster.select('team_id').where(:profile_id => current_profile.id, :is_manager => true)
+  rosters_team_ids = rosters.collect{|u| u.team_id}
+  rosters_team_ids
+end
+
+def only_team_manager_or_admin(team_id)
+  if (!is_admin? && !is_manager?)
+    redirect_to :action =>'error403', :controller => 'welcome'
+  else
+    if is_manager?
+      if !get_team_managed_by_profile.include?(team_id.to_i)
+        redirect_to :action =>'error403', :controller => 'welcome'
+      end
+    end
   end
 end
 

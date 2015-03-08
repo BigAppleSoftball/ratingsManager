@@ -6,6 +6,7 @@
 
 .sub-nav-wrapper {
   padding: 5px;
+  @include clearfix;
 }
 
 .impersonating-bar {
