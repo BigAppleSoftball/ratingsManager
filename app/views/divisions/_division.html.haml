@@ -1,6 +1,10 @@
 .panel.panel-default
   .panel-heading
-    %h3= link_to "#{division.season.description} #{division.description}", division
+    -if defined?(isShow) && isShow
+      %h5 Standings
+    - else
+      %h5= link_to "#{division.full_name}", division
+
   .panel-body
     %table.table.table-striped.table-bordered
       %tr
@@ -30,3 +34,5 @@
           %td=team.stat_pt_scored
           %td=team.stat_pt_allowed
           %td=team.stat_games_back
+
+  // TODO (Paige) Add League Schedule

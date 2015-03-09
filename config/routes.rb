@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   resources :teams_sponsors, :only => [:index, :show]
   resources :sponsors
   resources :seasons, :only => [:index, :show]
-  resources :divisions, :only => [:index, :show]
+  resources :divisions, :only => [:index, :show, :edit]
   resources :teams, :only => [:index, :show]
   resources :sessions, only: [:new, :create, :destroy]
 

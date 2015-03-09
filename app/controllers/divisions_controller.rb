@@ -1,5 +1,7 @@
 class DivisionsController < ApplicationController
   before_action :set_division, only: [:show, :edit, :update, :destroy]
+  before_filter :only_for_admin, only: [:destroy, :new]
+  before_filter -> { only_division_rep params[:id] }, only: [:edit, :update]
 
   # GET /divisions
   # GET /divisions.json

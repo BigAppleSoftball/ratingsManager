@@ -19,4 +19,12 @@
       %h5 Your Managed Teams
     .list-group.your-teams-list-group
       - current_profile.teams_managed.each do |roster|
-        =link_to raw(roster.team.full_name), roster.team, :class => 'list-group-item'
+        =link_to raw("<i class='fa fa-pencil-square-o'></i> #{roster.team.full_name}"), roster.team, :class => 'list-group-item'
+
+- if is_division_rep?
+  .panel.panel-default
+    .panel-heading
+      %h5 Your Managed Divisions
+    .list-group.your-divisions-list-group
+      - current_profile.divisions_repped.each do |position|
+        =link_to raw("<i class='fa fa-pencil-square-o'></i> #{position.division.full_name}"), position.division, :class => 'list-group-item'

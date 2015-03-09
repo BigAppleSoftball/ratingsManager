@@ -38,9 +38,9 @@
         %li
           =link_to 'Teamsnap Teams', '/welcome'
       %ul.nav.navbar-nav.navbar-right
-        - if is_admin? || is_manager?
+        - if is_admin_user?
           %li
-            %a.glyphicon.glyphicon-wrench{:href => '/admin/home'}
+            %a.fa.fa-cog.admin-action-icon{:href => '/admin/home'}
         - if is_logged_in?
           %li.nav-current-profile
             = link_to current_profile.to_s, current_profile

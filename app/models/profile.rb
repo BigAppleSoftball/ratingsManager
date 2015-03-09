@@ -67,7 +67,11 @@ class Profile < ActiveRecord::Base
   end
 
   def divisions_repped
-    BoardMember.select('id, position').where(:profile_id => self.id, :is_division_rep => true)
+    BoardMember.where(:profile_id => self.id, :is_division_rep => true)
+  end
+
+   def divisions_repped_list
+    divisions_repped.map{|i| i.division_id}
   end
 
   #

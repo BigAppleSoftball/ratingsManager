@@ -34,5 +34,5 @@
         = render partial: "shared/actions/table_actions", locals: { editPath: edit_profile_path(profile), deletePath: profile}
       -if is_admin?
         %td
-          =link_to raw("<i class='glyphicon glyphicon-open'></i> Impersonate"), impersonate_engine.impersonate_user_path(profile), {:class => 'btn btn-default'}
+          =link_to raw("<i class='fa fa-user-secret'></i> Impersonate"), impersonate_engine.impersonate_user_path(profile), {:class => 'btn btn-default'}
           

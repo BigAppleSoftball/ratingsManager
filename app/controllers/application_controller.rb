@@ -210,6 +210,19 @@ def is_team_manager?(team_id)
   current_profile.teams_managed_list.include?(team_id)
 end
 
+def is_division_rep?(division_id = nil)
+  if !division_id.nil?
+    current_profile.divisions_repped_list.include?(division_id)
+  else
+    !current_profile.divisions_repped.empty?
+  end
+
+end
+
+def is_admin_user?
+  is_division_rep? || is_admin? || is_manager?
+end
+
 def log_out_user
   cookies.delete :teamsnap_token
   cookies.delete :teamsnap_is_admin
@@ -226,8 +239,7 @@ def only_for_admin
 end
 
 def only_for_admin_user
-  ap "ONLY ADMIN USERS"
-  if !(is_admin? || is_manager?)
+  if !(is_admin_user?)
     redirect_to :action =>'error403', :controller => 'welcome'
   end
 end
@@ -243,6 +255,12 @@ end
 
 def only_team_manager_or_admin(team_id)
   if (!is_admin? && !is_team_manager?(team_id.to_i))
+    redirect_to :action =>'error403', :controller => 'welcome'
+  end
+end
+
+def only_division_rep(division_id)
+  if (!is_admin? && !is_division_rep?(division_id.to_i))
     redirect_to :action =>'error403', :controller => 'welcome'
   end
 end

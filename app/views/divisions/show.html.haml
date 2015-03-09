@@ -1,3 +1,8 @@
-%p#notice= notice
-= render 'division', :division => @division
-\#{link_to 'Divisions', divisions_path}
+- content_for :panel_head do
+  .team-details-container.pull-left
+    %h4= link_to @division.season.description, @division.season
+    %h1=@division.description
+  - if is_division_rep?(@division.id)
+    = link_to raw("<i class='fa fa-pencil'></i> Edit Division"), edit_division_path(@division), {:class => 'btn btn-default'}
+
+= render :partial => 'division', :locals => {:division => @division, :isShow => true}
