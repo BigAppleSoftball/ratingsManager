@@ -6,6 +6,7 @@ class ApplicationController < ActionController::Base
   Time::DATE_FORMATS[:google_date] = "%Y-%m-%d"
   Time::DATE_FORMATS[:week_date] = "%a, %b %d"
   Time::DATE_FORMATS[:event_date] = "%a, %b %d %l:%M %P"
+  before_filter :all_seasons_list
 
   def connect
     url = 'https://api.teamsnap.com/'
@@ -242,6 +243,49 @@ def only_for_admin_user
   if !(is_admin_user?)
     redirect_to :action =>'error403', :controller => 'welcome'
   end
+end
+
+#
+# If the user has edited a season we want to clear the season cache 
+#
+def clear_seasons_cache
+  Rails.cache.delete('all_seasons_by_status_list')
+end
+
+#
+# Caches all the seasons listed
+#
+def all_seasons_list
+  Rails.cache.fetch("all_seasons_by_status_list", :expires_in => 60.minutes) do
+    get_all_seasons_by_status
+  end
+end
+
+#
+# gets all the seasons in the database and orders them
+# based on status
+#
+def get_all_seasons_by_status
+  dateNow = DateTime.now.end_of_day
+  all_seasons = Hash.new
+  all_seasons[:upcoming] = Array.new
+  all_seasons[:current] = Array.new
+  all_seasons[:past] = Array.new
+  seasons = Season.all
+  
+  seasons.each do |season|
+    if (season.is_active) # current or upcoming season
+      # going to assume if today is part the season end date that the league owner intentionally wanted the season to be current
+      if (season.date_start <= dateNow)
+        all_seasons[:current].push(season)
+      else
+        all_seasons[:upcoming].push(season)
+      end
+    else # past season
+      all_seasons[:past].push(season)
+    end
+  end
+  all_seasons
 end
 
 #

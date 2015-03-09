@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150306024625) do
+ActiveRecord::Schema.define(version: 20150309213823) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -200,6 +200,7 @@ ActiveRecord::Schema.define(version: 20150306024625) do
     t.datetime "date_end"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_active"
   end
 
   create_table "sponsors", force: true do |t|

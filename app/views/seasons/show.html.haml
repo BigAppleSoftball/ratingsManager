@@ -1,8 +1,9 @@
-%p#notice= notice
-
-.panel.panel-default
-  .panel-heading
+- content_for :panel_head do
+  %h1
     = @season.description
-  .panel-body
-    - @season.divisions.each do |division|
-      = render '/divisions/division', :division => division
+    - if !@season.is_active
+      %span.inactive-season (archived season)
+  = render partial: "shared/actions/show_actions", locals: { editPath: edit_season_path(@season), fieldName: 'Field', allPath: seasons_path}
+
+- @season.divisions.each do |division|
+  = render '/divisions/division', :division => division

@@ -140,3 +140,10 @@ a:hover {
   border: 2px dashed $red;
   padding: 10px;
 }
+
+.inactive-season {
+  font-size: 14px;
+  color: lighten($dark-gray, 40%);
+  line-height: 36px;
+  vertical-align: middle;
+}
