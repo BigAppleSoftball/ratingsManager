@@ -1,8 +1,9 @@
 - content_for :panel_head do
   .team-details-container.pull-left
     = link_to 'View All Teams', teams_path, {:class =>'btn btn-default'}
-    - if is_team_manager? (@team.id)
-      =link_to raw("<i class='fa fa-pencil'></i> Edit Team"), edit_team_path(@team), {:class =>'btn btn-default'}
+    - if is_admin? || is_team_manager?(@team.id)
+      - if !(@team && @team.division && @team.division.season && !@team.division.season.is_editable_season?)
+        =link_to raw("<i class='fa fa-pencil'></i> Edit Team"), edit_team_path(@team), {:class =>"btn btn-default}"}
     %h1= @team.name
     %h4= link_to "#{@team.division.season.description} #{@team.division.description}", @team.division
   .team-admin-container.pull-right

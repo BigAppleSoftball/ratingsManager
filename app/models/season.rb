@@ -4,4 +4,8 @@ class Season < ActiveRecord::Base
   def divisions
     Division.where(:season_id => self.id)
   end
+
+  def is_editable_season?
+    self.is_active
+  end
 end

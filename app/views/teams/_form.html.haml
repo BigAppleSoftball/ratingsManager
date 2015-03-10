@@ -19,7 +19,7 @@
   .form-group
     = f.label :long_name, {:class => 'col-sm-2 control-label'}
     .col-sm-10
-      = f.text_field :long_name, {:class => 'form-control'}
+      = f.text_field :long_name, {:class => 'form-control', :disabled => true}
   -if is_admin?
     .admin-action-container
       .form-group
@@ -28,7 +28,10 @@
           - selected_division = nil
           - if @team
             - selected_division = @team.division
-          = render :partial => 'shared/forms/division_selector', :locals => {:seasons => @seasons, :selected_division => selected_division, :selector_name => 'team[division_id]', :selector_id => 'team_division_id'}
+            - if selected_division && selected_division.season && selected_division.season.is_active
+              = render :partial => 'shared/forms/division_selector', :locals => {:seasons => @seasons, :selected_division => selected_division, :selector_name => 'team[division_id]', :selector_id => 'team_division_id'}
+            - else
+              Inactive Season
       .form-group
         = f.label :stat_loss, {:class => 'col-sm-2 control-label'}
         .col-sm-10
@@ -59,11 +62,11 @@
       %b Team Roster
     .col-sm-10
       = render :partial => 'teams/roster_list', :locals => {:rosters => @rosters}
-      .btn.btn-success.js-show-add-new-player-modal 
-        %i.fa.fa-user  
+      .btn.btn-success.js-show-add-new-player-modal
+        %i.fa.fa-user
         Add New Player
 
-      
+
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit 'Save', {:class => 'btn btn-primary'}

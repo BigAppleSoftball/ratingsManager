@@ -1,7 +1,8 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update, :destroy]
   before_filter :only_for_admin, only: [:destroy, :new]
-  before_filter -> { only_team_manager_or_admin params[:id] }, only: [:edit, :update]
+  before_filter(:only => [:edit, :update]) { only_team_manager params[:id]
+                                             only_team_in_active_season params[:id] }
 
   # GET /teams
   # GET /teams.json

@@ -18,4 +18,5 @@ class Team < ActiveRecord::Base
   def full_name
     "#{self.name} <span class='team-season'>(#{self.division.description} #{self.division.season.description})</span>"
   end
+
 end

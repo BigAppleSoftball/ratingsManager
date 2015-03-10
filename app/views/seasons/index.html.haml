@@ -6,7 +6,8 @@
 %table.table.table-striped.table-bordered.table-condensed
   %tr
     %th Season Name
-    %th Active Season?
+    %th
+      %span.js-tooltip{:title=> "Inactive Seasons cannot have games or rosters updated"}Active Season?
   - @seasons.each do |season|
     %tr
       %td= link_to season.description, season

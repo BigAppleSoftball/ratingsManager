@@ -74,8 +74,8 @@ class GamesController < ApplicationController
       end
     end
     # make sure team is on one of the games
-    
-    
+
+
     render 'show'
   end
 
@@ -88,7 +88,7 @@ class GamesController < ApplicationController
 
     def get_universal_game_variables
       @teamsByDivision = get_all_teams_by_division
-      @seasons = get_all_seasons
+      @seasons = Season.all
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
