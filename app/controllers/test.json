@@ -1,0 +1,593 @@
+[
+    [0] {
+        "division" => {
+                        "id" => 16139,
+                      "name" => "Big Apple Softball League ",
+                  "logo_url" => "https://35b7f1d7d0790b02114c-1b8897185d70b198c119e1d2b7efd8a2.ssl.cf1.rackcdn.com/division_logos/16139/original/68774b935a4a0ac6f7eb25793cd537a525e22bad.png?1420120235",
+                "team_count" => 0,
+                  "team_ids" => [],
+            "division_count" => 2,
+                 "divisions" => [
+                [0] {
+                                "id" => 22425,
+                              "name" => "Open/Co-Ed Division",
+                          "logo_url" => "https://35b7f1d7d0790b02114c-1b8897185d70b198c119e1d2b7efd8a2.ssl.cf1.rackcdn.com/division_logos/16139/original/68774b935a4a0ac6f7eb25793cd537a525e22bad.png?1420120235",
+                        "team_count" => 0,
+                          "team_ids" => [],
+                    "division_count" => 5,
+                         "divisions" => [
+                        [0] {
+                                        "id" => 27394,
+                                      "name" => "1. Dima Division",
+                                  "logo_url" => "https://35b7f1d7d0790b02114c-1b8897185d70b198c119e1d2b7efd8a2.ssl.cf1.rackcdn.com/division_logos/16139/original/68774b935a4a0ac6f7eb25793cd537a525e22bad.png?1420120235",
+                                "team_count" => 4,
+                                  "team_ids" => [
+                                [0] 843239,
+                                [1] 844039,
+                                [2] 844010,
+                                [3] 844013
+                            ],
+                            "division_count" => 0,
+                                 "divisions" => [],
+                              "commissioner" => {
+                                                      "id" => 10506019,
+                                                   "first" => "Paige",
+                                                    "last" => "Ponzeka (Team Snap ADMIN*)",
+                                                "is_owner" => false,
+                                   "thumbnail_picture_url" => "/thumb_pics/thumb/missing.png",
+                                              "non_player" => false,
+                                  "roster_email_addresses" => [
+                                    [0] {
+                                                         "id" => 13540030,
+                                                      "label" => "BASL e-mail",
+                                                      "email" => "webteam@bigapplesoftball.com",
+                                        "receive_team_emails" => true,
+                                                       "hide" => false
+                                    },
+                                    [1] {
+                                                         "id" => 15321317,
+                                                      "label" => "",
+                                                      "email" => "paigepon@gmail.com",
+                                        "receive_team_emails" => true,
+                                                       "hide" => true
+                                    }
+                                ],
+                                "roster_telephone_numbers" => [
+                                    [0] {
+                                                  "id" => 9147838,
+                                               "label" => "",
+                                        "phone_number" => "631-521-0673",
+                                           "preferred" => false,
+                                          "enable_sms" => false,
+                                         "sms_carrier" => "",
+                                                "hide" => false
+                                    }
+                                ],
+                                              "is_manager" => true,
+                                         "is_commissioner" => true,
+                                                 "address" => {
+                                     "address" => "c/o LGBT Center, 208 West 13th Street ",
+                                    "address2" => nil,
+                                        "city" => "New York",
+                                       "state" => "New York",
+                                         "zip" => "10011",
+                                     "country" => nil
+                                }
+                            }
+                        },
+                        [1] {
+                                        "id" => 27395,
+                                      "name" => "2. Stonewall Division",
+                                  "logo_url" => "https://35b7f1d7d0790b02114c-1b8897185d70b198c119e1d2b7efd8a2.ssl.cf1.rackcdn.com/division_logos/16139/original/68774b935a4a0ac6f7eb25793cd537a525e22bad.png?1420120235",
+                                "team_count" => 5,
+                                  "team_ids" => [
+                                [0] 935556,
+                                [1] 844007,
+                                [2] 844004,
+                                [3] 869686,
+                                [4] 921496
+                            ],
+                            "division_count" => 0,
+                                 "divisions" => [],
+                              "commissioner" => {
+                                                      "id" => 10506019,
+                                                   "first" => "Paige",
+                                                    "last" => "Ponzeka (Team Snap ADMIN*)",
+                                                "is_owner" => false,
+                                   "thumbnail_picture_url" => "/thumb_pics/thumb/missing.png",
+                                              "non_player" => false,
+                                  "roster_email_addresses" => [
+                                    [0] {
+                                                         "id" => 13540030,
+                                                      "label" => "BASL e-mail",
+                                                      "email" => "webteam@bigapplesoftball.com",
+                                        "receive_team_emails" => true,
+                                                       "hide" => false
+                                    },
+                                    [1] {
+                                                         "id" => 15321317,
+                                                      "label" => "",
+                                                      "email" => "paigepon@gmail.com",
+                                        "receive_team_emails" => true,
+                                                       "hide" => true
+                                    }
+                                ],
+                                "roster_telephone_numbers" => [
+                                    [0] {
+                                                  "id" => 9147838,
+                                               "label" => "",
+                                        "phone_number" => "631-521-0673",
+                                           "preferred" => false,
+                                          "enable_sms" => false,
+                                         "sms_carrier" => "",
+                                                "hide" => false
+                                    }
+                                ],
+                                              "is_manager" => true,
+                                         "is_commissioner" => true,
+                                                 "address" => {
+                                     "address" => "c/o LGBT Center, 208 West 13th Street ",
+                                    "address2" => nil,
+                                        "city" => "New York",
+                                       "state" => "New York",
+                                         "zip" => "10011",
+                                     "country" => nil
+                                }
+                            }
+                        },
+                        [2] {
+                                        "id" => 27397,
+                                      "name" => "3. Fitzpatrick Division",
+                                  "logo_url" => "https://35b7f1d7d0790b02114c-1b8897185d70b198c119e1d2b7efd8a2.ssl.cf1.rackcdn.com/division_logos/16139/original/68774b935a4a0ac6f7eb25793cd537a525e22bad.png?1420120235",
+                                "team_count" => 5,
+                                  "team_ids" => [
+                                [0] 938662,
+                                [1] 844025,
+                                [2] 938659,
+                                [3] 844028,
+                                [4] 844022
+                            ],
+                            "division_count" => 0,
+                                 "divisions" => [],
+                              "commissioner" => {
+                                                      "id" => 10506019,
+                                                   "first" => "Paige",
+                                                    "last" => "Ponzeka (Team Snap ADMIN*)",
+                                                "is_owner" => false,
+                                   "thumbnail_picture_url" => "/thumb_pics/thumb/missing.png",
+                                              "non_player" => false,
+                                  "roster_email_addresses" => [
+                                    [0] {
+                                                         "id" => 13540030,
+                                                      "label" => "BASL e-mail",
+                                                      "email" => "webteam@bigapplesoftball.com",
+                                        "receive_team_emails" => true,
+                                                       "hide" => false
+                                    },
+                                    [1] {
+                                                         "id" => 15321317,
+                                                      "label" => "",
+                                                      "email" => "paigepon@gmail.com",
+                                        "receive_team_emails" => true,
+                                                       "hide" => true
+                                    }
+                                ],
+                                "roster_telephone_numbers" => [
+                                    [0] {
+                                                  "id" => 9147838,
+                                               "label" => "",
+                                        "phone_number" => "631-521-0673",
+                                           "preferred" => false,
+                                          "enable_sms" => false,
+                                         "sms_carrier" => "",
+                                                "hide" => false
+                                    }
+                                ],
+                                              "is_manager" => true,
+                                         "is_commissioner" => true,
+                                                 "address" => {
+                                     "address" => "c/o LGBT Center, 208 West 13th Street ",
+                                    "address2" => nil,
+                                        "city" => "New York",
+                                       "state" => "New York",
+                                         "zip" => "10011",
+                                     "country" => nil
+                                }
+                            }
+                        },
+                        [3] {
+                                        "id" => 27398,
+                                      "name" => "4. Rainbow Division",
+                                  "logo_url" => "https://35b7f1d7d0790b02114c-1b8897185d70b198c119e1d2b7efd8a2.ssl.cf1.rackcdn.com/division_logos/16139/original/68774b935a4a0ac6f7eb25793cd537a525e22bad.png?1420120235",
+                                "team_count" => 6,
+                                  "team_ids" => [
+                                [0] 938443,
+                                [1] 938450,
+                                [2] 844068,
+                                [3] 843253,
+                                [4] 843256,
+                                [5] 939100
+                            ],
+                            "division_count" => 0,
+                                 "divisions" => [],
+                              "commissioner" => {
+                                                      "id" => 10506019,
+                                                   "first" => "Paige",
+                                                    "last" => "Ponzeka (Team Snap ADMIN*)",
+                                                "is_owner" => false,
+                                   "thumbnail_picture_url" => "/thumb_pics/thumb/missing.png",
+                                              "non_player" => false,
+                                  "roster_email_addresses" => [
+                                    [0] {
+                                                         "id" => 13540030,
+                                                      "label" => "BASL e-mail",
+                                                      "email" => "webteam@bigapplesoftball.com",
+                                        "receive_team_emails" => true,
+                                                       "hide" => false
+                                    },
+                                    [1] {
+                                                         "id" => 15321317,
+                                                      "label" => "",
+                                                      "email" => "paigepon@gmail.com",
+                                        "receive_team_emails" => true,
+                                                       "hide" => true
+                                    }
+                                ],
+                                "roster_telephone_numbers" => [
+                                    [0] {
+                                                  "id" => 9147838,
+                                               "label" => "",
+                                        "phone_number" => "631-521-0673",
+                                           "preferred" => false,
+                                          "enable_sms" => false,
+                                         "sms_carrier" => "",
+                                                "hide" => false
+                                    }
+                                ],
+                                              "is_manager" => true,
+                                         "is_commissioner" => true,
+                                                 "address" => {
+                                     "address" => "c/o LGBT Center, 208 West 13th Street ",
+                                    "address2" => nil,
+                                        "city" => "New York",
+                                       "state" => "New York",
+                                         "zip" => "10011",
+                                     "country" => nil
+                                }
+                            }
+                        },
+                        [4] {
+                                        "id" => 27400,
+                                      "name" => "5. Sachs Division",
+                                  "logo_url" => "https://35b7f1d7d0790b02114c-1b8897185d70b198c119e1d2b7efd8a2.ssl.cf1.rackcdn.com/division_logos/16139/original/68774b935a4a0ac6f7eb25793cd537a525e22bad.png?1420120235",
+                                "team_count" => 6,
+                                  "team_ids" => [
+                                [0] 843259,
+                                [1] 843265,
+                                [2] 938527,
+                                [3] 843268,
+                                [4] 946468,
+                                [5] 938427
+                            ],
+                            "division_count" => 0,
+                                 "divisions" => [],
+                              "commissioner" => {
+                                                      "id" => 10506019,
+                                                   "first" => "Paige",
+                                                    "last" => "Ponzeka (Team Snap ADMIN*)",
+                                                "is_owner" => false,
+                                   "thumbnail_picture_url" => "/thumb_pics/thumb/missing.png",
+                                              "non_player" => false,
+                                  "roster_email_addresses" => [
+                                    [0] {
+                                                         "id" => 13540030,
+                                                      "label" => "BASL e-mail",
+                                                      "email" => "webteam@bigapplesoftball.com",
+                                        "receive_team_emails" => true,
+                                                       "hide" => false
+                                    },
+                                    [1] {
+                                                         "id" => 15321317,
+                                                      "label" => "",
+                                                      "email" => "paigepon@gmail.com",
+                                        "receive_team_emails" => true,
+                                                       "hide" => true
+                                    }
+                                ],
+                                "roster_telephone_numbers" => [
+                                    [0] {
+                                                  "id" => 9147838,
+                                               "label" => "",
+                                        "phone_number" => "631-521-0673",
+                                           "preferred" => false,
+                                          "enable_sms" => false,
+                                         "sms_carrier" => "",
+                                                "hide" => false
+                                    }
+                                ],
+                                              "is_manager" => true,
+                                         "is_commissioner" => true,
+                                                 "address" => {
+                                     "address" => "c/o LGBT Center, 208 West 13th Street ",
+                                    "address2" => nil,
+                                        "city" => "New York",
+                                       "state" => "New York",
+                                         "zip" => "10011",
+                                     "country" => nil
+                                }
+                            }
+                        }
+                    ],
+                      "commissioner" => {
+                                              "id" => 10506019,
+                                           "first" => "Paige",
+                                            "last" => "Ponzeka (Team Snap ADMIN*)",
+                                        "is_owner" => false,
+                           "thumbnail_picture_url" => "/thumb_pics/thumb/missing.png",
+                                      "non_player" => false,
+                          "roster_email_addresses" => [
+                            [0] {
+                                                 "id" => 13540030,
+                                              "label" => "BASL e-mail",
+                                              "email" => "webteam@bigapplesoftball.com",
+                                "receive_team_emails" => true,
+                                               "hide" => false
+                            },
+                            [1] {
+                                                 "id" => 15321317,
+                                              "label" => "",
+                                              "email" => "paigepon@gmail.com",
+                                "receive_team_emails" => true,
+                                               "hide" => true
+                            }
+                        ],
+                        "roster_telephone_numbers" => [
+                            [0] {
+                                          "id" => 9147838,
+                                       "label" => "",
+                                "phone_number" => "631-521-0673",
+                                   "preferred" => false,
+                                  "enable_sms" => false,
+                                 "sms_carrier" => "",
+                                        "hide" => false
+                            }
+                        ],
+                                      "is_manager" => true,
+                                 "is_commissioner" => true,
+                                         "address" => {
+                             "address" => "c/o LGBT Center, 208 West 13th Street ",
+                            "address2" => nil,
+                                "city" => "New York",
+                               "state" => "New York",
+                                 "zip" => "10011",
+                             "country" => nil
+                        }
+                    }
+                },
+                [1] {
+                                "id" => 22422,
+                              "name" => "Women's Division",
+                          "logo_url" => "https://35b7f1d7d0790b02114c-1b8897185d70b198c119e1d2b7efd8a2.ssl.cf1.rackcdn.com/division_logos/16139/original/68774b935a4a0ac6f7eb25793cd537a525e22bad.png?1420120235",
+                        "team_count" => 0,
+                          "team_ids" => [],
+                    "division_count" => 2,
+                         "divisions" => [
+                        [0] {
+                                        "id" => 27403,
+                                      "name" => "1. Women's Competitive Division",
+                                  "logo_url" => "https://35b7f1d7d0790b02114c-1b8897185d70b198c119e1d2b7efd8a2.ssl.cf1.rackcdn.com/division_logos/16139/original/68774b935a4a0ac6f7eb25793cd537a525e22bad.png?1420120235",
+                                "team_count" => 5,
+                                  "team_ids" => [
+                                [0] 843301,
+                                [1] 843304,
+                                [2] 843307,
+                                [3] 843313,
+                                [4] 843310
+                            ],
+                            "division_count" => 0,
+                                 "divisions" => [],
+                              "commissioner" => {
+                                                      "id" => 10506019,
+                                                   "first" => "Paige",
+                                                    "last" => "Ponzeka (Team Snap ADMIN*)",
+                                                "is_owner" => false,
+                                   "thumbnail_picture_url" => "/thumb_pics/thumb/missing.png",
+                                              "non_player" => false,
+                                  "roster_email_addresses" => [
+                                    [0] {
+                                                         "id" => 13540030,
+                                                      "label" => "BASL e-mail",
+                                                      "email" => "webteam@bigapplesoftball.com",
+                                        "receive_team_emails" => true,
+                                                       "hide" => false
+                                    },
+                                    [1] {
+                                                         "id" => 15321317,
+                                                      "label" => "",
+                                                      "email" => "paigepon@gmail.com",
+                                        "receive_team_emails" => true,
+                                                       "hide" => true
+                                    }
+                                ],
+                                "roster_telephone_numbers" => [
+                                    [0] {
+                                                  "id" => 9147838,
+                                               "label" => "",
+                                        "phone_number" => "631-521-0673",
+                                           "preferred" => false,
+                                          "enable_sms" => false,
+                                         "sms_carrier" => "",
+                                                "hide" => false
+                                    }
+                                ],
+                                              "is_manager" => true,
+                                         "is_commissioner" => true,
+                                                 "address" => {
+                                     "address" => "c/o LGBT Center, 208 West 13th Street ",
+                                    "address2" => nil,
+                                        "city" => "New York",
+                                       "state" => "New York",
+                                         "zip" => "10011",
+                                     "country" => nil
+                                }
+                            }
+                        },
+                        [1] {
+                                        "id" => 27404,
+                                      "name" => "2. Women's Recreational Division",
+                                  "logo_url" => "https://35b7f1d7d0790b02114c-1b8897185d70b198c119e1d2b7efd8a2.ssl.cf1.rackcdn.com/division_logos/16139/original/68774b935a4a0ac6f7eb25793cd537a525e22bad.png?1420120235",
+                                "team_count" => 8,
+                                  "team_ids" => [
+                                [0] 843319,
+                                [1] 843322,
+                                [2] 899812,
+                                [3] 843328,
+                                [4] 843331,
+                                [5] 843334,
+                                [6] 843337,
+                                [7] 843340
+                            ],
+                            "division_count" => 0,
+                                 "divisions" => [],
+                              "commissioner" => {
+                                                      "id" => 10506019,
+                                                   "first" => "Paige",
+                                                    "last" => "Ponzeka (Team Snap ADMIN*)",
+                                                "is_owner" => false,
+                                   "thumbnail_picture_url" => "/thumb_pics/thumb/missing.png",
+                                              "non_player" => false,
+                                  "roster_email_addresses" => [
+                                    [0] {
+                                                         "id" => 13540030,
+                                                      "label" => "BASL e-mail",
+                                                      "email" => "webteam@bigapplesoftball.com",
+                                        "receive_team_emails" => true,
+                                                       "hide" => false
+                                    },
+                                    [1] {
+                                                         "id" => 15321317,
+                                                      "label" => "",
+                                                      "email" => "paigepon@gmail.com",
+                                        "receive_team_emails" => true,
+                                                       "hide" => true
+                                    }
+                                ],
+                                "roster_telephone_numbers" => [
+                                    [0] {
+                                                  "id" => 9147838,
+                                               "label" => "",
+                                        "phone_number" => "631-521-0673",
+                                           "preferred" => false,
+                                          "enable_sms" => false,
+                                         "sms_carrier" => "",
+                                                "hide" => false
+                                    }
+                                ],
+                                              "is_manager" => true,
+                                         "is_commissioner" => true,
+                                                 "address" => {
+                                     "address" => "c/o LGBT Center, 208 West 13th Street ",
+                                    "address2" => nil,
+                                        "city" => "New York",
+                                       "state" => "New York",
+                                         "zip" => "10011",
+                                     "country" => nil
+                                }
+                            }
+                        }
+                    ],
+                      "commissioner" => {
+                                              "id" => 10506019,
+                                           "first" => "Paige",
+                                            "last" => "Ponzeka (Team Snap ADMIN*)",
+                                        "is_owner" => false,
+                           "thumbnail_picture_url" => "/thumb_pics/thumb/missing.png",
+                                      "non_player" => false,
+                          "roster_email_addresses" => [
+                            [0] {
+                                                 "id" => 13540030,
+                                              "label" => "BASL e-mail",
+                                              "email" => "webteam@bigapplesoftball.com",
+                                "receive_team_emails" => true,
+                                               "hide" => false
+                            },
+                            [1] {
+                                                 "id" => 15321317,
+                                              "label" => "",
+                                              "email" => "paigepon@gmail.com",
+                                "receive_team_emails" => true,
+                                               "hide" => true
+                            }
+                        ],
+                        "roster_telephone_numbers" => [
+                            [0] {
+                                          "id" => 9147838,
+                                       "label" => "",
+                                "phone_number" => "631-521-0673",
+                                   "preferred" => false,
+                                  "enable_sms" => false,
+                                 "sms_carrier" => "",
+                                        "hide" => false
+                            }
+                        ],
+                                      "is_manager" => true,
+                                 "is_commissioner" => true,
+                                         "address" => {
+                             "address" => "c/o LGBT Center, 208 West 13th Street ",
+                            "address2" => nil,
+                                "city" => "New York",
+                               "state" => "New York",
+                                 "zip" => "10011",
+                             "country" => nil
+                        }
+                    }
+                }
+            ],
+              "commissioner" => {
+                                      "id" => 10506019,
+                                   "first" => "Paige",
+                                    "last" => "Ponzeka (Team Snap ADMIN*)",
+                                "is_owner" => false,
+                   "thumbnail_picture_url" => "/thumb_pics/thumb/missing.png",
+                              "non_player" => false,
+                  "roster_email_addresses" => [
+                    [0] {
+                                         "id" => 13540030,
+                                      "label" => "BASL e-mail",
+                                      "email" => "webteam@bigapplesoftball.com",
+                        "receive_team_emails" => true,
+                                       "hide" => false
+                    },
+                    [1] {
+                                         "id" => 15321317,
+                                      "label" => "",
+                                      "email" => "paigepon@gmail.com",
+                        "receive_team_emails" => true,
+                                       "hide" => true
+                    }
+                ],
+                "roster_telephone_numbers" => [
+                    [0] {
+                                  "id" => 9147838,
+                               "label" => "",
+                        "phone_number" => "631-521-0673",
+                           "preferred" => false,
+                          "enable_sms" => false,
+                         "sms_carrier" => "",
+                                "hide" => false
+                    }
+                ],
+                              "is_manager" => true,
+                         "is_commissioner" => true,
+                                 "address" => {
+                     "address" => "c/o LGBT Center, 208 West 13th Street ",
+                    "address2" => nil,
+                        "city" => "New York",
+                       "state" => "New York",
+                         "zip" => "10011",
+                     "country" => nil
+                }
+            }
+        }
+    }
+]
