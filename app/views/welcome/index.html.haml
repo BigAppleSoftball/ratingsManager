@@ -1,6 +1,6 @@
 #teams-accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
   - count = 0
-  - @divisions.each do |league|
+  - @divisions['division']['divisions'].each do |league|
     .panel.panel-primary
       .panel-heading{:role => "tab", :id =>"heading-#{count}"}
         %h4.panel-title

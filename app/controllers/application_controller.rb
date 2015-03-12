@@ -80,11 +80,12 @@ class ApplicationController < ActionController::Base
   end
 
   def get_divisions
-    divisionsURL = "https://api.teamsnap.com/v2/divisions/"
+    divisionsURL = "https://api.teamsnap.com/v2/divisions/16139"
     conn = connect
     conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
     response = conn.get divisionsURL
-    JSON.parse(response.body)[0]['division']['divisions']
+    ap JSON.parse(response.body)
+    JSON.parse(response.body)
   end
 
   def get_roster(teamId, rosterId)
@@ -92,7 +93,6 @@ class ApplicationController < ActionController::Base
     conn = connect
     conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
     response = conn.get rosterURL
-    ap JSON.parse(response.body)
     JSON.parse(response.body)
   end
 
