@@ -6,7 +6,8 @@ class WelcomeController < ApplicationController
   Time::DATE_FORMATS[:event_date] = "%a, %b %d %l:%M %P"
 
   def index
-    @teamsByDivision = get_all_teams
+    @all_teams = get_all_teams
+    @divisions = get_all_divisions
     render 'index'
   end
 

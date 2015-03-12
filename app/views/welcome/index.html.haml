@@ -1,20 +1,27 @@
 #teams-accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
-  -count = 0
-  -@teamsByDivision.keys.each do |divisionKey|
-    -count+=1
+  - count = 0
+  - @divisions['division']['divisions'].each do |league|
     .panel.panel-primary
       .panel-heading{:role => "tab", :id =>"heading-#{count}"}
         %h4.panel-title
           %a{"aria-controls" => "collapse-#{count}", "aria-expanded" => "#{count == 1? 'true' : 'false'}", "data-parent" => "#teams-accordion", "data-toggle" => "collapse", :href => "#collapse-#{count}"}
-            -if divisionKey.empty?
+            -if league['name'].empty?
               N/A
             - else
-              =divisionKey
-      .panel-collapse.collapse.in{"aria-labelledby" => "heading-#{count}", :role => "tabpanel", :id => "collapse-#{count}"}
-        .panel-body
-          - teams = @teamsByDivision[divisionKey]
-          %ul.list-group
-            - teams.each do |team|
-              -roster = team['available_rosters'].first
-              %li.list-group-item
-                =link_to raw("View #{team['team_name']} Roster"), "/teamssnap/#{team['id']}/#{roster['id']}", :class => 'btn btn-default'
+              = league['name']
+      .panel-body
+        - # the teams inside the division
+        - league['divisions'].each do |division|
+          .panel.panel-default
+            .panel-heading
+              %h5.panel-title= division['name']
+            .panel-body
+              %ul.list-group
+                - division['team_ids'].each do |team_id|
+                  - teamData = @all_teams[team_id.to_s]
+                  - if teamData
+                    - team = teamData['team']
+                    - roster = team['available_rosters'].first
+                    - if roster
+                      %li.list-group-item=link_to raw("View #{team['team_name']} Roster"), "/teamssnap/#{team['id']}/#{roster['id']}", :class => 'btn btn-default js-view-team-btn'
+
