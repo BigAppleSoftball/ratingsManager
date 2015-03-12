@@ -23,5 +23,5 @@
                     - team = teamData['team']
                     - roster = team['available_rosters'].first
                     - if roster
-                      %li.list-group-item=link_to raw("View #{team['team_name']} Roster"), "/teamssnap/#{team['id']}/#{roster['id']}", :class => 'btn btn-default'
+                      %li.list-group-item=link_to raw("View #{team['team_name']} Roster"), "/teamssnap/#{team['id']}/#{roster['id']}", :class => 'btn btn-default js-view-team-btn'
 

@@ -16,3 +16,10 @@
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require_tree .
+
+
+$(document).ready(function() {
+  $('.js-view-team-btn').on('click', function(){
+    $(this).append('<img src="./images/ajax-loader.gif" />');
+  });
+});
