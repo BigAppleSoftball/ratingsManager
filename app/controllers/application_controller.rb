@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
 
   def get_all_teams
     Rails.cache.fetch("all_teams", :expires_in => 60.minutes) do
-      get_all_teamsams_api
+      get_all_teams_api
     end
   end
 
