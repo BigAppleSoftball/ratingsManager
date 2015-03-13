@@ -140,3 +140,39 @@
   margin-right: 5px;
 }
 
+#default a.teamsnap-login-btn {
+  margin: 10px 0;
+  display: block;
+  /*padding: 10px 10px 10px 30px;*/
+   /***  CSS Gradient  ***/
+  /*  Chrome 1-9 and Safari 4-5.0  */
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ff9017), color-stop(1, #ff5d00));
+  /*  Chrome 10+ Safari 5.1+ Mobile Safari  */
+  background-image: -webkit-linear-gradient(top, #ff9017, #ff5d00);
+  /*  Firefox 3.6+  */
+  background-image: -moz-linear-gradient(top, #ff9017, #ff5d00);
+  /*  IE 10+  */
+  background-image: -ms-linear-gradient(top, #ff9017, #ff5d00);
+  /*  Opera 11.10+  */
+  background-image: -o-linear-gradient(top, #ff9017, #ff5d00);
+  /*  W3C  */
+  background-image: linear-gradient(top, #ff9017, #ff5d00);
+  border: 1px solid #dc5000;
+  border-top-color: #ff9e34;
+  border-left-color: #ff9e34;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 5px 25px 10px 25px;
+  color: #fff;
+  text-transform: capitalize;
+  text-shadow: none;
+  border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+}
+
+#default a.teamsnap-login-btn:hover {
+  opacity: 0.8;
+  text-decoration: none;
+}
+

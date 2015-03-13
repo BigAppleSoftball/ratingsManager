@@ -1,5 +1,6 @@
 %link{:href => "https://fonts.googleapis.com/css?family=Montserrat", :rel => "stylesheet", :type => "text/css"}
 =stylesheet_link_tag "http://#{request.host_with_port}/css/sponsorCarousel.css"
+=link_to 'BASL Login', 'https://go.teamsnap.com/login/signin', {:target => '_blank', :class => 'teamsnap-login-btn', :title => 'Log into your teamsnap account'}
 - if @fieldStatus
   .game-status{:class => "status-#{@fieldStatus}"}
     = render partial: "fields/status_indicator", locals: {statusValue: @fieldStatus , statusString: @fieldStatus}
