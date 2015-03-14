@@ -68,7 +68,7 @@ module SessionsHelper
   # Checks to see if the user is an adminstrative user (admin, rep or manager)
   #
   def is_admin_user?
-    is_admin? || is_manager? || is_division_rep?
+    is_logged_in? && (is_admin? || is_manager? || is_division_rep?)
   end
 
   #
