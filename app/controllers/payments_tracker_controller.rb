@@ -16,7 +16,6 @@ class PaymentsTrackerController < ApplicationController
     response = Hash.new
     mechanize = Mechanize.new
     # create a new sync object
-    
 
     # get all the players from the scrapper
     players = log_in_get_player_info(mechanize)
