@@ -13,24 +13,29 @@
   PaymentsTracker.prototype.bindEvents = function() {
     var self = this;
 
-    $('.js-send-teamsnap-player-update').click(function(){
-      self.sendTeamsnapUpdate();
+    $('.js-run-sync').click(function(){
+      self.runPaymentsSync();
     });
   };
 
-  PaymentsTracker.prototype.sendTeamsnapUpdate = function() {
+  PaymentsTracker.prototype.runPaymentsSync = function() {
+    $('.js-loading-sync').show();
+    
     var onSuccess = function(data){
-      console.log('Player Updated!');
+      $('.js-loading-sync').hide();
+      $('.js-latest-sync-time').html(data.sync_created_string);
+      $('.js-update-count-badge').fadeIn().find('.js-update-count').html(data.players_updated_count);
+      $('.js-scans-table tbody').prepend(data.scan_row_html);
     };
 
     var onError = function(data) {
-      console.log('player not updated');
+      $('.js-loading-sync').hide();
+      console.log('sync failed'. data);
     };
 
     var request = $.ajax({
-      url: "/teamsnap/updateplayer",
+      url: "/payments/sync",
       type: "GET",
-      data: {},
       dataType: 'json'
     });
      

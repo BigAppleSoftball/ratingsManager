@@ -9,6 +9,7 @@
   .panel-body
     %table.table.table-striped.table-bordered
       %tr
+        %th{:style => 'width: 50px'} Paid?
         %th
           Player Name
         %th
@@ -28,6 +29,8 @@
         -rankingData = @playerHash["#{player['id']}"]
         -customData = player['league_custom_data']
         %tr.player{:class => "#{unranked_class(rankingData[:fullRating])} js-player-row", :data => {:playerid => player['id']}}
+          %td
+            %span{:style=> "text-align: center"}=raw(yes_or_no_icon(rankingData[:has_paid]))
           %td="#{player['first']} #{player['last']}"
           %td=player['birthdate']
           %td

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226231433) do
+ActiveRecord::Schema.define(version: 20150315211409) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 20150226231433) do
     t.boolean  "is_division_rep"
     t.boolean  "is_committee_lead"
     t.integer  "profile_id"
+    t.integer  "division_id"
+    t.boolean  "is_league_admin"
   end
 
   create_table "committees", force: true do |t|
@@ -71,6 +73,14 @@ ActiveRecord::Schema.define(version: 20150226231433) do
     t.string   "state"
     t.float    "lat",            limit: 24
     t.float    "long",           limit: 24
+  end
+
+  create_table "game_attendances", force: true do |t|
+    t.integer  "profile_id"
+    t.integer  "game_id"
+    t.boolean  "is_attending"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "games", force: true do |t|
@@ -123,6 +133,7 @@ ActiveRecord::Schema.define(version: 20150226231433) do
     t.string   "long_image_url"
     t.string   "password_digest"
     t.string   "remember_token"
+    t.boolean  "is_admin"
   end
 
   create_table "ratings", force: true do |t|
@@ -189,6 +200,7 @@ ActiveRecord::Schema.define(version: 20150226231433) do
     t.datetime "date_end"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_active"
   end
 
   create_table "sponsors", force: true do |t|
@@ -234,6 +246,25 @@ ActiveRecord::Schema.define(version: 20150226231433) do
     t.integer  "link_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "teamsnap_payments", force: true do |t|
+    t.integer  "teamsnap_player_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "teamsnap_player_name"
+    t.string   "teamsnap_player_email"
+  end
+
+  create_table "teamsnap_payments_syncs", force: true do |t|
+    t.string   "run_by"
+    t.boolean  "is_success"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "total_paid_players"
+    t.integer  "total_unpaid_players"
+    t.integer  "total_players"
+    t.integer  "total_players_updated"
   end
 
 end

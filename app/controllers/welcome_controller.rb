@@ -21,7 +21,6 @@ class WelcomeController < ApplicationController
     @playerHash.sort_by{|k,v| v[:fullRating]}.reverse!.first(10).each do |player|
       @teamRating += player[1][:fullRating]
     end
-    @teamRating
     @customIds = get_customIds
     respond_to do |format|
       format.csv do

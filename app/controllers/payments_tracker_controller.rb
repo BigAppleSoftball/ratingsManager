@@ -4,31 +4,92 @@ class PaymentsTrackerController < ApplicationController
   # home page for the page tracker
   def home
     mechanize = Mechanize.new
-    league_roster_url = 'https://go.teamsnap.com/16139/league_roster/list'
-    ap "RENDERING THE PAYMENTS TRACKER"
+    @players = log_in_get_player_info(mechanize)
+  end
 
-    login_results = login_to_teamsnap(mechanize)
+  def admin
+    @scans = TeamsnapPaymentsSync.order('created_at DESC').all
+    @latest_sync = TeamsnapPaymentsSync.order('created_at DESC').first
+  end
 
-    if is_login_successful?(login_results)
-      players = Array.new
+  def run_sync
+    response = Hash.new
+    mechanize = Mechanize.new
+    # create a new sync object
+    
 
-      league_page = login_results.link_with(:text => "Big Apple Softball League ").click
-      
-      @players = fetch_league_roster(league_page)
-    else
-      ap "NOPE"
+    # get all the players from the scrapper
+    players = log_in_get_player_info(mechanize)
+
+    players_by_payments = Hash.new
+    players_by_payments[:paid] = Array.new
+    players_by_payments[:unpaid] = Array.new
+    players_update_count = 0
+    # get all paid players
+    players.each do |player|
+      if player['has_paid?']
+        players_by_payments[:paid].push(player)
+
+        teamsnap_payment = TeamsnapPayment.new(
+            :teamsnap_player_id => player['teamsnap_id'],
+            :teamsnap_player_name => player['name'],
+            :teamsnap_player_email => player['email']
+          )
+        # make sure we can save the payment
+        if teamsnap_payment.valid?
+          teamsnap_payment.save
+          players_update_count += 1
+        end
+        # for each paid player check and add them to the teamsnap_payments page
+      else
+        players_by_payments[:unpaid].push(player)
+      end
     end
-    #render
+
+    sync = TeamsnapPaymentsSync.new(
+      :total_players => players.length,
+      :total_paid_players => players_by_payments[:paid].length,
+      :total_unpaid_players => players_by_payments[:unpaid].length,
+      :total_players_updated => players_update_count,
+      :is_success => true
+    )
+    
+    sync.save
+    response[:sync] = sync
+    response[:sync_created_string] = sync.created_at.strftime('%B %e at %l:%M %p')
+    response[:players_updated_count] = players_update_count
+    response[:scan_row_html] = render_to_string(:template => "payments_tracker/_payments_row.haml", :locals => {:scan => sync})
+    respond_to do |format|
+      format.json { render :json=> response}
+    end
   end
 
   def update_teamsnap_player
-
-    ap "RUNNING TEAMSNAP UPDATE"
     update_player
+  end
+
+  def list
+    @payments = TeamsnapPayment.all
   end
 
 
   private
+
+    def log_in_get_player_info(mechanize)
+      @players = Array.new
+      league_roster_url = 'https://go.teamsnap.com/16139/league_roster/list'
+
+      login_results = login_to_teamsnap(mechanize)
+
+      if is_login_successful?(login_results)
+        players = Array.new
+        league_page = login_results.link_with(:text => "Big Apple Softball League ").click
+        @players = fetch_league_roster(league_page)
+      else
+        puts "Web Scrapper has failed"
+      end
+      @players
+    end
 
     #
     # Caches the league roster so we don't have to make too many API quesi

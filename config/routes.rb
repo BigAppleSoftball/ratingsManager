@@ -56,5 +56,8 @@ Rails.application.routes.draw do
 
   #payments trackers
   get 'payments/tracker', to:'payments_tracker#home'
+  get 'payments/admin', to:'payments_tracker#admin'
+  get 'payments/list', to: 'payments_tracker#list'
+  get 'payments/sync', to: 'payments_tracker#run_sync'
 
 end

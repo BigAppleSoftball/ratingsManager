@@ -112,3 +112,16 @@
 .navbar-brand {
   padding: 5px 15px;
 }
+
+.label-custom {
+  color: $dark-gray;
+  font-style: italic;
+}
+
+.badge-success {
+  background: $green;
+}
+
+.badge-danger {
+  background: $red;
+}

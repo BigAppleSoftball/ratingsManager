@@ -11,8 +11,7 @@
       Division
     %th 
       Paid
-    %th 
-      Actions
+
   - @players.each do |player|
     %tr{:class => player['has_paid?'] ? '' : 'danger danger-column'}
       %td=player['name']
@@ -25,5 +24,3 @@
         =player['team_division']
       %td 
         =raw(yes_or_no_icon(player['has_paid?']))
-      %td
-        =link_to 'Send Update To Teamsnap', '#', {:class => 'btn btn-default js-send-teamsnap-player-update'}

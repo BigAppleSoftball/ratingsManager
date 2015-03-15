@@ -43,8 +43,14 @@ a:hover {
   display: inline-block;
 }
 
+.yes-icon, 
+.no-icon {
+  display: block;
+  margin: 0 auto;
+}
 .yes-icon {
   color: $brand-success;
+
 }
 
 .no-icon {
@@ -136,4 +142,15 @@ a:hover {
   @include clearfix;
   margin-bottom: 20px;
 
+}
+
+
+//loading icon
+.loading-icon {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background: url(../images/loading.gif) no-repeat 0 0;
+  vertical-align: middle;
+  margin-right: 5px;
 }
