@@ -166,6 +166,7 @@ class ApplicationController < ActionController::Base
       playerHash[:running][:ratings] = Hash.new
       playerHash[:hitting][:rating] = 0
       playerHash[:hitting][:ratings] = Hash.new
+      ap playerData
       player = playerData["roster"]
       customData = player['league_custom_data']
       customData.each do |customItem|
