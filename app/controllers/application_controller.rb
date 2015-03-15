@@ -84,15 +84,17 @@ class ApplicationController < ActionController::Base
     conn = connect
     conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
     response = conn.get divisionsURL
-    ap JSON.parse(response.body)
     JSON.parse(response.body)
   end
 
   def get_roster(teamId, rosterId)
+    ap 'getting rosterId'
+    ap rosterId
     rosterURL = "https://api.teamsnap.com/v2/teams/#{teamId}/as_roster/#{rosterId}/rosters"
     conn = connect
     conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
     response = conn.get rosterURL
+    ap JSON.parse(response.body)
     JSON.parse(response.body)
   end
 
@@ -101,6 +103,19 @@ class ApplicationController < ActionController::Base
     conn = connect
     conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
     response = conn.get rosterPlayerURL
+    JSON.parse(response.body)
+  end
+
+  def update_player
+    #(teamId, rosterId, playerId)
+    #843253/10505795
+    rosterPlayerURL = "https://api.teamsnap.com/v2/teams/843253/as_roster/10505795/custom_fields"
+    #rosters/10505795"
+    #paid id = 143981
+    conn = connect
+    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
+    response = conn.get rosterPlayerURL
+    ap JSON.parse(response.body)
     JSON.parse(response.body)
   end
 
