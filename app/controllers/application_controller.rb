@@ -181,9 +181,12 @@ class ApplicationController < ActionController::Base
       playerHash[:running][:ratings] = Hash.new
       playerHash[:hitting][:rating] = 0
       playerHash[:hitting][:ratings] = Hash.new
-      player = playerData["roster"]
-      customData = player['league_custom_data']
-      customData.each do |customItem|
+      playerHash[:fullRating] = 0
+      ap playerData
+      begin
+        player = playerData["roster"]
+        customData = player['league_custom_data']
+        customData.each do |customItem|
         if customThrowingIds.include?(customItem['custom_field_id'])
           playerHash[:throwing][:rating] += customItem['content'].to_i
           playerHash[:throwing][:ratings][customItem['custom_field_id'].to_i] = customItem['content'].to_i
@@ -197,8 +200,12 @@ class ApplicationController < ActionController::Base
           playerHash[:hitting][:rating] += customItem['content'].to_i
           playerHash[:hitting][:ratings][customItem['custom_field_id'].to_i] = customItem['content'].to_i
         end
+        playerHash[:fullRating] = playerHash[:hitting][:rating] + playerHash[:running][:rating] + playerHash[:fielding][:rating] + playerHash[:throwing][:rating]
       end
-      playerHash[:fullRating] = playerHash[:hitting][:rating] + playerHash[:running][:rating] + playerHash[:fielding][:rating] + playerHash[:throwing][:rating]
+      rescue
+        puts "Failed to get player Ratings"
+        puts playerData
+      end
       playerHash[:name] = "#{player['first']} #{player['last']}"
       playersHash["#{player['id']}"] = playerHash
     end
