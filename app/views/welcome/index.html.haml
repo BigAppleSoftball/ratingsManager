@@ -1,3 +1,6 @@
+- content_for :panel_head do
+  %h1 Big Apple Softball League - Spring 2015
+
 #teams-accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
   - count = 0
   - @divisions['division']['divisions'].each do |league|

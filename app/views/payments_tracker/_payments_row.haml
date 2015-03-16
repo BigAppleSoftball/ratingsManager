@@ -1,0 +1,15 @@
+%tr
+  %td=scan.run_on
+  %td=scan.total_players
+  %td
+    =scan.total_paid_players
+    -if scan.total_players && scan.total_paid_players
+      %span.badge.badge-success
+        = number_to_percentage((scan.total_paid_players.to_f/scan.total_players.to_f).to_f * 100, precision: 0)
+  %td
+    =scan.total_unpaid_players
+    -if scan.total_players && scan.total_unpaid_players
+      %span.badge.badge-danger
+        = number_to_percentage((scan.total_unpaid_players.to_f/scan.total_players.to_f).to_f * 100, precision: 0)
+  %td
+    =scan.total_players_updated

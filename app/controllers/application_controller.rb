@@ -84,7 +84,6 @@ class ApplicationController < ActionController::Base
     conn = connect
     conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
     response = conn.get divisionsURL
-    ap JSON.parse(response.body)
     JSON.parse(response.body)
   end
 
@@ -146,12 +145,12 @@ class ApplicationController < ActionController::Base
 
   # adds and compiles players rankings
   def preprocess_player_data(roster)
+    playerPayments = TeamsnapPayment.all
     playersHash = Hash.new
     customThrowingIds = get_customIds('throwing').values
     customFieldingIds = get_customIds('fielding').values
     customRunningIds = get_customIds('baserunning').values
     customHittingIds = get_customIds('hitting').values
-
     @roster.each do |playerData|
       playerHash = Hash.new
       playerHash[:throwing] = Hash.new
@@ -167,26 +166,28 @@ class ApplicationController < ActionController::Base
       playerHash[:hitting][:rating] = 0
       playerHash[:hitting][:ratings] = Hash.new
       playerHash[:fullRating] = 0
-      ap playerData
       begin
         player = playerData["roster"]
         customData = player['league_custom_data']
+        payment_listing = playerPayments.select {|player_payment| player_payment[:teamsnap_player_id] == player['id'] }
+        playerHash[:has_paid] = payment_listing.length > 0
         customData.each do |customItem|
-        if customThrowingIds.include?(customItem['custom_field_id'])
-          playerHash[:throwing][:rating] += customItem['content'].to_i
-          playerHash[:throwing][:ratings][customItem['custom_field_id'].to_i] = customItem['content'].to_i
-        elsif customFieldingIds.include?(customItem['custom_field_id'])
-          playerHash[:fielding][:rating] += customItem['content'].to_i
-          playerHash[:fielding][:ratings][customItem['custom_field_id'].to_i] = customItem['content'].to_i
-        elsif customRunningIds.include?(customItem['custom_field_id'])
-          playerHash[:running][:rating] += customItem['content'].to_i
-          playerHash[:running][:ratings][customItem['custom_field_id'].to_i] = customItem['content'].to_i
-        elsif customHittingIds.include?(customItem['custom_field_id'])
-          playerHash[:hitting][:rating] += customItem['content'].to_i
-          playerHash[:hitting][:ratings][customItem['custom_field_id'].to_i] = customItem['content'].to_i
+
+          if customThrowingIds.include?(customItem['custom_field_id'])
+            playerHash[:throwing][:rating] += customItem['content'].to_i
+            playerHash[:throwing][:ratings][customItem['custom_field_id'].to_i] = customItem['content'].to_i
+          elsif customFieldingIds.include?(customItem['custom_field_id'])
+            playerHash[:fielding][:rating] += customItem['content'].to_i
+            playerHash[:fielding][:ratings][customItem['custom_field_id'].to_i] = customItem['content'].to_i
+          elsif customRunningIds.include?(customItem['custom_field_id'])
+            playerHash[:running][:rating] += customItem['content'].to_i
+            playerHash[:running][:ratings][customItem['custom_field_id'].to_i] = customItem['content'].to_i
+          elsif customHittingIds.include?(customItem['custom_field_id'])
+            playerHash[:hitting][:rating] += customItem['content'].to_i
+            playerHash[:hitting][:ratings][customItem['custom_field_id'].to_i] = customItem['content'].to_i
+          end
+          playerHash[:fullRating] = playerHash[:hitting][:rating] + playerHash[:running][:rating] + playerHash[:fielding][:rating] + playerHash[:throwing][:rating]
         end
-        playerHash[:fullRating] = playerHash[:hitting][:rating] + playerHash[:running][:rating] + playerHash[:fielding][:rating] + playerHash[:throwing][:rating]
-      end
       rescue
         puts "Failed to get player Ratings"
         puts playerData

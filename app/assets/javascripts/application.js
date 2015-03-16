@@ -20,6 +20,6 @@
 
 $(document).ready(function() {
   $('.js-view-team-btn').on('click', function(){
-    $(this).append('<img src="./images/ajax-loader.gif" />');
+    $(this).append('<i class="loading-icon"></i>');
   });
 });

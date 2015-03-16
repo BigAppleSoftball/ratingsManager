@@ -1,0 +1,30 @@
+- content_for :panel_head do
+  %h1 Payments Tracker Admin
+
+%h4 All Payment Syncs
+%ul.list-group 
+  %li.list-group-item
+    = link_to raw('<i class="loading-icon js-loading-sync" style="display: none;"></i>Sync Payments Data'), '#', {:class => 'btn btn-danger js-run-sync'}
+    %span.label.label-custom
+      Sync Last Run on
+      %span.js-latest-sync-time=@latest_sync.run_on
+      %span.badge.badge-success
+        Paid: 
+        %span.js-total-paid-players=@latest_sync.total_paid_players
+      %span.badge.badge-danger
+        Unpaid:
+        %span.js-total-unpaid-players=@latest_sync.total_unpaid_players
+      %span.badge.js-update-count-badge{:style => 'display:none'}
+        Updated:
+        %span.js-update-count
+%table.table.table-condensed.table-stripped.table-bordered.js-scans-table
+  %thead
+    %tr
+      %th Scan Date
+      %th Total Players
+      %th Players Paid
+      %th Players Unpaid
+      %th Total Players Updated
+  %tbody
+    - @scans.each do |scan|
+      = render :partial => 'payments_row', :locals => { :scan => scan}

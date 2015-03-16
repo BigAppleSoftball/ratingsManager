@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get '/teamssnap/:teamId/:rosterId', to: 'welcome#team', as: 'rosterId'
   get '/ranking/:teamId/:rosterId/:playerId', to: 'welcome#ranking', as: 'playerId'
   post '/teamsnaplogin', to: 'welcome#teamsnaplogin'
+  get '/teamsnap/updateplayer', to:'payments_tracker#update_teamsnap_player'
 
   # website iframes
   get '/showallsponsors', to: 'sponsors#all_sponsors'
@@ -52,5 +53,13 @@ Rails.application.routes.draw do
 
   #errors
   get '/403', to: 'welcome#error403'
+
+  #payments trackers
+  get 'payments/tracker', to:'payments_tracker#home'
+  get 'payments/admin', to:'payments_tracker#admin'
+  get 'payments/list', to: 'payments_tracker#list'
+  get 'payments/sync', to: 'payments_tracker#run_sync'
+  get 'payments/accounts/new', to: 'payments_tracker#new_account'
+  post 'payments/accounts/create', to: 'payments_tracker#create_account'
 
 end

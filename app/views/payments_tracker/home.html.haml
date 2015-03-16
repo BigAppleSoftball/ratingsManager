@@ -1,0 +1,26 @@
+- content_for :panel_head do
+  %h1 Payments Tracker Home
+
+%table.table.table-condensed.table-striped.table-bordered
+  %tr
+    %th
+      Name
+    %th
+      Team
+    %th 
+      Division
+    %th 
+      Paid
+
+  - @players.each do |player|
+    %tr{:class => player['has_paid?'] ? '' : 'danger danger-column'}
+      %td=player['name']
+      %td
+        -if player['team'].empty?
+          No Team Assigned
+        -else
+          =player['team']
+      %td
+        =player['team_division']
+      %td 
+        =raw(yes_or_no_icon(player['has_paid?']))
