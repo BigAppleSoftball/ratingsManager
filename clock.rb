@@ -8,7 +8,7 @@ module Clockwork
     puts "Running #{job}, at #{time}" 
   end
 
-  every(1.minute, 'Data Sync for Payments') {
+  every(6.hours, 'Data Sync for Payments') {
     open(job_url)
   }
 end
