@@ -59,5 +59,7 @@ Rails.application.routes.draw do
   get 'payments/admin', to:'payments_tracker#admin'
   get 'payments/list', to: 'payments_tracker#list'
   get 'payments/sync', to: 'payments_tracker#run_sync'
+  get 'payments/accounts/new', to: 'payments_tracker#new_account'
+  post 'payments/accounts/create', to: 'payments_tracker#create_account'
 
 end

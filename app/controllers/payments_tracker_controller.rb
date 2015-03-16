@@ -1,5 +1,23 @@
 class PaymentsTrackerController < ApplicationController
   require 'open-uri'
+  
+  def new_account
+    @teamsnap_sync_account = TeamsnapScanAccount.new
+    render 'payments_tracker/account/new'
+  end
+
+  def create_account
+    @account = TeamsnapScanAccount.new(teamsnap_scan_account_params)
+
+    respond_to do |format|
+      if @account.save
+        format.html { redirect_to '/payments/tracker', notice: 'Scans Account was successfully created.' }
+      else
+        format.html { redirect_to 'payments_tracker#new_account', notice: 'Error Saving Account.' }
+      end
+    end
+
+  end
 
   # home page for the page tracker
   def home
@@ -75,17 +93,19 @@ class PaymentsTrackerController < ApplicationController
   private
 
     def log_in_get_player_info(mechanize)
+      latest_account = TeamsnapScanAccount.order('created_at DESC').first
       @players = Array.new
       league_roster_url = 'https://go.teamsnap.com/16139/league_roster/list'
+      if !latest_account.nil?
+        login_results = login_to_teamsnap(mechanize, latest_account)
 
-      login_results = login_to_teamsnap(mechanize)
-
-      if is_login_successful?(login_results)
-        players = Array.new
-        league_page = login_results.link_with(:text => "Big Apple Softball League ").click
-        @players = fetch_league_roster(league_page)
-      else
-        puts "Web Scrapper has failed"
+        if is_login_successful?(login_results)
+          players = Array.new
+          league_page = login_results.link_with(:text => "Big Apple Softball League ").click
+          @players = fetch_league_roster(league_page)
+        else
+          puts "Web Scrapper has failed"
+        end
       end
       @players
     end
@@ -154,14 +174,15 @@ class PaymentsTrackerController < ApplicationController
     #
     # Logs into teamsnap and returns the next page if successful
     #
-    def login_to_teamsnap(mechanize)
+    def login_to_teamsnap(mechanize, latest_account)
       login_url = "https://go.teamsnap.com/login/signin"
       
       page = mechanize.get(login_url)
-
+      login_results = Hash.new
+      
       login_form = page.forms.first
-      login_form.field_with(:name => "login").value = "paigepon@gmail.com"
-      login_form.field_with(:name => "password").value = "paige123"
+      login_form.field_with(:name => "login").value = latest_account.username
+      login_form.field_with(:name => "password").value = latest_account.password
       login_results = mechanize.submit login_form
 
       login_results
@@ -172,6 +193,11 @@ class PaymentsTrackerController < ApplicationController
     #
     def is_login_successful?(page)
       (page.uri.to_s== "https://go.teamsnap.com/team/dashboard")
+    end
+
+  private
+    def teamsnap_scan_account_params
+      params.require(:teamsnap_scan_account).permit(:username, :password, :is_active)
     end
 
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150315211409) do
+ActiveRecord::Schema.define(version: 20150316002236) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -265,6 +265,14 @@ ActiveRecord::Schema.define(version: 20150315211409) do
     t.integer  "total_unpaid_players"
     t.integer  "total_players"
     t.integer  "total_players_updated"
+  end
+
+  create_table "teamsnap_scan_accounts", force: true do |t|
+    t.string   "username"
+    t.string   "password"
+    t.boolean  "is_active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
