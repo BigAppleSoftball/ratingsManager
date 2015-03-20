@@ -1,6 +1,9 @@
 class PaymentsTrackerController < ApplicationController
   require 'open-uri'
-  
+
+  def index
+  end
+
   def new_account
     @teamsnap_sync_account = TeamsnapScanAccount.new
     render 'payments_tracker/account/new'
@@ -30,19 +33,17 @@ class PaymentsTrackerController < ApplicationController
     @latest_sync = TeamsnapPaymentsSync.order('created_at DESC').first
   end
 
-  def run_sync
-    
-    response = Hash.new
+  def sync
+    @response_data = Hash.new
     mechanize = Mechanize.new
+
     # create a new sync object
     # get all the players from the scrapper
     players = log_in_get_player_info(mechanize)
-    
-    update_players_on_teamsnap(mechanize)
-
     players_by_payments = Hash.new
     players_by_payments[:paid] = Array.new
     players_by_payments[:unpaid] = Array.new
+    players_by_payments[:new_paid] = Array.new
     players_update_count = 0
     # get all paid players
     players.each do |player|
@@ -58,6 +59,7 @@ class PaymentsTrackerController < ApplicationController
         if teamsnap_payment.valid?
           teamsnap_payment.save
           players_update_count += 1
+          players_by_payments[:new_paid].push(player)
         end
         # for each paid player check and add them to the teamsnap_payments page
       else
@@ -72,45 +74,53 @@ class PaymentsTrackerController < ApplicationController
       :total_players_updated => players_update_count,
       :is_success => true
     )
-    
+
     sync.save
-    response[:sync] = sync
-    response[:sync_created_string] = sync.created_at.strftime('%B %e at %l:%M %p')
-    response[:players_updated_count] = players_update_count
-    response[:scan_row_html] = render_to_string(:template => "payments_tracker/_payments_row.haml", :locals => {:scan => sync})
+    @response_data[:sync] = sync
+    @response_data[:sync_created_string] = sync.created_at.strftime('%B %e at %l:%M %p')
+    @response_data[:players_updated_count] = players_update_count
+    @response_data[:scan_row_html] = render_to_string(:template => "payments_tracker/_payments_row.haml", :locals => {:scan => sync})
+    @response_data[:new_paid_players] = players_by_payments[:new_paid]
+
+    log_in_update_players_on_teamsnap(players_by_payments[:new_paid])
+
     respond_to do |format|
-      format.json { render :json=> response}
+      format.json { render :json=> @response_data}
+      format.html { render :layout => false }
     end
   end
 
   #
-  # Loads the player teamsnap page
+  # Loads the player teamsnap page and updates all of the given players by visiting the url
   #
-  def update_players_on_teamsnap(mechanize)
-    ap "UPDATING PLAYERS ON TEAMSNAP"
-    player_url = "https://go.teamsnap.com/27398/league_roster/edit/10505795"
-    ap "getting player"
-    player_page = mechanize.get(player_url)
-    #ap player_page
-    player_form = player_page.forms.first
-    #ap player_form
-    player_form.field_with(:name => "roster[number]").value = "(Paid)"
-    player_form.checkbox_with(:name => "custom[143981]").check
-    player_form.submit
-    #players.each do |player|
-      #ap player
-      #player_url = "https://go.teamsnap.com/#{player['division_id']}/league_roster/player/#{player['teamsnap_id']}"
-      
-      # go to player page
-      # edit player jersey information
-      # set as registered player
-      # hit save
-    #end
-    
+  def log_in_update_players_on_teamsnap(players)
+    @agent = log_in_to_teamsnap
+
+    players.each do |player|
+      ap player
+      set_paid_teamsnap_player(@agent, player['player_url'])
+    end
+
   end
 
-  def update_teamsnap_player
-    update_player
+  #
+  # Set a player as paid
+  #
+  def set_paid_teamsnap_player(agent, player_url)
+    player_paid_text = "Paid"
+    ap player_url
+    player_page = agent.get(player_url)
+
+    player_form = player_page.forms.first
+    jersey_form_field = player_form.field_with(:name => "roster[number]")
+    current_jersey_value = jersey_form_field.value
+    ap current_jersey_value
+    if !current_jersey_value.include?(player_paid_text)
+      jersey_form_field.value = "#{current_jersey_value} #{player_paid_text}"
+    end
+
+    player_form.checkbox_with(:name => "custom[143981]").check # set the Player as register
+    player_form.submit
   end
 
   def list
@@ -119,6 +129,36 @@ class PaymentsTrackerController < ApplicationController
 
 
   private
+
+    #
+    # gets the latest account and logs into teamsnap
+    # due to some weird sesisons issue we have to go the the league page
+    # before redirecting
+    #
+    def log_in_to_teamsnap
+      latest_account = TeamsnapScanAccount.order('created_at DESC').first
+      result = Hash.new
+      @agent = Mechanize.new
+      if !latest_account.nil?
+        login_url = "https://go.teamsnap.com/login/signin"
+        page = @agent.get(login_url)
+        login_results = Hash.new
+        login_form = page.forms.first
+        login_form.field_with(:name => "login").value = latest_account.username
+        login_form.field_with(:name => "password").value = latest_account.password
+        login_results = @agent.submit login_form
+        league_page = login_results.link_with(:text => "Big Apple Softball League ").click
+        if is_login_successful?(login_results)
+          @agent
+        else
+          puts "Web Scrapper has failed to Log in"
+          @agent
+        end
+      else
+        @agent
+      end
+      @agent
+    end
 
     def log_in_get_player_info(mechanize)
       latest_account = TeamsnapScanAccount.order('created_at DESC').first
@@ -142,13 +182,13 @@ class PaymentsTrackerController < ApplicationController
     # Caches the league roster so we don't have to make too many API quesi
     #
     def fetch_league_roster(league_page)
-      Rails.cache.fetch("teamsnap_league_roster", :expires_in => 60.minutes) do
+      Rails.cache.fetch("teamsnap_league_rosterv4", :expires_in => 60.minutes) do
         league_roster(league_page)
       end
     end
-    
+
     #
-    # Iterates through all the roster pages and 
+    # Iterates through all the roster pages and
     # returns an array ofr all the leauges' roster
     #
     def league_roster(league_page)
@@ -178,6 +218,9 @@ class PaymentsTrackerController < ApplicationController
       ids_by_div_name['3. Fitzpatrick Division'] = 27397
       ids_by_div_name['4. Rainbow Division'] = 27398
       ids_by_div_name['5. Sachs Division'] = 27400
+      ids_by_div_name["1. Women's Competitive Division"] = 27403
+      ids_by_div_name["2. Women's Recreational Division"] = 27404
+      ids_by_div_name["Big Apple Softball League"] = 16139
 
       players = Array.new
       paid_string = 'PAID IN FULL'
@@ -199,8 +242,9 @@ class PaymentsTrackerController < ApplicationController
         #set player teaminfo
         team_column = roster_table_columns[4]
         player['team'] = team_column.css('a').text.strip
-        player['team_division'] = team_column.text.strip[/\(.*?\)/].tr(')(','')
+        player['team_division'] = team_column.text.strip[/\(.*?\)/].tr(')(','').strip
         player['division_id'] = ids_by_div_name[player['team_division']]
+        player['player_url'] = "https://go.teamsnap.com/#{player['division_id']}/league_roster/edit/#{player['teamsnap_id']}"
         players.push(player)
       end
       players
@@ -211,15 +255,14 @@ class PaymentsTrackerController < ApplicationController
     #
     def login_to_teamsnap(mechanize, latest_account)
       login_url = "https://go.teamsnap.com/login/signin"
-      
+
       page = mechanize.get(login_url)
       login_results = Hash.new
-      
+
       login_form = page.forms.first
       login_form.field_with(:name => "login").value = latest_account.username
       login_form.field_with(:name => "password").value = latest_account.password
       login_results = mechanize.submit login_form
-
       login_results
     end
 
