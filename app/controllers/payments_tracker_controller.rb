@@ -31,12 +31,14 @@ class PaymentsTrackerController < ApplicationController
   end
 
   def run_sync
+    
     response = Hash.new
     mechanize = Mechanize.new
     # create a new sync object
-
     # get all the players from the scrapper
     players = log_in_get_player_info(mechanize)
+    
+    update_players_on_teamsnap(mechanize)
 
     players_by_payments = Hash.new
     players_by_payments[:paid] = Array.new
@@ -79,6 +81,32 @@ class PaymentsTrackerController < ApplicationController
     respond_to do |format|
       format.json { render :json=> response}
     end
+  end
+
+  #
+  # Loads the player teamsnap page
+  #
+  def update_players_on_teamsnap(mechanize)
+    ap "UPDATING PLAYERS ON TEAMSNAP"
+    player_url = "https://go.teamsnap.com/27398/league_roster/edit/10505795"
+    ap "getting player"
+    player_page = mechanize.get(player_url)
+    #ap player_page
+    player_form = player_page.forms.first
+    #ap player_form
+    player_form.field_with(:name => "roster[number]").value = "(Paid)"
+    player_form.checkbox_with(:name => "custom[143981]").check
+    player_form.submit
+    #players.each do |player|
+      #ap player
+      #player_url = "https://go.teamsnap.com/#{player['division_id']}/league_roster/player/#{player['teamsnap_id']}"
+      
+      # go to player page
+      # edit player jersey information
+      # set as registered player
+      # hit save
+    #end
+    
   end
 
   def update_teamsnap_player
@@ -144,6 +172,13 @@ class PaymentsTrackerController < ApplicationController
     # Iterates through a roster table to get the player info for that page
     #
     def get_roster_page_player_info(roster_page)
+      ids_by_div_name = Hash.new
+      ids_by_div_name['1. Dima Division'] = 27394
+      ids_by_div_name['2. Stonewall Division'] = 27395
+      ids_by_div_name['3. Fitzpatrick Division'] = 27397
+      ids_by_div_name['4. Rainbow Division'] = 27398
+      ids_by_div_name['5. Sachs Division'] = 27400
+
       players = Array.new
       paid_string = 'PAID IN FULL'
       roster_table_rows = roster_page.parser.css('#players_table > tbody > tr')
@@ -165,7 +200,7 @@ class PaymentsTrackerController < ApplicationController
         team_column = roster_table_columns[4]
         player['team'] = team_column.css('a').text.strip
         player['team_division'] = team_column.text.strip[/\(.*?\)/].tr(')(','')
-
+        player['division_id'] = ids_by_div_name[player['team_division']]
         players.push(player)
       end
       players
