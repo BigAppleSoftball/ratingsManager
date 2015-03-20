@@ -1,0 +1,7 @@
+- content_for :panel_head do
+  %h1 Payments
+
+.list-group
+  = link_to 'View Teamsnap Payments (Can Take a While)', '/payments/tracker', :class => 'list-group-item', :target => '_blank'
+  = link_to 'View Paid Players', '/payments/list', :class => 'list-group-item'
+  = link_to 'View Payment Scan History', '/payments/admin', :class => 'list-group-item'
