@@ -79,14 +79,14 @@ class PaymentsTrackerController < ApplicationController
       :total_players => players.length,
       :total_paid_players => players_by_payments[:paid].length,
       :total_unpaid_players => players_by_payments[:unpaid].length,
-      :total_players_updated => players_update_count,
+      :total_players_updated => players_by_payments[:new_paid].length,
       :is_success => true
     )
 
     sync.save
     @response_data[:sync] = sync
     @response_data[:sync_created_string] = sync.created_at.strftime('%B %e at %l:%M %p')
-    @response_data[:players_updated_count] = players_update_count
+    @response_data[:players_updated_count] = players_by_payments[:new_paid].length
     @response_data[:scan_row_html] = render_to_string(:template => "payments_tracker/_payments_row.haml", :locals => {:scan => sync})
     @response_data[:new_paid_players] = players_by_payments[:new_paid]
 
