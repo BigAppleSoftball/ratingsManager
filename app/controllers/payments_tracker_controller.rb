@@ -1,6 +1,22 @@
 class PaymentsTrackerController < ApplicationController
   require 'open-uri'
 
+  #
+  # Stores the teamsnap division ids by the name of the division (this is very sensitive since the user can edit these names)
+  #
+  def teamsnap_divs_by_id
+    ids_by_div_name = Hash.new
+    ids_by_div_name['1. Dima Division'] = 27394
+    ids_by_div_name['2. Stonewall Division'] = 27395
+    ids_by_div_name['3. Fitzpatrick Division'] = 27397
+    ids_by_div_name['4. Rainbow Division'] = 27398
+    ids_by_div_name['5. Sachs Division'] = 27400
+    ids_by_div_name["1. Women's Competitive Division"] = 27403
+    ids_by_div_name["2. Women's Recreational Division"] = 27404
+    ids_by_div_name["Big Apple Softball League"] = 16139 
+    ids_by_div_name
+  end
+
   def index
   end
 
@@ -33,6 +49,23 @@ class PaymentsTrackerController < ApplicationController
     @latest_sync = TeamsnapPaymentsSync.order('created_at DESC').first
   end
 
+  #
+  # Gets a list of paid players on unassigned teams
+  #
+  def unassigned
+    mechanize = Mechanize.new
+    players = log_in_get_player_info(mechanize)
+    ids_by_div_name = teamsnap_divs_by_id
+    @unassigned_player = Array.new
+    @league_id = ids_by_div_name["Big Apple Softball League"]
+    players_by_payments = sort_players(players)
+    players_by_payments[:paid].each do |player|
+      if player['division_id'] == @league_id
+        @unassigned_player.push(player)
+      end
+    end
+  end 
+
   def sync
     @response_data = Hash.new
     mechanize = Mechanize.new
@@ -40,6 +73,32 @@ class PaymentsTrackerController < ApplicationController
     # create a new sync object
     # get all the players from the scrapper
     players = log_in_get_player_info(mechanize)
+    players_by_payments = sort_players(players)
+
+    sync = TeamsnapPaymentsSync.new(
+      :total_players => players.length,
+      :total_paid_players => players_by_payments[:paid].length,
+      :total_unpaid_players => players_by_payments[:unpaid].length,
+      :total_players_updated => players_update_count,
+      :is_success => true
+    )
+
+    sync.save
+    @response_data[:sync] = sync
+    @response_data[:sync_created_string] = sync.created_at.strftime('%B %e at %l:%M %p')
+    @response_data[:players_updated_count] = players_update_count
+    @response_data[:scan_row_html] = render_to_string(:template => "payments_tracker/_payments_row.haml", :locals => {:scan => sync})
+    @response_data[:new_paid_players] = players_by_payments[:new_paid]
+
+    log_in_update_players_on_teamsnap(players_by_payments[:new_paid])
+
+    respond_to do |format|
+      format.json { render :json=> @response_data}
+      format.html { render :layout => false }
+    end
+  end
+
+  def sort_players(players)
     players_by_payments = Hash.new
     players_by_payments[:paid] = Array.new
     players_by_payments[:unpaid] = Array.new
@@ -66,28 +125,7 @@ class PaymentsTrackerController < ApplicationController
         players_by_payments[:unpaid].push(player)
       end
     end
-
-    sync = TeamsnapPaymentsSync.new(
-      :total_players => players.length,
-      :total_paid_players => players_by_payments[:paid].length,
-      :total_unpaid_players => players_by_payments[:unpaid].length,
-      :total_players_updated => players_update_count,
-      :is_success => true
-    )
-
-    sync.save
-    @response_data[:sync] = sync
-    @response_data[:sync_created_string] = sync.created_at.strftime('%B %e at %l:%M %p')
-    @response_data[:players_updated_count] = players_update_count
-    @response_data[:scan_row_html] = render_to_string(:template => "payments_tracker/_payments_row.haml", :locals => {:scan => sync})
-    @response_data[:new_paid_players] = players_by_payments[:new_paid]
-
-    log_in_update_players_on_teamsnap(players_by_payments[:new_paid])
-
-    respond_to do |format|
-      format.json { render :json=> @response_data}
-      format.html { render :layout => false }
-    end
+    players_by_payments
   end
 
   #
@@ -97,7 +135,6 @@ class PaymentsTrackerController < ApplicationController
     @agent = log_in_to_teamsnap
 
     players.each do |player|
-      ap player
       set_paid_teamsnap_player(@agent, player['player_url'])
     end
 
@@ -108,13 +145,13 @@ class PaymentsTrackerController < ApplicationController
   #
   def set_paid_teamsnap_player(agent, player_url)
     player_paid_text = "Paid"
-    ap player_url
+
     player_page = agent.get(player_url)
 
     player_form = player_page.forms.first
     jersey_form_field = player_form.field_with(:name => "roster[number]")
     current_jersey_value = jersey_form_field.value
-    ap current_jersey_value
+
     if !current_jersey_value.include?(player_paid_text)
       jersey_form_field.value = "#{current_jersey_value} #{player_paid_text}"
     end
@@ -212,15 +249,7 @@ class PaymentsTrackerController < ApplicationController
     # Iterates through a roster table to get the player info for that page
     #
     def get_roster_page_player_info(roster_page)
-      ids_by_div_name = Hash.new
-      ids_by_div_name['1. Dima Division'] = 27394
-      ids_by_div_name['2. Stonewall Division'] = 27395
-      ids_by_div_name['3. Fitzpatrick Division'] = 27397
-      ids_by_div_name['4. Rainbow Division'] = 27398
-      ids_by_div_name['5. Sachs Division'] = 27400
-      ids_by_div_name["1. Women's Competitive Division"] = 27403
-      ids_by_div_name["2. Women's Recreational Division"] = 27404
-      ids_by_div_name["Big Apple Softball League"] = 16139
+      ids_by_div_name = teamsnap_divs_by_id
 
       players = Array.new
       paid_string = 'PAID IN FULL'

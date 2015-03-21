@@ -1,7 +1,20 @@
 - content_for :panel_head do
   %h1 Payments
 
-.list-group
-  = link_to 'View Teamsnap Payments (Can Take a While)', '/payments/tracker', :class => 'list-group-item', :target => '_blank'
-  = link_to 'View Paid Players', '/payments/list', :class => 'list-group-item'
-  = link_to 'View Payment Scan History', '/payments/admin', :class => 'list-group-item'
+%ul.list-group
+  %li.list-group-item
+    = link_to 'View Unassigned Paid Players (Opens in New Page)', '/payments/unassigned', {:target => '_blank'}
+    %div
+      A list of paid players who have paid their league fees but who haven't been assigned to a team
+  %li.list-group-item
+    = link_to 'Load All Teamsnap Payments (Can Take a While)', '/payments/tracker', :target => '_blank'
+    %div
+      Loads all the teamsnap payments in alphabetical order
+  %li.list-group-item
+    = link_to 'View Paid Players', '/payments/list'
+    %div
+      View the list of all payments synced to the BASL Application (this also shows data of when the payments were added to the app)
+  %li.list-group-item
+    = link_to 'View Payment Scan History', '/payments/admin'
+    %div
+      View all the payment scans that have been run
