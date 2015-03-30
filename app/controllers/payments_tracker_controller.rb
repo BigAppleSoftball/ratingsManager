@@ -11,8 +11,8 @@ class PaymentsTrackerController < ApplicationController
     ids_by_div_name['3. Fitzpatrick Division'] = 27397
     ids_by_div_name['4. Rainbow Division'] = 27398
     ids_by_div_name['5. Sachs Division'] = 27400
-    ids_by_div_name["1. Women's Competitive Division"] = 27403
-    ids_by_div_name["2. Women's Recreational Division"] = 27404
+    ids_by_div_name["1. Mousseau Division"] = 27403
+    ids_by_div_name["2. Green-Batten Division"] = 27404
     ids_by_div_name["Big Apple Softball League"] = 16139 
     ids_by_div_name
   end

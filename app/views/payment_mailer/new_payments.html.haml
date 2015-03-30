@@ -887,11 +887,12 @@
       %h1 
         You have Recieved
         =@payments.length
-        New Payment(s)!
-      %h3{:style=>'font-size: 12px'} Click on the player names to view the player profile (make sure you have already logged into teamsnap and gone to the Big Apple Softball League page)
-      %ul.list-group
-        - @payments.each do |player|
-          %li.list-group-item
-            =link_to "#{player["name"]} (Click to Go to Teamsnap Profile)", player["player_url"], {:target => "_blank"}
+        New Payment(s)
+      - if @payments.length > 0
+        %h3{:style=>'font-size: 12px'} Click on the player names to view the player profile (make sure you have already logged into teamsnap and gone to the Big Apple Softball League page)
+        %ul.list-group
+          - @payments.each do |player|
+            %li.list-group-item
+              =link_to "#{player["name"]} (Click to Go to Teamsnap Profile)", player["player_url"], {:target => "_blank"}
       = link_to 'View All Unassigned Paid Players on the BASL Manager', 'http://basl-manager.herokuapp.com/payments/unassigned', {:target => '_blank'}
     
