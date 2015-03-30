@@ -89,7 +89,9 @@ class PaymentsTrackerController < ApplicationController
     @response_data[:players_updated_count] = players_by_payments[:new_paid].length
     @response_data[:scan_row_html] = render_to_string(:template => "payments_tracker/_payments_row.haml", :locals => {:scan => sync})
     @response_data[:new_paid_players] = players_by_payments[:new_paid]
-
+    # send the email
+    PaymentMailer.new_payments(@response_data[:new_paid_players]).deliver
+    # update the players on teamsnap
     log_in_update_players_on_teamsnap(players_by_payments[:new_paid])
 
     respond_to do |format|
