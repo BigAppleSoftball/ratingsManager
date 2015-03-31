@@ -13,7 +13,7 @@ class PaymentsTrackerController < ApplicationController
     ids_by_div_name['5. Sachs Division'] = 27400
     ids_by_div_name["1. Mousseau Division"] = 27403
     ids_by_div_name["2. Green-Batten Division"] = 27404
-    ids_by_div_name["Big Apple Softball League"] = 16139 
+    ids_by_div_name["Big Apple Softball League"] = 16139
     ids_by_div_name
   end
 
@@ -64,7 +64,7 @@ class PaymentsTrackerController < ApplicationController
         @unassigned_player.push(player)
       end
     end
-  end 
+  end
 
   def sync
     @response_data = Hash.new
@@ -89,8 +89,10 @@ class PaymentsTrackerController < ApplicationController
     @response_data[:players_updated_count] = players_by_payments[:new_paid].length
     @response_data[:scan_row_html] = render_to_string(:template => "payments_tracker/_payments_row.haml", :locals => {:scan => sync})
     @response_data[:new_paid_players] = players_by_payments[:new_paid]
-    # send the email
-    PaymentMailer.new_payments(@response_data[:new_paid_players]).deliver
+    # send the email if there are new payments
+    if @response_data[:new_paid_players].length > 0
+      PaymentMailer.new_payments(@response_data[:new_paid_players]).deliver
+    end
     # update the players on teamsnap
     log_in_update_players_on_teamsnap(players_by_payments[:new_paid])
 
