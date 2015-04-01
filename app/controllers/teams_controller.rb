@@ -1,6 +1,6 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update, :destroy]
-
+  before_filter :only_for_admin, only: [:edit, :update, :destroy, :new]
   # GET /teams
   # GET /teams.json
   def index

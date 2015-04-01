@@ -1,5 +1,6 @@
 class TeamsSponsorsController < ApplicationController
   before_action :set_teams_sponsor, only: [:show, :edit, :update, :destroy]
+  before_filter :only_for_admin, only: [:edit, :update, :destroy, :new]
 
   # GET /teams_sponsors
   # GET /teams_sponsors.json

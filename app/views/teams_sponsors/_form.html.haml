@@ -1,4 +1,4 @@
-= form_for @teams_sponsor do |f|
+= form_for @teams_sponsor,:html => {:class => 'form-horizontal'} do |f|
   - if @teams_sponsor.errors.any?
     #error_explanation
       %h2= "#{pluralize(@teams_sponsor.errors.count, "error")} prohibited this teams_sponsor from being saved:"
@@ -6,17 +6,20 @@
         - @teams_sponsor.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :team_id
-    = f.number_field :team_id
-  .field
-    = f.label :sponsor_id
-    = f.number_field :sponsor_id
-  .field
-    = f.label :is_active
-    = f.check_box :is_active
-  .field
-    = f.label :link_id
-    = f.number_field :link_id
-  .actions
-    = f.submit 'Save'
+  .form-group
+    = f.label :team_id, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.number_field :team_id, {:class => 'form-control'}
+  .form-group
+    = f.label :sponsor_id, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.number_field :sponsor_id, {:class => 'form-control'}
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      .checkbox
+        %label
+          = f.check_box :is_active
+          Is Active Sponsor?
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit 'Save', :class => 'btn btn-primary'

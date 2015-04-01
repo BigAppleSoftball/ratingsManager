@@ -1,5 +1,10 @@
-%h1 New teams_sponsor
+- content_for :panel_head do
+  %h1 Create New Teams Sponsor
+  = render partial: "shared/actions/all", locals: { allPath: fields_path}
+  = link_to '+ Create New Team', new_team_path, {:class => 'btn btn-default'}
+  = link_to '+ Create New Sponsor', new_sponsor_path, {:class => 'btn btn-default'}
 
+.well
+  You have to create New Teams and New Sponsors Seperately (See Above Links ^)
 = render 'form'
 
-= link_to 'Back', teams_sponsors_path

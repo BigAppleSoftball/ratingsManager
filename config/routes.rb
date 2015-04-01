@@ -10,11 +10,11 @@ Rails.application.routes.draw do
   #resources :ratings
   #resources :rosters
   resources :profiles
-  resources :teams_sponsors, :only => [:index, :show]
+  resources :teams_sponsors
   resources :sponsors
   resources :seasons, :only => [:index, :show]
   resources :divisions, :only => [:index, :show]
-  resources :teams, :only => [:index, :show]
+  resources :teams
   resources :sessions, only: [:new, :create, :destroy]
 
   # sessions
