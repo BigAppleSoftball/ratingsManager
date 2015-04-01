@@ -74,7 +74,7 @@ class ProfilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params.require(:profile).permit(:profile_code, :first_name, :last_name, :email, :display_name, :player_number, :gender, :shirt_size, :address, :state, :zip, :phone, :position, :dob, :team_id, :long_image_url, :password, :password_confirmation)
+      params.require(:profile).permit(:profile_code, :first_name, :last_name, :email, :display_name, :player_number, :gender, :shirt_size, :address, :state, :zip, :phone, :position, :dob, :team_id, :long_image_url)
     end
 
     def sort_column
