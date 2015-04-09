@@ -176,3 +176,17 @@
   text-decoration: none;
 }
 
+#default .basl-hotline-container {
+  border: 1px solid #9E1E1E;
+  padding: 5px;
+  border-radius: 5px 5px 5px 5px;
+  -moz-border-radius: 5px 5px 5px 5px;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  text-transform: none;
+  font-size: 14px;
+}
+
+.basl-hotline-number {
+  font-weight: 800;
+}
+
