@@ -210,11 +210,11 @@ ActiveRecord::Schema.define(version: 20150309213823) do
     t.string   "phone"
     t.text     "details"
     t.boolean  "is_active"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.boolean  "is_league"
     t.boolean  "show_carousel"
     t.string   "logo_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "teams", force: true do |t|
