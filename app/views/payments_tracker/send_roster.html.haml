@@ -6,7 +6,7 @@
       %table.table-striped.table.table-condensed
         %tr
           %th Player Name
-          %th Player Paid?
+          %th{:style => 'width: 50px;'} Player Paid?
         - team[:player].each do |key, value|
           %tr
             %td=value[:name]

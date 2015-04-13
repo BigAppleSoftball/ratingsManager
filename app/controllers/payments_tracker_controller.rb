@@ -17,6 +17,7 @@ class PaymentsTrackerController < ApplicationController
     ids_by_div_name
   end
 
+
   def index
   end
 
@@ -31,6 +32,61 @@ class PaymentsTrackerController < ApplicationController
 
     # Mail the roster payments
     PaymentMailer.payments_roster(@div_data, @div_name).deliver
+  end
+
+  #
+  # Renders view that shows all buttons to go to individual divisions
+  #
+  def divisions
+    @divisions = teamsnap_divs_by_id
+  end
+
+  #
+  # Renders the view that shows the entire team roster and valid players for a given division
+  #
+  def division
+    division_id = params[:divisionId].to_i
+    # we know the division Id but I also want to grab the name
+    division = teamsnap_divs_by_id.select{|key, value| value == division_id }
+    @division_name = division.first.first
+    @division_id = division_id
+
+    @div_data = get_division_team_data(division_id)
+    # get the rosters of all teams in this division
+
+  end
+
+  #
+  # Triggers sending the email to the given Rep
+  #
+  def emailDivisionRep
+    division_rep = BoardMember.where(:teamsnap_id => params[:divisionId].to_i).first
+    repEmail = division_rep[:email]
+    ccEmail = 'webteam@bigapplesoftball.com'
+
+    sendDivisionRosterEmail(params[:divisionId].to_i, repEmail, ccEmail)
+  end
+
+    #
+  # Triggers sending the email to the Webteam
+  #
+  def emailWebteam
+    repEmail = 'webteam@bigapplesoftball.com'
+    sendDivisionRosterEmail(params[:divisionId].to_i, repEmail, nil)
+  end
+
+  def sendDivisionRosterEmail(division_id, toEmail, ccEmail)
+
+    # we know the division Id but I also want to grab the name
+    division = teamsnap_divs_by_id.select{|key, value| value == division_id }
+    @division_name = division.first.first
+
+    @toEmail = toEmail
+    @ccEmail = ccEmail
+    @div_data = get_division_team_data(division_id)
+    # get the rosters of all teams in this division
+    PaymentMailer.payments_roster(@div_data, @division_name, toEmail, ccEmail).deliver
+    render 'email_confirmation'
   end
 
   def teams_by_division

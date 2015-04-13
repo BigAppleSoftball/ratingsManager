@@ -1,0 +1,7 @@
+.well
+  An Email has been sent to:
+  %ul
+    - if @toEmail
+      %li= @toEmail
+    - if @ccEmail
+      %li= @ccEmail

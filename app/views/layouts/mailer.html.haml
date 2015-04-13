@@ -249,42 +249,19 @@
       max-width:400px;
     }
 
-    }  
+    }
 %body{:bgcolor => "#FFFFFF"}
   / HEADER
-  %table.head-wrap{:bgcolor => "#19321f"}
+  %table.head-wrap{:bgcolor => "#19321f", :width => '100%'}
     %tr
       %td
-      %td.header.container
-        .content
-          %table{:bgcolor => "#19321f"}
-            %tr
-              %td
-                %img{:height => "100", :src => "https://35b7f1d7d0790b02114c-1b8897185d70b198c119e1d2b7efd8a2.ssl.cf1.rackcdn.com/website_files/37807/original/basl-logo-100.png?1427214033", :width => "100"}/
-              %td{:align => "right"}
-                %h6.collapse{:style => "color: #fff;"}
-                  BASL Notification
-      %td
+        %img{:height => "100", :src => "https://35b7f1d7d0790b02114c-1b8897185d70b198c119e1d2b7efd8a2.ssl.cf1.rackcdn.com/website_files/37807/original/basl-logo-100.png?1427214033", :width => "100"}/
+      %td{:align => "right"}
+        %h6.collapse{:style => "color: #fff;"}
+          BASL Notification
   / /HEADER
   / BODY
-  = yield
-  / /BODY
-  / FOOTER
-  -#%table.footer-wrap
+  %table
     %tr
-      %td
-      %td.container
-        / content
-        .content
-          %table
-            %tr
-              %td{:align => "center"}
-                %p
-                  %a{:href => "*|ARCHIVE|*"} view email in browser
-                  |
-                  %a{:href => "http://us2.campaign-archive1.com/home/?u=cc39b8619665e2833adc139a8&id=0de72787f9"} View Past Issues
-                  |
-                  %a{:href => "*|UNSUB|*"} Unsubscribe
-        / /content
-      %td
-  / /FOOTER
+      %td= yield
+  / /BODY
