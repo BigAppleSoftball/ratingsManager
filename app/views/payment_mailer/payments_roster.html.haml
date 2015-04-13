@@ -1,3 +1,21 @@
-%table
-  %tr
-    %td This is a list of valid players for your division
+%h1
+  Player Roster for
+  =@div_name
+-@div_roster[:teams_data] .each do |team|
+  %ul.list-group
+    %li.list-group-item
+      .panel.panel-default
+        .panel-heading
+          %h2= team[:team]['team_name']
+      .panel-body
+        %table.table-striped.table.table-condensed
+          %tr
+            %th Player Name
+            %th Player Paid?
+          - team[:player].each do |key, value|
+            %tr
+              %td=value[:name]
+              %td=value[:has_paid]
+            %tr
+              %td{:colspan => 2}
+

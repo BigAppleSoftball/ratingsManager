@@ -1,7 +1,5 @@
-%h1=#@targeted_division
-
-- @teams_by_division.each do |team|
-
+%h1=@div_name
+-@div_data[:teams_data] .each do |team|
   %ul.list-group
     %li.list-group-item
       %h2= team[:team]['team_name']
@@ -12,5 +10,7 @@
         - team[:player].each do |key, value|
           %tr
             %td=value[:name]
-            %td=value[:hasPaid]
-          
+            %td=raw(yes_or_no_icon(value[:has_paid]))
+          %tr
+            %td{:colspan => 2}
+

@@ -22,31 +22,53 @@ class PaymentsTrackerController < ApplicationController
 
   def send_roster
     division_ids = teamsnap_divs_by_id
-    targeted_division_id = teamsnap_divs_by_id['4. Rainbow Division']
+    target_div_name = '4. Rainbow Division'
+    targeted_division_id = teamsnap_divs_by_id[target_div_name]
     ap "TESTING THIS URL"
     ap targeted_division_id
     mechanize = Mechanize.new
     # get all teams
-    @all_teams = get_all_teams
-    @divisions = get_all_divisions
+    @div_data = get_division_team_data(targeted_division_id)
     #players = log_in_get_player_info(mechanize)
     # for each division go through the list of teams and get their roster
-    division_teams = Array.new
-    @divisions['division']['divisions'].each do |league|
+    ap "DIVISION DATA IS RIGHT HERE ---------------"
+    ap @div_data
+    @div_name = target_div_name
+    #ap teams
+    #
+    # create a new test mailer
+    PaymentMailer.payments_roster(@div_data, @div_name).deliver
+  end
+
+  #
+  # TODO (make the cache support division ids)
+  #
+  def get_division_team_data(division_id)
+    Rails.cache.fetch("division_data-#{division_id}", :expires_in => 60.minutes) do
+      get_division_team_data_api(division_id)
+    end
+  end
+
+  def get_division_team_data_api(division_id)
+    division_data = Hash.new
+    division_data[:all_teams] = get_all_teams
+    division_data[:all_divisions] =  get_all_divisions
+    division_teams= Array.new
+    division_data[:all_divisions]['division']['divisions'].each do |league|
       #ap league
       league['divisions'].each do |division|
         ap "EACH DIVISION HERE"
         ap division
         # only crawl the information for the division we are looking for
-        if (division['id'] == targeted_division_id) 
+        if (division['id'] == division_id)
           ap 'CRAWL THIS DIVISION'
           division['team_ids'].each do |team_id|
           division_team = Hash.new
-          
-          teamData = @all_teams[team_id.to_s]
+
+          teamData = division_data[:all_teams][team_id.to_s]
           #ap teamData
           # get the team data for the team
-          if teamData 
+          if teamData
             team = teamData['team']
             division_team[:team] = team
             #ap team['team_name']
@@ -57,7 +79,7 @@ class PaymentsTrackerController < ApplicationController
               team_roster = team['available_rosters'].first
               roster_id = roster['id']
               #ap team
-              
+
 
               roster = get_roster(team['id'], roster_id)
               @roster = roster
@@ -71,17 +93,15 @@ class PaymentsTrackerController < ApplicationController
               #division_team[:player][:playerHash] =  preprocess_player_data(roster)
             end
 
-          end 
+          end
           division_teams.push(division_team)
         end
-        @teams_by_division = division_teams
+        division_data[:teams_data]= division_teams
         end
       end
+      division_data
     end
-    #ap teams
-    # 
-    # create a new test mailer
-    PaymentMailer.payments_roster().deliver
+    division_data
   end
 
   def teams_by_division
