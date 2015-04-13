@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150316002236) do
+ActiveRecord::Schema.define(version: 20150413223528) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(version: 20150316002236) do
     t.integer  "profile_id"
     t.integer  "division_id"
     t.boolean  "is_league_admin"
+    t.integer  "teamsnap_id"
+    t.string   "teamsnap_name"
   end
 
   create_table "committees", force: true do |t|

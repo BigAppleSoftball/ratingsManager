@@ -1,0 +1,8 @@
+- content_for :panel_head do
+  %h1 Division Payment Rosters
+  .alert.alert-info Please give the Rosters time to load
+
+%ul.list-group
+  -@divisions.each do |key, value|
+    %li.list-group-item
+      = link_to key, "/payments/division/#{value}"

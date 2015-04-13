@@ -1,0 +1,16 @@
+%h1=@div_name
+-@div_data[:teams_data] .each do |team|
+  %ul.list-group
+    %li.list-group-item
+      %h4= team[:team]['team_name']
+      %table.table-striped.table.table-condensed
+        %tr
+          %th Player Name
+          %th{:style => 'width: 50px;'} Player Paid?
+        - team[:player].each do |key, value|
+          %tr
+            %td=value[:name]
+            %td=raw(yes_or_no_icon(value[:has_paid]))
+          %tr
+            %td{:colspan => 2}
+
