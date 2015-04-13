@@ -1,0 +1,13 @@
+%h1 Sending Rosters to Division Reps
+
+- @teams_by_division.each do |team|
+
+  %ul.list-group
+    %li.list-group-item
+      = team[:team]['team_name']
+      %table.table-striped.table.table-condensed
+        %tr
+          %th Player Name
+          %th Player Paid?
+        = team
+          

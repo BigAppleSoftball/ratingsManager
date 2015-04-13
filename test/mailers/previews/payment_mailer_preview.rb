@@ -10,4 +10,11 @@ class PaymentMailerPreview < ActionMailer::Preview
     test_players.push(player)
     PaymentMailer.new_payments(test_players)
   end
+
+  def payments_roster
+    PaymentMailer.payments_roster
+    
+    # get all the players for a given division
+  end
+
 end

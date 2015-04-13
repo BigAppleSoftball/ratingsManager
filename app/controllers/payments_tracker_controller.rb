@@ -20,6 +20,63 @@ class PaymentsTrackerController < ApplicationController
   def index
   end
 
+  def send_roster
+    ap "TESTING THIS URL"
+    mechanize = Mechanize.new
+    # get all teams
+    @all_teams = get_all_teams
+    @divisions = get_all_divisions
+    #players = log_in_get_player_info(mechanize)
+    # for each division go through the list of teams and get their roster
+    division_teams = Array.new
+    @divisions['division']['divisions'].each do |league|
+      ap league
+      division = league['divisions'].first
+      
+      division['team_ids'].each do |team_id|
+        division_team = Hash.new
+        
+        teamData = @all_teams[team_id.to_s]
+        #ap teamData
+        if teamData 
+          team = teamData['team']
+          division_team[:team] = team
+          ap team['team_name']
+          roster = team['available_rosters'].first
+          if roster
+            ap "ROSTER"
+            ap roster
+            team_roster = team['available_rosters'].first
+            roster_id = roster['id']
+            ap team
+            
+
+            roster = get_roster(team['id'], roster_id)
+            @roster = roster
+            roster
+            #rosterId = params[:rosterId]
+            #team = get_team(params[:teamId])['team'])
+            player = Hash.new
+            player[:roster] = roster
+            division_team[:player] = player
+            #division_team[:player][:roster] = roster
+            #division_team[:player][:playerHash] =  preprocess_player_data(roster)
+          end
+
+        end 
+        division_teams.push(division_team)
+      end
+      @teams_by_division = division_teams
+    end
+    #ap teams
+    # 
+    # create a new test mailer
+    PaymentMailer.payments_roster().deliver
+  end
+
+  def teams_by_division
+  end
+
   def new_account
     @teamsnap_sync_account = TeamsnapScanAccount.new
     render 'payments_tracker/account/new'

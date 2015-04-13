@@ -64,4 +64,6 @@ Rails.application.routes.draw do
   post 'payments/accounts/create', to: 'payments_tracker#create_account'
   get 'payments/unassigned', to:'payments_tracker#unassigned'
 
+  get 'payments/send_roster', to: 'payments_tracker#send_roster'
+
 end
