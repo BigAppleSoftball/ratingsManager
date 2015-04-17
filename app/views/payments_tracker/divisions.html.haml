@@ -5,4 +5,4 @@
 %ul.list-group
   -@divisions.each do |key, value|
     %li.list-group-item
-      = link_to key, "/payments/division/#{value}"
+      = link_to key, "/payments/division/#{value}", {:target => '_blank'}
