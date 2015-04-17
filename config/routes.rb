@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :divisions, :only => [:index, :show]
   resources :teams, :only => [:index, :show]
   resources :sessions, only: [:new, :create, :destroy]
+  resources :teamsnap_payments
 
   # sessions
   match '/signup',  to: 'profiles#new',            via: 'get'
@@ -59,6 +60,7 @@ Rails.application.routes.draw do
   get 'payments/tracker', to:'payments_tracker#home'
   get 'payments/admin', to:'payments_tracker#admin'
   get 'payments/list', to: 'payments_tracker#list'
+  get 'payments/list/add', to: 'payments_tracker#add_new_payment'
   get 'payments/sync', to: 'payments_tracker#sync'
   get 'payments/accounts/new', to: 'payments_tracker#new_account'
   post 'payments/accounts/create', to: 'payments_tracker#create_account'
@@ -70,5 +72,6 @@ Rails.application.routes.draw do
 
   get 'payments/division/:divisionId/sendEmail', to: 'payments_tracker#emailDivisionRep'
   get 'payments/division/:divisionId/sendToWebteam', to: 'payments_tracker#emailWebteam'
+
 
 end
