@@ -204,10 +204,6 @@ class PaymentsTrackerController < ApplicationController
     players_by_payments
   end
 
-  def add_new_payment
-    @payment = TeamsnapPayment.new
-  end
-
   #
   # Loads the player teamsnap page and updates all of the given players by visiting the url
   #
