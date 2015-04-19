@@ -18,6 +18,8 @@ Rails.application.config.assets.precompile += %w( moment.js )
 Rails.application.config.assets.precompile += %w( calendar.js )
 Rails.application.config.assets.precompile += %w( calendar.css )
 
+Rails.application.config.assets.precompile += %w( offerList.css )
+
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )

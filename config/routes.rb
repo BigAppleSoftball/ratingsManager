@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :offers
+
   root 'welcome#login'
 
   resources :games
@@ -63,5 +65,8 @@ Rails.application.routes.draw do
   get 'payments/accounts/new', to: 'payments_tracker#new_account'
   post 'payments/accounts/create', to: 'payments_tracker#create_account'
   get 'payments/unassigned', to:'payments_tracker#unassigned'
+
+  # offers
+  get 'alloffers', to: 'offers#all'
 
 end

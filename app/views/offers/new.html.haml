@@ -1,0 +1,5 @@
+- content_for :panel_head do
+  %h1 Create New Offer
+  = render partial: 'shared/actions/all', locals: { allPath: offers_path}
+
+= render 'form'

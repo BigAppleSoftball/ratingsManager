@@ -1,0 +1,29 @@
+%html
+  %head
+    =stylesheet_link_tag "offerList.css"
+  %body
+  %h1 BASL Offers
+
+  %ul.offer-list
+    -@offers.each do |offer|
+      %li.offer-list-item
+        .offer-list-item-image-container
+          - if offer.image
+            %img.offer-list-item-image{:src =>offer.image}
+        .offer-list-item-name
+          %p=offer.name
+        .offer-list-item-description
+          %p=offer.description
+        .offer-list-item-more
+          -if offer.link
+            .offer-list-item-link
+              =link_to offer.link, offer.link
+          -if offer.google_map_url
+            .offer-list-item-map
+              =link_to offer.google_map_url, offer.google_map_url
+  .well
+    Sponsor a team, and looking to leave some offers for our members on this page? 
+    Or do you just want to leave offers for BASL league members?
+    
+    Contact the BASL Webteam: webteam@bigapplesoftball.com. 
+
