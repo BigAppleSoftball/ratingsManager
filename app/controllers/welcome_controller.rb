@@ -86,8 +86,6 @@ class WelcomeController < ApplicationController
   end
 
   def login
-    cookies[:teamsnap_token] = "paigepon@gmail.com"
-    cookies[:teamsnap_is_admin] = true
     # check if user is logged in already (redirect them if so)
     if get_token_cookie.nil?
       render 'login'
