@@ -41,8 +41,10 @@ Rails.application.routes.draw do
   get '/teamsnap/login', to: 'teamsnap#login'
     post '/teamsnap/login', to: 'teamsnap#teamsnaplogin'
   get '/teamsnap/logout', to: 'teamsnap#logout'
+  get 'teamsnap/index', to:'teamsnap#index'
   get '/teamssnap/:teamId/:rosterId', to: 'teamsnap#team', as: 'rosterId'
   get '/ranking/:teamId/:rosterId/:playerId', to: 'teamsnap#ranking', as: 'playerId'
+  get '/teamsnap', to:'teamsnap#redirect'
 
 
   # website iframes

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150309213823) do
+ActiveRecord::Schema.define(version: 20150419124100) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -112,6 +112,17 @@ ActiveRecord::Schema.define(version: 20150309213823) do
     t.integer  "display_order"
   end
 
+  create_table "offers", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "image"
+    t.string   "link"
+    t.string   "google_map_url"
+    t.string   "company_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "profiles", force: true do |t|
     t.string   "profile_code"
     t.string   "first_name"
@@ -210,11 +221,11 @@ ActiveRecord::Schema.define(version: 20150309213823) do
     t.string   "phone"
     t.text     "details"
     t.boolean  "is_active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "is_league"
     t.boolean  "show_carousel"
     t.string   "logo_url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "teams", force: true do |t|
@@ -244,6 +255,33 @@ ActiveRecord::Schema.define(version: 20150309213823) do
     t.integer  "sponsor_id"
     t.boolean  "is_active"
     t.integer  "link_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "teamsnap_payments", force: true do |t|
+    t.integer  "teamsnap_player_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "teamsnap_player_name"
+    t.string   "teamsnap_player_email"
+  end
+
+  create_table "teamsnap_payments_syncs", force: true do |t|
+    t.string   "run_by"
+    t.boolean  "is_success"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "total_paid_players"
+    t.integer  "total_unpaid_players"
+    t.integer  "total_players"
+    t.integer  "total_players_updated"
+  end
+
+  create_table "teamsnap_scan_accounts", force: true do |t|
+    t.string   "username"
+    t.string   "password"
+    t.boolean  "is_active"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

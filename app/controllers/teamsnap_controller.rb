@@ -21,8 +21,23 @@ class TeamsnapController < ApplicationController
     if get_token_cookie.nil?
       render 'login'
     else
-      redirect_to action: "index"
+      redirect_to action: 'index'
     end
+  end
+
+  def redirect
+    if get_token_cookie.nil?
+      render 'login'
+    else
+      redirect_to action: 'index'
+    end
+  end
+
+  #
+  # Shows the listing of teams by division
+  #
+  def index
+    @teamsByDivision = get_all_teams
   end
 
   #
