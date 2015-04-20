@@ -1,6 +1,9 @@
 - content_for :panel_head do
   %h1 Paid Players
 
+  .alert.alert-danger
+    %div You should only need to do this if the system somehow missed a player payment. Otherwise payments are added manually
+    = link_to 'Add New Payment', '/payments/list/add', {:class => 'btn btn-default'}
 %table.table.table-striped.table-bordered.table-condensed
   %thead
     %tr

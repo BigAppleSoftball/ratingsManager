@@ -77,6 +77,6 @@ class BoardMembersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def board_member_params
-      params.require(:board_member).permit(:email, :position, :display_order, :first_name, :last_name, :alt_email, :image_url, :is_committee_lead, :profile_id)
+      params.require(:board_member).permit(:email, :position, :display_order, :first_name, :last_name, :alt_email, :image_url, :is_committee_lead, :profile_id, :teamsnap_id, :teamsnap_name)
     end
 end
