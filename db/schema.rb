@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20150413223528) do
 
   create_table "admins", force: true do |t|
@@ -112,6 +113,17 @@ ActiveRecord::Schema.define(version: 20150413223528) do
     t.string   "last_name"
     t.string   "image_url"
     t.integer  "display_order"
+  end
+
+  create_table "offers", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "image"
+    t.string   "link"
+    t.string   "google_map_url"
+    t.string   "company_name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "profiles", force: true do |t|

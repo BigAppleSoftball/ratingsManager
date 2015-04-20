@@ -51,8 +51,8 @@ group :production do
 end
 
 # web scrapping for the payments-tracker
-gem 'nokogiri'
-gem 'mechanize'
+#gem 'nokogiri'
+#gem 'mechanize'
 
 
 

@@ -1,0 +1,26 @@
+- content_for :panel_head do
+  %h1 BASL Offers
+  = render partial: 'shared/actions/view_all_actions', locals: { newPath: new_offer_path}
+
+
+%table.table-striped.table-bordered.table
+  %thead
+    %tr
+      %th Name
+      %th Description
+      %th Image
+      %th Link
+      %th Google map url
+      %th Company name
+      %th.actions-column
+      
+  %tbody
+    - @offers.each do |offer|
+      %tr
+        %td= link_to offer.name, offer
+        %td= offer.description
+        %td= offer.image
+        %td= offer.link
+        %td= offer.google_map_url
+        %td= offer.company_name
+        %td= render partial: 'shared/actions/table_actions', locals: { editPath: edit_offer_path(offer), deletePath: offer}

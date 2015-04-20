@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :offers
+
   root 'welcome#login'
 
   resources :games
@@ -65,13 +67,13 @@ Rails.application.routes.draw do
   get 'payments/accounts/new', to: 'payments_tracker#new_account'
   post 'payments/accounts/create', to: 'payments_tracker#create_account'
   get 'payments/unassigned', to:'payments_tracker#unassigned'
-
   get 'payments/send_roster', to: 'payments_tracker#send_roster'
   get 'payments/divisions', to: 'payments_tracker#divisions'
   get 'payments/division/:divisionId/', to: 'payments_tracker#division', as: 'divisionId'
-
   get 'payments/division/:divisionId/sendEmail', to: 'payments_tracker#emailDivisionRep'
   get 'payments/division/:divisionId/sendToWebteam', to: 'payments_tracker#emailWebteam'
 
+  # offers
+  get 'alloffers', to: 'offers#all'
 
 end
