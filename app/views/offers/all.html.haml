@@ -15,7 +15,7 @@
         .offer-list-item-more
           -if offer.link
             .offer-list-item-link
-              =link_to offer.link, offer.link
+              =link_to offer.link, offer.link, {:target=>'_parent'}
           -if offer.google_map_url
             .offer-list-item-map
               =link_to offer.google_map_url, offer.google_map_url, {:target=>'_parent'}
