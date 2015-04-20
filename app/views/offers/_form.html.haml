@@ -15,7 +15,10 @@
     .col-sm-10= f.text_area :description, {:class => 'form-control'}
   .form-group
     = f.label :image, {:class => 'col-sm-2 control-label'}
-    .col-sm-10= f.text_field :image, {:class => 'form-control'}
+    .col-sm-10
+      %span
+        Make sure the image logo you provide is a SQUARE image (otherwise it could looked stretched)
+      = f.text_field :image, {:class => 'form-control'}
   .form-group
     = f.label :link, {:class => 'col-sm-2 control-label'}
     .col-sm-10= f.text_field :link, {:class => 'form-control'}
