@@ -1,0 +1,8 @@
+.panel.panel-default
+  .panel-heading
+    Sponsors
+  .panel-body
+    %ul.list-group
+      -sponsors.each do |team_sponsor|
+        -if !team_sponsor.sponsor.nil?
+          %li.list-group-item=link_to team_sponsor.sponsor.name, team_sponsor.sponsor

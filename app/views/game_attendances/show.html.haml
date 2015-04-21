@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Profile:
+  = @game_attendance.profile_id
+%p
+  %b Game:
+  = @game_attendance.game_id
+%p
+  %b Is attending:
+  = @game_attendance.is_attending
+
+= link_to 'Edit', edit_game_attendance_path(@game_attendance)
+\|
+= link_to 'Back', game_attendances_path

@@ -1,0 +1,54 @@
+%table.table.table-striped.table-bordered.table-condensed
+  %tr
+    %th Player
+    %th Rating
+    %th Throwing
+    %th Fielding
+    %th Baserunning
+    %th Hitting
+  -rosters.each do |roster|
+    - player_profile = roster.profile
+    -if !player_profile.nil?
+      - player_rating = roster.profile.rating
+      %tr
+        %td
+          %strong
+            = link_to player_profile.name, player_profile
+        %td
+          -if player_rating
+            = player_rating.total
+        %td
+          -if player_rating
+            =player_rating.rating_1
+            =player_rating.rating_2
+            =player_rating.rating_3
+            =player_rating.rating_4
+            =player_rating.rating_5
+        %td
+          -if player_rating
+            =player_rating.rating_6
+            =player_rating.rating_7
+            =player_rating.rating_8
+            =player_rating.rating_9
+            =player_rating.rating_10
+            =player_rating.rating_11
+            =player_rating.rating_12
+            =player_rating.rating_13
+            =player_rating.rating_14
+        %td
+          -if player_rating
+            =player_rating.rating_15
+            =player_rating.rating_16
+            =player_rating.rating_17
+            =player_rating.rating_18
+        %td
+          -if player_rating
+            =player_rating.rating_19
+            =player_rating.rating_20
+            =player_rating.rating_21
+            =player_rating.rating_22
+            =player_rating.rating_23
+            =player_rating.rating_24
+            =player_rating.rating_25
+            =player_rating.rating_26
+            =player_rating.rating_27

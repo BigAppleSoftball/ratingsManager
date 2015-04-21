@@ -1,4 +1,4 @@
-= form_for @season do |f|
+= form_for @season,:html => {:class => 'form-horizontal'} do |f|
   - if @season.errors.any?
     #error_explanation
       %h2= "#{pluralize(@season.errors.count, "error")} prohibited this season from being saved:"
@@ -6,26 +6,26 @@
         - @season.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :season_id
-    = f.number_field :season_id
-  .field
-    = f.label :league_id
-    = f.number_field :league_id
-  .field
-    = f.label :pool_id
-    = f.number_field :pool_id
-  .field
-    = f.label :description
-    = f.text_field :description
-  .field
-    = f.label :date_start
-    = f.text_field :date_start
-  .field
-    = f.label :
-    = f.datetime_select :
-  .field
-    = f.label :date_end
-    = f.datetime_select :date_end
-  .actions
-    = f.submit 'Save'
+  .form-group
+    = f.label :description, 'Name', {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_field :description, {:class => 'form-control'}
+  .form-group
+    = f.label :date_start, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.datetime_select :date_start, {:class => 'form-control'}
+  .form-group
+    = f.label :date_end, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.datetime_select :date_end, {:class => 'form-control'}
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      .alert.alert-warning
+        A User can only add games to an active season and edit players on a team in an active season.
+      .checkbox
+        %label
+          = f.check_box :is_active
+          Is Active Season?
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit 'Save', {:class => 'btn btn-primary'}

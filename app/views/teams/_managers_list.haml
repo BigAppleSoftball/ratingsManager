@@ -1,0 +1,9 @@
+.team-manager-container
+  %b Managers:
+  %ul.team-managers-list
+    - if team.managers.length > 0
+      - team.managers.each do |manager|
+        -if manager.profile
+          %li=link_to manager.profile.name, manager.profile
+    - else
+      .no-manager No Team Manager

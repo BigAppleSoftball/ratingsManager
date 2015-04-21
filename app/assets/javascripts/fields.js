@@ -66,7 +66,6 @@
   Field.prototype.setAllIndicators = function(status) {
 
     $('.js-fields-table').find('.js-status-indicator').each(function(){
-      console.log($(this));
       $(this).attr('data-status', status);
     });
 

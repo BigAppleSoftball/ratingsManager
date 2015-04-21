@@ -1,0 +1,19 @@
+= form_for @game_attendance do |f|
+  - if @game_attendance.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@game_attendance.errors.count, "error")} prohibited this game_attendance from being saved:"
+      %ul
+        - @game_attendance.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :profile_id
+    = f.number_field :profile_id
+  .field
+    = f.label :game_id
+    = f.number_field :game_id
+  .field
+    = f.label :is_attending
+    = f.check_box :is_attending
+  .actions
+    = f.submit 'Save'

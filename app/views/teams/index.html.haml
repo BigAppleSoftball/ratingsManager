@@ -1,4 +1,23 @@
-- @teams.each do |team|
-  - teamsSponsors = get_team_sponsors(team.id)
-  - teamsRosters = get_team_rosters(team.id)
-  = render 'team', :team => team, :teamsSponsors => teamsSponsors, :teamsRosters => teamsRosters
+- content_for :panel_head do
+  %h1 Teams
+  = render partial: 'shared/actions/view_all_actions', locals: { newPath: new_team_path}
+  
+
+
+%table.table.table-striped.table-condensed.table-bordered.js-fields-table
+  %tr
+    %th Season
+    %th Division
+    %th Name
+    %th Manager
+    - if is_admin?
+      %th.actions-column
+  - @teams.each do |team|
+    %tr
+      %td=link_to "#{team.division.season.description}", team.division.season
+      %td= link_to "#{team.division.description}" , team.division
+      %td=link_to team.name, team
+      %td{:class => team ? '' : 'danger danger-column'}= render partial: "teams/managers_list", locals: { team: team}
+      - if is_admin?
+        %td
+          = render partial: "shared/actions/table_actions", locals: { editPath: edit_team_path(team), deletePath: team}

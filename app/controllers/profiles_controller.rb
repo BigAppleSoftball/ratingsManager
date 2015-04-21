@@ -1,11 +1,11 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
-  before_filter :only_for_admin, only: [:edit, :update, :destroy, :new]
+  before_filter :only_for_admin, only: [:edit, :update, :destroy]
   helper_method :sort_column, :sort_direction
   # GET /profiles
   # GET /profiles.json
   def index
-    @profiles = Profile.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 100,:page => params[:page])
+    @profiles = Profile.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 20,:page => params[:page])
   end
 
   # GET /profiles/1
@@ -17,6 +17,7 @@ class ProfilesController < ApplicationController
   # GET /profiles/new
   def new
     @profile = Profile.new
+    @is_signup = true
   end
 
   # GET /profiles/1/edit
@@ -74,7 +75,7 @@ class ProfilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params.require(:profile).permit(:profile_code, :first_name, :last_name, :email, :display_name, :player_number, :gender, :shirt_size, :address, :state, :zip, :phone, :position, :dob, :team_id, :long_image_url)
+      params.require(:profile).permit(:profile_code, :first_name, :last_name, :email, :display_name, :player_number, :gender, :shirt_size, :address, :state, :zip, :phone, :position, :dob, :team_id, :long_image_url, :password, :password_confirmation, :is_admin, :permissions)
     end
 
     def sort_column

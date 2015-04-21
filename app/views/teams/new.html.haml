@@ -1,0 +1,5 @@
+- content_for :panel_head do
+  %h1 Create New Team
+  = render partial: "shared/actions/all", locals: { allPath: teams_path}
+
+= render 'form'

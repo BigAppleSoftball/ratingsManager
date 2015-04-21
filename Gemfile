@@ -3,8 +3,7 @@ ruby '2.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
-# Use sqlite3 as the database for Active Record
-gem 'pg'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 gem 'compass-rails'
@@ -16,6 +15,7 @@ gem 'haml-rails'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'bootstrap-sass', '~> 3.2.0'
+gem 'font-awesome-sass', '~> 4.3.0'
 gem 'autoprefixer-rails'
 gem 'will_paginate', '~> 3.0.6'
  # To use ActiveModel has_secure_password
@@ -33,6 +33,9 @@ gem 'awesome_print'
 gem 'rest-client'
 gem 'rails-erd'
 
+# admin tools
+gem 'user_impersonate2', :require => 'user_impersonate'
+
 # Spring speeds up development by keeping your application running in the background
 group :development do
   gem 'spring'
@@ -48,11 +51,13 @@ gem 'json'
 group :production do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
+  # Use sqlite3 as the database for Active Record
+  gem 'pg'
 end
 
 # web scrapping for the payments-tracker
-#gem 'nokogiri'
-#gem 'mechanize'
+gem 'nokogiri'
+gem 'mechanize'
 
 
 

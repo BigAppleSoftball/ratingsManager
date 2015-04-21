@@ -14,6 +14,7 @@ $fielding-color: $blue; // blue
 $running-color: $purple; // purple
 $hitting-color: $red; // red
 
+// overriding bootstrap vars
 $brand-primary: $fielding-color;
 $brand-success: $throwing-color;
 $brand-warning: $running-color;

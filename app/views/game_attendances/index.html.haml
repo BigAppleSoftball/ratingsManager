@@ -1,0 +1,25 @@
+%h1 Listing game_attendances
+
+%table
+  %thead
+    %tr
+      %th Profile
+      %th Game
+      %th Is attending
+      %th
+      %th
+      %th
+      
+  %tbody
+    - @game_attendances.each do |game_attendance|
+      %tr
+        %td= game_attendance.profile_id
+        %td= game_attendance.game_id
+        %td= game_attendance.is_attending
+        %td= link_to 'Show', game_attendance
+        %td= link_to 'Edit', edit_game_attendance_path(game_attendance)
+        %td= link_to 'Destroy', game_attendance, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Game attendance', new_game_attendance_path

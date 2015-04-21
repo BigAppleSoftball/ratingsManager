@@ -1,0 +1,22 @@
+.navbar {
+  .current-profile {
+    font-size: 11px;
+  }
+}
+
+.sub-nav-wrapper {
+  padding: 5px;
+  @include clearfix;
+}
+
+.impersonating-bar {
+  background: rgba($red, 0.2);
+
+  .impersonate-notification {
+    line-height: 30px;
+  }
+}
+
+.default-bar {
+  background: rgba($dark-gray, 0.2);
+}

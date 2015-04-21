@@ -1,6 +1,7 @@
 class AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
-  before_filter :only_for_admin
+  before_filter :only_for_admin, only: [:show, :edit, :update, :destroy]
+  before_filter :only_for_admin_user, only: [:home]
 
   # GET /admins
   # GET /admins.json

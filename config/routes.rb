@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  resources :offers
 
-  root 'welcome#login'
+  root 'static_pages#home'
+  resources :offers
 
   resources :games
   resources :fields
@@ -9,33 +9,47 @@ Rails.application.routes.draw do
   resources :board_members
   resources :hallof_famers
   resources :admins
+  resources :rosters, :only => [:destroy]
   #resources :ratings
-  #resources :rosters
+  resources :teams
   resources :profiles
   resources :teams_sponsors, :only => [:index, :show]
   resources :sponsors
-  resources :seasons, :only => [:index, :show]
-  resources :divisions, :only => [:index, :show]
+  resources :seasons
+  resources :divisions, :only => [:index, :show, :edit]
   resources :teams, :only => [:index, :show]
   resources :sessions, only: [:new, :create, :destroy]
   resources :teamsnap_payments
 
+  # games
+  get '/games/:id/:teamid', to: 'games#game_attendance'
+  post '/set_attendance', to: 'game_attendances#set_attendance'
+
+  get '/home', to:'static_pages#home'
+
+  # seasons
+  get '/get_divisions_by_season', to:'seasons#get_divisions_by_season'
+
   # sessions
-  match '/signup',  to: 'profiles#new',            via: 'get'
-  #match '/help',    to: 'static_pages#help',    via: 'get'
-  #match '/about',   to: 'static_pages#about',   via: 'get'
-  #match '/contact', to: 'static_pages#contact', via: 'get'
-  match '/signin',  to: 'sessions#new',         via: 'get'
-  get '/signout', to: 'sessions#destroy',     via: 'delete'
+  match '/signup',  to: 'profiles#new', via: 'get'
+  match '/signin',  to: 'sessions#new', via: 'get'
+  get '/signout', to: 'sessions#destroy', via: 'delete'
+  get '/teams_by_season', to: 'teams#get_teams_by_season'
+
+  post '/add_player_to_roster', to: 'rosters#add_player_to_roster'
 
   get '/welcome', to: 'welcome#index'
+
   #teamsnap api login
-  get '/login', to: 'welcome#login'
-  get '/teamsnaplogout', to: 'welcome#logout'
-  get '/teamssnap/:teamId/:rosterId', to: 'welcome#team', as: 'rosterId'
-  get '/ranking/:teamId/:rosterId/:playerId', to: 'welcome#ranking', as: 'playerId'
-  post '/teamsnaplogin', to: 'welcome#teamsnaplogin'
+  get '/teamsnap/login', to: 'teamsnap#login'
+  post '/teamsnap/login', to: 'teamsnap#teamsnaplogin'
+  get '/teamsnap/logout', to: 'teamsnap#logout'
+  get 'teamsnap/index', to:'teamsnap#index'
+  get '/teamssnap/:teamId/:rosterId', to: 'teamsnap#team', as: 'rosterId'
+  get '/ranking/:teamId/:rosterId/:playerId', to: 'teamsnap#ranking', as: 'playerId'
+  get '/teamsnap', to:'teamsnap#redirect'
   get '/teamsnap/updateplayer', to:'payments_tracker#update_teamsnap_player'
+
 
   # website iframes
   get '/showallsponsors', to: 'sponsors#all_sponsors'
@@ -53,6 +67,8 @@ Rails.application.routes.draw do
 
   #admin panel
   get '/admin/home', to: 'admins#home'
+
+  mount UserImpersonate::Engine => "/impersonate", as: "impersonate_engine"
 
   #errors
   get '/403', to: 'welcome#error403'

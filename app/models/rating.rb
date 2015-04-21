@@ -25,7 +25,7 @@ class Rating < ActiveRecord::Base
 
   # calulate the baserunning total
   def baserunning_total
-    self.rating_15 +
+    self.rating_15 + 
     self.rating_16 +
     self.rating_17 +
     self.rating_18
