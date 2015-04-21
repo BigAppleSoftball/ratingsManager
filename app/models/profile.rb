@@ -3,7 +3,7 @@ class Profile < ActiveRecord::Base
   before_create :create_remember_token
 
   #TODO This will break when editing a user profile as an admin
-  #has_secure_password
+  has_secure_password
   #validates :password, length: { minimum: 6 }, on: :create
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
