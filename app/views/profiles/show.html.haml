@@ -3,6 +3,8 @@
     = @profile.first_name
     = @profile.last_name
   = render partial: "shared/actions/show_actions", locals: { editPath: edit_profile_path(@profile), fieldName: 'Field', allPath: profiles_path}
+  -if is_admin?
+    =link_to raw("<i class='fa fa-user-secret'></i> Impersonate"), impersonate_engine.impersonate_user_path(@profile), {:class =>'btn btn-default'}
 .profile-card.pull-left
   -if @profile.long_image_url
     .card-img-logo
@@ -20,12 +22,8 @@
   %p
     %b Player number:
     = @profile.player_number
-  %p
-    %b Team
-    -if @profile.team
-      = @profile.team.name
   - if @rosters.length > 0
-    Teams:
+    %b Teams:
     %ul
       -@rosters.each do |roster|
         - team = roster.team

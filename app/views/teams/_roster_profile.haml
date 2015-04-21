@@ -1,0 +1,9 @@
+%li.list-group-item
+  =link_to roster.profile.to_s, roster.profile
+  -if roster.is_manager
+    = render partial: "shared/icons/manager"
+  -if roster.is_rep
+    = render partial: "shared/icons/rep"
+  -if is_admin? || is_team_manager?(@team.id)
+    .pull-right
+      = render partial: "shared/actions/delete", locals: { deleteItem: roster, deleteText: ''}

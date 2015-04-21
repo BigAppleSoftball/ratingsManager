@@ -65,26 +65,25 @@ module ApplicationHelper
       if sort_direction == 'asc'
         
         if isAlphabet 
-          icon = "glyphicon glyphicon-sort-by-alphabet"
+          icon = "fa fa-sort-alpha-asc"
         elsif isNum
-          icon = "glyphicon glyphicon-sort-by-order"
+          icon = "fa fa-sort-numeric-asc"
         else
-          icon = 'glyphicon glyphicon-sort-by-attributes'
+          icon = 'fa fa-sort-amount-asc'
         end
       else 
         if isAlphabet 
-          icon = "glyphicon glyphicon-sort-by-alphabet-alt"
+          icon = "fa fa-sort-alpha-desc"
         elsif isNum
-          icon = "glyphicon glyphicon-sort-by-order-alt"
+          icon = "fa fa-sort-numeric-desc"
         else
-          icon = 'glyphicon glyphicon-sort-by-attributes-alt'
+          icon = 'fa fa-sort-amount-desc'
         end
       end
     else
-      icon = 'glyphicon glyphicon-sort'
+      icon = 'fa fa-sort'
     end
 
     link_to raw("#{title} <i class='#{icon}'></i>"), params.merge(:sort => column, :direction => direction, :page => nil), {:class => css_class}
   end
-
 end

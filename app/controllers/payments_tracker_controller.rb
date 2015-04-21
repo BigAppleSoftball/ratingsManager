@@ -1,22 +1,6 @@
 class PaymentsTrackerController < ApplicationController
   require 'open-uri'
-
-  #
-  # Stores the teamsnap division ids by the name of the division (this is very sensitive since the user can edit these names)
-  #
-  def teamsnap_divs_by_id
-    ids_by_div_name = Hash.new
-    ids_by_div_name['1. Dima Division'] = 27394
-    ids_by_div_name['2. Stonewall Division'] = 27395
-    ids_by_div_name['3. Fitzpatrick Division'] = 27397
-    ids_by_div_name['4. Rainbow Division'] = 27398
-    ids_by_div_name['5. Sachs Division'] = 27400
-    ids_by_div_name["1. Mousseau Division"] = 27403
-    ids_by_div_name["2. Green-Batten Division"] = 27404
-    ids_by_div_name["Big Apple Softball League"] = 16139
-    ids_by_div_name
-  end
-
+  include TeamsnapHelper
 
   def index
   end
@@ -359,21 +343,7 @@ class PaymentsTrackerController < ApplicationController
       players
     end
 
-    #
-    # Logs into teamsnap and returns the next page if successful
-    #
-    def login_to_teamsnap(mechanize, latest_account)
-      login_url = "https://go.teamsnap.com/login/signin"
 
-      page = mechanize.get(login_url)
-      login_results = Hash.new
-
-      login_form = page.forms.first
-      login_form.field_with(:name => "login").value = latest_account.username
-      login_form.field_with(:name => "password").value = latest_account.password
-      login_results = mechanize.submit login_form
-      login_results
-    end
 
     #
     # checks to see if you've made it to the dashboardp age

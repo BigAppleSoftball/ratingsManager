@@ -15,13 +15,13 @@ class BoardMembersController < ApplicationController
 
   # GET /board_members/new
   def new
+    get_form_params
     @board_member = BoardMember.order('display_order ASC').new
-    @profiles = Profile.all
   end
 
   # GET /board_members/1/edit
   def edit
-    @profiles = Profile.all
+    get_form_params
   end
 
   # POST /board_members
@@ -70,6 +70,10 @@ class BoardMembersController < ApplicationController
   end
 
   private
+    def get_form_params
+      @profiles = Profile.all
+      @divisions = Division.all
+    end
     # Use callbacks to share common setup or constraints between actions.
     def set_board_member
       @board_member = BoardMember.find(params[:id])
@@ -77,6 +81,6 @@ class BoardMembersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def board_member_params
-      params.require(:board_member).permit(:email, :position, :display_order, :first_name, :last_name, :alt_email, :image_url, :is_committee_lead, :profile_id, :teamsnap_id, :teamsnap_name)
+      params.require(:board_member).permit(:email, :position, :display_order, :image_url, :profile_id, :is_league_admin, :is_division_rep, :division_id, :teamsnap_id, :teamsnap_name)
     end
 end

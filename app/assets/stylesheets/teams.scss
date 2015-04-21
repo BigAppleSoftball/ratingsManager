@@ -1,0 +1,21 @@
+.no-manager,
+.no-team-rep {
+  font-style: italic;
+}
+
+.team-schedule-table {
+  .game-won {
+    color: $green;
+    font-weight: bold;
+  }
+
+  .game-tied {
+    color: darken($yellow, 10%);
+    font-weight: bold;
+  }
+
+   .game-lost {
+    color: $red;
+    font-weight: bold;
+  }
+}

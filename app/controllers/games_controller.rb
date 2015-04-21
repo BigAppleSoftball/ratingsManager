@@ -15,6 +15,7 @@ class GamesController < ApplicationController
   # GET /games/new
   def new
     @game = Game.new
+    get_universal_game_variables
   end
 
   # GET /games/1/edit
@@ -61,10 +62,33 @@ class GamesController < ApplicationController
     end
   end
 
+  def game_attendance
+    ap params[:teamid]
+    teamId = params[:teamid].to_i
+    set_game
+    if teamId == @game.home_team_id || teamId == @game.away_team_id
+      @team = Team.where(:id => teamId)
+      if !@team.nil?
+        @roster = Roster.where(:team_id => teamId, :is_active => true)
+        @attendance = GameAttendance.where(:game_id => @game.id)
+      end
+    end
+    # make sure team is on one of the games
+
+
+    render 'show'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_game
       @game = Game.find(params[:id])
+      get_universal_game_variables
+    end
+
+    def get_universal_game_variables
+      @teamsByDivision = get_all_teams_by_division
+      @seasons = Season.all
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

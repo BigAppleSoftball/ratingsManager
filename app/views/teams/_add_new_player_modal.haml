@@ -1,0 +1,36 @@
+.modal.fade.js-add-new-player-modal.add-player-modal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{"aria-label" => "Close", "data-dismiss" => "modal", :type => "button"}
+          %span{"aria-hidden" => "true"} &times;
+        %h4.modal-title Add New Player
+      .modal-body
+        = render partial: "shared/profile_picker", locals: { profiles: @profiles, currentValue: 0, placeHolder: "Choose a Player Profile",selectName: 'roster_player_id', selectId: 'roster_player_id'}
+        .js-player-data
+          %br
+          .alert.alert-info
+            Select a Player Profile to view information or Add a New Player Profile (NOTE: this will create a new profile, make sure the player's profile doesn't already exist)
+          %form
+          %form.form-horizontal.js-player-form
+            .alert.alert-warning.js-active-profile-notice{:style=>'display: none'} Input Disabled: You cannot edit a Player's Profile
+            .alert.alert-danger.js-player-save-errors{:style => 'display: none'}
+
+            .form-group
+              %label.col-sm-4.control-label Player First Name
+              .col-sm-8
+                %input.form-control.js-player-first-name{:type => 'text'}
+            .form-group
+              %label.col-sm-4.control-label Player Last Name
+              .col-sm-8
+                %input.form-control.js-player-last-name{:type => 'text'}
+            .form-group
+              %label.col-sm-4.control-label Player Email
+              .col-sm-8
+                %input.form-control.js-player-email{:type => 'email'}
+            %button.btn.btn-default.js-clear-player-form{:disabled => true, :type => "button"} Clear Player Info
+      .modal-footer
+
+        %button.btn.btn-default{"data-dismiss" => "modal", :type => "button"} Close
+        %button.btn.btn-primary.js-add-player-btn{:disabled => true} Add Player to Roster
+        %button.btn.btn-primary.js-create-and-add-player-btn{:disabled => true} Create & Add Player To Roster

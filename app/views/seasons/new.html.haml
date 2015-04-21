@@ -1,5 +1,5 @@
-%h1 New season
+- content_for :panel_head do
+  %h1 Create New Season
+  = render partial: "shared/actions/all", locals: { allPath: seasons_path}
 
 = render 'form'
-
-= link_to 'Back', seasons_path

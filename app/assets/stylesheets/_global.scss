@@ -58,9 +58,6 @@ a:hover {
 }
 
 .global-notice {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
 }
 
@@ -111,7 +108,7 @@ a:hover {
 }
 
 .actions-column {
-  width: 105px;
+  width: 110px;
 }
 
 .danger-column {
@@ -133,15 +130,28 @@ a:hover {
   }
 }
 
-// Navigation
-.navbar.navbar-default {
-  margin-bottom: 0;
+.panel-heading {
+  @include clearfix;
 }
 
-.sub-nav-wrapper {
-  @include clearfix;
-  margin-bottom: 20px;
+// Add Player Modal
+.add-player-modal {
+  .chosen-container {
+    width: 100% !important;
+  }
+}
 
+// admin styling
+.admin-action-container {
+  border: 2px dashed $red;
+  padding: 10px;
+}
+
+.inactive-season {
+  font-size: 14px;
+  color: lighten($dark-gray, 40%);
+  line-height: 36px;
+  vertical-align: middle;
 }
 
 

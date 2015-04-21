@@ -1,0 +1,32 @@
+= form_for @division , :html => {:class => 'form-horizontal'} do |f|
+  - if @division.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@division.errors.count, "error")
+        prohibited this division from being saved:
+      %ul
+        - @division.errors.full_messages.each do |message|
+          %li= message
+  .form-group
+    = f.label :season_id, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.number_field :season_id, {:class => 'form-control'}
+  .form-group
+    = f.label :description, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_field :description, {:class => 'form-control'}
+  .form-group
+    = f.label :team_cap, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.number_field :team_cap, {:class => 'form-control'}
+  .form-group
+    = f.label :waitlist_cap, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.number_field :waitlist_cap, {:class => 'form-control'}
+  .form-group
+    = f.label :is_active, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.check_box :is_active
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit 'Save', {:class => 'btn btn-primary'}

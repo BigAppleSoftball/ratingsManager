@@ -56,8 +56,30 @@ class RostersController < ApplicationController
   def destroy
     @roster.destroy
     respond_to do |format|
-      format.html { redirect_to rosters_url, notice: 'Roster was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Roster Updated.' }
       format.json { head :no_content }
+    end
+  end
+
+  # Add a profile to a roster
+  def add_player_to_roster
+    response = Hash.new
+    profileId = params[:profile_id]
+    teamId = params[:team_id]
+    profile = Profile.find_by_id(profileId)
+    roster = Roster.new(
+      :team_id => teamId,
+      :profile_id => profileId
+      )
+    if roster.valid?
+      roster.save
+      response[:success] = true
+      response[:profile_html] = render_to_string "teams/_roster_profile.haml", :layout => false, :locals => { :roster => roster}
+    else
+      response[:errors] = roster.errors.full_messages
+    end
+    respond_to do |format|
+      format.json { render :json=> response}
     end
   end
 
