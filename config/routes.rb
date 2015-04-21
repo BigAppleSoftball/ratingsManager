@@ -30,21 +30,12 @@ Rails.application.routes.draw do
 
   get '/welcome', to: 'welcome#index'
   #teamsnap api login
-<<<<<<< HEAD
   get '/login', to: 'welcome#login'
   get '/teamsnaplogout', to: 'welcome#logout'
   get '/teamssnap/:teamId/:rosterId', to: 'welcome#team', as: 'rosterId'
   get '/ranking/:teamId/:rosterId/:playerId', to: 'welcome#ranking', as: 'playerId'
   post '/teamsnaplogin', to: 'welcome#teamsnaplogin'
   get '/teamsnap/updateplayer', to:'payments_tracker#update_teamsnap_player'
-=======
-  get '/teamsnap/login', to: 'teamsnap#login'
-    post '/teamsnap/login', to: 'teamsnap#teamsnaplogin'
-  get '/teamsnap/logout', to: 'teamsnap#logout'
-  get '/teamssnap/:teamId/:rosterId', to: 'teamsnap#team', as: 'rosterId'
-  get '/ranking/:teamId/:rosterId/:playerId', to: 'teamsnap#ranking', as: 'playerId'
-
->>>>>>> parent of 07ac3ae... Moving over some more stuff from teamsnap
 
   # website iframes
   get '/showallsponsors', to: 'sponsors#all_sponsors'
