@@ -34,8 +34,7 @@ class PaymentsTrackerController < ApplicationController
     division = teamsnap_divs_by_id.select{|key, value| value == division_id }
     @division_name = division.first.first
     @division_id = division_id
-
-    @div_data = get_division_team_data(division_id)
+    @div_data = get_division_team_data(@division_id)
     # get the rosters of all teams in this division
 
   end
