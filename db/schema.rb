@@ -34,6 +34,8 @@ ActiveRecord::Schema.define(version: 20150419124100) do
     t.integer  "profile_id"
     t.integer  "division_id"
     t.boolean  "is_league_admin"
+    t.integer  "teamsnap_id"
+    t.string   "teamsnap_name"
   end
 
   create_table "committees", force: true do |t|

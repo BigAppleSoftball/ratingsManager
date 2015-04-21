@@ -1,9 +1,12 @@
 class ApplicationController < ActionController::Base
+  require 'open-uri'
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   include ErrorsHelper
   include SessionsHelper
+  include TeamsnapHelper
+
   Time::DATE_FORMATS[:google_date] = "%Y-%m-%d"
   Time::DATE_FORMATS[:week_date] = "%a, %b %d"
   Time::DATE_FORMATS[:event_date] = "%a, %b %d %l:%M %P"
@@ -60,6 +63,32 @@ class ApplicationController < ActionController::Base
     all_seasons
   end
 
+  # TODO get rid of old teamsnap crap
+  def get_all_divisions
+    Rails.cache.fetch("all_divisions", :expires_in => 60.minutes) do
+      get_divisions
+    end
+  end
+
+  # TODO get rid of old teamsnap crap
+  def get_divisions
+    divisionsURL = "https://api.teamsnap.com/v2/divisions/16139"
+    conn = connect
+    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
+    response = conn.get divisionsURL
+    JSON.parse(response.body)
+  end
+
+  #todo get rid of old teamsnap crap
+  def get_roster(teamId, rosterId)
+    rosterURL = "https://api.teamsnap.com/v2/teams/#{teamId}/as_roster/#{rosterId}/rosters"
+    conn = connect
+    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
+    response = conn.get rosterURL
+    JSON.parse(response.body)
+  end
+
+
   #
   # Returns an array of teams_ids managed by the current user
   #
@@ -74,6 +103,7 @@ class ApplicationController < ActionController::Base
   #   Sidebar
   #
   #--------------------------------------------
+
 
   def get_field_statuses
     field_statuses = {0 => 'All Open', 1 => 'Some Closed', 2 => 'All Closed'}
@@ -106,6 +136,7 @@ class ApplicationController < ActionController::Base
     fieldStatus
   end
 
+
   #--------------------------------------------
   #
   #   Teams
@@ -129,6 +160,7 @@ class ApplicationController < ActionController::Base
     currentDivision[:id] = 0
     currentDivision[:teams] = Array.new
     teams.each do |team|
+      ap team
       if currentDivision[:id] != team.division_id
         if currentDivision[:teams].length > 0
           teamsByDivision.push(currentDivision)
@@ -144,6 +176,84 @@ class ApplicationController < ActionController::Base
     teamsByDivision
   end
 
+#
+  # TODO (make the cache support division ids)
+  #
+  def get_division_team_data(division_id)
+    Rails.cache.fetch("division_data-#{division_id}", :expires_in => 60.minutes) do
+      get_division_team_data_api(division_id)
+    end
+  end
+
+  # TODO
+  def get_division_team_data_api(division_id)
+    division_data = Hash.new
+    division_data[:all_teams] = get_all_teams
+    division_data[:all_divisions] =  get_all_divisions
+    division_teams= Array.new
+    division_data[:all_divisions]['division']['divisions'].each do |league|
+      #ap league
+      league['divisions'].each do |division|
+        ap "EACH DIVISION HERE"
+        ap division
+        # only crawl the information for the division we are looking for
+        if (division['id'] == division_id)
+          ap 'CRAWL THIS DIVISION'
+          division['team_ids'].each do |team_id|
+          division_team = Hash.new
+
+          teamData = division_data[:all_teams][team_id.to_s]
+          #ap teamData
+          # get the team data for the team
+          if teamData
+            team = teamData['team']
+            division_team[:team] = team
+            #ap team['team_name']
+            roster = team['available_rosters'].first
+            if roster
+              #ap "ROSTER"
+              #ap roster
+              team_roster = team['available_rosters'].first
+              roster_id = roster['id']
+              #ap team
+
+
+              roster = get_roster(team['id'], roster_id)
+              @roster = roster
+              roster
+              #rosterId = params[:rosterId]
+              #team = get_team(params[:teamId])['team'])
+              player = Hash.new
+              player[:roster] = roster
+              division_team[:player] = preprocess_player_data(roster)
+              #division_team[:player][:roster] = roster
+              #division_team[:player][:playerHash] =  preprocess_player_data(roster)
+            end
+
+          end
+          division_teams.push(division_team)
+        end
+        division_data[:teams_data]= division_teams
+        end
+      end
+      division_data
+    end
+    division_data
+  end
+
+  def teamsnap_divs_by_id
+    ids_by_div_name = Hash.new
+    ids_by_div_name['1. Dima Division'] = 27394
+    ids_by_div_name['2. Stonewall Division'] = 27395
+    ids_by_div_name['3. Fitzpatrick Division'] = 27397
+    ids_by_div_name['4. Rainbow Division'] = 27398
+    ids_by_div_name['5. Sachs Division'] = 27400
+    ids_by_div_name["1. Mousseau Division"] = 27403
+    ids_by_div_name["2. Green-Batten Division"] = 27404
+    ids_by_div_name["Big Apple Softball League"] = 16139
+    ids_by_div_name
+  end
+
 private
 
   # Finds the User with the ID stored in the session with the key
@@ -153,5 +263,6 @@ private
   def set_current_user(user_data)
     session[:current_user_id] = user_data
   end
+
 end
 

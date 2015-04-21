@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+
   root 'static_pages#home'
+  resources :offers
 
   resources :games
   resources :fields
@@ -17,6 +19,7 @@ Rails.application.routes.draw do
   resources :divisions, :only => [:index, :show, :edit]
   resources :teams, :only => [:index, :show]
   resources :sessions, only: [:new, :create, :destroy]
+  resources :teamsnap_payments
 
   # games
   get '/games/:id/:teamid', to: 'games#game_attendance'
@@ -39,12 +42,13 @@ Rails.application.routes.draw do
 
   #teamsnap api login
   get '/teamsnap/login', to: 'teamsnap#login'
-    post '/teamsnap/login', to: 'teamsnap#teamsnaplogin'
+  post '/teamsnap/login', to: 'teamsnap#teamsnaplogin'
   get '/teamsnap/logout', to: 'teamsnap#logout'
   get 'teamsnap/index', to:'teamsnap#index'
   get '/teamssnap/:teamId/:rosterId', to: 'teamsnap#team', as: 'rosterId'
   get '/ranking/:teamId/:rosterId/:playerId', to: 'teamsnap#ranking', as: 'playerId'
   get '/teamsnap', to:'teamsnap#redirect'
+  get '/teamsnap/updateplayer', to:'payments_tracker#update_teamsnap_player'
 
 
   # website iframes
@@ -68,5 +72,24 @@ Rails.application.routes.draw do
 
   #errors
   get '/403', to: 'welcome#error403'
+
+  #payments trackers
+  get 'payments', to:'payments_tracker#index'
+  get 'payments/tracker', to:'payments_tracker#home'
+  get 'payments/admin', to:'payments_tracker#admin'
+  get 'payments/list', to: 'payments_tracker#list'
+  get 'payments/list/add', to: 'payments_tracker#add_new_payment'
+  get 'payments/sync', to: 'payments_tracker#sync'
+  get 'payments/accounts/new', to: 'payments_tracker#new_account'
+  post 'payments/accounts/create', to: 'payments_tracker#create_account'
+  get 'payments/unassigned', to:'payments_tracker#unassigned'
+  get 'payments/send_roster', to: 'payments_tracker#send_roster'
+  get 'payments/divisions', to: 'payments_tracker#divisions'
+  get 'payments/division/:divisionId/', to: 'payments_tracker#division', as: 'divisionId'
+  get 'payments/division/:divisionId/sendEmail', to: 'payments_tracker#emailDivisionRep'
+  get 'payments/division/:divisionId/sendToWebteam', to: 'payments_tracker#emailWebteam'
+
+  # offers
+  get 'alloffers', to: 'offers#all'
 
 end

@@ -2,8 +2,10 @@ class Profile < ActiveRecord::Base
   before_save { self.email = email.downcase }
   before_create :create_remember_token
 
-  has_secure_password
-  validates :password, length: { minimum: 6 }, on: :create
+  #TODO This will break when editing a user profile as an admin
+  #has_secure_password
+  #validates :password, length: { minimum: 6 }, on: :create
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :last_name, presence: true
   validates :first_name, presence: true

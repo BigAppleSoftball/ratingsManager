@@ -13,6 +13,8 @@
     = link_to 'Edit Games', games_path, :class => 'list-group-item games-group-item'
     = link_to 'Edit Teams', teams_path, :class => 'list-group-item teams-group-item'
     = link_to 'Edit Seasons', seasons_path, :class => 'list-group-item seasons-group-item'
+    = link_to 'View Payments', '/payments/', :class => 'list-group-item list-payments-item'
+    = link_to 'Edit Offers', offers_path, :class => 'list-group-item list-payments-item'
 
 - if is_manager?
   .panel.panel-default

@@ -1,0 +1,33 @@
+= form_for @offer,:html => {:class => 'form-horizontal'} do |f|
+  - if @offer.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@offer.errors.count, "error")} prohibited this offer from being saved:"
+      %ul
+        - @offer.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label :name, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_field :name, {:class => 'form-control'}
+  .form-group
+    = f.label :description, {:class => 'col-sm-2 control-label'}
+    .col-sm-10= f.text_area :description, {:class => 'form-control'}
+  .form-group
+    = f.label :image, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      %span
+        Make sure the image logo you provide is a SQUARE image (otherwise it could looked stretched)
+      = f.text_field :image, {:class => 'form-control'}
+  .form-group
+    = f.label :link, {:class => 'col-sm-2 control-label'}
+    .col-sm-10= f.text_field :link, {:class => 'form-control'}
+  .form-group
+    = f.label :google_map_url, {:class => 'col-sm-2 control-label'}
+    .col-sm-10= f.text_field :google_map_url
+  .form-group
+    = f.label :company_name, {:class => 'col-sm-2 control-label'}
+    .col-sm-10= f.text_field :company_name, {:class => 'form-control'}
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit 'Save', :class => 'btn btn-primary'

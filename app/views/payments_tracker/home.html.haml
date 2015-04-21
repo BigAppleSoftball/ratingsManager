@@ -1,0 +1,35 @@
+- content_for :panel_head do
+  %h1 Payments Tracker Home
+
+.well 
+  %p 
+    If you click on the below links you will be taken immediately to the player page (as long as you have already logged into teamsnap and gone to the 
+    = link_to "Big Apple Softball League Page", 'https://go.teamsnap.com/16139/division_teams', {:target => '_blank'}
+
+%table.table.table-condensed.table-striped.table-bordered
+  %tr
+    %th
+      Name
+    %th
+      Team
+    %th 
+      Division
+    %th 
+      Paid
+    %th
+
+  - @players.each do |player|
+    %tr{:class => player['has_paid?'] ? '' : 'danger danger-column'}
+      %td=player['name']
+      %td
+        -if player['team'].empty?
+          No Team Assigned
+        -else
+          =player['team']
+      %td
+        =player['team_division']
+      %td 
+        =raw(yes_or_no_icon(player['has_paid?']))
+      %td
+        -if player['player_url']
+          =link_to '(View)', player['player_url'], {:target => '_blank'}

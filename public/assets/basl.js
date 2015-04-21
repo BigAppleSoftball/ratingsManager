@@ -3,7 +3,7 @@
 
 (function(){
   var local = 'https://basl-manager.herokuapp.com/loadsidebar';
-  //'https://ratings-manager.herokuapp.com/loadsidebar'
+  //''https://basl-manager.herokuapp.com/loadsidebar';
   var Sidebar = function(){
     this.teamsnapSidebar = '.container .sponsors';
     this.initSponsors();
@@ -27,7 +27,7 @@
       failed: function(data){
       },
       complete: function(data){
-        
+
       }
     })
   };

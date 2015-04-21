@@ -166,3 +166,16 @@
 .left-caret:after {
   border-right: 5px solid #000;
 }
+
+.label-custom {
+  color: $dark-gray;
+  font-style: italic;
+}
+
+.badge-success {
+  background: $green;
+}
+
+.badge-danger {
+  background: $red;
+}

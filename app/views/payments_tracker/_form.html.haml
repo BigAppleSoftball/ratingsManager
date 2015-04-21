@@ -1,0 +1,22 @@
+= form_for @payment,:html => {:class => 'form-horizontal'} do |f|
+  - if @payment.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@payment.errors.count, "error")} prohibited this Payment from being saved:"
+      %ul
+        - @payment.errors.full_messages.each do |msg|
+          %li= msg
+  .form-group
+    = f.label :teamsnap_player_id, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.number_field :teamsnap_player_id, {:class => 'form-control'}
+  .form-group
+    = f.label :teamsnap_player_name, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_field :teamsnap_player_name, {:class => 'form-control'}
+  .form-group
+    = f.label :teamsnap_player_email, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_field :teamsnap_player_email, {:class => 'form-control'}
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit 'Save', {:class => 'btn btn-primary'}

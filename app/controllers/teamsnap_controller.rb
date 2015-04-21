@@ -2,6 +2,19 @@ class TeamsnapController < ApplicationController
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
 
+  include TeamsnapHelper
+  def teamsnap_divs_by_id
+    ids_by_div_name = Hash.new
+    ids_by_div_name['1. Dima Division'] = 27394
+    ids_by_div_name['2. Stonewall Division'] = 27395
+    ids_by_div_name['3. Fitzpatrick Division'] = 27397
+    ids_by_div_name['4. Rainbow Division'] = 27398
+    ids_by_div_name['5. Sachs Division'] = 27400
+    ids_by_div_name["1. Mousseau Division"] = 27403
+    ids_by_div_name["2. Green-Batten Division"] = 27404
+    ids_by_div_name["Big Apple Softball League"] = 16139
+    ids_by_div_name
+  end
   #
   # Log into the teamsnap api
   # End point for javascript ajax call
@@ -38,6 +51,7 @@ class TeamsnapController < ApplicationController
   #
   def index
     @teamsByDivision = get_all_teams
+    @teamsnapDivisions = teamsnap_divs_by_id
   end
 
   #
@@ -49,33 +63,7 @@ class TeamsnapController < ApplicationController
     redirect_to action: "login"
   end
 
-  #
-  # Log user into the teamsnap api (return status)
-  #
-  def log_in_to_teamsnap(username, password)
-    ap username
-    ap password
-    loginURL = 'https://api.teamsnap.com/v2/authentication/login/'
-    conn = connect
-    loginHash = Hash.new
-    if cookies[:teamsnap_token].nil?
-      conn.params  = {'user' => username, 'password' => password}
-      conn.headers = {'Content-Type'=> 'application/json'}
-      response = conn.post loginURL
-      loginHash[:status] = response.headers['status']
-      loginHash[:message] = response.headers['x-rack-cache']
-      teamsnapToken = response.headers['x-teamsnap-token']
-      if teamsnapToken.nil?
-        loginHash[:failed] = true
-      else
-        loginHash[:success] = true
-        cookies[:teamsnap_token] = teamsnapToken
-        set_admin(username)
-      end
-    end
-    # TODO (check if user has admin permissions on app)
-    loginHash
-  end
+
 
   #
   # Rnder the single team view
@@ -114,88 +102,13 @@ class TeamsnapController < ApplicationController
     render 'ranking'
   end
 
-  #
-  # Connect to the teamsnap api
-  #
-  def connect
-    url = 'https://api.teamsnap.com/'
-    conn = Faraday.new(:url => url) do |faraday|
-      faraday.request  :url_encoded             # form-encode POST params
-      faraday.response :logger                  # log requests to STDOUT
-      faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
-    end
-  end
-
+  
   #
   # DEPRECATED (Get user name based on admins added by email)
   #
   def set_admin(username)
     admins = Admin.where(:email => username)
     cookies[:teamsnap_is_admin] = (admins.length > 0)
-  end
-
-
-  #
-  # Get all teams from the teamsnamp api and cache them
-  #
-  def get_all_teams
-    Rails.cache.fetch("all_teams", :expires_in => 60.minutes) do
-      get_all_teams_api
-    end
-  end
-
-  #
-  # Get all teams api
-  #
-  def get_all_teams_api
-    teamsURL = 'https://api.teamsnap.com/v2/teams'
-    conn = connect
-    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
-    response = conn.get teamsURL
-    preprocess_team_data(JSON.parse(response.body))
-  end
-
-  #
-  #
-  # sort Teams by division
-  def preprocess_team_data(teamsData)
-    divisionsList = Array.new
-    teamsByDivision = Hash.new
-    teamsData.each do |teamData|
-      team = teamData['team']
-      teamDivision = team['team_division']
-      # check to see if division is in the list, if not add it
-      if (!divisionsList.include?(teamDivision))
-        divisionsList.push(teamDivision)
-        teamsByDivision[teamDivision] = Array.new
-      end
-        teamsByDivision[teamDivision].push(team)
-    end
-    teamsByDivision
-  end
-
-    def get_team(teamId)
-    teamsURL = "https://api.teamsnap.com/v2/teams/#{teamId}"
-    conn = connect
-    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
-    response = conn.get teamsURL
-    JSON.parse(response.body)
-  end
-
-  def get_roster(teamId, rosterId)
-    rosterURL = "https://api.teamsnap.com/v2/teams/#{teamId}/as_roster/#{rosterId}/rosters"
-    conn = connect
-    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
-    response = conn.get rosterURL
-    JSON.parse(response.body)
-  end
-
-  def get_roster_player(teamId, rosterId, playerId)
-    rosterPlayerURL = "https://api.teamsnap.com/v2/teams/#{teamId}/as_roster/#{rosterId}/rosters/#{playerId}"
-    conn = connect
-    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
-    response = conn.get rosterPlayerURL
-    JSON.parse(response.body)
   end
 
   def get_customIds(ratingSection = nil)
@@ -238,21 +151,6 @@ class TeamsnapController < ApplicationController
     end
   end
 
-    def get_team(teamId)
-    teamsURL = "https://api.teamsnap.com/v2/teams/#{teamId}"
-    conn = connect
-    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
-    response = conn.get teamsURL
-    JSON.parse(response.body)
-  end
-
-  def get_roster(teamId, rosterId)
-    rosterURL = "https://api.teamsnap.com/v2/teams/#{teamId}/as_roster/#{rosterId}/rosters"
-    conn = connect
-    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
-    response = conn.get rosterURL
-    JSON.parse(response.body)
-  end
 
   def get_roster_player(teamId, rosterId, playerId)
     rosterPlayerURL = "https://api.teamsnap.com/v2/teams/#{teamId}/as_roster/#{rosterId}/rosters/#{playerId}"
@@ -306,6 +204,7 @@ class TeamsnapController < ApplicationController
   # adds and compiles players rankings
   def preprocess_player_data(roster)
     playersHash = Hash.new
+    playerPayments = TeamsnapPayment.all
     customThrowingIds = get_customIds('throwing').values
     customFieldingIds = get_customIds('fielding').values
     customRunningIds = get_customIds('baserunning').values
@@ -327,6 +226,8 @@ class TeamsnapController < ApplicationController
       playerHash[:hitting][:ratings] = Hash.new
       player = playerData["roster"]
       customData = player['league_custom_data']
+      payment_listing = playerPayments.select {|player_payment| player_payment[:teamsnap_player_id] == player['id'] }
+        playerHash[:has_paid] = payment_listing.length > 0
       customData.each do |customItem|
         if customThrowingIds.include?(customItem['custom_field_id'])
           playerHash[:throwing][:rating] += customItem['content'].to_i
@@ -343,6 +244,7 @@ class TeamsnapController < ApplicationController
         end
       end
       playerHash[:fullRating] = playerHash[:hitting][:rating] + playerHash[:running][:rating] + playerHash[:fielding][:rating] + playerHash[:throwing][:rating]
+
       playerHash[:name] = "#{player['first']} #{player['last']}"
       playersHash["#{player['id']}"] = playerHash
     end

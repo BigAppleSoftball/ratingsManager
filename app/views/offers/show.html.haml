@@ -1,0 +1,24 @@
+- content_for :panel_head do
+  %h1= @offer.name
+  = render partial: "shared/actions/show_actions", locals: { editPath: edit_offer_path(@offer), fieldName: 'Offer', allPath: offers_path}
+
+%p#notice= notice
+
+%p
+  %b Name:
+  = @offer.name
+%p
+  %b Description:
+  = @offer.description
+%p
+  %b Image:
+  = @offer.image
+%p
+  %b Link:
+  = @offer.link
+%p
+  %b Google map url:
+  = @offer.google_map_url
+%p
+  %b Company name:
+  = @offer.company_name

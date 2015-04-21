@@ -55,15 +55,9 @@ group :production do
   gem 'pg'
 end
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+# web scrapping for the payments-tracker
+gem 'nokogiri'
+gem 'mechanize'
 
-# Use unicorn as the app server
-# gem 'unicorn'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
 

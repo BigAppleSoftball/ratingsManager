@@ -3,11 +3,11 @@ class Rating < ActiveRecord::Base
 
   # calculating the total throwing rating
   def throwing_total
-    self.rating_1 + 
+    self.rating_1 +
     self.rating_2 +
     self.rating_3 +
     self.rating_4 +
-    self.rating_5 
+    self.rating_5
   end
 
   # calculating the total fielding rating
@@ -33,11 +33,11 @@ class Rating < ActiveRecord::Base
 
   # calculating the hitting total
   def hitting_total
-    self.rating_19 + 
+    self.rating_19 +
     self.rating_20 +
     self.rating_21 +
     self.rating_22 +
-    self.rating_23 + 
+    self.rating_23 +
     self.rating_24 +
     self.rating_25 +
     self.rating_26 +

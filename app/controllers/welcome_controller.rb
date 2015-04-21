@@ -3,7 +3,8 @@ class WelcomeController < ApplicationController
   after_action :set_access_control_headers
 
   #def index
-  #  
+  #  @all_teams = get_all_teams
+  #  @divisions = get_all_divisions
   #  render 'index'
   #end
 

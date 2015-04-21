@@ -9,6 +9,9 @@
     %th Position Email
     %th Profile
     %th Admin
+    %th Name
+    %th OLD Division Teamsnap Name
+    %th OLD Division Teamsnap Id
     %th.actions-column
 
   - @board_members.each do |board_member|
@@ -19,7 +22,7 @@
       %td= board_member.email
       %td{:class => profile ? '' : 'danger danger-column'}
         - if profile
-          = link_to "#{profile.first_name} #{profile.last_name}", profile 
+          = link_to "#{profile.first_name} #{profile.last_name}", profile
         -else
           = render partial: "shared/warning_column", locals: { text: 'No Profile'}
       %td
@@ -32,6 +35,8 @@
               = board_member.division.description
               = board_member.division.season.description
               Rep
+      %td=board_member.teamsnap_id
+      %td=board_member.teamsnap_name
       %td
         = render partial: "shared/actions/table_actions", locals: { editPath: edit_board_member_path(board_member), deletePath: board_member}
 

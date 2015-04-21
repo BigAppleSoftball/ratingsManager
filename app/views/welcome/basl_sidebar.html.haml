@@ -1,5 +1,12 @@
 %link{:href => "https://fonts.googleapis.com/css?family=Montserrat", :rel => "stylesheet", :type => "text/css"}
 =stylesheet_link_tag "http://#{request.host_with_port}/css/sponsorCarousel.css"
+=link_to 'BASL Login', 'https://go.teamsnap.com/login/signin', {:target => '_blank', :class => 'teamsnap-login-btn', :title => 'Log into your teamsnap account'}
+.basl-hotline-container
+  Wondering if fields are open?
+  %br
+  Call the BASL Hotline
+  %div.basl-hotline-number
+    (212) 696-7327
 - if @fieldStatus
   .game-status{:class => "status-#{@fieldStatus}"}
     = render partial: "fields/status_indicator", locals: {statusValue: @fieldStatus , statusString: @fieldStatus}
@@ -9,7 +16,6 @@
       All Fields are Closed
     - elsif @fieldStatus == 0
       All Fields are Open
-
 .sponsors-carousel-wrapper
   .sponsors-carousel-window
     %ul.sponsors-carousel.js-sponsors-carousel
