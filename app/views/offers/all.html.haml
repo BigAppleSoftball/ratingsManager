@@ -7,7 +7,7 @@
       %li.offer-list-item
         .offer-list-item-image-container
           - if offer.image
-            %img.offer-list-item-image{:src =>offer.image}
+            .offer-list-item-image{:style =>"background-image: url(#{offer.image})"}
         .offer-list-item-name
           %p=offer.name
         -if offer.company_name
