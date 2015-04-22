@@ -10,8 +10,13 @@
             %img.offer-list-item-image{:src =>offer.image}
         .offer-list-item-name
           %p=offer.name
+        -if offer.company_name
+          .offer-list-item-company
+            from
+            %span.company-name= offer.company_name
         .offer-list-item-description
           %p=offer.description
+
         .offer-list-item-more
           -if offer.link
             .offer-list-item-link
