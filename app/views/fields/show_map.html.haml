@@ -12,11 +12,13 @@
             %li.field-item.js-field-item{:data => {:lat => "#{field.lat}", :long => "#{field.long}", :status => field.status, :count => count}}
               = render partial: "fields/status_indicator", locals: {statusValue: field.status, statusString: get_field_statuses[field.status]}
               .field-item-marker.js-field-count=count
-              .field-item-name= field.name
-              .field-item-address
-                = field.address
-                = "#{field.city}, #{field.state} #{field.zip}"
-              = link_to 'Directions', "https://www.google.com/maps/dir//#{field.lat},#{field.long}/@#{field.lat},#{field.long},17z/", {:target => '_blank'}
+              .field-item-body
+                .field-item-name= field.name
+                .field-item-address
+                  = field.address
+                  = "#{field.city}, #{field.state} #{field.zip}"
+                = link_to 'Google Map Directions', "https://www.google.com/maps/dir//#{field.lat},#{field.long}/@#{field.lat},#{field.long},17z/", {:target => '_blank'}
+                %div= link_to 'Field Info', field
               - count+=1
       #map-canvas
       %br
