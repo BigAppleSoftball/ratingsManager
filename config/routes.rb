@@ -16,7 +16,7 @@ Rails.application.routes.draw do
   resources :teams_sponsors, :only => [:index, :show]
   resources :sponsors
   resources :seasons
-  resources :divisions, :only => [:index, :show, :edit]
+  resources :divisions
   resources :teams, :only => [:index, :show]
   resources :sessions, only: [:new, :create, :destroy]
   resources :teamsnap_payments
@@ -91,5 +91,8 @@ Rails.application.routes.draw do
 
   # offers
   get 'alloffers', to: 'offers#all'
+
+  # rosters
+  get 'rosters/update_permissions', to: 'rosters#update_permissions'
 
 end

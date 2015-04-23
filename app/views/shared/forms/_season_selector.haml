@@ -1,0 +1,7 @@
+%select.chosen-select.form-control.js-division-season-selector{ :data => {:placeholder => 'Select a Season'}, :name=> name }
+  %option
+  - seasons.each do |season|
+    - if selected_season && selected_season == season.id
+      %option{:value => "#{season.id}", :selected => true}=season[:description]
+    - else
+      %option{:value => "#{season.id}"}=season[:description]

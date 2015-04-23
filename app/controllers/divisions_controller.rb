@@ -17,10 +17,12 @@ class DivisionsController < ApplicationController
   # GET /divisions/new
   def new
     @division = Division.new
+    @seasons = Season.all
   end
 
   # GET /divisions/1/edit
   def edit
+    @seasons = Season.all
   end
 
   # POST /divisions

@@ -12,6 +12,56 @@
 
   Team.prototype.init = function() {
     this.bindAddNewPlayerModal();
+    this.bindRosterActions();
+  };
+
+  /**
+   * Binds actions to the Roster 
+   */
+  Team.prototype.bindRosterActions = function() {
+    var onTeamPermissionsClick = function(e) {
+      e.preventDefault();
+      var $this = $(this),
+          $rosterRow = $(this).closest('.js-roster-row'),
+          rosterId = $rosterRow.data('roster-id'),
+          queryData = {roster_id: rosterId};
+
+      if ($this.data('is-make-manager')){
+        queryData.set_manager = true;
+      } else if ($this.data('is-make-rep')) {
+        queryData.set_rep = true;
+      } else if($this.data('is-remove-manager')) {
+        queryData.remove_manager = true;
+      } else if($this.data('is-remove-rep')) {
+        queryData.remove_rep = true;
+      }
+
+      var updatedPermissions = function(data) {
+        if(data.success) {
+          if (data.html) {
+            $.toaster({ priority : 'success', title : 'Success!', message : 'Roster Updated!'});
+            $rosterRow.replaceWith(data.html);
+          }
+        } else if (data.error) {
+          $.toaster({ priority : 'danger', title : 'Error!', message : data.error});
+        }
+      };
+
+      var updatedPermissionsFailed = function(data){
+        $.toaster({ priority : 'danger', title : 'Error!', message : 'Roster Not Updated, Please Refresh and try again.'});
+      };
+
+      $.ajax({
+        dataType: 'JSON',
+        url: '/rosters/update_permissions',
+        postType: 'JSON',
+        data: queryData,
+        success: updatedPermissions,
+        failure: updatedPermissionsFailed
+      });
+    };
+
+    $('.js-team-roster-list').on('click', '.js-add-team-permissions', onTeamPermissionsClick);
   };
 
   Team.prototype.bindAddNewPlayerModal = function() {

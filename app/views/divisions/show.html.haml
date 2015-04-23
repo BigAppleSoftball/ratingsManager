@@ -4,5 +4,7 @@
     %h1=@division.description
   - if is_division_rep?(@division.id)
     = link_to raw("<i class='fa fa-pencil'></i> Edit Division"), edit_division_path(@division), {:class => 'btn btn-default'}
+  - if is_admin?
+    = link_to 'Add Team To Division', new_team_path( :division_id => @division.id),  {:class => 'btn btn-default'}
 
 = render :partial => 'division', :locals => {:division => @division, :isShow => true}

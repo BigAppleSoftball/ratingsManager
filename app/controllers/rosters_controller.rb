@@ -83,6 +83,42 @@ class RostersController < ApplicationController
     end
   end
 
+  #
+  # Sets or removed team manager or team rep depending on the parameters sent
+  #
+  def update_permissions
+    response = Hash.new
+
+    # use the params to determine what to sent the roster value to
+    if (!params[:roster_id].nil?)
+      roster = Roster.find_by( :id => params[:roster_id].to_i)
+      if (params[:set_manager])
+        roster[:is_manager] = true
+      elsif(params[:set_rep])
+        roster[:is_rep] = true
+      elsif(params[:remove_rep])
+        roster[:is_rep] = false
+      elsif(params[:remove_manager])
+        roster[:is_manager] = false
+      end
+
+      # make sure we are saving a valid roster or throw an error back to the interface
+      if roster.valid?
+        response[:success] = "Success! Roster Saved!"
+        roster.save
+        response[:html] = render_to_string "teams/_roster_profile.haml", :layout => false, :locals => { :roster => roster}
+      else
+        response[:error] = "Error! Could not save Roster."
+      end
+    else
+      response[:error] = "Error! No Roster given"
+    end
+
+    respond_to do |format|
+      format.json { render :json=> response}
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_roster

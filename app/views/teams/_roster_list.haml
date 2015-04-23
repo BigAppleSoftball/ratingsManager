@@ -1,3 +1,4 @@
-%ul.list-group.js-team-roster-list
-  -rosters.each do |roster|
-    = render partial: "teams/roster_profile", locals: { roster: roster}
+%table.table.table-bordered.table-condensed.js-team-roster-list
+  - if rosters
+    -rosters.each do |roster|
+      = render partial: "teams/roster_profile", locals: { roster: roster}

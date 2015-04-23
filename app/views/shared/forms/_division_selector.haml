@@ -1,18 +1,13 @@
--if defined?(selected_division)
+-if !selected_division.nil? && defined?(selected_division)
   - selected_season = selected_division.season
   - divisions = selected_season.divisions
 
-%select.chosen-select.form-control.js-division-season-selector{ :data => {:placeholder => 'Select a Division Season'}}
-  - seasons.each do |season|
-    - if selected_season.id && selected_season.id == season.id
-      %option{:value => "#{season.id}", :selected => true}=season[:description]
-    - else
-      %option{:value => "#{season.id}"}=season[:description]
+= render 'shared/forms/season_selector', {:selected_season => selected_season.id, :seasons => seasons, :name => 'division_selector[season]'}
 
 
 %select.chosen-select.form-control.js-division-selector{:id =>"#{selector_id}", :name => "#{selector_name}", :data => {:placeholder => "Select A Division"}}
   %option
-  -if defined?(divisions)
+  -if !divisions.nil? && defined?(divisions)
     -divisions.each do |division|
       -if defined?(selected_division) && selected_division.id == division.id
         %option{:value => "#{division.id}", :selected => true}=division.description

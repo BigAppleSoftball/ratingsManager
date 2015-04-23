@@ -21,8 +21,13 @@ class TeamsController < ApplicationController
 
   # GET /teams/new
   def new
+
     get_form_presets
     @team = Team.new
+    if params && params[:division_id]
+      @team[:division_id] = params[:division_id].to_i
+    end
+    ap @team
   end
 
   # GET /teams/1/edit
@@ -87,7 +92,6 @@ class TeamsController < ApplicationController
     def get_form_presets
       @profiles = Profile.all
       @seasons = Season.all
-
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_team

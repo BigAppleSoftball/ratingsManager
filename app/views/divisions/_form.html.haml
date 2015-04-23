@@ -10,7 +10,7 @@
   .form-group
     = f.label :season_id, {:class => 'col-sm-2 control-label'}
     .col-sm-10
-      = f.number_field :season_id, {:class => 'form-control'}
+      = render 'shared/forms/season_selector', {:selected_season => @division.season_id, :seasons => @seasons, :name=> 'division[season_id]'}
   .form-group
     = f.label :description, {:class => 'col-sm-2 control-label'}
     .col-sm-10
@@ -27,6 +27,8 @@
     = f.label :is_active, {:class => 'col-sm-2 control-label'}
     .col-sm-10
       = f.check_box :is_active
+    .alert.alert-danger
+      Users can only edit rosters, games and do various other tasks with teams and games in an active season
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit 'Save', {:class => 'btn btn-primary'}
