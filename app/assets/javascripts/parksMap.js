@@ -25,6 +25,9 @@
           zoom: 11
         };
 
+    var windowHeight = $(window).height();
+    $('#map-canvas').css('height', windowHeight);
+
     this.map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     var transitLayer = new google.maps.TransitLayer();
     transitLayer.setMap(this.map);
