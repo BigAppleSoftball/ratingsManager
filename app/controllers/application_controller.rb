@@ -160,12 +160,10 @@ class ApplicationController < ActionController::Base
     currentDivision[:id] = 0
     currentDivision[:teams] = Array.new
     teams.each do |team|
-      ap team
       if currentDivision[:id] != team.division_id
         if currentDivision[:teams].length > 0
           teamsByDivision.push(currentDivision)
         end
-
         currentDivision = Hash.new
         currentDivision[:id] = team.division_id
         currentDivision[:name] = team.division.description
@@ -173,6 +171,7 @@ class ApplicationController < ActionController::Base
       end
       currentDivision[:teams].push(team)
     end
+    teamsByDivision.push(currentDivision)
     teamsByDivision
   end
 

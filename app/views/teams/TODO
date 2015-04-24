@@ -5,3 +5,7 @@ New Season >
 Edit Divisions to Admin Panel
 Organize Admin Panel in a more logical fashion
 Loading Teams is really slow :(
+Fix Impersonate (SOmething wrong with the gem setup)
+RENAME Field ==> Park
+Fields by Park in the selector
+  Knowing restrictions when you schedule a game

@@ -16,6 +16,16 @@ class GamesController < ApplicationController
   def new
     @game = Game.new
     get_universal_game_variables
+    # if there is a division in the params get the season
+    if (params[:division_id])
+      division = Division.find_by( :id =>params[:division_id].to_i)
+      if !division.nil? 
+        @selected_season_id = division.season_id
+        @teamsByDivision = get_teams_by_division(params[:division_id].to_i)
+        @seasons = Array.new
+        @seasons.push(division.season)
+      end
+    end
   end
 
   # GET /games/1/edit
@@ -83,12 +93,13 @@ class GamesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_game
       @game = Game.find(params[:id])
+      @teamsByDivision = get_all_teams_by_division
       get_universal_game_variables
     end
 
     def get_universal_game_variables
-      @teamsByDivision = get_all_teams_by_division
       @seasons = Season.all
+      @fields = Field.where(:is_active => true)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

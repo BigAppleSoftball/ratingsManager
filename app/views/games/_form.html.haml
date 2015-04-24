@@ -8,14 +8,17 @@
 
   .form-group
     .alert.alert-warning
-      You can only create games for the CURRENT season.
+      You can only create games for a CURRENT season.
     %label.col-sm-2.control-label
       Season
     .col-sm-10
       %select.chosen-select.js-season-selector{:data => {:placeholder => 'Select a Season'}}
         %option
         -@seasons.each do |season|
-          %option{:value => season.id}=season.description
+          -if season.id == @selected_season_id
+            %option{:value => season.id, :selected => true}=season.description
+          -else
+            %option{:value => season.id}=season.description
 
 
   .form-group
@@ -37,7 +40,8 @@
           Flip for home team?
   .form-group
     = f.label :field, {:class => 'col-sm-2 control-label'}
-    .col-sm-10= f.number_field :field, {:class => 'form-control'}
+    .col-sm-10
+      =render partial: "shared/forms/field_selector", locals: { fields: @fields , name: 'game[field_id]', selected_field: @game.field}
   .form-group
     = f.label :home_score, {:class => 'col-sm-2 control-label'}
     .col-sm-10= f.number_field :home_score, {:class => 'form-control'}
