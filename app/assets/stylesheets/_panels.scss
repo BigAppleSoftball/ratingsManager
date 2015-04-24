@@ -1,4 +1,4 @@
-$fields-bg: $purple;
+$parks-bg: $purple;
 $admins-bg: $red;
 $sponsors-bg: $blue;
 $hofs-bg: $yellow;
@@ -11,8 +11,8 @@ $games-bg: $deep-blue;
   @include set-panel($admins-bg, white);
 }
 
-#controller-fields {
-  @include set-panel($fields-bg, white);
+#controller-parks {
+  @include set-panel($parks-bg, white);
 }
 
 #controller-sponsors {
@@ -41,7 +41,7 @@ $games-bg: $deep-blue;
 
 .admin-list-group {
   .fields-group-item:hover {
-    background: lighten($fields-bg, 30%);
+    background: lighten($parks-bg, 30%);
   }
   .admins-group-item:hover {
     background: lighten($admins-bg, 30%);

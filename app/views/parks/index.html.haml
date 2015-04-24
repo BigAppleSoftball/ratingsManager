@@ -1,0 +1,53 @@
+- content_for :panel_head do
+  %h1 Parks
+  = render partial: 'shared/actions/view_all_actions', locals: { newPath: new_park_path}
+
+- if is_admin?
+  .btn-group{"aria-label" => "...", :role => "group"}
+    = link_to 'Set All Parks as Open', '#', :class => 'btn btn-success js-set-all-parks-open'
+    = link_to 'Set All Parks as Partially Closed', '#', :class => 'btn btn-info js-set-all-parks-partially-closed'
+    = link_to 'Set All Parks as Closed', '#', :class => 'btn btn-danger js-set-all-parks-closed'
+  %br
+  %br
+
+.alert.alert-danger.js-all-closed-notice.js-notices{:style => "#{@allParksClosed ? 'display:block' : 'display:none'}"}
+  All Parks are marked as CLOSED.
+
+.alert.alert-info.js-partially-closed-notice.js-notices{:style => "#{@parksPartial ? 'display:block' : 'display:none'}"}
+  Parks are marked as CLOSED or partially CLOSED.
+
+.alert.alert-success.js-all-open-notice.js-notices{:style => "#{@allParksOpen ? 'display:block' : 'display:none'}"}
+  All parks are marked as Open.
+
+%table.table.table-striped.table-condensed.table-bordered.js-parks-table
+  %tr
+    %th Status
+    %th Name
+    %th Address
+    %th Google map url
+    %th Lat/Long
+    %th.actions-column
+  - statuses = get_park_statuses
+  - @parks.each do |park|
+    %tr
+      %td
+        = render partial: 'status_indicator', locals: {statusValue: park.status , statusString: statuses[park.status]}
+      %td= link_to park.name, park
+      %td
+        - if park.address
+          = park.address
+          %br
+          = "#{park.city}, #{park.state} #{park.zip}"
+      %td
+        -if park.google_map_url
+          = link_to 'Google Map', park.google_map_url, {:target => '_blank'}
+      %td{:class => park.lat && park.long ? '' : 'danger danger-column'}
+        -if park.lat && park.long
+          = park.lat
+          = park.long
+        -else
+          = render partial: "shared/warning_column", locals: { text: 'No Lat or Long'}
+      %td
+        = render partial: 'shared/actions/table_actions', locals: { editPath: edit_park_path(park), deletePath: park}
+
+

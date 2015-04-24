@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150419124100) do
+ActiveRecord::Schema.define(version: 20150424151722) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -55,26 +55,6 @@ ActiveRecord::Schema.define(version: 20150419124100) do
     t.boolean  "is_active"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "fields", force: true do |t|
-    t.integer  "status"
-    t.string   "name"
-    t.string   "url"
-    t.text     "google_map_url"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "address"
-    t.string   "city"
-    t.string   "zip"
-    t.text     "by_car"
-    t.text     "by_bus"
-    t.text     "by_train"
-    t.text     "parking"
-    t.boolean  "is_active"
-    t.string   "state"
-    t.float    "lat",            limit: 24
-    t.float    "long",           limit: 24
   end
 
   create_table "game_attendances", force: true do |t|
@@ -123,6 +103,26 @@ ActiveRecord::Schema.define(version: 20150419124100) do
     t.string   "company_name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "parks", force: true do |t|
+    t.integer  "status"
+    t.string   "name"
+    t.string   "url"
+    t.text     "google_map_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "address"
+    t.string   "city"
+    t.string   "zip"
+    t.text     "by_car"
+    t.text     "by_bus"
+    t.text     "by_train"
+    t.text     "parking"
+    t.boolean  "is_active"
+    t.string   "state"
+    t.float    "lat",            limit: 24
+    t.float    "long",           limit: 24
   end
 
   create_table "profiles", force: true do |t|

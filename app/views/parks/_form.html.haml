@@ -1,17 +1,17 @@
-= form_for @field,:html => {:class => 'form-horizontal'} do |f|
-  - if @field.errors.any?
+= form_for @park,:html => {:class => 'form-horizontal'} do |f|
+  - if @park.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@field.errors.count, "error")} prohibited this field from being saved:"
+      %h2= "#{pluralize(@park.errors.count, "error")} prohibited this Park from being saved:"
       %ul
-        - @field.errors.full_messages.each do |msg|
+        - @park.errors.full_messages.each do |msg|
           %li= msg
   .form-group
     = f.label :status, {:class => 'col-sm-2 control-label'}
     .col-sm-10
-      - statuses = get_field_statuses
-      %select#field_status.chosen-select{:name => 'field[status]'}
+      - statuses = get_park_statuses
+      %select#park_status.chosen-select{:name => 'park[status]'}
         - statuses.keys.each do |key|
-          -if @field && @field.status == key
+          -if @park && @park.status == key
             %option{:value => key, :selected => true}=statuses[key]
           -else
             %option{:value => key}=statuses[key]
@@ -68,7 +68,7 @@
       .checkbox
         %label
           = f.check_box :is_active
-          Is Active Field?
+          Is this Park Actively Used?
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit 'Save', :class => 'btn btn-primary'

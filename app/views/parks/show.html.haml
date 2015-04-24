@@ -1,0 +1,37 @@
+- statuses = get_park_statuses
+
+- content_for :panel_head do
+  %h1= @park.name
+  = render partial: "shared/actions/show_actions", locals: { editPath: edit_park_path(@park), fieldName: 'Park', allPath: parks_path}
+
+%div.clearfix
+  %b.pull-left Park Status: 
+  =  statuses[@park.status]
+  %br
+  = render partial: "status_indicator", locals: {statusValue: @park.status , statusString: statuses[@park.status]}
+
+- if !@park.address.empty? || !@park.city.empty?
+  %p
+    %b Address:
+    %div
+      = @park.address
+      %br
+      = "#{@park.city}, #{@park.state} #{@park.zip}"
+-if @park.by_car
+  %p
+    %b Driving Directions:
+    = raw(@park.by_car)
+
+- if !@park.by_bus.empty?
+  %p
+    %b Directions By Public Transportation:
+    = raw(@park.by_bus)
+
+-if !@park.parking.empty?
+  %p
+    %b Parking:
+    = raw(@park.parking)
+- if @park.google_map_url
+  %p
+    %b Google Map:
+    = link_to 'Map URL', @park.google_map_url, {:target => '_blank'}

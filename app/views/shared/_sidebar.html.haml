@@ -1,12 +1,12 @@
-- if @fieldStatus
-  .game-status{:class => "status-#{@fieldStatus}"}
-    = render partial: "fields/status_indicator", locals: {statusValue: @fieldStatus , statusString: @fieldStatus}
-    - if @fieldStatus == 1
-      Some Fields are Partially Closed.
-    - elsif @fieldStatus == 2
-      All Fields are Closed
-    - elsif @fieldStatus == 0
-      All Fields are Open
+- if @parkStatus
+  .game-status{:class => "status-#{@parkStatus}"}
+    = render partial: "parks/status_indicator", locals: {statusValue: @parkStatus , statusString: @parkStatus}
+    - if @parkStatus == 1
+      Some Parks are Partially Closed.
+    - elsif @parkStatus == 2
+      All Park are Closed
+    - elsif @parkStatus == 0
+      All Parks are Open
 
 .sponsors-carousel-wrapper
   .sponsors-carousel-window

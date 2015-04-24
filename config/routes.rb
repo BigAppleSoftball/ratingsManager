@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :offers
 
   resources :games
-  resources :fields
+  resources :parks
   resources :committees
   resources :board_members
   resources :hallof_famers
@@ -57,13 +57,14 @@ Rails.application.routes.draw do
   get '/showallhof', to: 'hallof_famers#all_hof'
   get '/showallboard', to: 'board_members#all_board'
   get '/showallcommittee', to: 'committees#all_committee'
-  get '/showfields', to: 'fields#show_map'
+  get '/showfields', to: 'parks#show_map'
+  get '/showparks', to: 'parks#show_map'
   get '/loadsidebar', to: 'welcome#basl_sidebar'
   get '/loadcalendar', to: 'welcome#load_calendar'
   get '/getleaguesponsors', to: 'sponsors#league_sponsors'
 
-  #helpers
-  post '/fields/set_all', to: 'fields#set_all'
+  # parks
+  post '/parks/set_all', to: 'parks#set_all'
 
   #admin panel
   get '/admin/home', to: 'admins#home'
