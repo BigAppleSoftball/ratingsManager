@@ -30,6 +30,13 @@ class GamesController < ApplicationController
 
   # GET /games/1/edit
   def edit
+    @selected_season_id = 0
+    # if its a game with a home OR an away team it already has a set season, get it to reflect it in the edit screen
+    if (@game.home_team_id) 
+      @selected_season_id = @game.home_team.division.season.id
+    elsif (@game.away_team_id)
+      @selected_season_id = @game.away_team.division.season.id
+    end
   end
 
   # POST /games
@@ -104,6 +111,6 @@ class GamesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def game_params
-      params.require(:game).permit(:day_id, :start_time, :home_team_id, :integer, :away_team_id, :is_flip, :field, :home_score, :away_score, :is_rainout, :is_active)
+      params.require(:game).permit(:day_id, :start_time, :home_team_id, :integer, :away_team_id, :is_flip, :field_id, :home_score, :away_score, :is_rainout, :is_active)
     end
 end

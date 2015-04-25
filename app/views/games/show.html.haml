@@ -1,8 +1,6 @@
 - content_for :panel_head do
   %h1 Game
   = render partial: "shared/actions/show_actions", locals: { editPath: edit_game_path(@game), fieldName: 'Game', allPath: games_path}
-  -if is_admin?
-    = link_to 'Edit', edit_game_path(@game), :class => 'btn btn-danger'
 
 - if @game.is_rainout
   .alert.alert-danger
@@ -12,19 +10,21 @@
 %table.table.table-striped.table-condensed.table-bordered
   %tr
     %th Away
-    %th 
     %th Home
-    %th
+    %th Field
     %th Time
   %tr
     %td
-      -if @game.home_team_id
-        = link_to @game.away_team.name, @game.away_team
-    %td= @game.away_score
-    %td
       -if @game.away_team_id
+        = link_to @game.away_team.name, @game.away_team
+      = @game.away_score.nil? ? '-' : @game.away_score
+    %td
+      -if @game.home_team_id
         = link_to @game.home_team.name, @game.home_team
-    %td= @game.home_score
+      = @game.home_score.nil? ? '-' : @game.home_score
+    %td
+      =link_to @game.field.park.name, @game.field.park
+      =@game.field.name
     %td=@game.start_time.to_s(:event_date)
 
 - if @team && @roster

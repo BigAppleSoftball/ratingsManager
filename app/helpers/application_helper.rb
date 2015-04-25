@@ -86,4 +86,27 @@ module ApplicationHelper
 
     link_to raw("#{title} <i class='#{icon}'></i>"), params.merge(:sort => column, :direction => direction, :page => nil), {:class => css_class}
   end
+
+  #
+  # Gets the list of fields by park
+  #
+  #  park_name: [{field}]
+  def fields_by_park
+    all_fields = Field.order('park_id ASC').all
+    fields_by_park = Hash.new
+    current_park_id = 0
+    all_fields.each do |field|
+      if (current_park_id == field.park_id)
+        if fields_by_park[field.park.name].empty?
+          fields_by_park[field.park.name] = Array.new
+        end
+        fields_by_park[field.park.name].push(field)
+      else # new park
+        current_park_id = field.park_id
+        fields_by_park[field.park.name] = Array.new
+        fields_by_park[field.park.name].push(field)
+      end
+    end
+    fields_by_park
+  end
 end

@@ -4,6 +4,8 @@
     - if !@season.is_active
       %span.inactive-season (archived season)
   = render partial: "shared/actions/show_actions", locals: { editPath: edit_season_path(@season), fieldName: 'Field', allPath: seasons_path}
+  - if is_admin?
+    = link_to '+ Add Division', new_division_path(:season_id => @season.id), :class => 'btn btn-default'
 
 - @season.divisions.each do |division|
   = render '/divisions/division', :division => division

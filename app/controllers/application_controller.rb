@@ -187,7 +187,6 @@ class ApplicationController < ActionController::Base
     ids_by_div_name["Big Apple Softball League"] = 16139
     ids_by_div_name
   end
-
 private
 
   # Finds the User with the ID stored in the session with the key

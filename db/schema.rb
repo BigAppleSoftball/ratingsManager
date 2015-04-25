@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150425024934) do
+ActiveRecord::Schema.define(version: 20150425135649) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -78,13 +78,13 @@ ActiveRecord::Schema.define(version: 20150425024934) do
     t.integer  "home_team_id"
     t.integer  "away_team_id"
     t.boolean  "is_flip"
-    t.integer  "field"
     t.integer  "home_score"
     t.integer  "away_score"
     t.boolean  "is_rainout"
     t.boolean  "is_active"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "field_id"
   end
 
   create_table "hallof_famers", force: true do |t|
