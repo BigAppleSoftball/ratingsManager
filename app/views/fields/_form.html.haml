@@ -1,0 +1,18 @@
+= form_for @field,:html => {:class => 'form-horizontal'} do |f|
+  - if @field.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@field.errors.count, "error")} prohibited this field from being saved:"
+      %ul
+        - @field.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label :name, {:class => 'col-sm-2 control-label'}
+    .col-sm-10= f.text_field :name, {:class => 'form-control'}
+  .form-group
+    = f.label :park_id, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      =render partial: "shared/forms/park_selector", locals: { parks: @parks , name: 'field[park_id]', selected_park: @field.park}
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit 'Save', :class => 'btn btn-primary'

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :fields
+
   root 'static_pages#home'
   resources :offers
 

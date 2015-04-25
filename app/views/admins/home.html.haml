@@ -9,13 +9,14 @@
     = link_to 'Edit Executive Board', board_members_path, :class => 'list-group-item board_members-group-item'
     = link_to 'Edit Committees', committees_path, :class => 'list-group-item committees-group-item'
     = link_to 'Edit Profiles', profiles_path, :class => 'list-group-item profiles-group-item'
-    = link_to 'Edit Fields', fields_path, :class => 'list-group-item fields-group-item'
+    = link_to 'Edit Parks', fields_path, :class => 'list-group-item parks-group-item'
     = link_to 'Edit Games', games_path, :class => 'list-group-item games-group-item'
     = link_to 'Edit Teams', teams_path, :class => 'list-group-item teams-group-item'
     = link_to 'Edit Seasons', seasons_path, :class => 'list-group-item seasons-group-item'
     = link_to 'View Payments', '/payments/', :class => 'list-group-item list-payments-item'
     = link_to 'Edit Offers', offers_path, :class => 'list-group-item list-payments-item'
     = link_to 'Edit Divisions', divisions_path, :class => 'list-group-item list-division-item'
+    = link_to 'Edit Fields', fields_path, :class => 'list-group-item fields-group-item'
 
 - if is_manager?
   .panel.panel-default

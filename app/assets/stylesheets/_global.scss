@@ -168,3 +168,16 @@ a:hover {
 .clearfix {
   @include clearfix;
 }
+
+// grid
+.row-container {
+  .row {
+    margin: 10px 0;
+    padding: 10px 0;
+    border-top: 1px solid #eee;
+
+    &:first-child {
+      border: none;
+    }
+  }
+}

@@ -1,7 +1,7 @@
 %select.chosen-select.form-control.js-park-selector{ :data => {:placeholder => 'Select a Park'}, :name=> name }
   %option
-  - fields.each do |field|
-    - if selected_field && selected_field == field.id
-      %option{:value => "#{field.id}", :selected => true}=field[:name]
+  - parks.each do |park|
+    - if selected_park && selected_park.id == park.id
+      %option{:value => "#{park.id}", :selected => true}=park[:name]
     - else
-      %option{:value => "#{field.id}"}=field[:name]
+      %option{:value => "#{park.id}"}=park[:name]
