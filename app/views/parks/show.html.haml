@@ -23,13 +23,17 @@
   -if @park.by_car
     .row
       .col-md-2
-        %b By Car:
+        %b 
+          %i.fa.fa-car
+          By Car:
       .col-md-10= raw(@park.by_car)
 
   - if !@park.by_bus.empty?
     .row
       .col-md-2
-        %b By Bus or Train:
+        %b 
+          %i.fa.fa-subway
+          By Bus or Train:
       .col-md-10= raw(@park.by_bus)
 
   -if !@park.parking.empty?
@@ -41,13 +45,17 @@
   - if @park.google_map_url
     .row
       .col-md-2
-        %b Google Map:
+        %b 
+          %i.fa.fa-map-marker
+          Google Map:
       .col-md-10
         = link_to 'Open Map', @park.google_map_url, {:target => '_blank'}
 
   .row
     .col-md-2
-      %b Fields
+      %b 
+        %i.fa.fa-folder-open
+        Fields
     .col-md-10
       = link_to "+ Add Field", new_field_path(:park_id => @park.id), :class => 'btn btn-default'
       %ul
