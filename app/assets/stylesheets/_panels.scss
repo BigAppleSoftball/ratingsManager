@@ -1,4 +1,4 @@
-$parks-bg: $purple;
+$fields-bg: $purple;
 $admins-bg: $red;
 $sponsors-bg: $blue;
 $hofs-bg: $yellow;
@@ -6,13 +6,14 @@ $board_members-bg: $green;
 $committees-bg: $orange;
 $profiles-bg: $pink;
 $games-bg: $deep-blue;
+$parks-bg: lighten($fields-bg, 10%);
 
 #controller-admins {
   @include set-panel($admins-bg, white);
 }
 
-#controller-parks {
-  @include set-panel($parks-bg, white);
+#controller-fields {
+  @include set-panel($fields-bg, white);
 }
 
 #controller-sponsors {
@@ -37,6 +38,10 @@ $games-bg: $deep-blue;
 
 #controller-games {
   @include set-panel($games-bg, white);
+}
+
+#controller-parks {
+  @include set-panel($parks-bg, white);
 }
 
 .admin-list-group {
@@ -71,4 +76,11 @@ $games-bg: $deep-blue;
     background: lighten($games-bg, 30%);
   }
 
+  .parks-group-item:hover {
+    background: lighten($parks-bg, 10%);
+  }
+
+  .fields-group-item:hover {
+    background: lighten($fields-bg, 30%);
+  }
 }
