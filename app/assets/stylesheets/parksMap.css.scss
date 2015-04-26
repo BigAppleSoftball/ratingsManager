@@ -5,7 +5,7 @@
         'bootstrap',
         'stop-light';
 
-.fields-wrapper {
+.parks-wrapper {
   @include clearfix;
   border: 2px solid #666;
 
@@ -33,19 +33,19 @@
 h4 {
   text-align: center;
 }
-.fields-sidebar {
+.parks-sidebar {
   float : left;
   width: 30%;
   max-height: 700px;
   overflow: auto;
 
-  .field-list {
+  .park-list {
     overflow: auto;
     border-bottom: 1px dotted #666;
 
   }
 
-  .field-item {
+  .park-item {
     padding: 10px;
     border: 1px solid #fff;
     border-top: 1px dotted #666;
@@ -57,13 +57,13 @@ h4 {
       border-top-style: solid;
       background: #ddd;
 
-      .field-item-name {
+      .park-item-name {
         font-weight: bold;
       }
     }
   }
 
-  .field-item-marker {
+  .park-item-marker {
     float: right;
   }
 

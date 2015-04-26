@@ -2,6 +2,11 @@ New Season >
   ADD NEW DIVISION
     ADD NEW TEAM (Add ability to add teams from the division screen)
 
-Edit Divisions to Admin Panel
 Organize Admin Panel in a more logical fashion
 Loading Teams is really slow :(
+Fix Impersonate (SOmething wrong with the gem setup)
+DONE RENAME Field ==> Park
+DONE -Fields by Park in the selector
+  Knowing restrictions when you schedule a game
+
+Clean up the park page and the field list underneath it

@@ -105,35 +105,35 @@ class ApplicationController < ActionController::Base
   #--------------------------------------------
 
 
-  def get_field_statuses
-    field_statuses = {0 => 'All Open', 1 => 'Some Closed', 2 => 'All Closed'}
-    field_statuses
+  def get_park_statuses
+    park_statuses = {0 => 'All Open', 1 => 'Some Closed', 2 => 'All Closed'}
+    park_statuses
   end
 
-  def get_all_field_statues
-    fields = Field.all
+  def get_all_park_statues
+    parks = Park.all
     closedCount = 0
     partialCount = 0
     openCount = 0
-    numOfFields = fields.length
-    fields.each do |field|
-      if field.status == 0
+    numOfparks = parks.length
+    parks.each do |park|
+      if park.status == 0
         openCount += 1
-      elsif field.status == 1
+      elsif park.status == 1
         partialCount += 1
-      elsif field.status == 2
+      elsif park.status == 2
         closedCount += 1
       end
     end
 
-    if numOfFields == openCount #all The fields are open
-      fieldStatus = 0
-    elsif numOfFields == closedCount # all the fields are closed
-      fieldStatus = 2
+    if numOfparks == openCount #all The parks are open
+      parkStatus = 0
+    elsif numOfparks == closedCount # all the parks are closed
+      parkStatus = 2
     else #some are open, closed or partially open
-      fieldStatus = 1
+      parkStatus = 1
     end
-    fieldStatus
+    parkStatus
   end
 
 
@@ -160,12 +160,10 @@ class ApplicationController < ActionController::Base
     currentDivision[:id] = 0
     currentDivision[:teams] = Array.new
     teams.each do |team|
-      ap team
       if currentDivision[:id] != team.division_id
         if currentDivision[:teams].length > 0
           teamsByDivision.push(currentDivision)
         end
-
         currentDivision = Hash.new
         currentDivision[:id] = team.division_id
         currentDivision[:name] = team.division.description
@@ -173,6 +171,7 @@ class ApplicationController < ActionController::Base
       end
       currentDivision[:teams].push(team)
     end
+    teamsByDivision.push(currentDivision)
     teamsByDivision
   end
 
@@ -188,7 +187,6 @@ class ApplicationController < ActionController::Base
     ids_by_div_name["Big Apple Softball League"] = 16139
     ids_by_div_name
   end
-
 private
 
   # Finds the User with the ID stored in the session with the key

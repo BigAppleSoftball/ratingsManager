@@ -1,17 +1,10 @@
 class FieldsController < ApplicationController
   before_action :set_field, only: [:show, :edit, :update, :destroy]
-  before_filter :only_for_admin, only: [:edit, :update, :destroy, :new]
 
   # GET /fields
   # GET /fields.json
   def index
     @fields = Field.all
-    fieldsClosedCount = @fields.where(:status => 2).length
-    fieldsOpenCount = @fields.where(:status => 0).length
-
-    @allFieldsClosed = fieldsClosedCount == @fields.length
-    @allFieldsOpen = fieldsOpenCount == @fields.length
-    @fieldsPartial = (!@allFieldsClosed && !@allFieldsOpen)
   end
 
   # GET /fields/1
@@ -21,11 +14,19 @@ class FieldsController < ApplicationController
 
   # GET /fields/new
   def new
+    set_univeral_params
     @field = Field.new
+    if params[:park_id]
+      current_park = Park.find_by(:id => params[:park_id].to_i)
+      if current_park
+        @field[:park_id] = current_park.id
+      end  
+    end
   end
 
   # GET /fields/1/edit
   def edit
+    set_univeral_params
   end
 
   # POST /fields
@@ -68,34 +69,18 @@ class FieldsController < ApplicationController
     end
   end
 
-  def set_all
-    status_num = params[:statusNum]
-    set_to_status = status_num.to_i
-    results = Hash.new
-    Field.all.update_all(:status => set_to_status)
-    results[:success] = true
-    results[:status] = get_field_statuses[set_to_status]
-    render :json => results
-  end
-
-  def show_map
-    @fields = Field.where.not(:lat => nil).order('name ASC')
-    render layout: false
-  end
-
-  def get_field_json
-    fields = Field.where.not(:lat => nil).to_json
-    render :json => fields
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_field
       @field = Field.find(params[:id])
     end
 
+    def set_univeral_params
+      @parks = Park.all
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def field_params
-      params.require(:field).permit(:status, :name, :url, :google_map_url, :address, :city, :state, :zip, :by_car, :by_bus, :by_train, :parking, :is_active, :long, :lat)\
+      params.require(:field).permit(:name, :park_id)
     end
 end

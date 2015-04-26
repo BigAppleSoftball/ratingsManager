@@ -16,10 +16,27 @@ class GamesController < ApplicationController
   def new
     @game = Game.new
     get_universal_game_variables
+    # if there is a division in the params get the season
+    if (params[:division_id])
+      division = Division.find_by( :id =>params[:division_id].to_i)
+      if !division.nil? 
+        @selected_season_id = division.season_id
+        @teamsByDivision = get_teams_by_division(params[:division_id].to_i)
+        @seasons = Array.new
+        @seasons.push(division.season)
+      end
+    end
   end
 
   # GET /games/1/edit
   def edit
+    @selected_season_id = 0
+    # if its a game with a home OR an away team it already has a set season, get it to reflect it in the edit screen
+    if (@game.home_team_id) 
+      @selected_season_id = @game.home_team.division.season.id
+    elsif (@game.away_team_id)
+      @selected_season_id = @game.away_team.division.season.id
+    end
   end
 
   # POST /games
@@ -83,16 +100,17 @@ class GamesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_game
       @game = Game.find(params[:id])
+      @teamsByDivision = get_all_teams_by_division
       get_universal_game_variables
     end
 
     def get_universal_game_variables
-      @teamsByDivision = get_all_teams_by_division
       @seasons = Season.all
+      @fields = Field.where(:is_active => true)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def game_params
-      params.require(:game).permit(:day_id, :start_time, :home_team_id, :integer, :away_team_id, :is_flip, :field, :home_score, :away_score, :is_rainout, :is_active)
+      params.require(:game).permit(:day_id, :start_time, :home_team_id, :integer, :away_team_id, :is_flip, :field_id, :home_score, :away_score, :is_rainout, :is_active)
     end
 end

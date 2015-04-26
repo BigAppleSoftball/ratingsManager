@@ -17,6 +17,12 @@ class DivisionsController < ApplicationController
   # GET /divisions/new
   def new
     @division = Division.new
+    if params[:season_id]
+      current_season = Season.find_by(:id => params[:season_id].to_i)
+      if current_season
+        @division[:season_id] = current_season.id
+      end
+    end
     @seasons = Season.all
   end
 
