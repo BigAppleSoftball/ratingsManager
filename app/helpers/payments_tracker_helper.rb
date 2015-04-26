@@ -147,4 +147,31 @@ module PaymentsTrackerHelper
     player_form.checkbox_with(:name => "custom[143981]").check # set the Player as register
     player_form.submit
   end
+
+  #
+  # Triggers sending the email to the Webteam
+  #
+  def send_web_team_roster_email(division_id, division_name, token =nil)
+    repEmail = 'webteam@bigapplesoftball.com'
+    send_division_roster_email(division_id, division_name, repEmail, nil,token)
+  end
+
+  #
+  # Sends division roster emails
+  #
+  def send_division_roster_email(division_id, division_name, toEmail, ccEmail, token = nil)
+    # we know the division Id but I also want to grab the name for the email
+    if division_name.nil?
+      division = teamsnap_divs_by_id.select{|key, value| value == division_id }
+      division_name = division.first.first
+    end
+
+    toEmail = toEmail
+    ccEmail = ccEmail
+    div_data = get_division_team_data(division_id, token)
+    #ap div_data
+    # get the rosters of all teams in this division
+    PaymentMailer.payments_roster(div_data, division_name, toEmail, ccEmail).deliver
+    #render 'email_confirmation'
+  end
 end

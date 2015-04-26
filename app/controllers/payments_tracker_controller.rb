@@ -6,19 +6,6 @@ class PaymentsTrackerController < ApplicationController
   def index
   end
 
-  def send_roster
-    division_ids = teamsnap_divs_by_id
-    target_div_name = '5. Sachs Division'
-    targeted_division_id = teamsnap_divs_by_id[target_div_name]
-    mechanize = Mechanize.new
-    # get all teams
-    @div_data = get_division_team_data(targeted_division_id)
-    @div_name = target_div_name
-
-    # Mail the roster payments
-    PaymentMailer.payments_roster(@div_data, @div_name).deliver
-  end
-
   #
   # Renders view that shows all buttons to go to individual divisions
   #
@@ -51,29 +38,8 @@ class PaymentsTrackerController < ApplicationController
     sendDivisionRosterEmail(params[:divisionId].to_i, repEmail, ccEmail)
   end
 
-    #
-  # Triggers sending the email to the Webteam
-  #
-  def emailWebteam
-    repEmail = 'webteam@bigapplesoftball.com'
-    sendDivisionRosterEmail(params[:divisionId].to_i, repEmail, nil)
-  end
-
-  def sendDivisionRosterEmail(division_id, toEmail, ccEmail)
-
-    # we know the division Id but I also want to grab the name
-    division = teamsnap_divs_by_id.select{|key, value| value == division_id }
-    @division_name = division.first.first
-
-    @toEmail = toEmail
-    @ccEmail = ccEmail
-    @div_data = get_division_team_data(division_id)
-    # get the rosters of all teams in this division
-    PaymentMailer.payments_roster(@div_data, @division_name, toEmail, ccEmail).deliver
-    render 'email_confirmation'
-  end
-
-  def teams_by_division
+  def emailWebTeam
+    send_web_team_roster_email(params[:division_id])
   end
 
   def new_account

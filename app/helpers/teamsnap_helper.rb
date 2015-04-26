@@ -32,37 +32,76 @@ module TeamsnapHelper
   end
 
   #
+  # Gets the teamsnap_token if token sent is null
+  #
+  def get_teamsnap_token(token = nil)
+    if (token.nil?)
+      cookies[:teamsnap_token]
+    else
+      token
+    end
+  end
+
+  #
   # Get all teams from the teamsnamp api and cache them
   #
-  def get_all_teams
+  def get_all_teams(token = nil)
     Rails.cache.fetch("all_teams", :expires_in => 60.minutes) do
       get_all_teams_api
     end
   end
 
+
   #
   # Get all teams api
   #
-  def get_all_teams_api
+  def get_all_teams_api(token = nil)
     teamsURL = 'https://api.teamsnap.com/v2/teams'
     conn = connect
-    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
-    ap "CONNECT"
-    ap conn
+    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => get_teamsnap_token(token)}
     response = conn.get teamsURL
     preprocess_team_data(JSON.parse(response.body))
   end
 
-    #
+  #
+  # Get all the divisions from the teamsnap api and cache them
+  #
+  def get_all_divisions(token = nil)
+    Rails.cache.fetch("all_divisions", :expires_in => 60.minutes) do
+      get_divisions(token)
+    end
+  end
+
+  # TODO get rid of old teamsnap crap
+  def get_divisions(token = nil)
+    divisionsURL = "https://api.teamsnap.com/v2/divisions/16139"
+    conn = connect
+    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => get_teamsnap_token(token)}
+    response = conn.get divisionsURL
+    JSON.parse(response.body)
+  end
+
+
+  #todo get rid of old teamsnap crap
+  def get_roster(teamId, rosterId, token = nil)
+    rosterURL = "https://api.teamsnap.com/v2/teams/#{teamId}/as_roster/#{rosterId}/rosters"
+    conn = connect
+    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => get_teamsnap_token(token)}
+    response = conn.get rosterURL
+    JSON.parse(response.body)
+  end
+
+  #
   # Log user into the teamsnap api (return status)
   #
-  def log_in_to_teamsnap(username, password)
+  def log_in_to_teamsnap(username, password, use_cookies=true)
     loginURL = 'https://api.teamsnap.com/v2/authentication/login/'
     conn = connect
     loginHash = Hash.new
-    if cookies[:teamsnap_token].nil?
-      conn.params  = {'user' => username, 'password' => password}
-      conn.headers = {'Content-Type'=> 'application/json'}
+    teamsnapToken = nil
+    conn.params  = {'user' => username, 'password' => password}
+    conn.headers = {'Content-Type'=> 'application/json'}
+    if use_cookies && cookies[:teamsnap_token].nil?
       response = conn.post loginURL
       loginHash[:status] = response.headers['status']
       loginHash[:message] = response.headers['x-rack-cache']
@@ -71,11 +110,19 @@ module TeamsnapHelper
         loginHash[:failed] = true
       else
         loginHash[:success] = true
-        cookies[:teamsnap_token] = teamsnapToken
-        set_admin(username)
+        if use_cookies
+          cookies[:teamsnap_token] = teamsnapToken
+          set_admin(username)
+        else
+          teamsnapToken # if we aren't using the cookies return it
+        end
       end
+      teamsnapToken
+    else
+      response = conn.post loginURL
+      teamsnapToken = response.headers['x-teamsnap-token']
+      loginHash[:teamsnapToken] = teamsnapToken
     end
-    # TODO (check if user has admin permissions on app)
     loginHash
   end
 
@@ -112,14 +159,6 @@ module TeamsnapHelper
     teamsByDivision
   end
 
-  def get_roster(teamId, rosterId)
-    rosterURL = "https://api.teamsnap.com/v2/teams/#{teamId}/as_roster/#{rosterId}/rosters"
-    conn = connect
-    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
-    response = conn.get rosterURL
-    JSON.parse(response.body)
-  end
-
   def get_roster_player(teamId, rosterId, playerId)
     rosterPlayerURL = "https://api.teamsnap.com/v2/teams/#{teamId}/as_roster/#{rosterId}/rosters/#{playerId}"
     conn = connect
@@ -136,22 +175,13 @@ module TeamsnapHelper
     JSON.parse(response.body)
   end
 
-
-  def get_roster(teamId, rosterId)
-    rosterURL = "https://api.teamsnap.com/v2/teams/#{teamId}/as_roster/#{rosterId}/rosters"
-    conn = connect
-    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
-    response = conn.get rosterURL
-    JSON.parse(response.body)
-  end
-
   #
   # TODO (make the cache support division ids)
   #
-  def get_division_team_data(division_id)
-    #Rails.cache.fetch("division_data2-#{division_id}", :expires_in => 60.minutes) do
-      get_division_team_data_api(division_id)
-    #end
+  def get_division_team_data(division_id, token = nil)
+    Rails.cache.fetch("division_data2-#{division_id}", :expires_in => 60.minutes) do
+      get_division_team_data_api(division_id, token)
+    end
   end
 
     def get_customIds(ratingSection = nil)
@@ -195,7 +225,7 @@ module TeamsnapHelper
   end
 
   # TODO
-  def get_division_team_data_api(division_id)
+  def get_division_team_data_api(division_id, token = nil)
     division_data = Hash.new
     division_data[:all_teams] = get_all_teams
     
@@ -218,7 +248,7 @@ module TeamsnapHelper
               if roster
                 team_roster = team['available_rosters'].first
                 roster_id = roster['id']
-                roster = get_roster(team['id'], roster_id)
+                roster = get_roster(team['id'], roster_id, token)
                 @roster = roster
                 roster
                 #rosterId = params[:rosterId]
