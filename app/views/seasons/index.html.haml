@@ -1,9 +1,14 @@
-%h1 Seasons
+- content_for :panel_head do
+  %h1 Seasons
+  = render partial: 'shared/actions/view_all_actions', locals: { newPath: new_season_path}
 
 
-%table.table.table-striped.table-bordered
+%table.table.table-striped.table-bordered.table-condensed
   %tr
-    %th Season
+    %th Season Name
+    %th
+      %span.js-tooltip{:title=> "Inactive Seasons cannot have games or rosters updated"}Active Season?
   - @seasons.each do |season|
     %tr
-      %td= link_to season.season_desc, season
+      %td= link_to season.description, season
+      %td=yes_or_no_icon(season.is_active).html_safe

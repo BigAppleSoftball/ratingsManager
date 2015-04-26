@@ -1,0 +1,74 @@
+@import 'vars',
+        'mixins',
+        'compass',
+        "bootstrap-sprockets",
+        'bootstrap',
+        'stop-light';
+
+.parks-wrapper {
+  @include clearfix;
+  border: 2px solid #666;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      margin: 0;
+      padding: 0;
+    }
+  }
+}
+
+#map-canvas {
+  min-height: 700px;
+  //width: 700px;
+  margin: 0;
+  padding: 0;
+  float: left;
+  width: 70%;
+}
+
+h4 {
+  text-align: center;
+}
+.parks-sidebar {
+  float : left;
+  width: 30%;
+  max-height: 700px;
+  overflow: auto;
+
+  .park-list {
+    overflow: auto;
+    border-bottom: 1px dotted #666;
+
+  }
+
+  .park-item {
+    padding: 10px;
+    border: 1px solid #fff;
+    border-top: 1px dotted #666;
+    clear: both;
+    min-height: 80px;
+
+    &.is-active {
+      border-color: $blue;
+      border-top-style: solid;
+      background: #ddd;
+
+      .park-item-name {
+        font-weight: bold;
+      }
+    }
+  }
+
+  .park-item-marker {
+    float: right;
+  }
+
+  .stop-light {
+    float: left;
+    margin-right: 10px;
+  }
+}

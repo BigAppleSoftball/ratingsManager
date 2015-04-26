@@ -1,0 +1,27 @@
+!!!
+%html
+  %head
+    =stylesheet_link_tag "parksMap.css"
+  %body
+    .parks-wrapper
+      .parks-sidebar.js-park-sidebar
+        %h4 parks
+        %ul.park-list
+          - count = 1
+          - @parks.each do |park|
+            %li.park-item.js-park-item{:data => {:lat => "#{park.lat}", :long => "#{park.long}", :status => park.status, :count => count}}
+              = render partial: "parks/status_indicator", locals: {statusValue: park.status, statusString: get_park_statuses[park.status]}
+              .park-item-marker.js-park-count=count
+              .park-item-body
+                .park-item-name= park.name
+                .park-item-address
+                  = park.address
+                  = "#{park.city}, #{park.state} #{park.zip}"
+                = link_to 'Google Map Directions', "https://www.google.com/maps/dir//#{park.lat},#{park.long}/@#{park.lat},#{park.long},17z/", {:target => '_blank'}
+                %div= link_to 'park Info', park
+              - count+=1
+      #map-canvas
+      %br
+    = javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"
+    = javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyCoGxbgo50sQ98aSQxXUwyeZexTwkWYUlI"
+    = javascript_include_tag "parksMap.js"

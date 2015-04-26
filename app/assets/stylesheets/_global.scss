@@ -43,8 +43,14 @@ a:hover {
   display: inline-block;
 }
 
+.yes-icon, 
+.no-icon {
+  display: block;
+  margin: 0 auto;
+}
 .yes-icon {
   color: $brand-success;
+
 }
 
 .no-icon {
@@ -52,9 +58,6 @@ a:hover {
 }
 
 .global-notice {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
 }
 
@@ -105,7 +108,7 @@ a:hover {
 }
 
 .actions-column {
-  width: 105px;
+  width: 110px;
 }
 
 .danger-column {
@@ -124,5 +127,57 @@ a:hover {
   // sortable styling
   .current-column {
     font-weight: bold;
+  }
+}
+
+.panel-heading {
+  @include clearfix;
+}
+
+// Add Player Modal
+.add-player-modal {
+  .chosen-container {
+    width: 100% !important;
+  }
+}
+
+// admin styling
+.admin-action-container {
+  border: 2px dashed $red;
+  padding: 10px;
+}
+
+.inactive-season {
+  font-size: 14px;
+  color: lighten($dark-gray, 40%);
+  line-height: 36px;
+  vertical-align: middle;
+}
+
+
+//loading icon
+.loading-icon {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  background: url(../images/loading.gif) no-repeat 0 0;
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.clearfix {
+  @include clearfix;
+}
+
+// grid
+.row-container {
+  .row {
+    margin: 10px 0;
+    padding: 10px 0;
+    border-top: 1px solid #eee;
+
+    &:first-child {
+      border: none;
+    }
   }
 }

@@ -83,7 +83,7 @@
 
       $.ajax({
           type: "POST",
-          url: '/teamsnaplogin',
+          url: '/teamsnap/login',
           data: formData.data})
         .done(function(data) {
           if (data.failed) {

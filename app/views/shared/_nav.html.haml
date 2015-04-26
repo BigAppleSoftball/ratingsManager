@@ -2,18 +2,51 @@
   .container-fluid
     .navbar-header
       .navbar-brand
-        %a{:href => "/welcome", :title => "Ratings Manager"}
+        %a{:href => "/", :title => "Ratings Manager"}
           %i.brand-logo-40
     .collapse.navbar-collapse
       %ul.nav.navbar-nav
-        %li
-          %a{:href => "/welcome"} Teamsnap Teams
-        %li
-          %a{:href => seasons_path} Seasons
+        %li.dropdown
+          %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+            About
+            %span.caret
+          %ul.dropdown-menu{:role => "menu"}
+            %li
+              %a{:href => "#"} About Us
+            %li
+              =link_to 'Board Members', '/showallboard'
+            %li
+              =link_to 'Committees', '/showallcommittee'
+        %li.dropdown{:style => "position:relative"}
+          %a.btn.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+            Seasons
+            %span.caret
+          =render :partial => 'shared/nav/seasons'
+        %li=link_to 'Parks', parks_path
+        %li=link_to 'Calendar', '/loadcalendar'
+        %li=link_to 'Offers', '/alloffers'
+        %li=link_to 'Teamsnap', '/teamsnap'
       %ul.nav.navbar-nav.navbar-right
-        - if is_admin?
+        - if is_admin_user?
           %li
-            %a.glyphicon.glyphicon-wrench{:href => '/admin/home'}
+            %a.fa.fa-cog.admin-action-icon{:href => '/admin/home'}
         - if is_logged_in?
+          %li.nav-current-profile
+            = link_to current_profile.to_s, current_profile
           %li
-            %a{:href => '/logout'} Logout
+            %a{:href => '/signout'}
+              Logout
+        - else
+          %li
+            %a{:href => '/signin'} Login
+  -if current_staff_user
+    .sub-nav-wrapper.impersonating-bar
+      .impersonate-notification.pull-left
+        You (
+        %span.admin_name= current_staff_user
+        ) are impersonating
+        %span.profile_name= current_user
+        ( User id: #{current_user.to_param} )
+      .pull-right.impersonate-actions
+        = form_tag impersonate_engine.revert_impersonate_user_url, :method => :delete, :class => 'revert-form' do
+          %button.btn.btn-sm.btn-default{:type => "submit"} Revert

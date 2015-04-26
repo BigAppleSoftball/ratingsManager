@@ -1,7 +1,5 @@
-%h1 Editing season
+- content_for :panel_head do
+  %h1 Editing Season
+  = render partial: "shared/actions/edit_actions", locals: { allPath: seasons_path, fieldName: 'Season', showPath: @season}
 
 = render 'form'
-
-= link_to 'Show', @season
-\|
-= link_to 'Back', seasons_path

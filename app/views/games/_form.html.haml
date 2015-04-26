@@ -1,0 +1,65 @@
+= form_for @game,:html => {:class => 'form-horizontal'} do |f|
+  - if @game.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@game.errors.count, "error")} prohibited this game from being saved:"
+      %ul
+        - @game.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    .alert.alert-warning
+      You can only create games for a CURRENT season.
+    %label.col-sm-2.control-label
+      Season
+    .col-sm-10
+      %select.chosen-select.js-season-selector{:data => {:placeholder => 'Select a Season'}}
+        %option
+        -@seasons.each do |season|
+          -if season.id == @selected_season_id
+            %option{:value => season.id, :selected => true}=season.description
+          -else
+            %option{:value => season.id}=season.description
+
+
+  .form-group
+    = f.label :start_time, {:class => 'col-sm-2 control-label'}
+    .col-sm-10= f.datetime_select :start_time, {:class => 'form-control'}
+  
+  .form-group
+    = f.label :home_team_id, {:class => 'col-sm-2 control-label'}
+    .col-sm-10=render partial: "shared/forms/teams_selector", locals: { selector_id: 'game_home_team_id' , selector_name: 'game[home_team_id]', selector_value: @game.home_team_id.nil? ? 0 : @game.home_team_id, selector_placeholder: 'Select a Home Team' }
+  .form-group
+    = f.label :away_team_id, {:class => 'col-sm-2 control-label'}
+    .col-sm-10.col-sm-10=render partial: "shared/forms/teams_selector", locals: { selector_id: 'game_away_team_id' , selector_name: 'game[away_team_id]', selector_value: @game.away_team_id.nil? ? 0 : @game.away_team_id, selector_placeholder: 'Select a Away Team' }
+  
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      .checkbox
+        %label
+          = f.check_box :is_flip
+          Flip for home team?
+  .form-group
+    = f.label :field, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      =render partial: "shared/forms/field_selector", locals: { fields: @fields , name: 'game[field_id]', selected_field: @game.field}
+  .form-group
+    = f.label :home_score, {:class => 'col-sm-2 control-label'}
+    .col-sm-10= f.number_field :home_score, {:class => 'form-control'}
+  .form-group
+    = f.label :away_score, {:class => 'col-sm-2 control-label'}
+    .col-sm-10= f.number_field :away_score, {:class => 'form-control'}
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      .checkbox
+        %label
+          = f.check_box :is_rainout
+          Is Rained Out Game?
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      .checkbox
+        %label
+          = f.check_box :is_active
+          Is Active Game?
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit 'Save', :class => 'btn btn-primary'

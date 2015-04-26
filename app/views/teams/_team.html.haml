@@ -1,90 +1,25 @@
-.panel.panel-default
-  .panel-heading
-    %h3= link_to "#{team.name}", team 
-    %h4= team.division.season.season_desc
-    %h4= link_to "#{team.division.div_description}", team.division
-    =# link_to 'Edit', edit_team_path(team)
-  .panel-body
-    %table.table.table-bordered
-      %tr
-        %th Wins
-        %th Losses
-        %th Ties
-        %th Games Played
-        %th Runs Scored
-        %th Runs Allowed
-      %tr
-        %td= team.stat_win
-        %td= team.stat_loss
-        %td= team.stat_tie
-        %td= team.stat_play
-        %td= team.stat_pt_scored
-        %td= team.stat_pt_allowed
-    %p= raw(team.team_desc)
-    -if teamsRosters.length > 0
-      .panel.panel-default
-        .panel-heading
-          Roster
-        .panel-body
-          %table.table.table-striped.table-bordered.table-condensed
-            %tr
-              %th Player
-              %th Rating
-              %th Throwing
-              %th Fielding
-              %th Baserunning
-              %th Hitting
-            -teamsRosters.each do |roster|
-              -if !roster.profile.nil?
-                %tr
-                  %td
-                    %strong
-                      =roster.profile.first_name
-                      =roster.profile.last_name
-                  %td
-                    -if roster.profile.rating
-                      =roster.profile.rating.rating_total
-                  %td
-                    -if roster.profile.rating
-                      =roster.profile.rating.rating_1
-                      =roster.profile.rating.rating_2
-                      =roster.profile.rating.rating_3
-                      =roster.profile.rating.rating_4
-                      =roster.profile.rating.rating_5
-                  %td
-                    -if roster.profile.rating
-                      =roster.profile.rating.rating_6
-                      =roster.profile.rating.rating_7
-                      =roster.profile.rating.rating_8
-                      =roster.profile.rating.rating_9
-                      =roster.profile.rating.rating_10
-                      =roster.profile.rating.rating_11
-                      =roster.profile.rating.rating_12
-                      =roster.profile.rating.rating_13
-                      =roster.profile.rating.rating_14
-                  %td
-                    -if roster.profile.rating
-                      =roster.profile.rating.rating_15
-                      =roster.profile.rating.rating_16
-                      =roster.profile.rating.rating_17
-                      =roster.profile.rating.rating_18
-                  %td
-                    -if roster.profile.rating
-                      =roster.profile.rating.rating_19
-                      =roster.profile.rating.rating_20
-                      =roster.profile.rating.rating_21
-                      =roster.profile.rating.rating_22
-                      =roster.profile.rating.rating_23
-                      =roster.profile.rating.rating_24
-                      =roster.profile.rating.rating_25
-                      =roster.profile.rating.rating_26
-                      =roster.profile.rating.rating_27
-    -if !teamsSponsors.nil?
-      .panel.panel-default
-        .panel-heading 
-          Sponsors
-        .panel-body
-          %ul
-            -teamsSponsors.each do |team_sponsor|
-              -if !team_sponsor.sponsor.nil?
-                %li=link_to team_sponsor.sponsor.name, team_sponsor.sponsor
+
+-if team.description
+  .well.well-sm= raw(team.description)
+%table.table.table-bordered
+  %tr
+    %th Wins
+    %th Losses
+    %th Ties
+    %th Games Played
+    %th Runs Scored
+    %th Runs Allowed
+  %tr
+    %td= team.stat_win
+    %td= team.stat_loss
+    %td= team.stat_tie
+    %td= team.stat_play
+    %td= team.stat_pt_scored
+    %td= team.stat_pt_allowed
+
+-if teamsRosters.length > 0
+  = render :partial => 'teams/roster', :locals => {:rosters => teamsRosters}
+-if teamsSponsors.length > 0
+  = render :partial => 'teams/sponsors', :locals => {:sponsors => teamsSponsors}
+-if games.length > 0
+  = render :partial => 'teams/schedule', :locals => {:games => games}

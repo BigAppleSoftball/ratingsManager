@@ -1,6 +1,10 @@
 .panel.panel-default
   .panel-heading
-    %h3= link_to "#{division.season.season_desc} #{division.div_description}", division
+    -if defined?(isShow) && isShow
+      %h5 Standings
+    - else
+      %h5= link_to "#{division.full_name}", division
+
   .panel-body
     %table.table.table-striped.table-bordered
       %tr
@@ -18,11 +22,11 @@
           Runs Scored
         %th
           Runs Allowed
-        %th 
+        %th
           Games Behind
       -division.teams.each do |team|
         %tr
-          %td= link_to "#{team.name}", team 
+          %td= link_to "#{team.name}", team
           %td=team.stat_win
           %td=team.stat_loss
           %td=team.stat_tie
@@ -30,4 +34,5 @@
           %td=team.stat_pt_scored
           %td=team.stat_pt_allowed
           %td=team.stat_games_back
-          
+
+  // TODO (Paige) Add League Schedule

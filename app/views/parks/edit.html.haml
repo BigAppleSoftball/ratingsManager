@@ -1,0 +1,5 @@
+- content_for :panel_head do
+  %h1 Editing park
+  = render partial: "shared/actions/edit_actions", locals: { allPath: parks_path, fieldName: 'Park', showPath: @park}
+
+= render 'form'

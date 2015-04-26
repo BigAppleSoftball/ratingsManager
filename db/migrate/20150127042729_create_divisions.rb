@@ -10,7 +10,6 @@ class CreateDivisions < ActiveRecord::Migration
       t.integer :team_cap
       t.integer :waitlist_cap
       t.boolean :is_active
-
       t.timestamps
     end
   end

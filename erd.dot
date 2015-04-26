@@ -1,0 +1,293 @@
+digraph RatingsManager {
+rankdir = "LR";
+ranksep = "0.5";
+nodesep = "0.4";
+pad = "0.4,0.4";
+margin = "0,0";
+concentrate = "true";
+labelloc = "t";
+fontsize = "13";
+fontname = "Arial BoldMT";
+node[ shape  =  "Mrecord" , fontsize  =  "10" , fontname  =  "ArialMT" , margin  =  "0.07,0.05" , penwidth  =  "1.0"];
+edge[ fontname  =  "ArialMT" , fontsize  =  "7" , dir  =  "both" , arrowsize  =  "0.9" , penwidth  =  "1.0" , labelangle  =  "32" , labeldistance  =  "1.8"];
+label = "RatingsManager domain model\n\n";
+m_Admin [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial BoldMT" point-size="11">Admin</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="email">email <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+</table>
+>];
+m_BoardMember [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial BoldMT" point-size="11">BoardMember</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="alt_email">alt_email <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="display_order">display_order <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="email">email <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="first_name">first_name <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="image_url">image_url <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="is_committee_lead">is_committee_lead <font face="Arail ItalicMT" color="grey60">boolean</font></td></tr>
+  <tr><td align="left" width="130" port="is_division_rep">is_division_rep <font face="Arail ItalicMT" color="grey60">boolean</font></td></tr>
+  <tr><td align="left" width="130" port="last_name">last_name <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="position">position <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+</table>
+>];
+m_Committee [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial BoldMT" point-size="11">Committee</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="email">email <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="name">name <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+</table>
+>];
+m_Division [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial BoldMT" point-size="11">Division</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="div_description">div_description <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="div_id">div_id <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="div_order">div_order <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="is_active">is_active <font face="Arail ItalicMT" color="grey60">boolean</font></td></tr>
+  <tr><td align="left" width="130" port="pool_id">pool_id <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="standings">standings <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="team_cap">team_cap <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="waitlist_cap">waitlist_cap <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+</table>
+>];
+m_Field [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial BoldMT" point-size="11">Field</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="address">address <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="by_bus">by_bus <font face="Arail ItalicMT" color="grey60">text</font></td></tr>
+  <tr><td align="left" width="130" port="by_car">by_car <font face="Arail ItalicMT" color="grey60">text</font></td></tr>
+  <tr><td align="left" width="130" port="by_train">by_train <font face="Arail ItalicMT" color="grey60">text</font></td></tr>
+  <tr><td align="left" width="130" port="city">city <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="directions">directions <font face="Arail ItalicMT" color="grey60">text</font></td></tr>
+  <tr><td align="left" width="130" port="google_map_url">google_map_url <font face="Arail ItalicMT" color="grey60">text</font></td></tr>
+  <tr><td align="left" width="130" port="is_active">is_active <font face="Arail ItalicMT" color="grey60">boolean</font></td></tr>
+  <tr><td align="left" width="130" port="lat">lat <font face="Arail ItalicMT" color="grey60">float (24)</font></td></tr>
+  <tr><td align="left" width="130" port="long">long <font face="Arail ItalicMT" color="grey60">float (24)</font></td></tr>
+  <tr><td align="left" width="130" port="name">name <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="parking">parking <font face="Arail ItalicMT" color="grey60">text</font></td></tr>
+  <tr><td align="left" width="130" port="state">state <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="status">status <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="url">url <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="zip">zip <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+</table>
+>];
+m_Game [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial BoldMT" point-size="11">Game</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="away_score">away_score <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="away_team_id">away_team_id <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="day_id">day_id <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="field">field <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="home_score">home_score <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="integer">integer <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="is_active">is_active <font face="Arail ItalicMT" color="grey60">boolean</font></td></tr>
+  <tr><td align="left" width="130" port="is_flip">is_flip <font face="Arail ItalicMT" color="grey60">boolean</font></td></tr>
+  <tr><td align="left" width="130" port="is_rainout">is_rainout <font face="Arail ItalicMT" color="grey60">boolean</font></td></tr>
+  <tr><td align="left" width="130" port="start_time">start_time <font face="Arail ItalicMT" color="grey60">datetime</font></td></tr>
+</table>
+>];
+m_HallofFamer [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial BoldMT" point-size="11">HallofFamer</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="date_inducted">date_inducted <font face="Arail ItalicMT" color="grey60">datetime</font></td></tr>
+  <tr><td align="left" width="130" port="details">details <font face="Arail ItalicMT" color="grey60">text</font></td></tr>
+  <tr><td align="left" width="130" port="display_order">display_order <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="first_name">first_name <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="image_url">image_url <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="is_active">is_active <font face="Arail ItalicMT" color="grey60">boolean</font></td></tr>
+  <tr><td align="left" width="130" port="is_inducted">is_inducted <font face="Arail ItalicMT" color="grey60">boolean</font></td></tr>
+  <tr><td align="left" width="130" port="last_name">last_name <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+</table>
+>];
+m_Profile [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial BoldMT" point-size="11">Profile</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="address">address <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="display_name">display_name <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="dob">dob <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="email">email <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="emergency_email">emergency_email <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="emergency_name">emergency_name <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="emergency_phone">emergency_phone <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="emergency_relation">emergency_relation <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="first_name">first_name <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="gender">gender <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="last_name">last_name <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="long_image_url">long_image_url <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="nickname">nickname <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="phone">phone <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="player_number">player_number <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="position">position <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="profile_code">profile_code <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="shirt_size">shirt_size <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="state">state <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="zip">zip <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+</table>
+>];
+m_Rating [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial BoldMT" point-size="11">Rating</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="approved_by_profile_id">approved_by_profile_id <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="approver_notes">approver_notes <font face="Arail ItalicMT" color="grey60">text</font></td></tr>
+  <tr><td align="left" width="130" port="date_approved">date_approved <font face="Arail ItalicMT" color="grey60">datetime</font></td></tr>
+  <tr><td align="left" width="130" port="date_rated">date_rated <font face="Arail ItalicMT" color="grey60">datetime</font></td></tr>
+  <tr><td align="left" width="130" port="history">history <font face="Arail ItalicMT" color="grey60">text</font></td></tr>
+  <tr><td align="left" width="130" port="is_active">is_active <font face="Arail ItalicMT" color="grey60">boolean</font></td></tr>
+  <tr><td align="left" width="130" port="is_approved">is_approved <font face="Arail ItalicMT" color="grey60">boolean</font></td></tr>
+  <tr><td align="left" width="130" port="is_provisional">is_provisional <font face="Arail ItalicMT" color="grey60">boolean</font></td></tr>
+  <tr><td align="left" width="130" port="ng">ng <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="nr">nr <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rated_by_profile_id">rated_by_profile_id <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_1">rating_1 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_10">rating_10 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_11">rating_11 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_12">rating_12 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_13">rating_13 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_14">rating_14 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_15">rating_15 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_16">rating_16 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_17">rating_17 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_18">rating_18 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_19">rating_19 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_2">rating_2 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_20">rating_20 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_21">rating_21 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_22">rating_22 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_23">rating_23 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_24">rating_24 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_25">rating_25 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_26">rating_26 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_27">rating_27 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_3">rating_3 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_4">rating_4 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_5">rating_5 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_6">rating_6 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_7">rating_7 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_8">rating_8 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_9">rating_9 <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="rating_list">rating_list <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="rating_notes">rating_notes <font face="Arail ItalicMT" color="grey60">text</font></td></tr>
+  <tr><td align="left" width="130" port="rating_total">rating_total <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="ssma_timestamp">ssma_timestamp <font face="Arail ItalicMT" color="grey60">datetime</font></td></tr>
+  <tr><td align="left" width="130" port="updated">updated <font face="Arail ItalicMT" color="grey60">text</font></td></tr>
+</table>
+>];
+m_Roster [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial BoldMT" point-size="11">Roster</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="date_approved">date_approved <font face="Arail ItalicMT" color="grey60">datetime</font></td></tr>
+  <tr><td align="left" width="130" port="date_created">date_created <font face="Arail ItalicMT" color="grey60">datetime</font></td></tr>
+  <tr><td align="left" width="130" port="date_updated">date_updated <font face="Arail ItalicMT" color="grey60">datetime</font></td></tr>
+  <tr><td align="left" width="130" port="is_active">is_active <font face="Arail ItalicMT" color="grey60">boolean</font></td></tr>
+  <tr><td align="left" width="130" port="is_approved">is_approved <font face="Arail ItalicMT" color="grey60">boolean</font></td></tr>
+  <tr><td align="left" width="130" port="is_confirmed">is_confirmed <font face="Arail ItalicMT" color="grey60">boolean</font></td></tr>
+  <tr><td align="left" width="130" port="is_manager">is_manager <font face="Arail ItalicMT" color="grey60">boolean</font></td></tr>
+  <tr><td align="left" width="130" port="is_player">is_player <font face="Arail ItalicMT" color="grey60">boolean</font></td></tr>
+  <tr><td align="left" width="130" port="is_rep">is_rep <font face="Arail ItalicMT" color="grey60">boolean</font></td></tr>
+</table>
+>];
+m_Season [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial BoldMT" point-size="11">Season</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="date_end">date_end <font face="Arail ItalicMT" color="grey60">datetime</font></td></tr>
+  <tr><td align="left" width="130" port="date_start">date_start <font face="Arail ItalicMT" color="grey60">datetime</font></td></tr>
+  <tr><td align="left" width="130" port="league_id">league_id <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="pool_id">pool_id <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="season_desc">season_desc <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+</table>
+>];
+m_Sponsor [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial BoldMT" point-size="11">Sponsor</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="created_user_id">created_user_id <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="date_created">date_created <font face="Arail ItalicMT" color="grey60">datetime</font></td></tr>
+  <tr><td align="left" width="130" port="date_updated">date_updated <font face="Arail ItalicMT" color="grey60">datetime</font></td></tr>
+  <tr><td align="left" width="130" port="details">details <font face="Arail ItalicMT" color="grey60">text</font></td></tr>
+  <tr><td align="left" width="130" port="email">email <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="is_active">is_active <font face="Arail ItalicMT" color="grey60">boolean</font></td></tr>
+  <tr><td align="left" width="130" port="is_league">is_league <font face="Arail ItalicMT" color="grey60">boolean</font></td></tr>
+  <tr><td align="left" width="130" port="logo_url">logo_url <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="name">name <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="phone">phone <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="show_carousel">show_carousel <font face="Arail ItalicMT" color="grey60">boolean</font></td></tr>
+  <tr><td align="left" width="130" port="updated_user_id">updated_user_id <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="url">url <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+</table>
+>];
+m_Team [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial BoldMT" point-size="11">Team</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="contact">contact <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="created_user_id">created_user_id <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="date_approved">date_approved <font face="Arail ItalicMT" color="grey60">datetime</font></td></tr>
+  <tr><td align="left" width="130" port="date_created">date_created <font face="Arail ItalicMT" color="grey60">datetime</font></td></tr>
+  <tr><td align="left" width="130" port="date_updated">date_updated <font face="Arail ItalicMT" color="grey60">datetime</font></td></tr>
+  <tr><td align="left" width="130" port="email">email <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="long_name">long_name <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="name">name <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="stat_games_back">stat_games_back <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="stat_loss">stat_loss <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="stat_play">stat_play <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="stat_pt_allowed">stat_pt_allowed <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="stat_pt_scored">stat_pt_scored <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="stat_tie">stat_tie <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="stat_win">stat_win <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="team_code">team_code <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="team_desc">team_desc <font face="Arail ItalicMT" color="grey60">text</font></td></tr>
+  <tr><td align="left" width="130" port="team_status">team_status <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+  <tr><td align="left" width="130" port="teamsnap_id">teamsnap_id <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="updated_user_id">updated_user_id <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+  <tr><td align="left" width="130" port="win_perc">win_perc <font face="Arail ItalicMT" color="grey60">string</font></td></tr>
+</table>
+>];
+m_TeamsSponsor [label = <<table border="0" align="center" cellspacing="0.5" cellpadding="0" width="134">
+  <tr><td align="center" valign="bottom" width="130"><font face="Arial BoldMT" point-size="11">TeamsSponsor</font></td></tr>
+</table>
+|
+<table border="0" align="left" cellspacing="2" cellpadding="0" width="134">
+  <tr><td align="left" width="130" port="is_active">is_active <font face="Arail ItalicMT" color="grey60">boolean</font></td></tr>
+  <tr><td align="left" width="130" port="link_id">link_id <font face="Arail ItalicMT" color="grey60">integer</font></td></tr>
+</table>
+>];
+  m_Profile -> m_BoardMember [arrowhead = "none", arrowtail = "none", weight = "2"];
+  m_Profile -> m_Committee [arrowhead = "none", arrowtail = "none", weight = "2"];
+  m_Division -> m_Team [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_Season -> m_Division [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_Team -> m_Game [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_Profile -> m_HallofFamer [arrowhead = "none", arrowtail = "none", weight = "2"];
+  m_Team -> m_Profile [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_Profile -> m_Roster [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_Profile -> m_Rating [arrowhead = "none", arrowtail = "none", weight = "2"];
+  m_Team -> m_Roster [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_Sponsor -> m_Team [style = "dotted", arrowhead = "normal", arrowtail = "none", weight = "2", constraint = "false"];
+  m_Sponsor -> m_TeamsSponsor [arrowhead = "normal", arrowtail = "none", weight = "2"];
+  m_Team -> m_Game [arrowhead = "normal", arrowtail = "none", weight = "1"];
+  m_Team -> m_TeamsSponsor [arrowhead = "normal", arrowtail = "none", weight = "2"];
+}

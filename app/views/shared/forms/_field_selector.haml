@@ -1,0 +1,11 @@
+- parks = fields_by_park
+
+%select.chosen-select.form-control.js-field-selector{ :data => {:placeholder => 'Select a Field'}, :name=> name }
+  %option
+  - parks.each do |park_name, fields|
+    %optgroup{:label=>"#{park_name}"}
+      - fields.each do |field|
+        -if selected_field && selected_field.id == field.id
+          %option{:value => "#{field.id}", :selected => true}=field.name
+        -else 
+          %option{:value => "#{field.id}"}=field.name

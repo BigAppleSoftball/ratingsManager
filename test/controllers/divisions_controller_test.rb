@@ -18,7 +18,7 @@ class DivisionsControllerTest < ActionController::TestCase
 
   test "should create division" do
     assert_difference('Division.count') do
-      post :create, division: { div_description: @division.div_description, div_id: @division.div_id, div_order: @division.div_order, is_active: @division.is_active, pool_id: @division.pool_id, season_id: @division.season_id, standings: @division.standings, team_cap: @division.team_cap, waitlist_cap: @division.waitlist_cap }
+      post :create, division: { description: @division.description, div_id: @division.div_id, display_order: @division.display_order, is_active: @division.is_active, pool_id: @division.pool_id, season_id: @division.season_id, standings: @division.standings, team_cap: @division.team_cap, waitlist_cap: @division.waitlist_cap }
     end
 
     assert_redirected_to division_path(assigns(:division))
@@ -35,7 +35,7 @@ class DivisionsControllerTest < ActionController::TestCase
   end
 
   test "should update division" do
-    patch :update, id: @division, division: { div_description: @division.div_description, div_id: @division.div_id, div_order: @division.div_order, is_active: @division.is_active, pool_id: @division.pool_id, season_id: @division.season_id, standings: @division.standings, team_cap: @division.team_cap, waitlist_cap: @division.waitlist_cap }
+    patch :update, id: @division, division: { description: @division.description, div_id: @division.div_id, display_order: @division.display_order, is_active: @division.is_active, pool_id: @division.pool_id, season_id: @division.season_id, standings: @division.standings, team_cap: @division.team_cap, waitlist_cap: @division.waitlist_cap }
     assert_redirected_to division_path(assigns(:division))
   end
 

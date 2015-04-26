@@ -1,0 +1,17 @@
+- if @parkStatus
+  .game-status{:class => "status-#{@parkStatus}"}
+    = render partial: "parks/status_indicator", locals: {statusValue: @parkStatus , statusString: @parkStatus}
+    - if @parkStatus == 1
+      Some Parks are Partially Closed.
+    - elsif @parkStatus == 2
+      All Park are Closed
+    - elsif @parkStatus == 0
+      All Parks are Open
+
+.sponsors-carousel-wrapper
+  .sponsors-carousel-window
+    %ul.sponsors-carousel.js-sponsors-carousel
+      -@sponsors.each do |sponsor|
+        %li
+          %a{:href=>sponsor.url, :title => sponsor.name, :target=> '_blank'}
+            %img{:src=>"#{sponsor.logo_url}"}

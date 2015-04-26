@@ -1,29 +1,11 @@
 - content_for :panel_head do
   %h1= @field.name
   = render partial: "shared/actions/show_actions", locals: { editPath: edit_field_path(@field), fieldName: 'Field', allPath: fields_path}
-- statuses = get_field_statuses
-%p
-  = render partial: "status_indicator", locals: {statusValue: @field.status , statusString: statuses[@field.status]}
-  = statuses[@field.status]
+
 %p
   %b Name:
   = @field.name
 %p
-  %b Address:
-  %div
-    = @field.address
-    %br
-    = "#{@field.city}, #{@field.state} #{@field.zip}"
-%p
-  %b Directions By car:
-  = raw(@field.by_car)
-%p
-  %b Directions By Bus:
-  = raw(@field.by_bus)
-%p
-  %b Parking:
-  = raw(@field.parking)
-
-%p
-  %b Google map url:
-  = link_to 'Map URL', @field.google_map_url, {:target => '_blank'}
+  %b Park:
+  - if @field.park
+    = @field.park.name

@@ -1,0 +1,18 @@
+- content_for :panel_head do
+  %h1 Paid Players
+
+  .alert.alert-danger
+    %div You should only need to do this if the system somehow missed a player payment. Otherwise payments are added manually
+    = link_to 'Add New Payment', '/payments/list/add', {:class => 'btn btn-default'}
+%table.table.table-striped.table-bordered.table-condensed
+  %thead
+    %tr
+      %th Player Name
+      %th Teamsnap Id
+      %th Payment Synced At
+  %tbody
+    -@payments.each do |payment|
+      %tr
+        %td=payment.teamsnap_player_name
+        %td=payment.teamsnap_player_id
+        %td=payment.created_at.in_time_zone('Eastern Time (US & Canada)').strftime('%B %e, %Y at %l:%M:%S %p')

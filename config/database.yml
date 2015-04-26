@@ -9,6 +9,16 @@ development:
   password:
   socket: /tmp/mysql.sock
 
+test:
+  adapter: mysql2
+  encoding: utf8
+  reconnect: false
+  database: basl_backup_test
+  pool: 5
+  username: test
+  password:
+  socket: /tmp/mysql.sock
+
 default: &default
   adapter: postgresql
   encoding: unicode

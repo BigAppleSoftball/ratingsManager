@@ -1,85 +1,85 @@
 class ApplicationController < ActionController::Base
+  require 'open-uri'
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  include ErrorsHelper
+  include SessionsHelper
+  include TeamsnapHelper
+
+  Time::DATE_FORMATS[:google_date] = "%Y-%m-%d"
+  Time::DATE_FORMATS[:week_date] = "%a, %b %d"
+  Time::DATE_FORMATS[:event_date] = "%a, %b %d %l:%M %P"
+
+  helper_method :all_seasons_list
 
 
-  def connect
-    url = 'https://api.teamsnap.com/'
-    conn = Faraday.new(:url => url) do |faraday|
-      faraday.request  :url_encoded             # form-encode POST params
-      faraday.response :logger                  # log requests to STDOUT
-      faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
+  #--------------------------------------------
+  #
+  #   Seasons
+  #
+  #--------------------------------------------
+
+  #
+  # If the user has edited a season we want to clear the season cache
+  #
+  def clear_seasons_cache
+    Rails.cache.delete('all_seasons_by_status_list')
+  end
+
+  #
+  # Caches all the seasons listed
+  #
+  def all_seasons_list
+    Rails.cache.fetch("all_seasons_by_status_list", :expires_in => 60.minutes) do
+      get_all_seasons_by_status
     end
   end
 
-  def set_admin(username)
-    admins = Admin.where(:email => username)
-    cookies[:teamsnap_is_admin] = (admins.length > 0)
-  end
+  #
+  # gets all the seasons in the database and orders them
+  # based on status
+  #
+  def get_all_seasons_by_status
+    dateNow = DateTime.now.end_of_day
+    all_seasons = Hash.new
+    all_seasons[:upcoming] = Array.new
+    all_seasons[:current] = Array.new
+    all_seasons[:past] = Array.new
+    seasons = Season.all
 
-  def log_in_to_teamsnap(username, password)
-    loginURL = 'https://api.teamsnap.com/v2/authentication/login/'
-    conn = connect
-    loginHash = Hash.new
-    if cookies[:teamsnap_token].nil?
-      conn.params  = {'user' => username, 'password' => password}
-      conn.headers = {'Content-Type'=> 'application/json'}
-      response = conn.post loginURL
-      loginHash[:status] = response.headers['status']
-      loginHash[:message] = response.headers['x-rack-cache']
-      teamsnapToken = response.headers['x-teamsnap-token']
-      if teamsnapToken.nil?
-        loginHash[:failed] = true
-      else
-        loginHash[:success] = true
-        cookies[:teamsnap_token] = teamsnapToken
-        set_admin(username)
+    seasons.each do |season|
+      if (season.is_active) # current or upcoming season
+        # going to assume if today is part the season end date that the league owner intentionally wanted the season to be current
+        if (season.date_start <= dateNow)
+          all_seasons[:current].push(season)
+        else
+          all_seasons[:upcoming].push(season)
+        end
+      else # past season
+        all_seasons[:past].push(season)
       end
     end
-    # TODO (check if user has admin permissions on app)
-    loginHash
+    all_seasons
   end
 
-  def get_all_teams
-    Rails.cache.fetch("all_teams", :expires_in => 60.minutes) do
-      get_all_teams_api
+  # TODO get rid of old teamsnap crap
+  def get_all_divisions
+    Rails.cache.fetch("all_divisions", :expires_in => 60.minutes) do
+      get_divisions
     end
   end
 
-  def get_all_teams_api
-    teamsURL = 'https://api.teamsnap.com/v2/teams'
+  # TODO get rid of old teamsnap crap
+  def get_divisions
+    divisionsURL = "https://api.teamsnap.com/v2/divisions/16139"
     conn = connect
     conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
-    response = conn.get teamsURL
-    preprocess_team_data(JSON.parse(response.body))
-  end
-
-  # sort Teams by division
-  def preprocess_team_data(teamsData)
-    divisionsList = Array.new
-    teamsByDivision = Hash.new
-    teamsData.each do |teamData|
-      team = teamData['team']
-      teamDivision = team['team_division']
-      # check to see if division is in the list, if not add it
-      if (!divisionsList.include?(teamDivision))
-        divisionsList.push(teamDivision)
-        teamsByDivision[teamDivision] = Array.new
-      end
-        teamsByDivision[teamDivision].push(team)
-    end
-    teamsByDivision
-  end
-
-  def get_team(teamId)
-    teamsURL = "https://api.teamsnap.com/v2/teams/#{teamId}"
-    conn = connect
-    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
-    response = conn.get teamsURL
+    response = conn.get divisionsURL
     JSON.parse(response.body)
   end
 
+  #todo get rid of old teamsnap crap
   def get_roster(teamId, rosterId)
     rosterURL = "https://api.teamsnap.com/v2/teams/#{teamId}/as_roster/#{rosterId}/rosters"
     conn = connect
@@ -88,138 +88,105 @@ class ApplicationController < ActionController::Base
     JSON.parse(response.body)
   end
 
-  def get_roster_player(teamId, rosterId, playerId)
-    rosterPlayerURL = "https://api.teamsnap.com/v2/teams/#{teamId}/as_roster/#{rosterId}/rosters/#{playerId}"
-    conn = connect
-    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
-    response = conn.get rosterPlayerURL
-    JSON.parse(response.body)
+
+  #
+  # Returns an array of teams_ids managed by the current user
+  #
+  def get_team_managed_by_profile
+    rosters = Roster.select('team_id').where(:profile_id => current_profile.id, :is_manager => true)
+    rosters_team_ids = rosters.collect{|u| u.team_id}
+    rosters_team_ids
   end
 
-  def get_customIds(ratingSection = nil)
-    customHash = Hash.new
-    customHash['throwing'] = Hash.new
-    customHash['throwing'][1] = 81159
-    customHash['throwing'][2] = 81165
-    customHash['throwing'][3] = 81166
-    customHash['throwing'][4] = 81169
-    customHash['throwing'][5] = 81170
-    customHash['fielding'] = Hash.new
-    customHash['fielding'][6] = 81173
-    customHash['fielding'][7] = 81175
-    customHash['fielding'][8] =  81176
-    customHash['fielding'][9] = 81178
-    customHash['fielding'][10] = 81181
-    customHash['fielding'][11] = 81187
-    customHash['fielding'][12] = 81190
-    customHash['fielding'][13] = 81193
-    customHash['fielding'][14] = 81196
-    customHash['baserunning'] = Hash.new
-    customHash['baserunning'][15] = 81198
-    customHash['baserunning'][16] = 81199
-    customHash['baserunning'][17] = 81201
-    customHash['baserunning'][18] = 81204
-    customHash['hitting'] = Hash.new
-    customHash['hitting'][19] = 81207
-    customHash['hitting'][20] = 81210
-    customHash['hitting'][21] = 81212
-    customHash['hitting'][22] = 81215
-    customHash['hitting'][23] = 81218
-    customHash['hitting'][24] = 81223
-    customHash['hitting'][25] = 81224
-    customHash['hitting'][26] = 81225
-    customHash['hitting'][27] = 81226
-    if (ratingSection.nil?)
-      customHash
-    else
-      customHash[ratingSection]
-    end
+  #--------------------------------------------
+  #
+  #   Sidebar
+  #
+  #--------------------------------------------
+
+
+  def get_park_statuses
+    park_statuses = {0 => 'All Open', 1 => 'Some Closed', 2 => 'All Closed'}
+    park_statuses
   end
 
-  # adds and compiles players rankings
-  def preprocess_player_data(roster)
-    playersHash = Hash.new
-    customThrowingIds = get_customIds('throwing').values
-    customFieldingIds = get_customIds('fielding').values
-    customRunningIds = get_customIds('baserunning').values
-    customHittingIds = get_customIds('hitting').values
-
-    @roster.each do |playerData|
-      playerHash = Hash.new
-      playerHash[:throwing] = Hash.new
-      playerHash[:fielding] = Hash.new
-      playerHash[:running] = Hash.new
-      playerHash[:hitting] = Hash.new
-      playerHash[:throwing][:rating] = 0
-      playerHash[:throwing][:ratings] = Hash.new
-      playerHash[:fielding][:rating] = 0
-      playerHash[:fielding][:ratings] = Hash.new
-      playerHash[:running][:rating] = 0
-      playerHash[:running][:ratings] = Hash.new
-      playerHash[:hitting][:rating] = 0
-      playerHash[:hitting][:ratings] = Hash.new
-      player = playerData["roster"]
-      customData = player['league_custom_data']
-      customData.each do |customItem|
-        if customThrowingIds.include?(customItem['custom_field_id'])
-          playerHash[:throwing][:rating] += customItem['content'].to_i
-          playerHash[:throwing][:ratings][customItem['custom_field_id'].to_i] = customItem['content'].to_i
-        elsif customFieldingIds.include?(customItem['custom_field_id'])
-          playerHash[:fielding][:rating] += customItem['content'].to_i
-          playerHash[:fielding][:ratings][customItem['custom_field_id'].to_i] = customItem['content'].to_i
-        elsif customRunningIds.include?(customItem['custom_field_id'])
-          playerHash[:running][:rating] += customItem['content'].to_i
-          playerHash[:running][:ratings][customItem['custom_field_id'].to_i] = customItem['content'].to_i
-        elsif customHittingIds.include?(customItem['custom_field_id'])
-          playerHash[:hitting][:rating] += customItem['content'].to_i
-          playerHash[:hitting][:ratings][customItem['custom_field_id'].to_i] = customItem['content'].to_i
-        end
+  def get_all_park_statues
+    parks = Park.all
+    closedCount = 0
+    partialCount = 0
+    openCount = 0
+    numOfparks = parks.length
+    parks.each do |park|
+      if park.status == 0
+        openCount += 1
+      elsif park.status == 1
+        partialCount += 1
+      elsif park.status == 2
+        closedCount += 1
       end
-      playerHash[:fullRating] = playerHash[:hitting][:rating] + playerHash[:running][:rating] + playerHash[:fielding][:rating] + playerHash[:throwing][:rating]
-      playerHash[:name] = "#{player['first']} #{player['last']}"
-      playersHash["#{player['id']}"] = playerHash
     end
-    playersHash
+
+    if numOfparks == openCount #all The parks are open
+      parkStatus = 0
+    elsif numOfparks == closedCount # all the parks are closed
+      parkStatus = 2
+    else #some are open, closed or partially open
+      parkStatus = 1
+    end
+    parkStatus
   end
-end
 
-def get_token_cookie
-  cookies[:teamsnap_token]
-end
 
-def is_admin?
-  if (cookies[:teamsnap_is_admin])
-    cookies[:teamsnap_is_admin]
-  else
-    false
+  #--------------------------------------------
+  #
+  #   Teams
+  #
+  #--------------------------------------------
+
+  # Gets all the teams and orders them by division
+  def get_all_teams_by_division
+    teams = Team.order('division_id ASC').all
+    teams_by_divisions(teams)
   end
-end
 
-def log_out_user
-  cookies.delete :teamsnap_token
-  cookies.delete :teamsnap_is_admin
-end
-
-def is_logged_in?
-  ap "IS LOGGED IN?"
-  if (cookies[:teamsnap_token].nil?)
-    false
-  else
-    true
+  def get_teams_by_division(divisionIds)
+    teams = Team.where(:division_id => divisionIds).order('division_id ASC').all
+    teams_by_divisions(teams)
   end
-end
 
-def only_for_admin
-  if (!is_admin?)
-    redirect_to :action =>'error403', :controller => 'welcome'
+  def teams_by_divisions(teams)
+    teamsByDivision = Array.new
+    currentDivision = Hash.new
+    currentDivision[:id] = 0
+    currentDivision[:teams] = Array.new
+    teams.each do |team|
+      if currentDivision[:id] != team.division_id
+        if currentDivision[:teams].length > 0
+          teamsByDivision.push(currentDivision)
+        end
+        currentDivision = Hash.new
+        currentDivision[:id] = team.division_id
+        currentDivision[:name] = team.division.description
+        currentDivision[:teams] = Array.new
+      end
+      currentDivision[:teams].push(team)
+    end
+    teamsByDivision.push(currentDivision)
+    teamsByDivision
   end
-end
 
-def get_field_statuses
-  field_statuses = {0 => 'All Open', 1 => 'Some Closed', 2 => 'All Closed'}
-  field_statuses
-end
-
+  def teamsnap_divs_by_id
+    ids_by_div_name = Hash.new
+    ids_by_div_name['1. Dima Division'] = 27394
+    ids_by_div_name['2. Stonewall Division'] = 27395
+    ids_by_div_name['3. Fitzpatrick Division'] = 27397
+    ids_by_div_name['4. Rainbow Division'] = 27398
+    ids_by_div_name['5. Sachs Division'] = 27400
+    ids_by_div_name["1. Mousseau Division"] = 27403
+    ids_by_div_name["2. Green-Batten Division"] = 27404
+    ids_by_div_name["Big Apple Softball League"] = 16139
+    ids_by_div_name
+  end
 private
 
   # Finds the User with the ID stored in the session with the key
@@ -229,4 +196,6 @@ private
   def set_current_user(user_data)
     session[:current_user_id] = user_data
   end
+
+end
 

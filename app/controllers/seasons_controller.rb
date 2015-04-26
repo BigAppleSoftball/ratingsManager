@@ -1,5 +1,7 @@
+
 class SeasonsController < ApplicationController
   before_action :set_season, only: [:show, :edit, :update, :destroy]
+  before_filter :only_for_admin, :clear_seasons_cache, only: [:edit, :update, :destroy, :new]
 
   # GET /seasons
   # GET /seasons.json
@@ -61,6 +63,20 @@ class SeasonsController < ApplicationController
     end
   end
 
+  def get_divisions_by_season
+    response = Hash.new
+    response_html = "<option></option>"
+    seasonId = params[:season_id]
+    divisions = Division.select('id, description').where(:season_id => seasonId)
+    divisions.each do |division|
+      response_html += "<option value='#{division.id}'>#{division.description}</option>"
+    end
+    response[:html] = response_html
+    respond_to do |format|
+      format.json { render :json=> response}
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_season
@@ -69,6 +85,6 @@ class SeasonsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def season_params
-      params.require(:season).permit(:season_id, :league_id, :pool_id, :season_desc, :date_start, :date_end)
+      params.require(:season).permit(:league_id, :description, :date_start, :date_end, :is_active)
     end
 end

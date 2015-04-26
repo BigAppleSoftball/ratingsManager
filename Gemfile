@@ -3,8 +3,7 @@ ruby '2.0.0'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.6'
-# Use sqlite3 as the database for Active Record
-gem 'pg'
+
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 gem 'compass-rails'
@@ -16,8 +15,11 @@ gem 'haml-rails'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'bootstrap-sass', '~> 3.2.0'
+gem 'font-awesome-sass', '~> 4.3.0'
 gem 'autoprefixer-rails'
 gem 'will_paginate', '~> 3.0.6'
+ # To use ActiveModel has_secure_password
+gem 'bcrypt-ruby', '3.1.2'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 gem 'render_csv'
@@ -28,11 +30,14 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 
 gem 'parse-ruby-client'
 gem 'awesome_print'
-gem 'google-api-client'
+gem 'rest-client'
+gem 'rails-erd'
 
-# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+# admin tools
+gem 'user_impersonate2', :require => 'user_impersonate'
+
+# Spring speeds up development by keeping your application running in the background
 group :development do
- 
   gem 'spring'
   gem 'mysql2'
 end
@@ -46,17 +51,13 @@ gem 'json'
 group :production do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
+  # Use sqlite3 as the database for Active Record
+  gem 'pg'
 end
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
+# web scrapping for the payments-tracker
+gem 'nokogiri'
+gem 'mechanize'
 
-# Use unicorn as the app server
-# gem 'unicorn'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
-# Use debugger
-# gem 'debugger', group: [:development, :test]
 

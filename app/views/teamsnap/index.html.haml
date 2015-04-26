@@ -1,0 +1,24 @@
+- content_for :panel_head do
+  %h1 Teamsnap Teams
+
+#teams-accordion.panel-group{"aria-multiselectable" => "true", :role => "tablist"}
+  -count = 0
+  -@teamsByDivision.keys.each do |divisionKey|
+    -count+=1
+    .panel.panel-primary
+      .panel-heading{:role => "tab", :id =>"heading-#{count}"}
+        %h4.panel-title
+          %a{"aria-controls" => "collapse-#{count}", "aria-expanded" => "#{count == 1? 'true' : 'false'}", "data-parent" => "#teams-accordion", "data-toggle" => "collapse", :href => "#collapse-#{count}"}
+            -if divisionKey.nil?
+              N/A
+            - else
+              - division=@teamsnapDivisions.select{|key, value| value == divisionKey}
+              = division.first.first
+      .panel-collapse.collapse.in{"aria-labelledby" => "heading-#{count}", :role => "tabpanel", :id => "collapse-#{count}"}
+        .panel-body
+          - teams = @teamsByDivision[divisionKey]
+          %ul.list-group
+            - teams.each do |team|
+              -roster = team['available_rosters'].first
+              %li.list-group-item
+                =link_to raw("View #{team['team_name']} Roster"), "/teamssnap/#{team['id']}/#{roster['id']}", :class => 'btn btn-default', :target => '_blank'

@@ -1,0 +1,22 @@
+- content_for :panel_head do
+  %h1 Create a New Sync account
+
+
+= form_for @teamsnap_sync_account, url: '/payments/accounts/create',:html => {:class => 'form-horizontal'} do |f|
+  .form-group
+    = f.label :username, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_field :username, {:class => 'form-control'}
+  .form-group
+    = f.label :password, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.password_field :password, {:class => 'form-control'}
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      .checkbox
+        %label
+          = f.check_box :is_active
+          Active Login Account?
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit 'Save', {:class => 'btn btn-primary'}

@@ -1,0 +1,56 @@
+@import 'vars',
+        'compass/reset',
+        'mixins',
+        'compass',
+        "bootstrap-sprockets",
+        'bootstrap';
+
+.synced-calendar {
+  text-align: right;
+  margin-right: 20px;
+}
+
+.calendar-event-list {
+  list-style: none;
+  padding: 0 20px;
+  margin: 0;
+
+  li.week {
+    margin: 15px 0;
+
+    .name {
+      font-size: 16px;
+      font-weight: bold;
+      border-bottom: 1px solid #666;
+    }
+
+    > ul {
+      border: 1px solid #111;
+    }
+  }
+
+  .event-details {
+    margin-left: 20px;
+  }
+
+  .event-location {
+    color: #999;
+  }
+
+  .no-event {
+    margin: 10px 0 0 20px;
+    font-style: italic;
+    padding-bottom: 10px;
+  }
+
+
+  li.event {
+    padding: 5px 0;
+    padding-left: 15px;
+    border-bottom: 1px dotted #111;
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}

@@ -1,8 +1,39 @@
-- content_for :panel_head do
-  %h1 Calendar
+!!!
+%html
+  %head
+    =stylesheet_link_tag "calendar.css"
+  %body
+    .synced-calendar
+      = link_to 'View Entire Calendar', 'https://www.google.com/calendar/embed?src=c2VjcmV0YXJ5QGJpZ2FwcGxlc29mdGJhbGwuY29t', {:target => '_blank'}
+    %ul.calendar-event-list
+      - @weeks.each do |week|
+        %li.week
+          .name
+            ="#{week[:startTime].to_s(:week_date)} to #{week[:endTime].to_s(:week_date)}"
+          %ul
+            - if week[:events].length == 0
+              %li.no-event
+                No scheduled events found.
+            - else
+              - week[:events].each do |event|
+                %li.event
+                  .event-date=event['startDate'].to_s(:event_date)
+                  .event-details
+                    .event-header
+                      %span.event-summary=link_to event['summary'], event['htmlLink'], {:target => '_blank'}
+                      - if event['location']
+                        %span.event-location="(@#{event['location']})"
+                    .event-description= event['description']
 
+      -#@events.each do |event|
+        %li.event
+          .event-summary=event['summary']
+          .event-description=event['description']
+          .event-location=event['location']
+          .event-link=link_to 'Event Link', event['htmlLink'], {:target => '_blank'}
+          .event-date=event['startDate'].to_s(:event_date)
 
-.js-calendar
-  Loading Events...
-  %div
-    %img{:src => 'http://agriturismorosy.it/img/loading.gif'}
+    = javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"
+    = javascript_include_tag "moment.js"
+    = javascript_include_tag "calendar.js"
+

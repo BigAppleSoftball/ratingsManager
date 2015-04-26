@@ -1,0 +1,36 @@
+- content_for :panel_head do
+  %h1 Games
+  = render partial: 'shared/actions/view_all_actions', locals: { newPath: new_game_path}
+
+%table.table.table-striped.table-condensed.table-bordered
+  %tr
+    %th Day
+    %th Start time
+    %th Home team
+    %th Home score
+    %th Away team
+    %th Away score
+    %th Field
+    %th Is Rainout
+    %th Is Active
+    %th
+
+  - @games.each do |game|
+    %tr
+      %td= game.day_id
+      %td
+        - if game.start_time
+          =link_to game.start_time.to_s(:long), game
+      %td
+        - if game.home_team
+          =link_to game.home_team.name, game.home_team, {:target => '_blank'}
+      %td= game.home_score
+      %td
+        - if game.away_team
+          =link_to game.away_team.name, game.away_team, {:target => '_blank'}
+      %td= game.field.name
+      %td= game.away_score
+      %td= game.is_rainout
+      %td= game.is_active
+      %td
+        = render partial: 'shared/actions/table_actions', locals: { editPath: edit_game_path(game), deletePath: game}

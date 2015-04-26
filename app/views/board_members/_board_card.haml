@@ -1,6 +1,6 @@
 %li.board-member-card
-  .board-member-card-image
-    %img{:src=>"#{board_member.profile && board_member.profile.long_image_url  ? board_member.profile.long_image_url : 'https://style.anu.edu.au/_anu/4/images/placeholders/person_6x8.png'}"}
+  - if board_member.profile && board_member.profile.long_image_url
+    .board-member-card-image{ :style => "background-image: url(#{board_member.profile.long_image_url})"}
   .board-member-card-overlay
   .board-member-card-details
     .board-member-card-name

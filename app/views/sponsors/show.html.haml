@@ -6,7 +6,7 @@
   .sponsors-logo
     %img{:src => @sponsor.logo_url}
 
-=link_to @sponsor.name, @sponsor.url   
+=link_to @sponsor.name, @sponsor.url
 .sponsors-description=@sponsor.details
 .panel.panel-default
   .panel-heading
@@ -14,4 +14,4 @@
   .panel-body
     %ul
       -@teamSponsors.each do |team_sponsor|
-        %li=link_to "#{team_sponsor.team.name} (#{team_sponsor.team.division.season.season_desc})", team_sponsor.team
+        %li=link_to "#{team_sponsor.team.name} (#{team_sponsor.team.division.season.description})", team_sponsor.team

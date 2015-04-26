@@ -1,0 +1,34 @@
+= form_for @division , :html => {:class => 'form-horizontal'} do |f|
+  - if @division.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@division.errors.count, "error")
+        prohibited this division from being saved:
+      %ul
+        - @division.errors.full_messages.each do |message|
+          %li= message
+  .form-group
+    = f.label :season_id, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = render 'shared/forms/season_selector', {:selected_season => @division.season_id, :seasons => @seasons, :name=> 'division[season_id]'}
+  .form-group
+    = f.label :description, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_field :description, {:class => 'form-control'}
+  .form-group
+    = f.label :team_cap, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.number_field :team_cap, {:class => 'form-control'}
+  .form-group
+    = f.label :waitlist_cap, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.number_field :waitlist_cap, {:class => 'form-control'}
+  .form-group
+    = f.label :is_active, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.check_box :is_active
+    .alert.alert-danger
+      Users can only edit rosters, games and do various other tasks with teams and games in an active season
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit 'Save', {:class => 'btn btn-primary'}

@@ -1,11 +1,62 @@
 - content_for :panel_head do
   %h1 Admin Actions
 
-.list-group.admin-list-group
-  = link_to 'Edit Sponsors', sponsors_path, :class => 'list-group-item sponsors-group-item'
-  = link_to 'Edit Admins', admins_path, :class => 'list-group-item admins-group-item'
-  = link_to 'Edit Hall of Fame', hallof_famers_path, :class => 'list-group-item hofs-group-item'
-  = link_to 'Edit Executive Board', board_members_path, :class => 'list-group-item board_members-group-item'
-  = link_to 'Edit Committees', committees_path, :class => 'list-group-item committees-group-item'
-  = link_to 'Edit Profiles', profiles_path, :class => 'list-group-item profiles-group-item'
-  = link_to 'Edit Fields', fields_path, :class => 'list-group-item fields-group-item'
+-if is_admin?
+  .panel.panel-default
+    .panel-heading
+      %h5 
+        %i.fa.fa-users 
+        User Admin
+    .list-group.admin-list-group
+      = link_to 'Admins', admins_path, :class => 'list-group-item admins-group-item'
+      = link_to 'Committees', committees_path, :class => 'list-group-item committees-group-item'
+      = link_to 'Executive Board', board_members_path, :class => 'list-group-item board_members-group-item'
+      = link_to 'Hall of Fame', hallof_famers_path, :class => 'list-group-item hofs-group-item'
+      = link_to 'Profiles', profiles_path, :class => 'list-group-item profiles-group-item'
+
+  .panel.panel-default
+    .panel-heading
+      %h5
+        %i.fa.fa-leaf 
+        Park & Field Admin
+    .list-group.admin-list-group
+      = link_to 'Fields', fields_path, :class => 'list-group-item fields-group-item'
+      = link_to 'Parks', parks_path, :class => 'list-group-item parks-group-item'
+
+  .panel.panel-default
+    .panel-heading
+      %h5 
+        %i.fa.fa-beer
+        Season Admin
+    .list-group.admin-list-group
+      = link_to 'Games', games_path, :class => 'list-group-item games-group-item'
+      = link_to 'Teams', teams_path, :class => 'list-group-item teams-group-item'
+      = link_to 'Seasons', seasons_path, :class => 'list-group-item seasons-group-item'
+      = link_to 'View Teamsnap Payments', '/payments/', :class => 'list-group-item list-payments-item'
+      = link_to 'Divisions', divisions_path, :class => 'list-group-item list-division-item'
+      = link_to 'Sponsors', sponsors_path, :class => 'list-group-item sponsors-group-item'
+
+  .panel.panel-default
+    .panel-heading
+      %h5 
+        %i.fa.fa-wrench
+        Site Admin
+    .list-group.admin-list-group
+      = link_to 'Offers', offers_path, :class => 'list-group-item list-payments-item'
+  
+    
+- if is_manager?
+  .panel.panel-default
+    .panel-heading
+      %h5 Your Managed Teams
+    .list-group.your-teams-list-group
+      - current_profile.teams_managed.each do |roster|
+        =link_to raw("<i class='fa fa-pencil-square-o'></i> #{roster.team.full_name}"), roster.team, :class => 'list-group-item'
+
+- if is_division_rep?
+  .panel.panel-default
+    .panel-heading
+      %h5 Your Repped Divisions
+    .list-group.your-divisions-list-group
+      - current_profile.divisions_repped.each do |position|
+        =link_to raw("<i class='fa fa-pencil-square-o'></i> #{position.division.full_name}"), position.division, :class => 'list-group-item'

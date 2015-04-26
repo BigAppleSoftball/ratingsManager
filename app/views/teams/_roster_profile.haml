@@ -1,0 +1,25 @@
+%tr.js-roster-row{:data => {:roster_id => roster.id}}
+  %td
+    =link_to roster.profile.to_s, roster.profile
+  %td.js-roster-permissions-icons
+    -if roster.is_manager
+      = render partial: "shared/icons/manager"
+    -if roster.is_rep
+      = render partial: "shared/icons/rep"
+  -if is_admin? || is_team_manager?(@team.id)
+    %td
+      = render partial: "shared/actions/delete", locals: { deleteItem: roster, deleteText: ''}
+      - managerButtonText = 'Make Manager'
+      - managerButtonData = {:is_make_manager => true}
+      - if roster.is_manager
+        -managerButtonText = 'Remove Manager'
+        -managerButtonData = {:is_remove_manager => true}
+
+      - repButtonText = 'Make Rep'
+      - repButtonData = {:is_make_rep => true}
+      - if roster.is_rep
+        -repButtonText = 'Remove Rep'
+        -repButtonData = {:is_remove_rep => true}
+
+      = link_to managerButtonText, "#", {:class => 'btn btn-xs btn-default js-add-team-permissions', :data => managerButtonData}
+      = link_to repButtonText, "#", {:class => 'btn btn-xs btn-default js-add-team-permissions', :data => repButtonData}

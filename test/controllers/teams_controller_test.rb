@@ -18,7 +18,7 @@ class TeamsControllerTest < ActionController::TestCase
 
   test "should create team" do
     assert_difference('Team.count') do
-      post :create, team: { division_id: @team.division_id, long_name: @team.long_name, name: @team.name, stat_loss: @team.stat_loss, stat_play: @team.stat_play, stat_pt_allowed: @team.stat_pt_allowed, stat_pt_scored: @team.stat_pt_scored, stat_tie: @team.stat_tie, stat_win: @team.stat_win, team_desc: @team.team_desc, teamsnap_id: @team.teamsnap_id }
+      post :create, team: { division_id: @team.division_id, long_name: @team.long_name, name: @team.name, stat_loss: @team.stat_loss, stat_play: @team.stat_play, stat_pt_allowed: @team.stat_pt_allowed, stat_pt_scored: @team.stat_pt_scored, stat_tie: @team.stat_tie, stat_win: @team.stat_win, description: @team.description, teamsnap_id: @team.teamsnap_id }
     end
 
     assert_redirected_to team_path(assigns(:team))
@@ -35,7 +35,7 @@ class TeamsControllerTest < ActionController::TestCase
   end
 
   test "should update team" do
-    patch :update, id: @team, team: { division_id: @team.division_id, long_name: @team.long_name, name: @team.name, stat_loss: @team.stat_loss, stat_play: @team.stat_play, stat_pt_allowed: @team.stat_pt_allowed, stat_pt_scored: @team.stat_pt_scored, stat_tie: @team.stat_tie, stat_win: @team.stat_win, team_desc: @team.team_desc, teamsnap_id: @team.teamsnap_id }
+    patch :update, id: @team, team: { division_id: @team.division_id, long_name: @team.long_name, name: @team.name, stat_loss: @team.stat_loss, stat_play: @team.stat_play, stat_pt_allowed: @team.stat_pt_allowed, stat_pt_scored: @team.stat_pt_scored, stat_tie: @team.stat_tie, stat_win: @team.stat_win, description: @team.description, teamsnap_id: @team.teamsnap_id }
     assert_redirected_to team_path(assigns(:team))
   end
 

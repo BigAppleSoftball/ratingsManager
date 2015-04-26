@@ -1,0 +1,6 @@
+- content_for :panel_head do
+  %h1 Create New Game
+  = render partial: "shared/actions/all", locals: { allPath: games_path}
+
+= render 'form'
+

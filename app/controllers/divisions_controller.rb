@@ -1,5 +1,7 @@
 class DivisionsController < ApplicationController
   before_action :set_division, only: [:show, :edit, :update, :destroy]
+  before_filter :only_for_admin, only: [:destroy, :new]
+  before_filter -> { only_division_rep params[:id] }, only: [:edit, :update]
 
   # GET /divisions
   # GET /divisions.json
@@ -15,10 +17,18 @@ class DivisionsController < ApplicationController
   # GET /divisions/new
   def new
     @division = Division.new
+    if params[:season_id]
+      current_season = Season.find_by(:id => params[:season_id].to_i)
+      if current_season
+        @division[:season_id] = current_season.id
+      end
+    end
+    @seasons = Season.all
   end
 
   # GET /divisions/1/edit
   def edit
+    @seasons = Season.all
   end
 
   # POST /divisions
@@ -69,6 +79,6 @@ class DivisionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def division_params
-      params.require(:division).permit(:div_id, :season_id, :pool_id, :div_description, :div_order, :standings, :team_cap, :waitlist_cap, :is_active)
+      params.require(:division).permit(:season_id,  :description, :display_order, :team_cap, :waitlist_cap, :is_active)
     end
 end

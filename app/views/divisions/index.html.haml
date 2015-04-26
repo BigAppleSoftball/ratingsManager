@@ -1,3 +1,5 @@
-%h1 Divisions Archive
+- content_for :panel_head do
+  %h1 Divisions
+  = render partial: 'shared/actions/view_all_actions', locals: { newPath: new_division_path}
 - @divisions.each do |division|
   = render 'division', :division => division
