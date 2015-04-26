@@ -290,4 +290,75 @@ module TeamsnapHelper
     playersHash
   end
 
+  #
+  # checks to see if you've made it to the dashboardp age
+  #
+  def is_login_successful?(page)
+    (page.uri.to_s== "https://go.teamsnap.com/team/dashboard")
+  end
+
+  #
+  # Caches the league roster so we don't have to make too many API quesi
+  #
+  def fetch_league_roster(league_page)
+    Rails.cache.fetch("teamsnap_league_rosterv4", :expires_in => 60.minutes) do
+      league_roster(league_page)
+    end
+  end
+
+  #
+  # Iterates through all the roster pages and
+  # returns an array ofr all the leauges' roster
+  #
+  def league_roster(league_page)
+    players = Array.new
+    roster_page = league_page.link_with(:text => "League_roster").click
+    players.concat(get_roster_page_player_info(roster_page))
+
+    next_link = roster_page.link_with(:class => 'next_page')
+
+    # while there is a next button, iterate through all the of the players
+    # populate the date
+    while(!next_link.nil?) do
+      roster_page_next = next_link.click
+      players.concat(get_roster_page_player_info(roster_page_next))
+      next_link = roster_page_next.link_with(:class => 'next_page')
+    end
+    players
+  end
+
+  #
+  # Iterates through a roster table to get the player info for that page
+  #
+  def get_roster_page_player_info(roster_page)
+    ids_by_div_name = teamsnap_divs_by_id
+
+    players = Array.new
+    paid_string = 'PAID IN FULL'
+    roster_table_rows = roster_page.parser.css('#players_table > tbody > tr')
+    roster_table_rows.each do |roster_table_row|
+      player = Hash.new
+      roster_table_columns = roster_table_row.css('td')
+      # set player info
+      info_column = roster_table_columns[2]
+      player_link = info_column.css('strong a')
+      player['teamsnap_id'] = player_link.attribute('href').to_s.split('/')[4].to_i
+      player['name'] = player_link.text.strip
+      player['has_paid?'] = info_column.text.include?(paid_string)
+
+      # set player email
+      email_column = roster_table_columns[3]
+      player['email'] = email_column.css('a').text.strip
+
+      #set player teaminfo
+      team_column = roster_table_columns[4]
+      player['team'] = team_column.css('a').text.strip
+      player['team_division'] = team_column.text.strip[/\(.*?\)/].tr(')(','').strip
+      player['division_id'] = ids_by_div_name[player['team_division']]
+      player['player_url'] = "https://go.teamsnap.com/#{player['division_id']}/league_roster/edit/#{player['teamsnap_id']}"
+      players.push(player)
+    end
+    players
+  end
+
 end
