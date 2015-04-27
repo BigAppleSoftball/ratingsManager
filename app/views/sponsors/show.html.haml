@@ -8,10 +8,10 @@
 
 =link_to @sponsor.name, @sponsor.url
 .sponsors-description=@sponsor.details
-.panel.panel-default
-  .panel-heading
-    Sponsored Teams
-  .panel-body
-    %ul
+- if @teamSponsors.length > 0
+  .panel.panel-default
+    .panel-heading
+      Sponsored Teams
+    .list-group
       -@teamSponsors.each do |team_sponsor|
-        %li=link_to "#{team_sponsor.team.name} (#{team_sponsor.team.division.season.description})", team_sponsor.team
+        %li.list-group-item=link_to "#{team_sponsor.team.name} (#{team_sponsor.team.division.season.description})", team_sponsor.team

@@ -5,7 +5,8 @@ class TeamsSponsorsController < ApplicationController
   # GET /teams_sponsors
   # GET /teams_sponsors.json
   def index
-    @teams_sponsors = TeamsSponsor.all
+    @seasons = Season.all
+    #@teams_sponsors = TeamsSponsor.all
   end
 
   # GET /teams_sponsors/1
@@ -59,10 +60,47 @@ class TeamsSponsorsController < ApplicationController
   def destroy
     @teams_sponsor.destroy
     respond_to do |format|
-      format.html { redirect_to teams_sponsors_url, notice: 'Teams sponsor was successfully destroyed.' }
+      format.html { redirect_to :back, notice: "Teams sponsor for #{@teams_sponsor.team.name} was successfully removed." }
       format.json { head :no_content }
     end
   end
+
+  #
+  # Shows the list of sponsors in a season
+  #
+  def season_sponsors
+    season_id = params[:season_id].to_i
+    @season = Season.find_by(:id => season_id)
+    season_teams = get_teams_by_given_season(season_id, true)
+    # get the list of teams in ever division
+    season_team_ids = Array.new
+    
+    season_teams.each do |team|
+      season_team_ids.push(team.id)
+    end
+    
+    teams_sponsors = TeamsSponsor.where(:team_id => season_team_ids)
+    @team_sponsors = sponsors_by_team(teams_sponsors)
+  end
+
+  def sponsors_by_team(teams_sponsors)
+    sponsored_teams = Hash.new
+    current_team_id = 0
+    teams_sponsors.each do |team_sponsor|
+      if current_team_id != team_sponsor.team_id
+        current_team_id = team_sponsor.team_id
+        
+        if (sponsored_teams[team_sponsor.team.name].nil?)
+          sponsored_teams[team_sponsor.team.name] = Array.new
+        end
+
+      end
+
+      sponsored_teams[team_sponsor.team.name].push(team_sponsor)
+    end
+    sponsored_teams.sort
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

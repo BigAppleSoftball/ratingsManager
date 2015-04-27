@@ -181,3 +181,16 @@ a:hover {
     }
   }
 }
+
+.sml-btns {
+  .btn {
+    height: 25px;
+    padding: 0 10px;
+    line-height: 20px;
+
+    .fa {
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+}
