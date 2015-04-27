@@ -1,0 +1,33 @@
+- content_for :panel_head do
+  %h1 
+    Showing Sponsors for 
+    =@season.description
+  = render partial: "shared/actions/all", locals: { allPath: teams_sponsors_path}
+
+- if @team_sponsors.empty?
+  No sponsors found.
+- @team_sponsors.each do |team, team_sponsors|
+  .panel.panel-default
+    .panel-heading
+      = team
+    %ul.list-group
+      - team_sponsors.each do |team_sponsor|
+        %li.list-group-item
+          - if team_sponsor.sponsor
+            -if team_sponsor.sponsor.url
+              = link_to team_sponsor.sponsor.name, team_sponsor.sponsor.url
+            - else 
+              = team_sponsor.sponsor.name
+          - else
+            N/A
+          .pull-right.sml-btns= render partial: 'shared/actions/table_actions', locals: { editPath: edit_teams_sponsor_path(team_sponsor), deletePath: team_sponsor}
+-#%tr
+  %td
+    - if !team_sponsor.team.nil?
+      = link_to raw("#{teams_sponsor.team.full_name}"),teams_sponsor.team
+  %td
+    - if !teams_sponsor.sponsor.nil?
+      = link_to teams_sponsor.sponsor.name,teams_sponsor.sponsor
+  %td=yes_or_no_icon(teams_sponsor.is_active).html_safe
+  %td
+    = render partial: 'shared/actions/table_actions', locals: { editPath: edit_teams_sponsor_path(teams_sponsor), deletePath: teams_sponsor}

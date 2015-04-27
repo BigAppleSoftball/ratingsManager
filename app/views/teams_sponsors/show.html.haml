@@ -1,18 +1,13 @@
-%p#notice= notice
+- content_for :panel_head do
+  %h1 Editing Team Sponsor
+  = render partial: "shared/actions/show_actions", locals: { editPath: edit_teams_sponsor_path(@teams_sponsor), fieldName: 'Teams Sponsor', allPath: teams_sponsor_path}
 
 %p
   %b Team:
-  = @teams_sponsor.team_id
+  = @teams_sponsor.team.name
 %p
   %b Sponsor:
-  = @teams_sponsor.sponsor_id
+  = @teams_sponsor.sponsor.name
 %p
   %b Is active:
   = @teams_sponsor.is_active
-%p
-  %b Link:
-  = @teams_sponsor.link_id
-
-= link_to 'Edit', edit_teams_sponsor_path(@teams_sponsor)
-\|
-= link_to 'Back', teams_sponsors_path

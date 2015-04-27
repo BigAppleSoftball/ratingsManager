@@ -1,5 +1,6 @@
-%h1 New teams_sponsor
+- content_for :panel_head do
+  %h1 Create New Team's Sponsor
+  = render partial: "shared/actions/all", locals: { allPath: teams_sponsors_path}
 
 = render 'form'
 
-= link_to 'Back', teams_sponsors_path

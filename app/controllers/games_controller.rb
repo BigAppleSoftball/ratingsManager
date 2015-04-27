@@ -80,7 +80,6 @@ class GamesController < ApplicationController
   end
 
   def game_attendance
-    ap params[:teamid]
     teamId = params[:teamid].to_i
     set_game
     if teamId == @game.home_team_id || teamId == @game.away_team_id

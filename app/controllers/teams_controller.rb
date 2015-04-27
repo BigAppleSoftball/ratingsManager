@@ -78,13 +78,10 @@ class TeamsController < ApplicationController
 
 
   def get_teams_by_season
-    divisions = Division.select('id').where(:season_id => params[:season_id])
-    divisionIds = Array.new
-    divisions.each do |division|
-      divisionIds.push(division.id)
-    end
+    teams = get_teams_by_given_season(params[:season_id].to_i)
+
     respond_to do |format|
-      format.json { render :json=> teams}
+      format.json { render :json=> teams_by_divisions(teams)}
     end
   end
 

@@ -161,6 +161,25 @@ class ApplicationController < ActionController::Base
     ids_by_div_name["Big Apple Softball League"] = 16139
     ids_by_div_name
   end
+
+
+  #
+  # Returns an array of team objects by a given season_id
+  #
+  def get_teams_by_given_season(season_id, order_by = nil)
+    divisions = Division.select('id').where(:season_id => params[:season_id])
+    divisionIds = Array.new
+    # get the divisions in this season
+    divisions.each do |division|
+      divisionIds.push(division.id)
+    end
+    if (order_by.nil?)
+      teams = Team.select('id,name,division_id').where(:division_id => divisionIds)
+    else
+      teams = Team.select('id,name,division_id').where(:division_id => divisionIds)
+    end
+    teams
+  end
 private
 
   # Finds the User with the ID stored in the session with the key

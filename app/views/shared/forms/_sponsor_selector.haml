@@ -1,0 +1,7 @@
+%select.chosen-select.form-control.js-sponsors-selector{:id =>"#{selector_id}", :name => "#{selector_name}", :data => {:placeholder => "#{selector_placeholder}"}}
+  %option
+  = sponsors.each do |sponsor|
+    -if selector_value && selector_value == sponsor.id
+      %option{:value => "#{sponsor.id}", :selected => true}=sponsor.name
+    -else 
+      %option{:value => "#{sponsor.id}"}=sponsor.name

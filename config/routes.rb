@@ -42,6 +42,9 @@ Rails.application.routes.draw do
 
   get '/welcome', to: 'welcome#index'
 
+  # sponsors
+  get '/season_sponsors/:season_id', to: 'teams_sponsors#season_sponsors'
+
   #teamsnap api login
   get '/teamsnap/login', to: 'teamsnap#login'
   post '/teamsnap/login', to: 'teamsnap#teamsnaplogin'

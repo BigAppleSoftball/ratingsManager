@@ -1,22 +1,25 @@
-= form_for @teams_sponsor do |f|
+= form_for @teams_sponsor,:html => {:class => 'form-horizontal'} do |f|
   - if @teams_sponsor.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@teams_sponsor.errors.count, "error")} prohibited this teams_sponsor from being saved:"
+      %h2= "#{pluralize(@teams_sponsor.errors.count, "error")} prohibited this team sponsor from being saved:"
       %ul
         - @teams_sponsor.errors.full_messages.each do |msg|
           %li= msg
-
-  .field
-    = f.label :team_id
-    = f.number_field :team_id
-  .field
-    = f.label :sponsor_id
-    = f.number_field :sponsor_id
-  .field
-    = f.label :is_active
-    = f.check_box :is_active
-  .field
-    = f.label :link_id
-    = f.number_field :link_id
-  .actions
-    = f.submit 'Save'
+  .form-group
+    %label.col-sm-2.control-label Season
+    .col-sm-10= render :partial => 'shared/forms/season_selector', :locals => {:seasons => @seasons,:name => 'teams_sponsor[season_id]', :selected_season => @selected_season}
+  .form-group
+    = f.label :team_id, {:class => 'col-sm-2 control-label'}
+    .col-sm-10= render :partial => 'shared/forms/teams_selector', :locals => {:teamsByDivision => @teamsByDivision, :selector_value => @teams_sponsor.team_id, :selector_name => 'teams_sponsor[team_id]', :selector_id => 'teams_sponsor_team_id', :selector_placeholder => 'Select a Sponsored Team'}
+  .form-group
+    = f.label :sponsor_id, {:class => 'col-sm-2 control-label'}
+    .col-sm-10= render :partial => 'shared/forms/sponsor_selector', :locals => {:sponsors => @sponsors, :selector_value => @teams_sponsor.sponsor_id, :selector_name => 'teams_sponsor[sponsor_id]', :selector_id => 'teams_sponsor_sponsor_id', :selector_placeholder => 'Select a Sponsor'}
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      .checkbox
+        %label
+          = f.check_box :is_active
+          Is Active Sponsor?
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit 'Save', :class => 'btn btn-primary'
