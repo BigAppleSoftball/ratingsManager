@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   #resources :ratings
   resources :teams
   resources :profiles
-  resources :teams_sponsors, :only => [:index, :show]
+  resources :teams_sponsors
   resources :sponsors
   resources :seasons
   resources :divisions

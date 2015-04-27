@@ -58,7 +58,7 @@ class WelcomeController < ApplicationController
 
   def basl_sidebar
     @sponsors = Sponsor.where(:show_carousel => true)
-    @fieldStatus = get_all_field_statues
+    @parkStatus = get_all_park_statues
     respond_to do |format|
       format.html { render layout: false }
     end
