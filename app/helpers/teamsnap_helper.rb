@@ -46,8 +46,8 @@ module TeamsnapHelper
   # Get all teams from the teamsnamp api and cache them
   #
   def get_all_teams(token = nil)
-    Rails.cache.fetch("all_teams", :expires_in => 60.minutes) do
-      get_all_teams_api
+    Rails.cache.fetch("all_teamsv2", :expires_in => 60.minutes) do
+      get_all_teams_api(token)
     end
   end
 
@@ -147,7 +147,6 @@ module TeamsnapHelper
     teamsByDivision = Hash.new
     teamsData.each do |teamData|
       team = teamData['team']
-      ap team['division_id']
       teamDivision = team['division_id']
       # check to see if division is in the list, if not add it
       if (!divisionsList.include?(teamDivision))
@@ -227,9 +226,9 @@ module TeamsnapHelper
   # TODO
   def get_division_team_data_api(division_id, token = nil)
     division_data = Hash.new
-    division_data[:all_teams] = get_all_teams
+    division_data[:all_teams] = get_all_teams(token)
     
-    division_data[:all_divisions] =  get_all_divisions
+    division_data[:all_divisions] =  get_all_divisions(token)
     division_teams= Array.new
     division_data[:all_divisions]['division']['divisions'].each do |league|
       #ap league
