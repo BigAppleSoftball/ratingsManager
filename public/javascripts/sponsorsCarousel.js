@@ -10,7 +10,7 @@
   Carousel.prototype.init = function() {
     this.$container = $('.js-sponsors-carousel');
     if (this.$container.length > 0) {
-      this.itemHeight = 200;
+      this.itemHeight = $('.js-sponsors-carousel > li').height();
       this.currentPage = 0;
       this.pageCount = this.getNumberOfImages();
       this.initAutoPageChange();
