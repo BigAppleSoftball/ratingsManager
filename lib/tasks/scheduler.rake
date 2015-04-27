@@ -15,7 +15,7 @@ end
 #rake send_division_emails
 task :run_payment_send_division_emails => :environment do
   puts "Updating payments..."
-  #sync_payment_data
+  sync_payment_data
   puts "Payments Synced."
 
   # if today is Wednesday or Friday send out the email with the division rosters
