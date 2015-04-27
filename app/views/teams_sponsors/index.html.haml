@@ -13,7 +13,7 @@
     %tr
       %td
         - if !teams_sponsor.team.nil?
-          = link_to teams_sponsor.team.name,teams_sponsor.team
+          = link_to raw("#{teams_sponsor.team.full_name}"),teams_sponsor.team
       %td
         - if !teams_sponsor.sponsor.nil?
           = link_to teams_sponsor.sponsor.name,teams_sponsor.sponsor

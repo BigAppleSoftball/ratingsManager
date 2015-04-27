@@ -1,7 +1,6 @@
-%h1 Editing teams_sponsor
+- content_for :panel_head do
+  %h1 Editing Team Sponsor
+  = render partial: "shared/actions/edit_actions", locals: { allPath: teams_sponsors_path, fieldName: 'Team Sponsor', showPath: @teams_sponsor}
+
 
 = render 'form'
-
-= link_to 'Show', @teams_sponsor
-\|
-= link_to 'Back', teams_sponsors_path

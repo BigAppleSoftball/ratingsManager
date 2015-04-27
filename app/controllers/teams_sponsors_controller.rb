@@ -15,11 +15,13 @@ class TeamsSponsorsController < ApplicationController
 
   # GET /teams_sponsors/new
   def new
+    set_univeral_params
     @teams_sponsor = TeamsSponsor.new
   end
 
   # GET /teams_sponsors/1/edit
   def edit
+    set_univeral_params
   end
 
   # POST /teams_sponsors
@@ -66,6 +68,15 @@ class TeamsSponsorsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_teams_sponsor
       @teams_sponsor = TeamsSponsor.find(params[:id])
+    end
+
+    def set_univeral_params
+      @teamsByDivision = get_all_teams_by_division
+      @sponsors = Sponsor.where(:is_active => true) 
+      @seasons = Season.all
+      if @team_sponsor && @team_sponsor.team_id
+        @selected_season = @team_sponsor.team.division.season_id
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
