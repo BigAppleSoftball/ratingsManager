@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   #resources :ratings
   resources :teams
   resources :profiles
-  resources :teams_sponsors, :only => [:index, :show]
+  resources :teams_sponsors
   resources :sponsors
   resources :seasons
   resources :divisions
@@ -86,7 +86,6 @@ Rails.application.routes.draw do
   get 'payments/accounts/new', to: 'payments_tracker#new_account'
   post 'payments/accounts/create', to: 'payments_tracker#create_account'
   get 'payments/unassigned', to:'payments_tracker#unassigned'
-  get 'payments/send_roster', to: 'payments_tracker#send_roster'
   get 'payments/divisions', to: 'payments_tracker#divisions'
   get 'payments/division/:divisionId/', to: 'payments_tracker#division', as: 'divisionId'
   get 'payments/division/:divisionId/sendEmail', to: 'payments_tracker#emailDivisionRep'

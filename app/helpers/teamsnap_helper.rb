@@ -32,37 +32,76 @@ module TeamsnapHelper
   end
 
   #
-  # Get all teams from the teamsnamp api and cache them
+  # Gets the teamsnap_token if token sent is null
   #
-  def get_all_teams
-    Rails.cache.fetch("all_teams", :expires_in => 60.minutes) do
-      get_all_teams_api
+  def get_teamsnap_token(token = nil)
+    if (token.nil?)
+      cookies[:teamsnap_token]
+    else
+      token
     end
   end
 
   #
+  # Get all teams from the teamsnamp api and cache them
+  #
+  def get_all_teams(token = nil)
+    Rails.cache.fetch("all_teamsv2", :expires_in => 60.minutes) do
+      get_all_teams_api(token)
+    end
+  end
+
+
+  #
   # Get all teams api
   #
-  def get_all_teams_api
+  def get_all_teams_api(token = nil)
     teamsURL = 'https://api.teamsnap.com/v2/teams'
     conn = connect
-    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
-    ap "CONNECT"
-    ap conn
+    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => get_teamsnap_token(token)}
     response = conn.get teamsURL
     preprocess_team_data(JSON.parse(response.body))
   end
 
-    #
+  #
+  # Get all the divisions from the teamsnap api and cache them
+  #
+  def get_all_divisions(token = nil)
+    Rails.cache.fetch("all_divisions", :expires_in => 60.minutes) do
+      get_divisions(token)
+    end
+  end
+
+  # TODO get rid of old teamsnap crap
+  def get_divisions(token = nil)
+    divisionsURL = "https://api.teamsnap.com/v2/divisions/16139"
+    conn = connect
+    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => get_teamsnap_token(token)}
+    response = conn.get divisionsURL
+    JSON.parse(response.body)
+  end
+
+
+  #todo get rid of old teamsnap crap
+  def get_roster(teamId, rosterId, token = nil)
+    rosterURL = "https://api.teamsnap.com/v2/teams/#{teamId}/as_roster/#{rosterId}/rosters"
+    conn = connect
+    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => get_teamsnap_token(token)}
+    response = conn.get rosterURL
+    JSON.parse(response.body)
+  end
+
+  #
   # Log user into the teamsnap api (return status)
   #
-  def log_in_to_teamsnap(username, password)
+  def log_in_to_teamsnap(username, password, use_cookies=true)
     loginURL = 'https://api.teamsnap.com/v2/authentication/login/'
     conn = connect
     loginHash = Hash.new
-    if cookies[:teamsnap_token].nil?
-      conn.params  = {'user' => username, 'password' => password}
-      conn.headers = {'Content-Type'=> 'application/json'}
+    teamsnapToken = nil
+    conn.params  = {'user' => username, 'password' => password}
+    conn.headers = {'Content-Type'=> 'application/json'}
+    if use_cookies && cookies[:teamsnap_token].nil?
       response = conn.post loginURL
       loginHash[:status] = response.headers['status']
       loginHash[:message] = response.headers['x-rack-cache']
@@ -71,11 +110,19 @@ module TeamsnapHelper
         loginHash[:failed] = true
       else
         loginHash[:success] = true
-        cookies[:teamsnap_token] = teamsnapToken
-        set_admin(username)
+        if use_cookies
+          cookies[:teamsnap_token] = teamsnapToken
+          set_admin(username)
+        else
+          teamsnapToken # if we aren't using the cookies return it
+        end
       end
+      teamsnapToken
+    else
+      response = conn.post loginURL
+      teamsnapToken = response.headers['x-teamsnap-token']
+      loginHash[:teamsnapToken] = teamsnapToken
     end
-    # TODO (check if user has admin permissions on app)
     loginHash
   end
 
@@ -100,7 +147,6 @@ module TeamsnapHelper
     teamsByDivision = Hash.new
     teamsData.each do |teamData|
       team = teamData['team']
-      ap team['division_id']
       teamDivision = team['division_id']
       # check to see if division is in the list, if not add it
       if (!divisionsList.include?(teamDivision))
@@ -110,14 +156,6 @@ module TeamsnapHelper
         teamsByDivision[teamDivision].push(team)
     end
     teamsByDivision
-  end
-
-  def get_roster(teamId, rosterId)
-    rosterURL = "https://api.teamsnap.com/v2/teams/#{teamId}/as_roster/#{rosterId}/rosters"
-    conn = connect
-    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
-    response = conn.get rosterURL
-    JSON.parse(response.body)
   end
 
   def get_roster_player(teamId, rosterId, playerId)
@@ -136,22 +174,13 @@ module TeamsnapHelper
     JSON.parse(response.body)
   end
 
-
-  def get_roster(teamId, rosterId)
-    rosterURL = "https://api.teamsnap.com/v2/teams/#{teamId}/as_roster/#{rosterId}/rosters"
-    conn = connect
-    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
-    response = conn.get rosterURL
-    JSON.parse(response.body)
-  end
-
   #
   # TODO (make the cache support division ids)
   #
-  def get_division_team_data(division_id)
-    #Rails.cache.fetch("division_data2-#{division_id}", :expires_in => 60.minutes) do
-      get_division_team_data_api(division_id)
-    #end
+  def get_division_team_data(division_id, token = nil)
+    Rails.cache.fetch("division_data2-#{division_id}", :expires_in => 60.minutes) do
+      get_division_team_data_api(division_id, token)
+    end
   end
 
     def get_customIds(ratingSection = nil)
@@ -195,11 +224,11 @@ module TeamsnapHelper
   end
 
   # TODO
-  def get_division_team_data_api(division_id)
+  def get_division_team_data_api(division_id, token = nil)
     division_data = Hash.new
-    division_data[:all_teams] = get_all_teams
+    division_data[:all_teams] = get_all_teams(token)
     
-    division_data[:all_divisions] =  get_all_divisions
+    division_data[:all_divisions] =  get_all_divisions(token)
     division_teams= Array.new
     division_data[:all_divisions]['division']['divisions'].each do |league|
       #ap league
@@ -218,7 +247,7 @@ module TeamsnapHelper
               if roster
                 team_roster = team['available_rosters'].first
                 roster_id = roster['id']
-                roster = get_roster(team['id'], roster_id)
+                roster = get_roster(team['id'], roster_id, token)
                 @roster = roster
                 roster
                 #rosterId = params[:rosterId]
@@ -288,6 +317,77 @@ module TeamsnapHelper
       playersHash["#{player['id']}"] = playerHash
     end
     playersHash
+  end
+
+  #
+  # checks to see if you've made it to the dashboardp age
+  #
+  def is_login_successful?(page)
+    (page.uri.to_s== "https://go.teamsnap.com/team/dashboard")
+  end
+
+  #
+  # Caches the league roster so we don't have to make too many API quesi
+  #
+  def fetch_league_roster(league_page)
+    Rails.cache.fetch("teamsnap_league_rosterv4", :expires_in => 60.minutes) do
+      league_roster(league_page)
+    end
+  end
+
+  #
+  # Iterates through all the roster pages and
+  # returns an array ofr all the leauges' roster
+  #
+  def league_roster(league_page)
+    players = Array.new
+    roster_page = league_page.link_with(:text => "League_roster").click
+    players.concat(get_roster_page_player_info(roster_page))
+
+    next_link = roster_page.link_with(:class => 'next_page')
+
+    # while there is a next button, iterate through all the of the players
+    # populate the date
+    while(!next_link.nil?) do
+      roster_page_next = next_link.click
+      players.concat(get_roster_page_player_info(roster_page_next))
+      next_link = roster_page_next.link_with(:class => 'next_page')
+    end
+    players
+  end
+
+  #
+  # Iterates through a roster table to get the player info for that page
+  #
+  def get_roster_page_player_info(roster_page)
+    ids_by_div_name = teamsnap_divs_by_id
+
+    players = Array.new
+    paid_string = 'PAID IN FULL'
+    roster_table_rows = roster_page.parser.css('#players_table > tbody > tr')
+    roster_table_rows.each do |roster_table_row|
+      player = Hash.new
+      roster_table_columns = roster_table_row.css('td')
+      # set player info
+      info_column = roster_table_columns[2]
+      player_link = info_column.css('strong a')
+      player['teamsnap_id'] = player_link.attribute('href').to_s.split('/')[4].to_i
+      player['name'] = player_link.text.strip
+      player['has_paid?'] = info_column.text.include?(paid_string)
+
+      # set player email
+      email_column = roster_table_columns[3]
+      player['email'] = email_column.css('a').text.strip
+
+      #set player teaminfo
+      team_column = roster_table_columns[4]
+      player['team'] = team_column.css('a').text.strip
+      player['team_division'] = team_column.text.strip[/\(.*?\)/].tr(')(','').strip
+      player['division_id'] = ids_by_div_name[player['team_division']]
+      player['player_url'] = "https://go.teamsnap.com/#{player['division_id']}/league_roster/edit/#{player['teamsnap_id']}"
+      players.push(player)
+    end
+    players
   end
 
 end

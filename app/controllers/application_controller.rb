@@ -63,32 +63,6 @@ class ApplicationController < ActionController::Base
     all_seasons
   end
 
-  # TODO get rid of old teamsnap crap
-  def get_all_divisions
-    Rails.cache.fetch("all_divisions", :expires_in => 60.minutes) do
-      get_divisions
-    end
-  end
-
-  # TODO get rid of old teamsnap crap
-  def get_divisions
-    divisionsURL = "https://api.teamsnap.com/v2/divisions/16139"
-    conn = connect
-    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
-    response = conn.get divisionsURL
-    JSON.parse(response.body)
-  end
-
-  #todo get rid of old teamsnap crap
-  def get_roster(teamId, rosterId)
-    rosterURL = "https://api.teamsnap.com/v2/teams/#{teamId}/as_roster/#{rosterId}/rosters"
-    conn = connect
-    conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => cookies[:teamsnap_token]}
-    response = conn.get rosterURL
-    JSON.parse(response.body)
-  end
-
-
   #
   # Returns an array of teams_ids managed by the current user
   #

@@ -1,10 +1,13 @@
-%h1 Listing teams_sponsors
+- content_for :panel_head do
+  %h1 Team Sponsors
+  = render partial: 'shared/actions/view_all_actions', locals: { newPath: new_teams_sponsor_path}
 
 %table.table.table-striped.table-bordered
   %tr
     %th Team
     %th Sponsor
     %th Is active
+    %th.table-actions
 
   - @teams_sponsors.each do |teams_sponsor|
     %tr
@@ -14,4 +17,6 @@
       %td
         - if !teams_sponsor.sponsor.nil?
           = link_to teams_sponsor.sponsor.name,teams_sponsor.sponsor
-      %td= teams_sponsor.is_active
+      %td=yes_or_no_icon(teams_sponsor.is_active).html_safe
+      %td
+        = render partial: 'shared/actions/table_actions', locals: { editPath: edit_teams_sponsor_path(teams_sponsor), deletePath: teams_sponsor}
