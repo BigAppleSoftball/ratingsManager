@@ -85,8 +85,9 @@ class GamesController < ApplicationController
     if teamId == @game.home_team_id || teamId == @game.away_team_id
       @team = Team.where(:id => teamId)
       if !@team.nil?
-        @roster = Roster.where(:team_id => teamId, :is_active => true)
+        @roster = Roster.where(:team_id => teamId)
         @attendance = GameAttendance.where(:game_id => @game.id)
+        ap @attendance
       end
     end
     # make sure team is on one of the games
