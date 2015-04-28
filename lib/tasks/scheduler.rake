@@ -29,6 +29,7 @@ task :run_payment_send_division_emails => :environment do
   # Saturday  = 7
   # Sunday    = 8
   # 
+  puts "TODAY IS #{today}"
   # Only send out the emails for payments on Monday and Friday
   if today == 2 || today == 6
     puts 'Sending out the Email Updates for Rosters'
