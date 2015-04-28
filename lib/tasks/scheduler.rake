@@ -31,7 +31,7 @@ task :run_payment_send_division_emails => :environment do
   # 
   puts "TODAY IS #{today}"
   # Only send out the emails for payments on Monday and Friday
-  if today == 2 || today == 6
+  if today == 3 || today == 6
     puts 'Sending out the Email Updates for Rosters'
     account = TeamsnapScanAccount.order('created_at DESC').first
     loginHash = log_in_to_teamsnap(account.username,account.password, false)
