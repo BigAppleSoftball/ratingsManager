@@ -4,7 +4,7 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.json
   def index
-    @games = Game.all
+    @games = Game.eager_load(:home_team, :away_team, :field).all
   end
 
   # GET /games/1
@@ -19,6 +19,7 @@ class GamesController < ApplicationController
     # if there is a division in the params get the season
     if (params[:division_id])
       division = Division.find_by( :id =>params[:division_id].to_i)
+      ap division
       if !division.nil? 
         @selected_season_id = division.season_id
         @teamsByDivision = get_teams_by_division(params[:division_id].to_i)
@@ -87,12 +88,9 @@ class GamesController < ApplicationController
       if !@team.nil?
         @roster = Roster.where(:team_id => teamId)
         @attendance = GameAttendance.where(:game_id => @game.id)
-        ap @attendance
       end
     end
     # make sure team is on one of the games
-
-
     render 'show'
   end
 
