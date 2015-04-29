@@ -39,12 +39,16 @@ class GameAttendancesController < ApplicationController
   #
   def set_attendance
     response = Hash.new
+    # see if the attendance relationship already exists
+    gameAttendance = GameAttendance.where(:roster_id => params[:roster_id], :game_id => params[:game_id]).first
 
-    gameAttendance = GameAttendance.new({
-      :roster_id => params[:roster_id],
-      :game_id =>  params[:game_id],
-      :is_attending=>  params[:is_attending]
-    })
+    if gameAttendance.nil?
+      gameAttendance = GameAttendance.new({
+        :roster_id => params[:roster_id],
+        :game_id =>  params[:game_id]
+      })
+    end
+    gameAttendance[:is_attending]=params[:is_attending]
     gameAttendance.save
     respond_to do |format|
       format.json { render :json=> response}
