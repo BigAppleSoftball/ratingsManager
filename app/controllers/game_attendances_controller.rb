@@ -38,11 +38,10 @@ class GameAttendancesController < ApplicationController
   #end
   #
   def set_attendance
-    ap 'SET ATTENDANCE'
     response = Hash.new
 
     gameAttendance = GameAttendance.new({
-      :profile_id => params[:profile_id],
+      :roster_id => params[:roster_id],
       :game_id =>  params[:game_id],
       :is_attending=>  params[:is_attending]
     })

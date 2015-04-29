@@ -180,6 +180,25 @@ class ApplicationController < ActionController::Base
     end
     teams
   end
+
+    #
+  # Sets the attendance class for a player row
+  #
+  def attendance_class(attendance)
+    ap '------------------------'
+    is_attending_class = nil
+    ap 'attendance'
+    ap attendance.nil?
+    if !attendance.nil?
+      is_attending = attendance.is_attending
+      if is_attending
+        is_attending_class = 'is-attending'
+      else
+        is_attending_class = 'is-not-attending'
+      end
+    end
+    is_attending_class
+  end
 private
 
   # Finds the User with the ID stored in the session with the key
