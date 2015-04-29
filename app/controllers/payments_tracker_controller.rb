@@ -38,6 +38,7 @@ class PaymentsTrackerController < ApplicationController
     sendDivisionRosterEmail(params[:divisionId].to_i, repEmail, ccEmail)
   end
 
+
   def emailWebTeam
     send_web_team_roster_email(params[:division_id])
   end
@@ -45,6 +46,10 @@ class PaymentsTrackerController < ApplicationController
   def new_account
     @teamsnap_sync_account = TeamsnapScanAccount.new
     render 'payments_tracker/account/new'
+  end
+
+  def send_all_emails
+    run_payments_scan_send_emails(true)
   end
 
   def create_account
