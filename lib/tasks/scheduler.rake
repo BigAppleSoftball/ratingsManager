@@ -20,17 +20,17 @@ task :run_payment_send_division_emails => :environment do
 
   # if today is Wednesday or Friday send out the email with the division rosters
   today = Time.now.utc.wday
-  # sunday    = 1 
-  # monday    = 2
-  # tuesday   = 3
-  # wednesday = 4
-  # thursday  = 5
-  # Friday    = 6
-  # Saturday  = 7
-  # Sunday    = 8
+  # sunday    = 0 
+  # monday    = 1
+  # tuesday   = 2
+  # wednesday = 3
+  # thursday  = 4
+  # Friday    = 5
+  # Saturday  = 6
+  # Sunday    = 7
   # 
   puts "TODAY IS #{today}"
-  # Only send out the emails for payments on Monday and Friday
+  # Only send out the emails for payments on Wednesday and Friday
   if today == 3 || today == 6
     puts 'Sending out the Email Updates for Rosters'
     account = TeamsnapScanAccount.order('created_at DESC').first
