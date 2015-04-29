@@ -93,6 +93,7 @@ Rails.application.routes.draw do
   get 'payments/division/:divisionId/', to: 'payments_tracker#division', as: 'divisionId'
   get 'payments/division/:divisionId/sendEmail', to: 'payments_tracker#emailDivisionRep'
   get 'payments/division/:divisionId/sendToWebteam', to: 'payments_tracker#emailWebteam'
+  get 'payments/divisions/sendAll', to: 'payments_tracker#send_all_emails'
 
   # offers
   get 'alloffers', to: 'offers#all'

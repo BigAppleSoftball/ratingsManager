@@ -156,6 +156,16 @@ module PaymentsTrackerHelper
     send_division_roster_email(division_id, division_name, repEmail, nil,token)
   end
 
+  def send_division_rep_roster_email(division_id, division_name, token=nil)
+    division_rep = BoardMember.where(:teamsnap_id => division_id).first
+    ap "division_id #{division_id}"
+    ap "division_rep #{division_rep}"
+    repEmail = division_rep[:email]
+    ccEmail = 'webteam@bigapplesoftball.com'
+    send_division_roster_email(division_id, division_name, repEmail, ccEmail,token)
+  end
+
+
   #
   # Sends division roster emails
   #
@@ -173,5 +183,51 @@ module PaymentsTrackerHelper
     # get the rosters of all teams in this division
     PaymentMailer.payments_roster(div_data, division_name, toEmail, ccEmail).deliver
     #render 'email_confirmation'
+  end
+  
+  #
+  # Runs a payment Scan
+  # if its Wednesday, or Saturday, send an email
+  #
+  def run_payments_scan_send_emails(manual=false)
+    puts "Updating payments..."
+    sync_payment_data
+    puts "Payments Synced."
+
+    # if today is Wednesday or Friday send out the email with the division rosters
+  
+    today = Time.now.utc.wday
+
+    # sunday    = 0 
+    # monday    = 1
+    # tuesday   = 2
+    # wednesday = 3
+    # thursday  = 4
+    # Friday    = 5
+    # Saturday  = 6
+    # Sunday    = 7
+    # 
+    # 
+    puts "TODAY IS #{today}"
+    # Only send out the emails for payments on Wednesday and Friday
+    if today == 3 || today == 6 || manual
+      puts 'Sending out the Email Updates for Rosters'
+      account = TeamsnapScanAccount.order('created_at DESC').first
+      loginHash = log_in_to_teamsnap(account.username,account.password, false)
+      if (loginHash[:teamsnapToken])
+        divisions = teamsnap_divs_by_id
+        divisions.each do |key, value|
+          if value == 16139
+            break
+          end
+          puts "Sending Roster Email For: #{key}"
+          send_division_rep_roster_email(value, key,loginHash[:teamsnapToken])
+        end
+      else
+        puts "ERROR: Teamsnap Login Failed, no emails sent"
+      end
+    end
+
+
   end
 end
