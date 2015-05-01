@@ -8,22 +8,14 @@
   .panel-body
     %table.table.table-striped.table-bordered
       %tr
-        %th
-          Team
-        %th
-          Wins
-        %th
-          Losses
-        %th
-          Ties
-        %th
-          Win %
-        %th
-          Runs Scored
-        %th
-          Runs Allowed
-        %th
-          Games Behind
+        %th Team
+        %th Wins
+        %th Losses
+        %th Ties
+        %th Win %
+        %th Runs Scored
+        %th Runs Allowed
+        %th Games Behind
       -division.teams.each do |team|
         %tr
           %td= link_to "#{team.name}", team
