@@ -72,6 +72,37 @@ module TeamsnapHelper
     end
   end
 
+  def teamsnap_divisions_to_objects(divisions, teams)
+    # all the divisions inside Big apple softball league
+    divisionObjList = Array.new
+    divisions['division']['divisions'].each do |division|
+      isCoed = false
+      isWomens = false
+      division_name = division['name']
+      if division_name.include?('Open')
+        isCoed = true
+      elsif division_name.include?('Women')
+        isWomens = true
+      end 
+
+      # all of the divisions inside the sub division (women's coed)
+      division['divisions'].each do |subdivision|
+        divisionObj = Hash.new
+        ap subdivision['name']
+        divisionObj[:name] = subdivision['name']
+        if isCoed
+          divisionObj[:type] = 0
+        elsif isWomens
+          divisionObj[:type] = 1
+        end
+        divisionObj[:teamsnap_id] = subdivision['id']
+          
+        divisionObjList.push(divisionObj)
+      end
+    end
+    ap divisionObjList
+  end
+
   # TODO get rid of old teamsnap crap
   def get_divisions(token = nil)
     divisionsURL = "https://api.teamsnap.com/v2/divisions/16139"

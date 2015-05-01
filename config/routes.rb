@@ -101,4 +101,7 @@ Rails.application.routes.draw do
   # rosters
   get 'rosters/update_permissions', to: 'rosters#update_permissions'
 
+  # divisions
+  get 'teamsnap/divisions/import', to: 'teamsnap#import_divisions'
+
 end
