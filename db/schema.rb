@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150501171202) do
+ActiveRecord::Schema.define(version: 20150502020645) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -212,6 +212,7 @@ ActiveRecord::Schema.define(version: 20150501171202) do
     t.boolean  "is_confirmed"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "teamsnap_id"
   end
 
   create_table "seasons", force: true do |t|
