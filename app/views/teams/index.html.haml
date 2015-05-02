@@ -14,9 +14,20 @@
       %th.actions-column
   - @teams.each do |team|
     %tr
-      %td=link_to "#{team.division.season.description}", team.division.season
-      %td= link_to "#{team.division.description}" , team.division
-      %td=link_to team.name, team
+      %td
+        -if team.division_id && team.division
+          -if team.division.season_id
+            =link_to "#{team.division.season.description}", team.division.season
+      %td
+        -if team.division_id && team.division
+          = link_to "#{team.division.description}" , team.division
+      %td
+        =link_to team.name, team
+        - if is_admin?
+          - if team.teamsnap_id
+            %span.small-text 
+              (team imported from teamsnap)
+              = team.teamsnap_id
       %td{:class => team ? '' : 'danger danger-column'}= render partial: "teams/managers_list", locals: { team: team}
       - if is_admin?
         %td

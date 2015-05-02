@@ -75,6 +75,8 @@ module TeamsnapHelper
   def teamsnap_divisions_to_objects(divisions, teams)
     # all the divisions inside Big apple softball league
     divisionObjList = Array.new
+    playerPayments = TeamsnapPayment.all
+    
     divisions['division']['divisions'].each do |division|
       isCoed = false
       isWomens = false
@@ -88,7 +90,6 @@ module TeamsnapHelper
       # all of the divisions inside the sub division (women's coed)
       division['divisions'].each do |subdivision|
         divisionObj = Hash.new
-        ap subdivision['name']
         divisionObj[:name] = subdivision['name']
         if isCoed
           divisionObj[:type] = 0
@@ -96,11 +97,106 @@ module TeamsnapHelper
           divisionObj[:type] = 1
         end
         divisionObj[:teamsnap_id] = subdivision['id']
-          
+        divisionObj[:teams] = Array.new
+        # get division teams
+        division_teams = teams[subdivision['id'].to_i]
+        division_teams.each do |division_team|
+          divisionTeam = Hash.new
+          divisionTeam[:name] = division_team['team_name']
+          divisionTeam[:teamsnap_id] = division_team['id']
+          roster_id  = division_team['available_rosters'].first['id']
+          divisionTeam[:roster_id] = roster_id
+          divisionTeam[:roster] = Array.new
+
+          # get teamsm roster
+          roster = get_roster(divisionTeam[:teamsnap_id], divisionTeam[:roster_id], token = nil)
+          roster.each do |playerData|
+            team_player = Hash.new
+            team_player[:roster] = Hash.new
+            team_player[:profile] = Hash.new
+            team_player[:rating] = Hash.new
+            player = playerData["roster"]
+            team_player[:profile][:teamsnap_id] = player['id']
+            team_player[:profile][:first_name] = player['first']
+            team_player[:profile][:last_name] = player['last']
+            team_player[:profile][:gender] = player['gender']
+            team_player[:profile][:dob] = player['birthdate']
+            if player['address']
+              team_player[:profile][:address] = player['address']['address']
+              team_player[:profile][:address2] = player['address']['address2']
+              team_player[:profile][:city] = player['address']['city']
+              team_player[:profile][:state] = player['address']['state']
+              team_player[:profile][:zip] = player['address']['zip']
+            end
+            
+            if player['roster_telephone_numbers'].first
+              team_player[:profile][:phone_number] = player['roster_telephone_numbers'].first['phone_number']
+            end 
+            team_player[:roster][:number] = player['number']
+
+            playerRating = preprocess_player_data(roster, playerPayments)
+            playerRatingInfo = playerRating[team_player[:profile][:teamsnap_id].to_s]
+
+            if playerRatingInfo
+              team_player[:rating]= teamsnap_ratings_to_object(playerRatingInfo)
+            end
+            divisionTeam[:roster].push(team_player)
+
+          end
+          divisionObj[:teams].push(divisionTeam)
+        end
         divisionObjList.push(divisionObj)
       end
     end
     ap divisionObjList
+  end
+
+  #
+  # Converts the teamsnap player ratings to an object
+  # that matches up with the database
+  #
+  def teamsnap_ratings_to_object(playerRating)
+    teamsnapRatingIds = get_customIds
+    rating = Hash.new
+    # rating[:all] = playerRating
+    playerRatingThrowing = playerRating[:throwing][:ratings]
+    playerRatingFielding = playerRating[:fielding][:ratings]
+    playerRatingRunning = playerRating[:running][:ratings]
+    playerRatingHitting = playerRating[:hitting][:ratings]
+
+    # throwing 1 - 5
+    rating[:rating_1] = playerRatingThrowing[teamsnapRatingIds['throwing'][1]]
+    rating[:rating_2] = playerRatingThrowing[teamsnapRatingIds['throwing'][2]]
+    rating[:rating_3] =playerRatingThrowing[teamsnapRatingIds['throwing'][3]]
+    rating[:rating_4] = playerRatingThrowing[teamsnapRatingIds['throwing'][4]]
+    rating[:rating_5] = playerRatingThrowing[teamsnapRatingIds['throwing'][5]]
+    # field 6 - 14 
+    rating[:rating_6] = playerRatingFielding[teamsnapRatingIds['fielding'][6]]
+    rating[:rating_7] = playerRatingFielding[teamsnapRatingIds['fielding'][7]]
+    rating[:rating_8] = playerRatingFielding[teamsnapRatingIds['fielding'][8]]
+    rating[:rating_9] = playerRatingFielding[teamsnapRatingIds['fielding'][9]]
+    rating[:rating_10] = playerRatingFielding[teamsnapRatingIds['fielding'][10]]
+    rating[:rating_11] = playerRatingFielding[teamsnapRatingIds['fielding'][11]]
+    rating[:rating_12] = playerRatingFielding[teamsnapRatingIds['fielding'][12]]
+    rating[:rating_13] = playerRatingFielding[teamsnapRatingIds['fielding'][13]]
+    rating[:rating_13] = playerRatingFielding[teamsnapRatingIds['fielding'][13]]
+    rating[:rating_14] = playerRatingFielding[teamsnapRatingIds['fielding'][14]]
+    # running 15 - 18
+    rating[:rating_15] = playerRatingRunning[teamsnapRatingIds['baserunning'][15]]
+    rating[:rating_16] = playerRatingRunning[teamsnapRatingIds['baserunning'][16]]
+    rating[:rating_17] = playerRatingRunning[teamsnapRatingIds['baserunning'][17]]
+    rating[:rating_18] = playerRatingRunning[teamsnapRatingIds['baserunning'][18]]
+    # hitting 19 - 27
+    rating[:rating_19] = playerRatingHitting[teamsnapRatingIds['hitting'][19]]
+    rating[:rating_20] = playerRatingHitting[teamsnapRatingIds['hitting'][20]]
+    rating[:rating_21] = playerRatingHitting[teamsnapRatingIds['hitting'][21]]
+    rating[:rating_22] = playerRatingHitting[teamsnapRatingIds['hitting'][22]]
+    rating[:rating_23] = playerRatingHitting[teamsnapRatingIds['hitting'][23]]
+    rating[:rating_24] = playerRatingHitting[teamsnapRatingIds['hitting'][24]]
+    rating[:rating_25] = playerRatingHitting[teamsnapRatingIds['hitting'][25]]
+    rating[:rating_26] = playerRatingHitting[teamsnapRatingIds['hitting'][26]]
+    rating[:rating_27] = playerRatingHitting[teamsnapRatingIds['hitting'][27]]
+    rating
   end
 
   # TODO get rid of old teamsnap crap
@@ -115,6 +211,13 @@ module TeamsnapHelper
 
   #todo get rid of old teamsnap crap
   def get_roster(teamId, rosterId, token = nil)
+    Rails.cache.fetch("team_roster-#{teamId}-#{rosterId}", :expires_in => 60.minutes) do
+      get_roster_api(teamId, rosterId, token)
+    end
+    
+  end
+
+  def get_roster_api(teamId, rosterId, token=nil)
     rosterURL = "https://api.teamsnap.com/v2/teams/#{teamId}/as_roster/#{rosterId}/rosters"
     conn = connect
     conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => get_teamsnap_token(token)}
@@ -258,7 +361,7 @@ module TeamsnapHelper
   def get_division_team_data_api(division_id, token = nil)
     division_data = Hash.new
     division_data[:all_teams] = get_all_teams(token)
-    
+    playerPayments = TeamsnapPayment.all
     division_data[:all_divisions] =  get_all_divisions(token)
     division_teams= Array.new
     division_data[:all_divisions]['division']['divisions'].each do |league|
@@ -285,7 +388,7 @@ module TeamsnapHelper
                 #team = get_team(params[:teamId])['team'])
                 player = Hash.new
                 player[:roster] = roster
-                division_team[:player] = preprocess_player_data(roster)
+                division_team[:player] = preprocess_player_data(roster, playerPayments)
               end
 
             end
@@ -301,15 +404,17 @@ module TeamsnapHelper
 
 
   # adds and compiles players rankings
-  def preprocess_player_data(roster)
+  def preprocess_player_data(roster, playerPayments = nil)
     playersHash = Hash.new
-    playerPayments = TeamsnapPayment.all
+    if playerPayments.nil?
+      playerPayments = TeamsnapPayment.all
+    end
     customThrowingIds = get_customIds('throwing').values
     customFieldingIds = get_customIds('fielding').values
     customRunningIds = get_customIds('baserunning').values
     customHittingIds = get_customIds('hitting').values
 
-    @roster.each do |playerData|
+    roster.each do |playerData|
       playerHash = Hash.new
       playerHash[:throwing] = Hash.new
       playerHash[:fielding] = Hash.new

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150501144520) do
+ActiveRecord::Schema.define(version: 20150501171202) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -258,6 +258,7 @@ ActiveRecord::Schema.define(version: 20150501144520) do
     t.datetime "date_approved"
     t.integer  "created_user_id"
     t.integer  "updated_user_id"
+    t.integer  "teamsnap_id"
   end
 
   create_table "teams_sponsors", force: true do |t|

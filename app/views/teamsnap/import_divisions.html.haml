@@ -8,7 +8,12 @@
       = division[:name]
       .teamsnap_id= division[:teamsnap_id]
       .division_type=division[:type]
-      - teams = @teams[division[:teamsnap_id].to_i]
-      - teams.each do |team|
-        = team['team_name']
-        = team
+      %ul.list-group
+        - division[:teams].each do |team|
+          %li.list-group-item
+            = team[:name]
+            = team[:teamsnap_id]
+            %ul.list-group
+              - team[:roster].each do |player|
+                %li.list-group-item
+                  = player
