@@ -115,12 +115,40 @@ module TeamsnapHelper
             team_player[:roster] = Hash.new
             team_player[:profile] = Hash.new
             team_player[:rating] = Hash.new
+            team_player[:profile][:emails] = Array.new
             player = playerData["roster"]
+            playerCustomLeague = player['league_custom_data']
             team_player[:profile][:teamsnap_id] = player['id']
             team_player[:profile][:first_name] = player['first']
             team_player[:profile][:last_name] = player['last']
+            team_player[:profile][:player] = player
             team_player[:profile][:gender] = player['gender']
+            playerCustomLeague.each do |customItem|
+
+              if (customItem['custom_field_id'] == 126483)
+                team_player[:profile][:shirt_size] = customItem['content']
+              elsif (customItem['custom_field_id'] == 126470)
+                 team_player[:profile][:gender] = customItem['content']
+              elsif (customItem['custom_field_id'] == 126485)
+                if customItem['content'].include?('Non-Player')
+                  team_player[:roster][:is_non_player] = true
+                end
+              elsif (customItem['custom_field_id'] == 126473)
+                if customItem['content'].include?('Yes')
+                  team_player[:profile][:is_pickup_player] = true
+                end
+              end
+            end
             team_player[:profile][:dob] = player['birthdate']
+            if player['roster_email_addresses']
+              player['roster_email_addresses'].each do |email_address|
+                team_player[:profile][:emails].push(email_address['email'])
+              end
+            end
+
+            if player['is_manager']
+              team_player[:roster][:is_manager] = true
+            end
             if player['address']
               team_player[:profile][:address] = player['address']['address']
               team_player[:profile][:address2] = player['address']['address2']
@@ -132,7 +160,19 @@ module TeamsnapHelper
             if player['roster_telephone_numbers'].first
               team_player[:profile][:phone_number] = player['roster_telephone_numbers'].first['phone_number']
             end 
-            team_player[:roster][:number] = player['number']
+            playerNumber = player['number']
+            # we've been adding "paid" to players on teamsnap, 
+            # we want to remove that now
+            if playerNumber
+              playerNumber.slice! 'Paid'
+              playerNumber.slice! '-'
+              playerNumber.strip 
+              if !playerNumber.empty?
+                team_player[:roster][:number] = playerNumber.strip
+              end 
+            end
+
+
 
             playerRating = preprocess_player_data(roster, playerPayments)
             playerRatingInfo = playerRating[team_player[:profile][:teamsnap_id].to_s]
