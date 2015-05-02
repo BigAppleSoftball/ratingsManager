@@ -123,8 +123,8 @@ module TeamsnapHelper
             team_player[:profile][:last_name] = player['last']
             team_player[:profile][:player] = player
             team_player[:profile][:gender] = player['gender']
+            
             playerCustomLeague.each do |customItem|
-
               if (customItem['custom_field_id'] == 126483)
                 team_player[:profile][:shirt_size] = customItem['content']
               elsif (customItem['custom_field_id'] == 126470)
@@ -137,8 +137,15 @@ module TeamsnapHelper
                 if customItem['content'].include?('Yes')
                   team_player[:profile][:is_pickup_player] = true
                 end
+              elsif (customItem['custom_field_id'] == 126478)
+                team_player[:profile][:emergency_contact_name] = customItem['content']
+              elsif (customItem['custom_field_id'] == 126479)
+                team_player[:profile][:emergency_contact_relationship] = customItem['content']
+              elsif (customItem['custom_field_id'] == 126480)
+                team_player[:profile][:emergency_contact_phone] = customItem['content']
               end
             end
+
             team_player[:profile][:dob] = player['birthdate']
             if player['roster_email_addresses']
               player['roster_email_addresses'].each do |email_address|
