@@ -31,16 +31,14 @@ class PaymentsTrackerController < ApplicationController
   # Triggers sending the email to the given Rep
   #
   def emailDivisionRep
-    division_rep = BoardMember.where(:teamsnap_id => params[:divisionId].to_i).first
-    repEmail = division_rep[:email]
-    ccEmail = 'webteam@bigapplesoftball.com'
-
-    sendDivisionRosterEmail(params[:divisionId].to_i, repEmail, ccEmail)
+    send_division_rep_roster_email(params[:divisionId].to_i, nil)
+    render 'email_confirmation'
   end
 
 
   def emailWebTeam
     send_web_team_roster_email(params[:division_id])
+    render 'email_confirmation'
   end
 
   def new_account

@@ -158,10 +158,9 @@ module PaymentsTrackerHelper
 
   def send_division_rep_roster_email(division_id, division_name, token=nil)
     division_rep = BoardMember.where(:teamsnap_id => division_id).first
-    ap "division_id #{division_id}"
-    ap "division_rep #{division_rep}"
     repEmail = division_rep[:email]
     ccEmail = 'webteam@bigapplesoftball.com'
+    
     send_division_roster_email(division_id, division_name, repEmail, ccEmail,token)
   end
 

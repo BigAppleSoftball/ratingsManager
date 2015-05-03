@@ -185,10 +185,7 @@ class ApplicationController < ActionController::Base
   # Sets the attendance class for a player row
   #
   def attendance_class(attendance)
-    ap '------------------------'
     is_attending_class = nil
-    ap 'attendance'
-    ap attendance.nil?
     if !attendance.nil?
       is_attending = attendance.is_attending
       if is_attending
@@ -198,6 +195,13 @@ class ApplicationController < ActionController::Base
       end
     end
     is_attending_class
+  end
+
+  #
+  # Used by impersonate to impersonate a user
+  #
+  def authenticate_user!
+    current_user.is_admin?
   end
 private
 
