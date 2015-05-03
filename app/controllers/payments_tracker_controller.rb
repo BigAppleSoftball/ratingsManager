@@ -32,11 +32,13 @@ class PaymentsTrackerController < ApplicationController
   #
   def emailDivisionRep
     send_division_rep_roster_email(params[:divisionId].to_i, nil)
+    render 'email_confirmation'
   end
 
 
   def emailWebTeam
     send_web_team_roster_email(params[:division_id])
+    render 'email_confirmation'
   end
 
   def new_account
