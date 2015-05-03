@@ -5,7 +5,7 @@
 %ul.list-group
   -@divisions.each do |division|
     %li.list-group-item
-      = division[:name]
+      = division[:description]
       .teamsnap_id= division[:teamsnap_id]
       .division_type=division[:type]
       %ul.list-group
@@ -13,7 +13,70 @@
           %li.list-group-item
             = team[:name]
             = team[:teamsnap_id]
-            %ul.list-group
+            %table.table.table-striped.table-condensed.table-bordered
+              %tr
+                %th First Name
+                %th Last Name
+                %th Shirt Size
+                %th Teamsnap Id
+                %th Gender
+                %th DOB
+                %th Emergency Contact
+                %th Address
+                %th Emails
+                %th Rating
+                %th Roster
               - team[:roster].each do |player|
-                %li.list-group-item
-                  = player
+                = player
+                %tr
+                  %td= player[:profile][:first_name]
+                  %td= player[:profile][:last_name]
+                  %td= player[:profile][:shirt_size]
+                  %td= player[:profile][:gender]
+                  %td= player[:profile][:dob]
+                  %td.emercency_contact
+                    = player[:profile][:emergency_contact_name]
+                    = player[:profile][:emergency_contact_relationship]
+                    = player[:profile][:emergency_contact_phone]
+                  %td.address
+                    = player[:profile][:address]
+                    = player[:profile][:address2]
+                    = player[:profile][:city]
+                    = player[:profile][:state]
+                    = player[:profile][:zip]
+                  %td.emails
+                    - player[:profile][:emails].each do |email|
+                      = email
+                  %td.rating
+
+                    .rating_1= player[:rating][:teamsnap_id]
+                    .rating_1= player[:rating][:rating_1]
+                    .rating_2= player[:rating][:rating_2]
+                    .rating_3= player[:rating][:rating_3]
+                    .rating_4= player[:rating][:rating_4]
+                    .rating_5= player[:rating][:rating_5]
+                    .rating_6= player[:rating][:rating_6]
+                    .rating_7= player[:rating][:rating_7]
+                    .rating_8= player[:rating][:rating_8]
+                    .rating_9= player[:rating][:rating_9]
+                    .rating_10= player[:rating][:rating_10]
+                    .rating_11= player[:rating][:rating_11]
+                    .rating_12= player[:rating][:rating_12]
+                    .rating_13= player[:rating][:rating_13]
+                    .rating_14= player[:rating][:rating_14]
+                    .rating_15= player[:rating][:rating_15]
+                    .rating_16= player[:rating][:rating_16]
+                    .rating_17= player[:rating][:rating_17]
+                    .rating_18= player[:rating][:rating_18]
+                    .rating_19= player[:rating][:rating_19]
+                    .rating_20= player[:rating][:rating_20]
+                    .rating_21= player[:rating][:rating_21]
+                    .rating_22= player[:rating][:rating_22]
+                    .rating_23= player[:rating][:rating_23]
+                    .rating_24= player[:rating][:rating_24]
+                    .rating_25= player[:rating][:rating_25]
+                    .rating_26= player[:rating][:rating_26]
+                    .rating_27= player[:rating][:rating_27]
+                  %td.roster
+                    = player[:roster][:jersey_number]
+                    = player[:roster][:teamsnap_id]

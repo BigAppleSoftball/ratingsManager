@@ -1,6 +1,8 @@
 class Rating < ActiveRecord::Base
   belongs_to :profile
 
+  validates :profile_id, presence: true
+
   # calculating the total throwing rating
   def throwing_total
     self.rating_1 +

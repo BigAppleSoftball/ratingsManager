@@ -177,7 +177,6 @@ class TeamsnapController < ApplicationController
     #log_in_to_teamsnap(latest_account.username, latest_account.password)
     # get the divisions
     @divisions = teamsnap_divisions_to_objects(get_all_divisions, get_all_teams)
-    @teams = get_all_teams
   end
 
 end
