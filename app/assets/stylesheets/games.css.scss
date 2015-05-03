@@ -4,6 +4,11 @@
 
 // attendance padding
 .attendance-tracker-panel {
+  &.table-bordered > tbody > tr > td,
+  &.table-bordered > tbody > tr > th { 
+    border-color: #B1B1B1;
+  }
+
   // we need important to make up for the n-th child for the strips
   .is-attending td{
     background: rgba($green, 0.3) !important;

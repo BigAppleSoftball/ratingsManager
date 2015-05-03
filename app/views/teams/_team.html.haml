@@ -22,4 +22,4 @@
 -if teamsSponsors.length > 0
   = render :partial => 'teams/sponsors', :locals => {:sponsors => teamsSponsors}
 -if games.length > 0
-  = render :partial => 'teams/schedule', :locals => {:games => games}
+  = render :partial => 'teams/schedule', :locals => {:games => games, :team => team}
