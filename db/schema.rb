@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150502033247) do
+ActiveRecord::Schema.define(version: 20150503013030) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20150502033247) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "teamsnap_id"
+    t.integer  "type"
   end
 
   create_table "fields", force: true do |t|
@@ -156,6 +157,9 @@ ActiveRecord::Schema.define(version: 20150502033247) do
     t.string   "remember_token"
     t.boolean  "is_admin"
     t.boolean  "is_pickup_player"
+    t.string   "emergency_contact_name"
+    t.string   "emergency_contact_relationship"
+    t.string   "emergency_contact_phone"
   end
 
   create_table "ratings", force: true do |t|
@@ -214,6 +218,8 @@ ActiveRecord::Schema.define(version: 20150502033247) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "teamsnap_id"
+    t.boolean  "is_non_player"
+    t.integer  "jersey_number"
   end
 
   create_table "seasons", force: true do |t|

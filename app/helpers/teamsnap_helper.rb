@@ -73,10 +73,10 @@ module TeamsnapHelper
   end
 
   def teamsnap_divisions_to_objects(divisions, teams)
-    # all the divisions inside Big apple softball league
+    # all the divisions inside big apple softball league
     divisionObjList = Array.new
     playerPayments = TeamsnapPayment.all
-    
+    season = Season.last
     divisions['division']['divisions'].each do |division|
       isCoed = false
       isWomens = false
@@ -90,20 +90,23 @@ module TeamsnapHelper
       # all of the divisions inside the sub division (women's coed)
       division['divisions'].each do |subdivision|
         divisionObj = Hash.new
-        divisionObj[:name] = subdivision['name']
+        divisionObj[:description] = subdivision['name']
         if isCoed
           divisionObj[:type] = 0
         elsif isWomens
           divisionObj[:type] = 1
         end
-        divisionObj[:teamsnap_id] = subdivision['id']
+        divisionObj[:teamsnap_id] = subdivision['id'].to_i
+        import_division(divisionObj, season.id)
+
         divisionObj[:teams] = Array.new
         # get division teams
         division_teams = teams[subdivision['id'].to_i]
-        division_teams.each do |division_team|
+        division_teams.each do |division_team|          
           divisionTeam = Hash.new
           divisionTeam[:name] = division_team['team_name']
-          divisionTeam[:teamsnap_id] = division_team['id']
+          divisionTeam[:teamsnap_id] = division_team['id'].to_i
+          import_team(division_team, division_id)
           roster_id  = division_team['available_rosters'].first['id']
           divisionTeam[:roster_id] = roster_id
           divisionTeam[:roster] = Array.new
@@ -111,6 +114,10 @@ module TeamsnapHelper
           # get teamsm roster
           roster = get_roster(divisionTeam[:teamsnap_id], divisionTeam[:roster_id], token = nil)
           roster.each do |playerData|
+            import_roster = Roster.new
+            import_roster.teamsnap_id = team_player[:roster][:teamsnap_id]
+
+
             team_player = Hash.new
             team_player[:roster] = Hash.new
             team_player[:profile] = Hash.new
@@ -118,12 +125,11 @@ module TeamsnapHelper
             team_player[:profile][:emails] = Array.new
             player = playerData["roster"]
             playerCustomLeague = player['league_custom_data']
-            team_player[:profile][:teamsnap_id] = player['id']
+            team_player[:roster][:teamsnap_id] = player['id']
             team_player[:profile][:first_name] = player['first']
             team_player[:profile][:last_name] = player['last']
-            team_player[:profile][:player] = player
             team_player[:profile][:gender] = player['gender']
-            
+
             playerCustomLeague.each do |customItem|
               if (customItem['custom_field_id'] == 126483)
                 team_player[:profile][:shirt_size] = customItem['content']
@@ -175,11 +181,9 @@ module TeamsnapHelper
               playerNumber.slice! '-'
               playerNumber.strip 
               if !playerNumber.empty?
-                team_player[:roster][:number] = playerNumber.strip
+                team_player[:roster][:jersey_number] = playerNumber.strip
               end 
             end
-
-
 
             playerRating = preprocess_player_data(roster, playerPayments)
             playerRatingInfo = playerRating[team_player[:profile][:teamsnap_id].to_s]
@@ -187,6 +191,8 @@ module TeamsnapHelper
             if playerRatingInfo
               team_player[:rating]= teamsnap_ratings_to_object(playerRatingInfo)
             end
+            
+            import_player(team_player)
             divisionTeam[:roster].push(team_player)
 
           end
@@ -244,6 +250,83 @@ module TeamsnapHelper
     rating[:rating_26] = playerRatingHitting[teamsnapRatingIds['hitting'][26]]
     rating[:rating_27] = playerRatingHitting[teamsnapRatingIds['hitting'][27]]
     rating
+  end
+
+  #
+  # Check to see if the division exists, if not save it
+  #
+  def import_division(division, season_id)
+    # see if the division exists
+  import_division = Division.where(:teamsnap_id => division[:teamsnap_id]).first
+
+    if import_division.nil?
+      import_division = Division.new
+    end
+    import_division.description = division[:description]
+    import_division.type = division[:type]
+    import_division.teamsnap_id = division[:teamsnap_id]
+    if !import_division.valid?
+      ap "______ DIVISION IS NOT VALID TO SAVE _____"
+      break
+    end
+    import_division.save
+    import_division
+  end 
+
+  def import_team
+    # get the team if it exists
+    import_team = Team.where(:teamsnap_id => divisionTeam[:teamsnap_id]).first
+    if import_team.nil?
+      import_team = Team.new
+    end
+    
+    import_team.name = divisionTeam[:name]
+    import_team.teamsnap_id = divisionTeam[:teamsnap_id]
+    import_team.division_id = import_division.id
+    if !import_team.valid?
+      ap "______ TEAM #{divisionTeam[:name]} IS NOT VALID TO SAVE _____"
+      break
+    end
+    import_team.save
+end
+
+  def import_roster(roster)
+  end
+  # check to see if the player exists 
+  def import_player(player)
+    # check to see if the player profile exists, otherwise import it
+    import_profile = Hash.new
+    player[:profile][:emails].each do |player_email|
+      import_profile = Profile.where(:email => [player_email])
+      if !import_profile.nil?
+        break
+      end
+    end
+    # this player doesn't exist create a new profile
+    if import_profile.nil?
+      import_profile = Profile.new
+    end
+    # try to find a profile with at least one of the email addresses     
+    import_profile.first_name = player[:profile][:first_name]
+    import_profile.last_name = player[:profile][:last_name]
+    import_profile.gender = player[:profile][:gender]
+    import_profile.shirt_size = player[:profile][:shirt_size]
+    import_profile.is_pickup_player = player[:profile][:is_pickup_player]
+    import_profile.emergency_contact_name = player[:profile][:emergency_contact_name]
+    import_profile.emergency_contact_relationship = player[:profile][:emergency_contact_relationship]
+    import_profile.emergency_contact_phone = player[:profile][:emergency_contact_phone]       
+    import_profile.dob = player[:profile][:dob]
+    import_profile.address = player[:profile][:address]
+    import_profile.address2 = player[:profile][:address2]
+    import_profile.city = player[:profile][:city]
+    import_profile.state = player[:profile][:state]
+    import_profile.zip = player[:profile][:zip]
+
+    if !import_profile.valid?
+      ap "---------Couldn't save profile #{import_profile.first_name} #{import_profile.last_name}----------"
+    end
+
+    import_profile.save
   end
 
   # TODO get rid of old teamsnap crap
