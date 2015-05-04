@@ -95,9 +95,9 @@ module TeamsnapHelper
         divisionObj = Hash.new
         divisionObj[:description] = subdivision['name']
         if isCoed
-          divisionObj[:type] = 0
+          divisionObj[:kind] = 0
         elsif isWomens
-          divisionObj[:type] = 1
+          divisionObj[:kind] = 1
         end
         divisionObj[:teamsnap_id] = subdivision['id'].to_i
         divisionObj[:teams] = Array.new
@@ -155,8 +155,13 @@ module TeamsnapHelper
               player['roster_email_addresses'].each do |email_address|
                 team_player[:profile][:emails].push(email_address['email'])
               end
+            else
+              ap "-------NO PLAYER EMAILS--------"
+              ap player
             end
-
+            if team_player[:profile][:last_name].include?"Hou"
+              ap player
+            end
             if player['is_manager']
               team_player[:roster][:is_manager] = true
             end
@@ -254,28 +259,29 @@ module TeamsnapHelper
   # Run a sync through teamsnap data 
   # and save the new data to the database
   #
-  def run_import
+  def run_import(season_id)
     # going to just assume the last active season is the current season for now
-    season = Season.where(:is_active => true).last
-    divisions = teamsnap_divisions_to_objects(get_all_divisions, get_all_teams)
+    season_id = season_id.to_i
+    season = Season.where(:id => season_id)
     if season.nil?
-      ap 'No Season found, import cancelled'
+      ap 'No season found, cancelling import'
       return
     end
+    divisions = teamsnap_divisions_to_objects(get_all_divisions, get_all_teams)
     divisions.each do |division|
-      imported_division = run_division_import(division, season.id)
+      imported_division = run_import_division(division, season_id)
       if imported_division.nil?
         ap "Division Failed to Import #{division}"
         return
       end
       division[:teams].each do |team|
-        imported_team = run_team_import(team, imported_division.id)
+        imported_team = run_import_team(team, imported_division.id)
         if imported_team.nil?
           ap "Team Failed To Import #{team}"
           return
         end
         team[:roster].each do |player|
-          player = run_player_import(player, imported_team.id)
+          player = run_import_player(player, imported_team.id)
         end
       end
     end
@@ -292,7 +298,7 @@ module TeamsnapHelper
       import_division = Division.new
     end
     import_division.description = division[:description]
-    import_division.type = division[:type]
+    import_division.kind = division[:kind]
     import_division.teamsnap_id = division[:teamsnap_id]
     import_division.season_id = season_id
     if !import_division.valid?
@@ -328,9 +334,9 @@ module TeamsnapHelper
   #
   # Import Player Profile, ratings and roster relation to database
   #
-  def run_player_import(player, team_id)
+  def run_import_player(player, team_id)
     # run profile import
-    imported_profile = run_import_player(player[:profile])
+    imported_profile = run_import_profile(player[:profile])
     # run roster import
     imported_roster = run_import_roster(player[:roster], team_id, imported_profile.id)
     # run ratings import
@@ -340,7 +346,7 @@ module TeamsnapHelper
   #
   # Import roster to the database
   #
-  def run_import_roster(roster, team_id, profile_d)
+  def run_import_roster(roster, team_id, profile_id)
     import_roster = Roster.where(:teamsnap_id => roster[:teamsnap_id]).first
     if import_roster.nil?
       import_roster = Roster.new
@@ -355,6 +361,7 @@ module TeamsnapHelper
 
     if !import_roster.valid?
       ap "______ Roster #{roster[:teamsnap_id]} IS NOT VALID TO SAVE _____"
+      ap import_roster.errors
       return
     end
     import_roster.save
@@ -364,12 +371,13 @@ module TeamsnapHelper
   #
   # Import Player Rating to the database
   #
-  def run_import_rating(rating,profile_id)
+  def run_import_ratings(rating,profile_id)
     # See if the rating teamsnap import already exist
-    import_rating = Rating.where(:teamsnap_id => roster[:rating_id]).first
+    import_rating = Rating.where(:teamsnap_id => rating[:teamsnap_id]).first
     if import_rating.nil?
       import_rating = Rating.new
       import_rating.teamsnap_id = rating[:teamsnap_id]
+      import_rating.profile_id = profile_id
     end
 
     import_rating.rating_1 = rating[:rating_1]
@@ -399,10 +407,10 @@ module TeamsnapHelper
     import_rating.rating_25 = rating[:rating_25]
     import_rating.rating_26 = rating[:rating_26]
     import_rating.rating_27 = rating[:rating_27]
-    import_rating.profile_id = profile_id
 
     if import_rating.valid?
-      ap "______ rating #{rating} IS NOT VALID TO SAVE to #{profile_id} _____"  
+      ap "______ rating #{rating} Could Not save_____"  
+      ap import_rating.errors
       return
     end
     
@@ -413,39 +421,47 @@ module TeamsnapHelper
   #
   # Import Profile to the database
   #
-  def run_import_profile(player)
+  def run_import_profile(profile)
+    ap "importing #{profile}"
     # check to see if the player profile exists, otherwise import it
     import_profile = Hash.new
-    player[:profile][:emails].each do |player_email|
-      import_profile = Profile.where(:email => [player_email])
+    profile[:emails].each do |player_email|
+      import_profile = Profile.where(:email => [player_email]).first
       if !import_profile.nil?
-        return
+        break
       end
     end
+    ap "DOES import_profile exist #{import_profile}"
+    ap import_profile.blank?
     # this player doesn't exist create a new profile
     # Set the profile as the first email from the list
-    if import_profile.nil?
+    if import_profile.blank?
+      ap "No Profile create a new one"
       import_profile = Profile.new
-      import_profile.email = player[:profile][:emails].first
+      import_profile.email = profile[:emails].first
     end
+    ap profile
     # try to find a profile with at least one of the email addresses     
-    import_profile.first_name = player[:profile][:first_name]
-    import_profile.last_name = player[:profile][:last_name]
-    import_profile.gender = player[:profile][:gender]
-    import_profile.shirt_size = player[:profile][:shirt_size]
-    import_profile.is_pickup_player = player[:profile][:is_pickup_player]
-    import_profile.emergency_contact_name = player[:profile][:emergency_contact_name]
-    import_profile.emergency_contact_relationship = player[:profile][:emergency_contact_relationship]
-    import_profile.emergency_contact_phone = player[:profile][:emergency_contact_phone]       
-    import_profile.dob = player[:profile][:dob]
-    import_profile.address = player[:profile][:address]
-    import_profile.address2 = player[:profile][:address2]
-    import_profile.city = player[:profile][:city]
-    import_profile.state = player[:profile][:state]
-    import_profile.zip = player[:profile][:zip]
+    import_profile.first_name = profile[:first_name]
+    import_profile.last_name = profile[:last_name]
+    import_profile.gender = profile[:gender]
+    import_profile.shirt_size = profile[:shirt_size]
+    import_profile.is_pickup_player = profile[:is_pickup_player]
+    import_profile.emergency_contact_name = profile[:emergency_contact_name]
+    import_profile.emergency_contact_relationship = profile[:emergency_contact_relationship]
+    import_profile.emergency_contact_phone = profile[:emergency_contact_phone]       
+    import_profile.dob = profile[:dob]
+    import_profile.address = profile[:address]
+    import_profile.address2 = profile[:address2]
+    import_profile.city = profile[:city]
+    import_profile.state = profile[:state]
+    import_profile.zip = profile[:zip]
+    random_string = (0...8).map { (65 + rand(26)).chr }.join
+    import_profile.password = random_string
 
     if !import_profile.valid?
-      ap "---------Couldn't save profile #{import_profile.first_name} #{import_profile.last_name}----------"
+      ap "---------Couldn't save profile #{import_profile.first_name} #{import_profile.last_name} ----------"
+      ap import_profile.errors
     end
     import_profile.save
     import_profile

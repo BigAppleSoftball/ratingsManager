@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150503200021) do
+ActiveRecord::Schema.define(version: 20150504015109) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20150503200021) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "teamsnap_id"
-    t.integer  "type"
+    t.integer  "kind"
   end
 
   create_table "fields", force: true do |t|
@@ -160,6 +160,8 @@ ActiveRecord::Schema.define(version: 20150503200021) do
     t.string   "emergency_contact_name"
     t.string   "emergency_contact_relationship"
     t.string   "emergency_contact_phone"
+    t.string   "address2"
+    t.string   "city"
   end
 
   create_table "ratings", force: true do |t|

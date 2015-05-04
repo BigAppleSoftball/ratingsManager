@@ -54,6 +54,7 @@ Rails.application.routes.draw do
   get '/ranking/:teamId/:rosterId/:playerId', to: 'teamsnap#ranking', as: 'playerId'
   get '/teamsnap', to:'teamsnap#redirect'
   get '/teamsnap/updateplayer', to:'payments_tracker#update_teamsnap_player'
+  post '/teamsnap/divisions/import', to:'teamsnap#import_season_data'
 
 
   # website iframes
