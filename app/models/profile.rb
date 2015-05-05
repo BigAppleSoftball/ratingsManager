@@ -16,8 +16,8 @@ class Profile < ActiveRecord::Base
   has_one :hallof_famer
   has_many :rosters
   has_one :rating
-  has_one :board_member
-  has_one :committee
+  has_many :board_members
+  has_many :committees
   #has_one :team
 
   # TODO(paige) implement

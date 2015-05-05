@@ -5,7 +5,7 @@ class BoardMembersController < ApplicationController
   # GET /board_members
   # GET /board_members.json
   def index
-    @board_members = BoardMember.order('display_order ASC').all
+    @board_members = BoardMember.eager_load(:profile).order('display_order ASC').all
   end
 
   # GET /board_members/1

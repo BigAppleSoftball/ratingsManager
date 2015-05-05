@@ -5,24 +5,39 @@ module SessionsHelper
     cookies.permanent[:remember_token] = remember_token
     profile.update_attribute(:remember_token, Profile.encrypt(remember_token))
     self.current_profile = profile
+    session[:current_user_id] = profile
   end
 
   def current_profile=(profile)
+    session[:current_user_id] = profile
     @current_profile = profile
   end
 
    def current_profile
-    remember_token = Profile.encrypt(cookies[:remember_token])
-    @current_user ||= Profile.find_by_remember_token(remember_token)
+    if session[:current_user_id].nil? || @current_user.nil?
+      remember_token = Profile.encrypt(cookies[:remember_token])
+      @current_user ||= Profile.eager_load(:rosters => {:team => {:division =>:season }}).find_by_remember_token(remember_token)
+      session[:current_user_id] = @current_user
+    end
+    @current_user
+    session[:current_user_id]
   end
 
   def current_user
+    if session[:current_user_id].nil?
+      session[:current_user_id] = current_profile
+    end
     current_profile
   end
 
   def signed_in?
-    !current_profile.nil?
+    session[:current_user_id].nil? && !current_profile.nil?
   end
+
+  def current_profile?(profile)
+    profile == current_profile
+  end
+
 
 
   #--------------------------------------------
@@ -125,15 +140,6 @@ module SessionsHelper
   def sign_out
     self.current_profile = nil
     cookies.delete(:remember_token)
-  end
-
-  def current_profile
-    remember_token = Profile.encrypt(cookies[:remember_token])
-    @current_user ||= Profile.find_by_remember_token(remember_token)
-  end
-
-  def current_profile?(profile)
-    profile == current_profile
   end
 
   def redirect_back_or(default)

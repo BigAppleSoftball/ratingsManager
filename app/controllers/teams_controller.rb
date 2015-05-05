@@ -7,7 +7,7 @@ class TeamsController < ApplicationController
   # GET /teams
   # GET /teams.json
   def index
-    @teams = Team.eager_load(:division).all
+    @teams = Team.eager_load(:division).includes(:rosters => :profile).where('rosters.is_manager = 1').all
   end
 
   # GET /teams/1
