@@ -13,9 +13,9 @@ class TeamsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
-    @teamSponsors = TeamsSponsor.where(:team_id => params[:id])
-    @teamsRosters = Roster.where(:team_id => params[:id])
-    @games = Game.where("home_team_id = ? OR away_team_id = ?", params[:id], params[:id])
+    @teamSponsors = TeamsSponsor.eager_load(:sponsor).where(:team_id => params[:id])
+    @teamsRosters = Roster.includes(:profile => :rating).where(:team_id => params[:id])
+    @games = Game.eager_load(:home_team, :away_team, :field).where("home_team_id = ? OR away_team_id = ?", params[:id], params[:id])
   end
 
   # GET /teams/new

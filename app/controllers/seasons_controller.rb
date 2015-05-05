@@ -81,6 +81,7 @@ class SeasonsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_season
       @season = Season.find(params[:id])
+      @divisions = Division.eager_load(:teams).where(:season_id => @season.id)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
