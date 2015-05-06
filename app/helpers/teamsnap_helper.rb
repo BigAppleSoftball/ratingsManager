@@ -482,7 +482,6 @@ module TeamsnapHelper
     Rails.cache.fetch("team_roster-#{teamId}-#{rosterId}", :expires_in => 60.minutes) do
       get_roster_api(teamId, rosterId, token)
     end
-    
   end
 
   def get_roster_api(teamId, rosterId, token=nil)

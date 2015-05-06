@@ -31,6 +31,7 @@ Rails.application.routes.draw do
 
   # seasons
   get '/get_divisions_by_season', to:'seasons#get_divisions_by_season'
+  get '/season/:seasonId/games', to:'seasons#games'
 
   # sessions
   match '/signup',  to: 'profiles#new', via: 'get'

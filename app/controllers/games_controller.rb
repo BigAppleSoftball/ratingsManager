@@ -4,9 +4,8 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.json
   def index
-    @games = Game.eager_load(:home_team, :away_team, :field).all
+    @seasons = Season.all
   end
-
   # GET /games/1
   # GET /games/1.json
   def show

@@ -77,6 +77,16 @@ class SeasonsController < ApplicationController
     end
   end
 
+  #
+  # Takes a season param and gets the games for that season
+  #
+  def games
+    season_id = params[:seasonId].to_i
+    @season = Season.find_by(:id => season_id)
+    @games = Game.eager_load(:home_team => {:division =>:season}).where('divisions.season_id = ?', season_id).order(:start_time)
+    #@games = Game.eager_load(:home_team => {:divisions => :season}, :away_team, :field).where('season.id = ?', season_id)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_season
