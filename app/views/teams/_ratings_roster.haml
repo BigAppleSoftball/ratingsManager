@@ -1,0 +1,38 @@
+%table.table.table-striped.table-bordered.table-condensed.ratings-table
+  %tr
+    %th Player
+    %th.center-column Rating
+    %th.center-column Throwing
+    %th.center-column Fielding
+    %th.center-column Baserunning
+    %th.center-column Hitting
+  -rosters.each do |roster|
+    - player_profile = roster.profile
+    -if !player_profile.nil?
+      - player_rating = roster.profile.rating
+      %tr.js-player-row{:data => {'player_id' => player_profile.id}}
+        %td
+          %strong= link_to player_profile.name, player_profile
+        %td.center-column
+          -if player_rating
+            .btn.btn-default.edit-btn=raw("#{player_rating.total} <i class='fa fa-pencil fa-lg'></i>")
+        %td.center-column
+          -if player_rating
+            .btn.btn-primary.edit-btn.js-throwing-btn=raw("#{player_rating.throwing_total} <i class='fa fa-pencil fa-lg'></i>")
+        %td.center-column
+          -if player_rating
+            .btn.btn-success.edit-btn.js-fielding-btn=raw("#{player_rating.fielding_total} <i class='fa fa-pencil fa-lg'></i>")
+        %td.center-column
+          -if player_rating
+            .btn.btn-warning.edit-btn.js-running-btn=raw("#{player_rating.baserunning_total} <i class='fa fa-pencil fa-lg'></i>")
+        %td.center-column
+          -if player_rating
+            .btn.btn-danger.edit-btn.js-hitting-btn=raw("#{player_rating.hitting_total} <i class='fa fa-pencil fa-lg'></i>")
+
+= render :partial => "modal/throwingmodal"
+= render :partial => "modal/fieldingmodal"
+= render :partial => "modal/runningmodal"
+= render :partial => "modal/hittingmodal"
+
+:javascript
+  window.playersJson = #{@ratings_json || false} 

@@ -1,0 +1,7 @@
+- content_for :panel_head do
+  %h1
+    =@team.name
+    Player Ratings
+
+-if @teamsRosters.length > 0
+  = render :partial => 'teams/ratings_roster', :locals => {:rosters => @teamsRosters}

@@ -56,7 +56,8 @@ Rails.application.routes.draw do
   get '/teamsnap', to:'teamsnap#redirect'
   get '/teamsnap/updateplayer', to:'payments_tracker#update_teamsnap_player'
   post '/teamsnap/divisions/import', to:'teamsnap#import_season_data'
-
+  # teams
+  get '/teams/:teamid/ratings', to:'teams#show_player_ratings'
 
   # website iframes
   get '/showallsponsors', to: 'sponsors#all_sponsors'

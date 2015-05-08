@@ -194,3 +194,11 @@ a:hover {
     }
   }
 }
+
+// tables
+td,
+th {
+  &.center-column {
+    text-align: center;
+  }
+}
