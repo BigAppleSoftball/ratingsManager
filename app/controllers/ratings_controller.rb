@@ -1,6 +1,39 @@
 class RatingsController < ApplicationController
   before_action :set_rating, only: [:show, :edit, :update, :destroy]
 
+  #
+  # From ajax updates player from a given id
+  #
+  def update_player
+    response = Hash.new
+    profile_id = params[:requestData][:profileId].to_i
+    ratings = params[:requestData][:ratings]
+    type = params[:requestData][:type]
+    response[:profile_id] = profile_id
+    response[:ratings] = ratings
+
+    @rating = Rating.find_by(:profile_id => profile_id)
+    if @rating.nil?
+      puts "Rating not found on #{profile_id}"
+      response.error = "Rating not found"
+    else
+      ratings.each do |key, value|
+        @rating[key] = value.to_i
+      end
+      if (@rating.valid?)
+        @rating.save
+        response[:success] = true
+        response[:rating_total] = @rating.total
+      else
+        response[:errors] = @rating.errors
+      end
+    end
+
+    respond_to do |format|
+      format.json { render json: response }
+    end
+  end
+
   # GET /ratings
   # GET /ratings.json
   def index

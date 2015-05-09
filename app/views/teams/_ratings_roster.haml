@@ -10,24 +10,29 @@
     - player_profile = roster.profile
     -if !player_profile.nil?
       - player_rating = roster.profile.rating
-      %tr.js-player-row{:data => {'player_id' => player_profile.id}}
+      %tr.js-player-row{:data => {'player_id' => player_profile.id}, :class => "js-player-row-#{player_profile.id}"}
         %td
           %strong= link_to player_profile.name, player_profile
-        %td.center-column
-          -if player_rating
-            .btn.btn-default.edit-btn=raw("#{player_rating.total} <i class='fa fa-pencil fa-lg'></i>")
-        %td.center-column
-          -if player_rating
-            .btn.btn-primary.edit-btn.js-throwing-btn=raw("#{player_rating.throwing_total} <i class='fa fa-pencil fa-lg'></i>")
-        %td.center-column
-          -if player_rating
-            .btn.btn-success.edit-btn.js-fielding-btn=raw("#{player_rating.fielding_total} <i class='fa fa-pencil fa-lg'></i>")
-        %td.center-column
-          -if player_rating
-            .btn.btn-warning.edit-btn.js-running-btn=raw("#{player_rating.baserunning_total} <i class='fa fa-pencil fa-lg'></i>")
-        %td.center-column
-          -if player_rating
-            .btn.btn-danger.edit-btn.js-hitting-btn=raw("#{player_rating.hitting_total} <i class='fa fa-pencil fa-lg'></i>")
+        - if player_rating
+          %td.center-column
+            -if player_rating
+              .btn.btn-default.edit-btn.js-total-btn=raw("<span class='js-value'>#{player_rating.total}</span> <i class='fa fa-pencil fa-lg'></i>")
+          %td.center-column
+            -if player_rating
+              .btn.btn-primary.edit-btn.js-throwing-btn=raw("<span class='js-value'>#{player_rating.throwing_total}</span> <i class='fa fa-pencil fa-lg'></i>")
+          %td.center-column
+            -if player_rating
+              .btn.btn-success.edit-btn.js-fielding-btn=raw("<span class='js-value'>#{player_rating.fielding_total}</span> <i class='fa fa-pencil fa-lg'></i>")
+          %td.center-column
+            -if player_rating
+              .btn.btn-warning.edit-btn.js-running-btn=raw("<span class='js-value'>#{player_rating.baserunning_total}</span> <i class='fa fa-pencil fa-lg'></i>")
+          %td.center-column
+            -if player_rating
+              .btn.btn-danger.edit-btn.js-hitting-btn=raw("<span class='js-value'>#{player_rating.hitting_total}</span> <i class='fa fa-pencil fa-lg'></i>")
+        - else
+          %td.warning.no-ranking-warning.center-column{:colspan => '5'}
+            No Ranking Found.
+            =link_to '+ Add Ranking', '#', {:class => 'btn btn-default js-add-player-ranking'}
 
 = render :partial => "modal/throwingmodal"
 = render :partial => "modal/fieldingmodal"
@@ -35,4 +40,4 @@
 = render :partial => "modal/hittingmodal"
 
 :javascript
-  window.playersJson = #{@ratings_json || false} 
+  window.playersJson = #{@ratings_json || false}

@@ -18,7 +18,9 @@
     %td= team.stat_pt_allowed
 
 -if teamsRosters.length > 0
-  = render :partial => 'teams/ratings_roster', :locals => {:rosters => teamsRosters}
+  %ul
+    - teamsRosters.each do |teamRoster|
+      %li=teamRoster.profile.name
 -if teamsSponsors.length > 0
   = render :partial => 'teams/sponsors', :locals => {:sponsors => teamsSponsors}
 -if games.length > 0

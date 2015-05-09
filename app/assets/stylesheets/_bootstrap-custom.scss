@@ -1,11 +1,9 @@
 /**
  * Style overriding the bootstrap styling
  */
-@import 'vars',
-        'mixins',
+@import
         "bootstrap-sprockets",
-        'bootstrap',
-        "compass";
+        'bootstrap';
 
 .modal-primary {
   .modal-header {

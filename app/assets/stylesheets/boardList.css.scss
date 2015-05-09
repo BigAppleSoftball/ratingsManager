@@ -1,4 +1,4 @@
-@import 'mixins'; 
+@import 'global/mixins';
 
 .board-members-list {
   list-style: none;
@@ -6,7 +6,7 @@
   padding: 0;
   font-family: 'Montserrat', 'sans-serif';
   @include clearfix;
-  
+
   .board-member-card {
     position: relative;
     float: left;
@@ -21,7 +21,7 @@
     height: 400px;
     background: image_url('board-card.png') 0 0 no-repeat;
   }
-  
+
   .board-member-card-details {
     position: absolute;
     bottom: 14px;
