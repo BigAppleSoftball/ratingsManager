@@ -5,11 +5,11 @@ Rails.application.routes.draw do
   resources :board_members
   resources :committees
   resources :divisions
-  resources :fields
+  #resources :fields
   resources :games
   resources :hallof_famers
   resources :offers
-  resources :parks
+  #resources :parks
   resources :profiles
   resources :rosters, :only => [:destroy]
   resources :teams
@@ -19,6 +19,10 @@ Rails.application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   resources :sponsors
   
+  resources :parks do
+    resources :fields
+  end
+
   # games
   get '/games/:id/:teamid', to: 'games#game_attendance'
   post '/set_attendance', to: 'game_attendances#set_attendance'

@@ -40,6 +40,7 @@ gem 'user_impersonate2', :require => 'user_impersonate'
 group :development do
   gem 'spring'
   gem 'mysql2'
+  gem 'quiet_assets'
 end
 
 
