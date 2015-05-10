@@ -25,7 +25,6 @@ class TeamsController < ApplicationController
     if params && params[:division_id]
       @team[:division_id] = params[:division_id].to_i
     end
-    ap @team
   end
 
   # GET /teams/1/edit

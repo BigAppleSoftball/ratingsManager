@@ -1,28 +1,24 @@
 Rails.application.routes.draw do
-
-  resources :fields
-
   root 'static_pages#home'
-  resources :offers
 
-  resources :games
-  resources :parks
-  resources :committees
-  resources :board_members
-  resources :hallof_famers
   resources :admins
-  resources :rosters, :only => [:destroy]
-  #resources :ratings
-  resources :teams
-  resources :profiles
-  resources :teams_sponsors
-  resources :sponsors
-  resources :seasons
+  resources :board_members
+  resources :committees
   resources :divisions
-  resources :teams, :only => [:index, :show]
-  resources :sessions, only: [:new, :create, :destroy]
+  resources :fields
+  resources :games
+  resources :hallof_famers
+  resources :offers
+  resources :parks
+  resources :profiles
+  resources :rosters, :only => [:destroy]
+  resources :teams
   resources :teamsnap_payments
-
+  resources :teams_sponsors
+  resources :seasons
+  resources :sessions, only: [:new, :create, :destroy]
+  resources :sponsors
+  
   # games
   get '/games/:id/:teamid', to: 'games#game_attendance'
   post '/set_attendance', to: 'game_attendances#set_attendance'
