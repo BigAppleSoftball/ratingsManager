@@ -5,6 +5,7 @@
   var PlayerRatings = function(options) {
     this.initDialogActions();
     this.bindSaveBtn();
+    this.bindCreateNewPlayer();
   };
 
   /**
@@ -12,7 +13,7 @@
    */
   PlayerRatings.prototype.initDialogActions = function () {
     var self = this;
-    $('.js-throwing-btn, .js-fielding-btn, .js-hitting-btn, .js-running-btn').on('click', function(){
+    $('.js-ratings-table').on('click', '.js-throwing-btn, .js-fielding-btn, .js-hitting-btn, .js-running-btn', function(){
       self.initDialog($(this));
     });
   };
@@ -41,6 +42,7 @@
       $dialog = $('.js-running-modal');
       currentRatings = currentPlayer.ratings.baserunning;
     }
+
     $dialog.data('player-id', playerId);
     this.setDialogCheckboxValues(currentRatings, $dialog);
     $dialog.modal();
@@ -70,7 +72,7 @@
           $modal = $this.closest('.modal'),
           playerId = $modal.data('player-id'),
           ratingType = $modal.data('rating-type'),
-          requestData = {};;
+          requestData = {};
 
       requestData.profileId = playerId;
       requestData.type = ratingType;
@@ -88,14 +90,7 @@
 
       requestData.ratings = ratingsData;
 
-      // run ajax to update the player
-      $.ajax({
-        method: "POST",
-        dataType: 'JSON',
-        url: "/ratings/update",
-        data: {requestData}
-      })
-      .done(function(data) {
+      var onPlayerUpdated = function(data) {
         // show toast
         if (data.success){
           $.toaster({ priority : 'success', title : 'Success!', message : 'Player Updated!'});
@@ -107,23 +102,107 @@
 
           // update total
         } else if (data.errors.length > 0) {
-          $.toaster({ priority : 'danger', title : 'Error!', message : 'Please Refresh and try again'});
+          self.showError();
         }
         $modal.modal('hide');
+      }; 
+
+      // run ajax to update the player
+      $.ajax({
+        method: "POST",
+        dataType: 'JSON',
+        url: "/ratings/update",
+        data: {requestData},
+        success: onPlayerUpdated
       });
     });
   };
 
-  PlayerRatings.prototype.updateAnimation = function($element, newValue) {
+  /**
+   * Uses Slideup animation to replace html on a given element
+   * @param  {jQueryObject} $element the element to replace
+   * @param  {String} newValue the new value to replace
+   * @param  {boolean} shouldReplace Whether or not you adding the new html to the $element or completely replacing it
+   */
+  PlayerRatings.prototype.updateAnimation = function($element, newValue, shouldReplace) {
     $element.slideUp({
       complete: function(){
-        $element.html(newValue).slideDown();
+        if (shouldReplace) {
+           $element.replaceWith(newValue).slideDown();
+        } else {
+          $element.html(newValue).slideDown();
+        }
       }
     });
   };
 
-  PlayerRatings.prototype.saveChanges = function(playerId){
-    // run ajax to update a playerratings
+  /**
+   * Uses fade animation to replace html on a given element
+   * @param  {jQueryObject} $element the element to replace
+   * @param  {String} newValue the new value to replace
+   * @param  {boolean} shouldReplace Whether or not you adding the new html to the $element or completely replacing it
+   */
+  PlayerRatings.prototype.fadeAnimation = function($element, newValue, shouldReplace) {
+    $element.fadeOut({
+      complete: function(){
+        if (shouldReplace) {
+           $element.replaceWith(newValue).fadeIn();
+        } else {
+          $element.html(newValue).slideDown();
+        }
+      }
+    });
+  };
+
+  /**
+   * Creates a new empty ranking for a given profileid
+   */
+  PlayerRatings.prototype.bindCreateNewPlayer = function() {
+    var self = this;
+    $('.js-add-player-ranking').on('click', function(e){
+      e.preventDefault();
+
+      var $button = $(this);
+          $playerRow = $button.closest('.js-player-row'),
+          playerId = $playerRow.data('player-id'),
+          requestData = {};
+
+      if (playerId) {
+        // run ajax to update the player
+        requestData.profileId = playerId;
+
+        var onRatingCreated = function(data) {
+          if (data.success && data.rating_row_html) {
+            // add player json to the windows json
+            if (!data.profile_id || !data.ratings) {
+              self.showError();
+            } else {
+              self.fadeAnimation($('.js-player-row-' + data.profile_id), data.rating_row_html, true); 
+              window.playersJson[data.profile_id] = {};
+               window.playersJson[data.profile_id]['ratings'] = data.ratings;
+              $.toaster({ priority : 'success', title : 'Success!', message : 'Player Updated, Start Adding Ratings!!'});
+            }
+          }
+        };
+
+        $.ajax({
+          method: "POST",
+          dataType: 'JSON',
+          url: "/ratings/new",
+          data: {requestData},
+          success: onRatingCreated
+        });
+      } else {
+        self.showError();
+      }
+    });
+  };
+
+  /**
+   * Shows an Error Message Toast
+   */
+  PlayerRatings.prototype.showError = function () {
+    $.toaster({ priority : 'danger', title : 'Error!', message : 'Please Refresh and try again'});
   };
 
   window.PlayerRatings = PlayerRatings;

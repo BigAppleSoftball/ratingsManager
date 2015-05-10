@@ -62,6 +62,7 @@ Rails.application.routes.draw do
 
   # ratings
   post '/ratings/update', to:'ratings#update_player'
+  post '/ratings/new', to:'ratings#new_player'
 
   # website iframes
   get '/showallsponsors', to: 'sponsors#all_sponsors'

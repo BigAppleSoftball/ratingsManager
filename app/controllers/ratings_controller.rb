@@ -34,6 +34,37 @@ class RatingsController < ApplicationController
     end
   end
 
+  #
+  # Creates a new player and returns a json file on success
+  #
+  def new_player
+    response = Hash.new
+    profile_id = params[:requestData][:profileId].to_i
+    # make sure the rating doesn't already exist
+    profile = Profile.find(profile_id)
+    rating = Rating.find_by(:profile_id => profile_id)
+    if profile.present?
+      if rating.nil?
+        rating = Rating.new
+        rating.profile_id = profile_id
+        if (rating.valid?)
+          rating.save
+          response[:profile_id] = profile_id
+          response[:rating_total] = 0
+          response[:ratings] = rating_to_type_json(rating)
+          response[:success] = true
+          response[:rating_row_html] = render_to_string "teams/ratings/_row.haml", :layout => false, :locals => { :profile => profile}
+        else
+          response[:errors] = @rating.errors
+        end
+      end
+      response[:errors] = "No Profile Found"
+    end
+    respond_to do |format|
+      format.json { render json: response }
+    end
+  end
+
   # GET /ratings
   # GET /ratings.json
   def index
