@@ -1,8 +1,7 @@
-@import 'vars',
-        'mixins',
+@import 'global/vars',
+        'global/mixins',
         'compass',
-        "bootstrap-sprockets",
-        'bootstrap',
+        "bootstrap-custom',
         'stop-light';
 
 .parks-wrapper {
