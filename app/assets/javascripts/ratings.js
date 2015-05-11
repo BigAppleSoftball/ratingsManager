@@ -13,7 +13,7 @@
    */
   PlayerRatings.prototype.initDialogActions = function () {
     var self = this;
-    $('.js-ratings-table').on('click', '.js-throwing-btn, .js-fielding-btn, .js-hitting-btn, .js-running-btn', function(){
+    $('.js-ratings-table').on('click', '.js-throwing-btn, .js-fielding-btn, .js-hitting-btn, .js-baserunning-btn', function(){
       self.initDialog($(this));
     });
   };
@@ -38,9 +38,11 @@
     } else if ($clickedBtn.hasClass('js-hitting-btn')) {
       $dialog = $('.js-hitting-modal');
       currentRatings = currentPlayer.ratings.hitting;
-    } else if ($clickedBtn.hasClass('js-running-btn')) {
-      $dialog = $('.js-running-modal');
+    } else if ($clickedBtn.hasClass('js-baserunning-btn')) {
+      $dialog = $('.js-baserunning-modal');
       currentRatings = currentPlayer.ratings.baserunning;
+    } else {
+      return;
     }
 
     $dialog.data('player-id', playerId);
@@ -92,14 +94,14 @@
 
       var onPlayerUpdated = function(data) {
         // show toast
-        if (data.success){
+        if (data.success && data.ratings && data.type){
           $.toaster({ priority : 'success', title : 'Success!', message : 'Player Updated!'});
           // update the field with animation so the user noticed it
           var $btnValue = $(".js-player-row-" + playerId + " .js-" + ratingType + '-btn').find('.js-value'),
               $totalValue = $(".js-player-row-" + playerId + ' .js-total-btn').find('.js-value');
           self.updateAnimation($btnValue, totalChecked);
           self.updateAnimation($totalValue, data.rating_total);
-
+          window.playersJson[data.profile_id].ratings[data.type] = data.ratings;
           // update total
         } else if (data.errors.length > 0) {
           self.showError();

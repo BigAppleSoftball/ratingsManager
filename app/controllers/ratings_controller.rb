@@ -6,11 +6,13 @@ class RatingsController < ApplicationController
   #
   def update_player
     response = Hash.new
-    profile_id = params[:requestData][:profileId].to_i
-    ratings = params[:requestData][:ratings]
-    type = params[:requestData][:type]
+    ap params
+    profile_id = params[:profileId].to_i
+    ratings = params[:ratings]
+    type = params[:type]
     response[:profile_id] = profile_id
     response[:ratings] = ratings
+    response[:type] = type
 
     @rating = Rating.find_by(:profile_id => profile_id)
     if @rating.nil?
@@ -39,7 +41,7 @@ class RatingsController < ApplicationController
   #
   def new_player
     response = Hash.new
-    profile_id = params[:requestData][:profileId].to_i
+    profile_id = params[:profileId].to_i
     # make sure the rating doesn't already exist
     profile = Profile.find(profile_id)
     rating = Rating.find_by(:profile_id => profile_id)
