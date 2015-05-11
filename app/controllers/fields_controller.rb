@@ -15,11 +15,13 @@ class FieldsController < ApplicationController
   # GET /fields/new
   def new
     set_univeral_params
+    ap params
     @field = Field.new
     if params[:park_id]
       current_park = Park.find_by(:id => params[:park_id].to_i)
       if current_park
         @field[:park_id] = current_park.id
+        @park = current_park  
       end  
     end
   end
@@ -36,7 +38,7 @@ class FieldsController < ApplicationController
 
     respond_to do |format|
       if @field.save
-        format.html { redirect_to @field, notice: 'Field was successfully created.' }
+        format.html { redirect_to @field.park, notice: 'Field was successfully created.' }
         format.json { render :show, status: :created, location: @field }
       else
         format.html { render :new }
@@ -50,7 +52,7 @@ class FieldsController < ApplicationController
   def update
     respond_to do |format|
       if @field.update(field_params)
-        format.html { redirect_to @field, notice: 'Field was successfully updated.' }
+        format.html { redirect_to @field.park, notice: 'Field was successfully updated.' }
         format.json { render :show, status: :ok, location: @field }
       else
         format.html { render :edit }
@@ -64,7 +66,7 @@ class FieldsController < ApplicationController
   def destroy
     @field.destroy
     respond_to do |format|
-      format.html { redirect_to fields_url, notice: 'Field was successfully destroyed.' }
+      format.html { redirect_to parks_url, notice: 'Field was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -72,11 +74,12 @@ class FieldsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_field
-      @field = Field.find(params[:id])
+      @field = Field.eager_load(:park).find(params[:id])
     end
 
     def set_univeral_params
       @parks = Park.all
+      @field = Field.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

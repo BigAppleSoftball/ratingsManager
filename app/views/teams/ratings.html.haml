@@ -1,0 +1,8 @@
+- content_for :panel_head do
+  %h1
+    =@team.name
+    Player Ratings
+  = link_to raw("<i class='fa fa-download'></i> Download CSV"), "/teams/#{@team.id}/ratings.csv", {:class => 'btn btn-default'}
+
+-if @teamsRosters.length > 0
+  = render :partial => 'teams/ratings/table', :locals => {:rosters => @teamsRosters}

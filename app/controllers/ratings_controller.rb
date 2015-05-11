@@ -1,6 +1,72 @@
 class RatingsController < ApplicationController
   before_action :set_rating, only: [:show, :edit, :update, :destroy]
 
+  #
+  # From ajax updates player from a given id
+  #
+  def update_player
+    response = Hash.new
+    ap params
+    profile_id = params[:profileId].to_i
+    ratings = params[:ratings]
+    type = params[:type]
+    response[:profile_id] = profile_id
+    response[:ratings] = ratings
+    response[:type] = type
+
+    @rating = Rating.find_by(:profile_id => profile_id)
+    if @rating.nil?
+      puts "Rating not found on #{profile_id}"
+      response.error = "Rating not found"
+    else
+      ratings.each do |key, value|
+        @rating[key] = value.to_i
+      end
+      if (@rating.valid?)
+        @rating.save
+        response[:success] = true
+        response[:rating_total] = @rating.total
+      else
+        response[:errors] = @rating.errors
+      end
+    end
+
+    respond_to do |format|
+      format.json { render json: response }
+    end
+  end
+
+  #
+  # Creates a new player and returns a json file on success
+  #
+  def new_player
+    response = Hash.new
+    profile_id = params[:profileId].to_i
+    # make sure the rating doesn't already exist
+    profile = Profile.find(profile_id)
+    rating = Rating.find_by(:profile_id => profile_id)
+    if profile.present?
+      if rating.nil?
+        rating = Rating.new
+        rating.profile_id = profile_id
+        if (rating.valid?)
+          rating.save
+          response[:profile_id] = profile_id
+          response[:rating_total] = 0
+          response[:ratings] = rating_to_type_json(rating)
+          response[:success] = true
+          response[:rating_row_html] = render_to_string "teams/ratings/_row.haml", :layout => false, :locals => { :profile => profile}
+        else
+          response[:errors] = @rating.errors
+        end
+      end
+      response[:errors] = "No Profile Found"
+    end
+    respond_to do |format|
+      format.json { render json: response }
+    end
+  end
+
   # GET /ratings
   # GET /ratings.json
   def index

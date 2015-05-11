@@ -11,14 +11,7 @@
     %label.col-sm-2.control-label
       Season
     .col-sm-10
-      %select.chosen-select.js-season-selector{:data => {:placeholder => 'Select a Season'}}
-        %option
-        -@seasons.each do |season|
-          -if season.id == @selected_season_id
-            %option{:value => season.id, :selected => true}=season.description
-          -else
-            %option{:value => season.id}=season.description
-
+      = render 'shared/forms/season_selector', {:selected_season => @selected_season, :seasons => @seasons, :name => 'season_selector'}
 
   .form-group
     = f.label :start_time, {:class => 'col-sm-2 control-label'}

@@ -4,9 +4,8 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.json
   def index
-    @games = Game.eager_load(:home_team, :away_team, :field).all
+    @seasons = Season.select('description, id').all
   end
-
   # GET /games/1
   # GET /games/1.json
   def show
@@ -18,13 +17,20 @@ class GamesController < ApplicationController
     get_universal_game_variables
     # if there is a division in the params get the season
     if (params[:division_id])
-      division = Division.find_by( :id =>params[:division_id].to_i)
-      ap division
+      division = Division.find_by(:id =>params[:division_id].to_i)
       if !division.nil? 
-        @selected_season_id = division.season_id
+        @selected_season = division.season
         @teamsByDivision = get_teams_by_division(params[:division_id].to_i)
         @seasons = Array.new
         @seasons.push(division.season)
+      end
+    elsif (params[:season_id])
+      season = Season.find_by(:id => params[:season_id])
+      
+      if (season.present?)
+        @selected_season = season
+        division_ids = Division.select('id').where(:season_id => @selected_season.id).pluck(:id)
+        @teamsByDivision = get_teams_by_division(division_ids)
       end
     end
   end

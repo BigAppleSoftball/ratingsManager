@@ -9,24 +9,24 @@ module SessionsHelper
   end
 
   def current_profile=(profile)
-    session[:current_user_id] = profile
     @current_profile = profile
   end
 
    def current_profile
-    if session[:current_user_id].nil? || @current_user.nil?
-      remember_token = Profile.encrypt(cookies[:remember_token])
-      @current_user ||= Profile.eager_load(:rosters => {:team => {:division =>:season }}).find_by_remember_token(remember_token)
-      session[:current_user_id] = @current_user
+    if @current_user.nil?
+      @current_user ||= get_current_profile
     end
     @current_user
-    session[:current_user_id]
   end
 
-  def current_user
-    if session[:current_user_id].nil?
-      session[:current_user_id] = current_profile
+  def get_current_profile
+    Rails.cache.fetch("current_profile_#{cookies[:remember_token]}", :expires_in => 60.minutes) do
+      remember_token = Profile.encrypt(cookies[:remember_token])
+      Profile.eager_load(:rosters => {:team => {:division =>:season }}).find_by_remember_token(remember_token)
     end
+  end
+ 
+  def current_user
     current_profile
   end
 

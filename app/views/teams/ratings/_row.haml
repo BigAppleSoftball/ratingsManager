@@ -1,0 +1,20 @@
+-if profile.present?
+  - player_rating = profile.rating
+  %tr.js-player-row{:data => {'player_id' => profile.id}, :class => "js-player-row-#{profile.id}"}
+    %td
+      %strong= link_to profile.name, profile
+    - if player_rating
+      %td.center-column
+        .btn.btn-default.edit-btn.js-total-btn=raw("<span class='js-value'>#{player_rating.total}</span>")
+      %td.center-column
+        .btn.btn-primary.edit-btn.js-throwing-btn=raw("<span class='js-value'>#{player_rating.throwing_total}</span> <i class='fa fa-pencil fa-lg'></i>")
+      %td.center-column
+        .btn.btn-success.edit-btn.js-fielding-btn=raw("<span class='js-value'>#{player_rating.fielding_total}</span> <i class='fa fa-pencil fa-lg'></i>")
+      %td.center-column
+        .btn.btn-warning.edit-btn.js-baserunning-btn=raw("<span class='js-value'>#{player_rating.baserunning_total}</span> <i class='fa fa-pencil fa-lg'></i>")
+      %td.center-column
+        .btn.btn-danger.edit-btn.js-hitting-btn=raw("<span class='js-value'>#{player_rating.hitting_total}</span> <i class='fa fa-pencil fa-lg'></i>")
+    - else
+      %td.warning.no-ranking-warning.center-column{:colspan => '5'}
+        No Ranking Found.
+        =link_to '+ Add Ranking', '#', {:class => 'btn btn-default js-add-player-ranking'}

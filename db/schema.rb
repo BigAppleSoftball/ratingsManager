@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150504015109) do
+ActiveRecord::Schema.define(version: 20150510204716) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -173,33 +173,33 @@ ActiveRecord::Schema.define(version: 20150504015109) do
     t.boolean  "is_provisional"
     t.boolean  "is_approved"
     t.boolean  "is_active"
-    t.integer  "rating_1"
-    t.integer  "rating_2"
-    t.integer  "rating_3"
-    t.integer  "rating_4"
-    t.integer  "rating_5"
-    t.integer  "rating_6"
-    t.integer  "rating_7"
-    t.integer  "rating_8"
-    t.integer  "rating_9"
-    t.integer  "rating_10"
-    t.integer  "rating_11"
-    t.integer  "rating_12"
-    t.integer  "rating_13"
-    t.integer  "rating_14"
-    t.integer  "rating_15"
-    t.integer  "rating_16"
-    t.integer  "rating_17"
-    t.integer  "rating_18"
-    t.integer  "rating_19"
-    t.integer  "rating_20"
-    t.integer  "rating_21"
-    t.integer  "rating_22"
-    t.integer  "rating_23"
-    t.integer  "rating_24"
-    t.integer  "rating_25"
-    t.integer  "rating_26"
-    t.integer  "rating_27"
+    t.integer  "rating_1",               default: 0
+    t.integer  "rating_2",               default: 0
+    t.integer  "rating_3",               default: 0
+    t.integer  "rating_4",               default: 0
+    t.integer  "rating_5",               default: 0
+    t.integer  "rating_6",               default: 0
+    t.integer  "rating_7",               default: 0
+    t.integer  "rating_8",               default: 0
+    t.integer  "rating_9",               default: 0
+    t.integer  "rating_10",              default: 0
+    t.integer  "rating_11",              default: 0
+    t.integer  "rating_12",              default: 0
+    t.integer  "rating_13",              default: 0
+    t.integer  "rating_14",              default: 0
+    t.integer  "rating_15",              default: 0
+    t.integer  "rating_16",              default: 0
+    t.integer  "rating_17",              default: 0
+    t.integer  "rating_18",              default: 0
+    t.integer  "rating_19",              default: 0
+    t.integer  "rating_20",              default: 0
+    t.integer  "rating_21",              default: 0
+    t.integer  "rating_22",              default: 0
+    t.integer  "rating_23",              default: 0
+    t.integer  "rating_24",              default: 0
+    t.integer  "rating_25",              default: 0
+    t.integer  "rating_26",              default: 0
+    t.integer  "rating_27",              default: 0
     t.integer  "ng"
     t.integer  "nr"
     t.datetime "created_at"

@@ -198,6 +198,51 @@ class ApplicationController < ActionController::Base
   end
 
   #
+  # Group's a players ratings into a 
+  # hash map that is seperated by the 
+  # rating topic
+  #
+  def rating_to_type_json(rating)
+    rating_json = Hash.new
+    rating_json[:throwing] = Hash.new
+    rating_json[:fielding] = Hash.new
+    rating_json[:baserunning] = Hash.new
+    rating_json[:hitting] = Hash.new
+    # throwing
+    rating_json[:throwing][1] = rating[:rating_1]
+    rating_json[:throwing][2] = rating[:rating_2]
+    rating_json[:throwing][3] = rating[:rating_3]
+    rating_json[:throwing][4] = rating[:rating_4]
+    rating_json[:throwing][5] = rating[:rating_5]
+    # fielding
+    rating_json[:fielding][6] = rating[:rating_6]
+    rating_json[:fielding][7] = rating[:rating_7]
+    rating_json[:fielding][8] = rating[:rating_8]
+    rating_json[:fielding][9] = rating[:rating_9]
+    rating_json[:fielding][10] = rating[:rating_10]
+    rating_json[:fielding][11] = rating[:rating_11]
+    rating_json[:fielding][12] = rating[:rating_12]
+    rating_json[:fielding][13] = rating[:rating_13]
+    rating_json[:fielding][14] = rating[:rating_14]
+    # baserunning
+    rating_json[:baserunning][15] = rating[:rating_15]
+    rating_json[:baserunning][16] = rating[:rating_16]
+    rating_json[:baserunning][17] = rating[:rating_17]
+    rating_json[:baserunning][18] = rating[:rating_18]
+    # hitting
+    rating_json[:hitting][19] = rating[:rating_19]
+    rating_json[:hitting][20] = rating[:rating_20]
+    rating_json[:hitting][21] = rating[:rating_21]
+    rating_json[:hitting][22] = rating[:rating_22]
+    rating_json[:hitting][23] = rating[:rating_23]
+    rating_json[:hitting][24] = rating[:rating_24]
+    rating_json[:hitting][25] = rating[:rating_25]
+    rating_json[:hitting][26] = rating[:rating_26]
+    rating_json[:hitting][27] = rating[:rating_27]
+    rating_json
+  end
+
+  #
   # Used by impersonate to impersonate a user
   #
   def authenticate_user!
