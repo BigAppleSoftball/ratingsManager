@@ -1,6 +1,6 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
-(function(window, document, undefined){
+(function(){
 
   var PlayerRatings = function () {
     this.initDialogActions();
@@ -206,4 +206,4 @@
   };
 
   window.PlayerRatings = PlayerRatings;
-}(window, document, undefined));
+}());
