@@ -6,7 +6,7 @@
 Player,DOB,Rating,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27
 -@teamsRosters.each do |roster|
   
-  - if roster.profile.rating
+  - if roster.profile && roster.profile.rating
     - rating = roster.profile.rating
     ="#{roster.profile.name},#{roster.profile.dob},#{rating.total},#{rating.rating_1},#{rating.rating_2},#{rating.rating_3},#{rating.rating_4},#{rating.rating_5},#{rating.rating_6},#{rating.rating_7},#{rating.rating_8},#{rating.rating_9},#{rating.rating_10},#{rating.rating_11},#{rating.rating_12},#{rating.rating_13},#{rating.rating_14},#{rating.rating_15},#{rating.rating_16},#{rating.rating_17},#{rating.rating_18},#{rating.rating_19},#{rating.rating_20},#{rating.rating_21},#{rating.rating_22},#{rating.rating_23},#{rating.rating_24},#{rating.rating_25},#{rating.rating_26},#{rating.rating_27}"
   - else
