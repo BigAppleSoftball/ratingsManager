@@ -40,7 +40,6 @@ gem 'user_impersonate2', :require => 'user_impersonate'
 group :development do
   gem 'spring'
   gem 'mysql2'
-  gem 'quiet_assets'
 end
 
 
@@ -50,9 +49,8 @@ gem 'faraday'
 gem 'json'
 
 group :production do
-  gem 'rails_12factor'
+  #gem 'rails_12factor'
   gem 'newrelic_rpm'
-  # Use sqlite3 as the database for Active Record
   gem 'pg'
 end
 

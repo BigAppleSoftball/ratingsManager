@@ -162,7 +162,7 @@
     $('.js-add-player-ranking').on('click', function(e){
       e.preventDefault();
 
-      var $button = $(this);
+      var $button = $(this),
           $playerRow = $button.closest('.js-player-row'),
           playerId = $playerRow.data('player-id'),
           requestData = {};
