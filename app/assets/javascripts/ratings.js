@@ -1,6 +1,6 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
-(function(){
+(function(window, document, undefined){
 
   var PlayerRatings = function () {
     this.initDialogActions();
@@ -112,7 +112,7 @@
         method: "POST",
         dataType: 'JSON',
         url: "/ratings/update",
-        data: {requestData},
+        data: requestData,
         success: onPlayerUpdated
       });
     });
@@ -186,10 +186,10 @@
         };
 
         $.ajax({
-          method: "POST",
+          method: 'POST',
           dataType: 'JSON',
-          url: "/ratings/new",
-          data: {requestData},
+          url: '/ratings/new',
+          data: requestData,
           success: onRatingCreated
         });
       } else {
@@ -206,4 +206,4 @@
   };
 
   window.PlayerRatings = PlayerRatings;
-}());
+}(window, document, undefined));
