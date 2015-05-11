@@ -20,8 +20,33 @@
     %b Email:
     = @profile.email
   %p
-    %b Player number:
-    = @profile.player_number
+    %b DOB:
+    = @profile.dob
+  %p 
+    %b Address
+    %p= @profile.address
+    %p= @profile.address2
+    %p= "#{@profile.city}, #{@profile.state} #{@profile.zip}"
+
+  %p
+    %b Available for Tournaments?
+    - if @profile.is_pickup_player
+      Yes
+    - else
+      No
+  .well
+    -if @profile.emergency_contact_phone.blank?
+      %h5 No Emergency Contact Information Found! Please Update this now!
+    - else
+      %p
+        %b Emergency Contact Name: 
+        = @profile.emergency_contact_name
+      %p
+        %b Emergency Contact Relationship: 
+        = @profile.emergency_contact_relationship
+      %p
+        %b Emergency Contact Phone: 
+        = @profile.emergency_contact_phone
   - if @profile.rosters.length > 0
     %b Teams:
     %ul

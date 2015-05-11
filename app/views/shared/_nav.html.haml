@@ -6,7 +6,7 @@
           %i.brand-logo-40
     .collapse.navbar-collapse
       %ul.nav.navbar-nav
-        %li.dropdown
+        -#%li.dropdown
           %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
             About
             %span.caret
@@ -25,7 +25,6 @@
         %li=link_to 'Parks', parks_path
         %li=link_to 'Calendar', '/loadcalendar'
         %li=link_to 'Offers', '/alloffers'
-        %li=link_to 'Teamsnap', '/teamsnap'
       %ul.nav.navbar-nav.navbar-right
         - if is_admin_user?
           %li

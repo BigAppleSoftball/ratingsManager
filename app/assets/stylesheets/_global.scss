@@ -141,6 +141,11 @@ a:hover {
   padding: 10px;
 }
 
+.emp-action-container {
+  border: 2px dashed #666;
+  padding: 5px;
+}
+
 .inactive-season {
   font-size: 14px;
   color: lighten($dark-gray, 40%);
