@@ -114,6 +114,8 @@ GEM
       faraday
       faraday_middleware
     pg (0.18.1)
+    quiet_assets (1.0.2)
+      railties (>= 3.1, < 5.0)
     rack (1.5.2)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -213,6 +215,7 @@ DEPENDENCIES
   nokogiri
   parse-ruby-client
   pg
+  quiet_assets
   rails (= 4.1.6)
   rails-erd
   rails_12factor

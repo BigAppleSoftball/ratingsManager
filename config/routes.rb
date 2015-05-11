@@ -1,27 +1,27 @@
 Rails.application.routes.draw do
-
-  resources :fields
-
   root 'static_pages#home'
-  resources :offers
 
-  resources :games
-  resources :parks
-  resources :committees
-  resources :board_members
-  resources :hallof_famers
   resources :admins
-  resources :rosters, :only => [:destroy]
-  #resources :ratings
-  resources :teams
-  resources :profiles
-  resources :teams_sponsors
-  resources :sponsors
-  resources :seasons
+  resources :board_members
+  resources :committees
   resources :divisions
-  resources :teams, :only => [:index, :show]
-  resources :sessions, only: [:new, :create, :destroy]
+  #resources :fields
+  resources :games
+  resources :hallof_famers
+  resources :offers
+  #resources :parks
+  resources :profiles
+  resources :rosters, :only => [:destroy]
+  resources :teams
   resources :teamsnap_payments
+  resources :teams_sponsors
+  resources :seasons
+  resources :sessions, only: [:new, :create, :destroy]
+  resources :sponsors
+  
+  resources :parks do
+    resources :fields
+  end
 
   # games
   get '/games/:id/:teamid', to: 'games#game_attendance'
@@ -57,6 +57,12 @@ Rails.application.routes.draw do
   get '/teamsnap/updateplayer', to:'payments_tracker#update_teamsnap_player'
   post '/teamsnap/divisions/import', to:'teamsnap#import_season_data'
 
+  # teams
+  get '/teams/:teamid/ratings', to:'teams#show_player_ratings'
+
+  # ratings
+  post '/ratings/update', to:'ratings#update_player'
+  post '/ratings/new', to:'ratings#new_player'
 
   # website iframes
   get '/showallsponsors', to: 'sponsors#all_sponsors'

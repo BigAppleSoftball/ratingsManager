@@ -13,6 +13,8 @@
   Team.prototype.init = function() {
     this.bindAddNewPlayerModal();
     this.bindRosterActions();
+    // initalize the player ratings
+    this.playerRatings = new window.PlayerRatings();
   };
 
   /**

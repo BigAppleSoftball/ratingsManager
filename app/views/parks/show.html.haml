@@ -57,8 +57,8 @@
         %i.fa.fa-folder-open
         Fields
     .col-md-10
-      = link_to "+ Add Field", new_field_path(:park_id => @park.id), :class => 'btn btn-default'
+      = link_to "+ Add Field", new_park_field_path(:park_id => @park.id), :class => 'btn btn-default'
       %ul
         - @park.fields.each do |field|
-          %li= link_to field.name, field
+          %li= link_to field.name, park_field_path(@park, field)
 

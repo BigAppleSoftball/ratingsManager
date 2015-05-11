@@ -1,3 +1,5 @@
+@import 'rosters/rating';
+
 .no-manager,
 .no-team-rep {
   font-style: italic;
@@ -18,4 +20,17 @@
     color: $red;
     font-weight: bold;
   }
+}
+
+.ratings-table {
+  .edit-btn {
+    .fa {
+      margin-left: 5px;
+      font-size: 14px;
+    }
+  }
+}
+
+.team-rating {
+  margin: 10px 0;
 }

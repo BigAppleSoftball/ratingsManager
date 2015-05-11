@@ -1,0 +1,20 @@
+%table.table.table-striped.table-bordered.table-condensed.ratings-table.js-ratings-table
+  %tr
+    %th Player
+    %th.center-column Rating
+    %th.center-column Throwing
+    %th.center-column Fielding
+    %th.center-column Baserunning
+    %th.center-column Hitting
+  -rosters.each do |roster|
+    - player_profile = roster.profile
+    - if player_profile.present?
+      = render :partial => "teams/ratings/row", :locals => {:profile => player_profile}
+
+= render :partial => "modal/throwingmodal"
+= render :partial => "modal/fieldingmodal"
+= render :partial => "modal/runningmodal"
+= render :partial => "modal/hittingmodal"
+
+:javascript
+  window.playersJson = #{@ratings_json || false}

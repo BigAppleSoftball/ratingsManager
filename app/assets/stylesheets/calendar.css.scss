@@ -1,9 +1,8 @@
-@import 'vars',
+@import 'global/vars',
         'compass/reset',
-        'mixins',
+        'global/mixins',
         'compass',
-        "bootstrap-sprockets",
-        'bootstrap';
+        "bootstrap-custom";
 
 .synced-calendar {
   text-align: right;
