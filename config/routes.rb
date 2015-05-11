@@ -5,11 +5,9 @@ Rails.application.routes.draw do
   resources :board_members
   resources :committees
   resources :divisions
-  #resources :fields
   resources :games
   resources :hallof_famers
   resources :offers
-  #resources :parks
   resources :profiles
   resources :rosters, :only => [:destroy]
   resources :teams

@@ -9,6 +9,9 @@
           )
     %h4= link_to "#{@team.division.season.description} #{@team.division.description}", @team.division
     - if is_admin? || is_team_manager?(@team.id)
+      - if is_admin?
+        = link_to raw("<i class='fa fa-trash'></i> Delete Team"), @team, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-danger', :title => 'Delete'
+      
       - if !(@team && @team.division && @team.division.season && !@team.division.season.is_editable_season?)
         =link_to raw("<i class='fa fa-pencil'></i> Edit Team"), edit_team_path(@team), {:class =>"btn btn-default"}
       = link_to raw("<i class='fa fa-line-chart'></i> Player Ratings"),"/teams/#{@team.id}/ratings", {:class =>"btn btn-default"}

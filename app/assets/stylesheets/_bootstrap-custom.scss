@@ -177,3 +177,7 @@
 .badge-danger {
   background: $red;
 }
+
+.panel.panel-default .panel-heading a.btn-danger {
+  color: #eee;
+}

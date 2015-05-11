@@ -2,7 +2,7 @@
   %h1 
     = @season.description
     Games
-  = render partial: 'shared/actions/view_all_actions', locals: { newPath: new_game_path}
+  = render partial: 'shared/actions/view_all_actions', locals: { newPath: new_game_path(:season_id => @season.id)}
 
 %table.table.table-striped.table-condensed.table-bordered
   %tr
