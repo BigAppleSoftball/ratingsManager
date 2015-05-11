@@ -1,5 +1,7 @@
 - content_for :panel_head do
-  %h1 Fields
+  %h1 
+    Fields for
+    = @park.name
   = render partial: 'shared/actions/view_all_actions', locals: { newPath: new_park_field_path}
 
 %table.table.table-striped.table-bordered.table-condensed
