@@ -4,8 +4,7 @@ one:
   profile_code: MyString
   first_name: MyString
   last_name: MyString
-  email: MyString
-  nickname: MyString
+  email: test@gmail.com
   display_name: MyString
   player_number: 1
   gender: MyString
@@ -14,10 +13,9 @@ one:
   state: MyString
   zip: 1
   phone: MyString
-  emergency_name: MyString
-  emergency_relation: MyString
-  emergency_phone: MyString
-  emergency_email: MyString
+  emergency_contact_name: MyString
+  emergency_contact_relationship: MyString
+  emergency_contact_phone: MyString
   position: MyString
   dob: MyString
   team_id: 1
@@ -27,7 +25,6 @@ two:
   first_name: MyString
   last_name: MyString
   email: MyString
-  nickname: MyString
   display_name: MyString
   player_number: 1
   gender: MyString
@@ -36,10 +33,11 @@ two:
   state: MyString
   zip: 1
   phone: MyString
-  emergency_name: MyString
-  emergency_relation: MyString
-  emergency_phone: MyString
-  emergency_email: MyString
+  emergency_contact_name: MyString
+  emergency_contact_relationship: MyString
+  emergency_contact_phone: MyString
   position: MyString
   dob: MyString
   team_id: 1
+
+
