@@ -2,7 +2,7 @@
 // All this logic will automatically be available in application.js.
 (function(window, document, undefined){
 
-  var PlayerRatings = function(options) {
+  var PlayerRatings = function () {
     this.initDialogActions();
     this.bindSaveBtn();
     this.bindCreateNewPlayer();
@@ -65,7 +65,7 @@
    * Bind save action
    */
   PlayerRatings.prototype.bindSaveBtn = function() {
-    var self = this
+    var self = this;
     $('.js-save-close-btn').on('click', function(){
       // get the updating player id
       var $this = $(this),
