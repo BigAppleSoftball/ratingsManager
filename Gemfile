@@ -49,7 +49,7 @@ gem 'faraday'
 gem 'json'
 
 group :production do
-  #gem 'rails_12factor'
+  gem 'rails_12factor'
   gem 'newrelic_rpm'
   gem 'pg'
 end
