@@ -29,7 +29,6 @@ class GamesController < ApplicationController
       
       if (season.present?)
         @selected_season = season
-        ap @selected_season
         division_ids = Division.select('id').where(:season_id => @selected_season.id).pluck(:id)
         @teamsByDivision = get_teams_by_division(division_ids)
       end
