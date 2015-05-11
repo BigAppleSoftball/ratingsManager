@@ -1,8 +1,8 @@
 @import 'global/vars',
         'global/mixins',
         'compass',
-        "bootstrap-custom',
-        'stop-light';
+        'bootstrap-custom',
+        'global/stop-light';
 
 .parks-wrapper {
   @include clearfix;
