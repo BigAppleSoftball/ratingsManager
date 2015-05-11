@@ -23,12 +23,16 @@
   -if is_admin?
     .admin-action-container
       .form-group
+        = f.label :teamsnap_id, 'Teamsnap Id', {:class => 'col-sm-2 control-label'}
+        .col-sm-10
+          = f.number_field :teamsnap_id, {:class => 'form-control'}
+      .form-group
         = f.label :division_id, {:class => 'col-sm-2 control-label'}
         .col-sm-10
           - selected_division = nil
           - if @team 
             - selected_division = @team.division
-          = render :partial => 'shared/forms/division_selector', :locals => {:seasons => @seasons, :selected_division => selected_division, :selector_name => 'team[division_id]', :selector_id => 'team_division_id'}
+          = render :partial => 'shared/forms/division_selector', :locals => {:seasons => @seasons, :selected_season => @selected_season, :selected_division => selected_division, :selector_name => 'team[division_id]', :selector_id => 'team_division_id'}
       .form-group
         = f.label :stat_loss, {:class => 'col-sm-2 control-label'}
         .col-sm-10

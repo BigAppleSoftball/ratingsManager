@@ -51,7 +51,6 @@ gem 'json'
 group :production do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
-  # Use sqlite3 as the database for Active Record
   gem 'pg'
 end
 

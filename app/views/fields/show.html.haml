@@ -1,6 +1,6 @@
 - content_for :panel_head do
   %h1= @field.name
-  = render partial: "shared/actions/show_actions", locals: { editPath: edit_field_path(@field), fieldName: 'Field', allPath: fields_path}
+  = render partial: "shared/actions/show_actions", locals: { editPath: edit_park_field_path(@field.park,@field), fieldName: 'Field', allPath: park_fields_path}
 
 %p
   %b Name:

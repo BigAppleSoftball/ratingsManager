@@ -5,7 +5,7 @@ class ParksController < ApplicationController
   # GET /fields
   # GET /fields.json
   def index
-    @parks = Park.all
+    @parks = Park.eager_load(:fields).all
     parksClosedCount = @parks.where(:status => 2).length
     parksOpenCount = @parks.where(:status => 0).length
 

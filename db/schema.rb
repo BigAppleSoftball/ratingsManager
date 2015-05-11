@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150425135649) do
+ActiveRecord::Schema.define(version: 20150510204716) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -55,6 +55,8 @@ ActiveRecord::Schema.define(version: 20150425135649) do
     t.boolean  "is_active"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "teamsnap_id"
+    t.integer  "kind"
   end
 
   create_table "fields", force: true do |t|
@@ -65,7 +67,7 @@ ActiveRecord::Schema.define(version: 20150425135649) do
   end
 
   create_table "game_attendances", force: true do |t|
-    t.integer  "profile_id"
+    t.integer  "roster_id"
     t.integer  "game_id"
     t.boolean  "is_attending"
     t.datetime "created_at"
@@ -154,6 +156,12 @@ ActiveRecord::Schema.define(version: 20150425135649) do
     t.string   "password_digest"
     t.string   "remember_token"
     t.boolean  "is_admin"
+    t.boolean  "is_pickup_player"
+    t.string   "emergency_contact_name"
+    t.string   "emergency_contact_relationship"
+    t.string   "emergency_contact_phone"
+    t.string   "address2"
+    t.string   "city"
   end
 
   create_table "ratings", force: true do |t|
@@ -165,37 +173,38 @@ ActiveRecord::Schema.define(version: 20150425135649) do
     t.boolean  "is_provisional"
     t.boolean  "is_approved"
     t.boolean  "is_active"
-    t.integer  "rating_1"
-    t.integer  "rating_2"
-    t.integer  "rating_3"
-    t.integer  "rating_4"
-    t.integer  "rating_5"
-    t.integer  "rating_6"
-    t.integer  "rating_7"
-    t.integer  "rating_8"
-    t.integer  "rating_9"
-    t.integer  "rating_10"
-    t.integer  "rating_11"
-    t.integer  "rating_12"
-    t.integer  "rating_13"
-    t.integer  "rating_14"
-    t.integer  "rating_15"
-    t.integer  "rating_16"
-    t.integer  "rating_17"
-    t.integer  "rating_18"
-    t.integer  "rating_19"
-    t.integer  "rating_20"
-    t.integer  "rating_21"
-    t.integer  "rating_22"
-    t.integer  "rating_23"
-    t.integer  "rating_24"
-    t.integer  "rating_25"
-    t.integer  "rating_26"
-    t.integer  "rating_27"
+    t.integer  "rating_1",               default: 0
+    t.integer  "rating_2",               default: 0
+    t.integer  "rating_3",               default: 0
+    t.integer  "rating_4",               default: 0
+    t.integer  "rating_5",               default: 0
+    t.integer  "rating_6",               default: 0
+    t.integer  "rating_7",               default: 0
+    t.integer  "rating_8",               default: 0
+    t.integer  "rating_9",               default: 0
+    t.integer  "rating_10",              default: 0
+    t.integer  "rating_11",              default: 0
+    t.integer  "rating_12",              default: 0
+    t.integer  "rating_13",              default: 0
+    t.integer  "rating_14",              default: 0
+    t.integer  "rating_15",              default: 0
+    t.integer  "rating_16",              default: 0
+    t.integer  "rating_17",              default: 0
+    t.integer  "rating_18",              default: 0
+    t.integer  "rating_19",              default: 0
+    t.integer  "rating_20",              default: 0
+    t.integer  "rating_21",              default: 0
+    t.integer  "rating_22",              default: 0
+    t.integer  "rating_23",              default: 0
+    t.integer  "rating_24",              default: 0
+    t.integer  "rating_25",              default: 0
+    t.integer  "rating_26",              default: 0
+    t.integer  "rating_27",              default: 0
     t.integer  "ng"
     t.integer  "nr"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "teamsnap_id"
   end
 
   create_table "rosters", force: true do |t|
@@ -211,6 +220,9 @@ ActiveRecord::Schema.define(version: 20150425135649) do
     t.boolean  "is_confirmed"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "teamsnap_id"
+    t.boolean  "is_non_player"
+    t.integer  "jersey_number"
   end
 
   create_table "seasons", force: true do |t|
@@ -257,6 +269,7 @@ ActiveRecord::Schema.define(version: 20150425135649) do
     t.datetime "date_approved"
     t.integer  "created_user_id"
     t.integer  "updated_user_id"
+    t.integer  "teamsnap_id"
   end
 
   create_table "teams_sponsors", force: true do |t|

@@ -1,6 +1,8 @@
 - content_for :panel_head do
-  %h1 Fields
-  = render partial: 'shared/actions/view_all_actions', locals: { newPath: new_field_path}
+  %h1 
+    Fields for
+    = @park.name
+  = render partial: 'shared/actions/view_all_actions', locals: { newPath: new_park_field_path}
 
 %table.table.table-striped.table-bordered.table-condensed
   %thead
@@ -17,4 +19,5 @@
           - if field.park
             = link_to field.park.name, field.park
         %td
-          = render partial: 'shared/actions/table_actions', locals: { editPath: edit_field_path(field), deletePath: field}
+          = link_to "delete", [field.park, field], :method  => :delete
+          = #render partial: 'shared/actions/table_actions', locals: { editPath: edit_park_field_path(field.park, field), [field.park, field], deletePath: field}

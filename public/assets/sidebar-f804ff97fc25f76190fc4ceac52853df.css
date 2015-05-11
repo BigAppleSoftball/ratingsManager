@@ -1,0 +1,93 @@
+/* line 1, /Users/paigeponzeka/code2/ratingsManager/app/assets/stylesheets/global/_stop-light.scss */
+.stop-light {
+  width: 25px;
+  height: 60px;
+  padding: 2px;
+  background: #3a3a3a;
+  border-radius: 5px;
+}
+/* line 9, /Users/paigeponzeka/code2/ratingsManager/app/assets/stylesheets/global/_stop-light.scss */
+.stop-light[data-status='0'] .light.bottom-light {
+  background: #78b653;
+}
+/* line 15, /Users/paigeponzeka/code2/ratingsManager/app/assets/stylesheets/global/_stop-light.scss */
+.stop-light[data-status='1'] .light.middle-light {
+  background: #ffff33;
+}
+/* line 21, /Users/paigeponzeka/code2/ratingsManager/app/assets/stylesheets/global/_stop-light.scss */
+.stop-light[data-status='2'] .light.top-light {
+  background: #fd5961;
+}
+/* line 25, /Users/paigeponzeka/code2/ratingsManager/app/assets/stylesheets/global/_stop-light.scss */
+.stop-light .light {
+  background: white;
+  border-radius: 12px;
+  width: 12px;
+  height: 12px;
+  margin: 5px auto;
+}
+
+/* line 15, /Users/paigeponzeka/code2/ratingsManager/app/assets/stylesheets/sidebar.css.scss */
+.stop-light {
+  width: 25px;
+  height: 60px;
+  padding: 2px;
+  background: #3a3a3a;
+  border-radius: 5px;
+}
+/* line 23, /Users/paigeponzeka/code2/ratingsManager/app/assets/stylesheets/sidebar.css.scss */
+.stop-light.status-0 .light.bottom-light {
+  background: #78b653;
+}
+/* line 29, /Users/paigeponzeka/code2/ratingsManager/app/assets/stylesheets/sidebar.css.scss */
+.stop-light.status-1 .light.middle-light {
+  background: #ffff33;
+}
+/* line 35, /Users/paigeponzeka/code2/ratingsManager/app/assets/stylesheets/sidebar.css.scss */
+.stop-light.status-2 .light.top-light {
+  background: #fd5961;
+}
+/* line 39, /Users/paigeponzeka/code2/ratingsManager/app/assets/stylesheets/sidebar.css.scss */
+.stop-light .light {
+  background: white;
+  border-radius: 12px;
+  width: 12px;
+  height: 12px;
+  margin: 5px auto;
+}
+
+/* line 48, /Users/paigeponzeka/code2/ratingsManager/app/assets/stylesheets/sidebar.css.scss */
+.game-status {
+  border: 1px solid #3a3a3a;
+  border-radius: 5px;
+  margin: 10px 0;
+  padding: 5px;
+  text-transform: none;
+  font-size: 14px;
+}
+/* line 22, /Users/paigeponzeka/code2/ratingsManager/app/assets/stylesheets/global/_mixins.scss */
+.game-status:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 57, /Users/paigeponzeka/code2/ratingsManager/app/assets/stylesheets/sidebar.css.scss */
+.game-status.status-0 {
+  background: #e8f3e2;
+}
+/* line 61, /Users/paigeponzeka/code2/ratingsManager/app/assets/stylesheets/sidebar.css.scss */
+.game-status.status-1 {
+  background: #ffffe5;
+}
+/* line 65, /Users/paigeponzeka/code2/ratingsManager/app/assets/stylesheets/sidebar.css.scss */
+.game-status.status-2 {
+  background: #fff0f1;
+  border: 1px solid #fd5961;
+  font-weight: bold;
+}
+
+/* line 72, /Users/paigeponzeka/code2/ratingsManager/app/assets/stylesheets/sidebar.css.scss */
+.stop-light {
+  float: left;
+  margin-right: 5px;
+}

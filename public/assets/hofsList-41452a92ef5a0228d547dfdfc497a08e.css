@@ -1,0 +1,109 @@
+/* line 1, /Users/pponzeka/code/ratingsManager/app/assets/stylesheets/hofsList.css.scss */
+.hof-list {
+  -webkit-perspective: 1000;
+          perspective: 1000;
+  font-family: 'Montserrat', 'sans-serif';
+  padding: 0;
+  margin: 0;
+}
+/* line 7, /Users/pponzeka/code/ratingsManager/app/assets/stylesheets/hofsList.css.scss */
+.hof-list .hof-card {
+  position: relative;
+  float: left;
+  margin: 5px;
+  width: 200px;
+  height: 200px;
+  -webkit-transition: 0.6s;
+          transition: 0.6s;
+  -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
+  cursor: pointer;
+  color: #fff;
+}
+/* line 18, /Users/pponzeka/code/ratingsManager/app/assets/stylesheets/hofsList.css.scss */
+.hof-list .hof-card:hover {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
+/* line 23, /Users/pponzeka/code/ratingsManager/app/assets/stylesheets/hofsList.css.scss */
+.hof-list .hof-card .hof-card-front,
+.hof-list .hof-card .hof-card-back {
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+/* line 30, /Users/pponzeka/code/ratingsManager/app/assets/stylesheets/hofsList.css.scss */
+.hof-list .hof-card .hof-card-front {
+  position: absolute;
+  z-index: 2;
+  /* for firefox 31 */
+  -webkit-transform: rotateY(0deg);
+          transform: rotateY(0deg);
+  width: 200px;
+  height: 200px;
+}
+/* line 39, /Users/pponzeka/code/ratingsManager/app/assets/stylesheets/hofsList.css.scss */
+.hof-list .hof-card .hof-card-front .hof-card-image img {
+  width: 100%;
+  height: 100%;
+}
+/* line 43, /Users/pponzeka/code/ratingsManager/app/assets/stylesheets/hofsList.css.scss */
+.hof-list .hof-card .hof-card-front .hof-card-image .hof-card-overlay {
+  width: 200px;
+  height: 200px;
+  background: url(/images/hof-card.png?2) no-repeat 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+/* line 53, /Users/pponzeka/code/ratingsManager/app/assets/stylesheets/hofsList.css.scss */
+.hof-list .hof-card .hof-card-front .hof-card-name {
+  position: absolute;
+  bottom: 11px;
+  right: 10px;
+  font-size: 13px;
+  width: 225px;
+  text-align: right;
+  overflow: hidden;
+  margin-right: 5px;
+}
+/* line 64, /Users/pponzeka/code/ratingsManager/app/assets/stylesheets/hofsList.css.scss */
+.hof-list .hof-card .hof-card-front .hof-card-year {
+  position: absolute;
+  left: 35px;
+  bottom: 28px;
+  font-size: 22px;
+  color: black;
+}
+/* line 73, /Users/pponzeka/code/ratingsManager/app/assets/stylesheets/hofsList.css.scss */
+.hof-list .hof-card .hof-card-back {
+  width: 100%;
+  height: 100%;
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+  width: 200px;
+  height: 200px;
+  color: #5c5a5a;
+  background: #f6c49a url(/images/hof-card-back.png?2) no-repeat 0 0;
+}
+/* line 82, /Users/pponzeka/code/ratingsManager/app/assets/stylesheets/hofsList.css.scss */
+.hof-list .hof-card .hof-card-back .hof-card-back-container {
+  padding: 15px;
+}
+/* line 86, /Users/pponzeka/code/ratingsManager/app/assets/stylesheets/hofsList.css.scss */
+.hof-list .hof-card .hof-card-back .hof-card-name {
+  text-align: center;
+  font-size: 18px;
+}
+/* line 91, /Users/pponzeka/code/ratingsManager/app/assets/stylesheets/hofsList.css.scss */
+.hof-list .hof-card .hof-card-back .hof-card-inducted {
+  font-size: 14px;
+}
+/* line 95, /Users/pponzeka/code/ratingsManager/app/assets/stylesheets/hofsList.css.scss */
+.hof-list .hof-card .hof-card-back .hof-card-player-details p {
+  font-size: 12px;
+  max-height: 128px;
+  overflow: auto;
+}

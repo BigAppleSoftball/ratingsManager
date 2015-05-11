@@ -1,4 +1,4 @@
-= form_for @field,:html => {:class => 'form-horizontal'} do |f|
+= form_for [@field.park, @field],:html => {:class => 'form-horizontal'} do |f|
   - if @field.errors.any?
     #error_explanation
       %h2= "#{pluralize(@field.errors.count, "error")} prohibited this field from being saved:"

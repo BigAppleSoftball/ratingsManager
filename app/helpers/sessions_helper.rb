@@ -5,6 +5,7 @@ module SessionsHelper
     cookies.permanent[:remember_token] = remember_token
     profile.update_attribute(:remember_token, Profile.encrypt(remember_token))
     self.current_profile = profile
+    session[:current_user_id] = profile
   end
 
   def current_profile=(profile)
@@ -12,17 +13,31 @@ module SessionsHelper
   end
 
    def current_profile
-    remember_token = Profile.encrypt(cookies[:remember_token])
-    @current_user ||= Profile.find_by_remember_token(remember_token)
+    if @current_user.nil?
+      @current_user ||= get_current_profile
+    end
+    @current_user
   end
 
+  def get_current_profile
+    Rails.cache.fetch("current_profile_#{cookies[:remember_token]}", :expires_in => 60.minutes) do
+      remember_token = Profile.encrypt(cookies[:remember_token])
+      Profile.eager_load(:rosters => {:team => {:division =>:season }}).find_by_remember_token(remember_token)
+    end
+  end
+ 
   def current_user
     current_profile
   end
 
   def signed_in?
-    !current_profile.nil?
+    session[:current_user_id].nil? && !current_profile.nil?
   end
+
+  def current_profile?(profile)
+    profile == current_profile
+  end
+
 
 
   #--------------------------------------------
@@ -35,32 +50,44 @@ module SessionsHelper
   # checks if user is a site adminstrator
   #
   def is_admin?
-    current_user && current_user.is_admin
+    is_logged_in? && current_user.is_admin
   end
 
   #
   # Checks to see if the user is an admin
   #
   def is_manager?
-    roster = Roster.where(:profile_id => current_profile.id, :is_manager => true)
-    current_profile && roster.length > 0
+    if is_logged_in?
+      roster = Roster.where(:profile_id => current_profile.id, :is_manager => true)
+      current_profile && roster.length > 0
+    else
+      false
+    end
   end
 
   #
   # checks to see if the team id is in the list of user ids
   #
   def is_team_manager?(team_id)
-    current_profile.teams_managed_list.include?(team_id)
+    if is_logged_in?
+      current_profile.teams_managed_list.include?(team_id)
+    else
+      false
+    end
   end
 
   #
   # Checks to see if the user is a division rep
   #
   def is_division_rep?(division_id = nil)
-    if !division_id.nil?
-      current_profile.divisions_repped_list.include?(division_id)
+    if is_logged_in?
+      if !division_id.nil?
+        current_profile.divisions_repped_list.include?(division_id)
+      else
+        !current_profile.divisions_repped.empty?
+      end
     else
-      !current_profile.divisions_repped.empty?
+      false
     end
   end
 
@@ -75,7 +102,7 @@ module SessionsHelper
   # check to see if the user is logged int
   #
   def is_logged_in?
-    !current_profile.nil?
+    current_profile.present?
   end
 
   #
@@ -125,15 +152,6 @@ module SessionsHelper
   def sign_out
     self.current_profile = nil
     cookies.delete(:remember_token)
-  end
-
-  def current_profile
-    remember_token = Profile.encrypt(cookies[:remember_token])
-    @current_user ||= Profile.find_by_remember_token(remember_token)
-  end
-
-  def current_profile?(profile)
-    profile == current_profile
   end
 
   def redirect_back_or(default)

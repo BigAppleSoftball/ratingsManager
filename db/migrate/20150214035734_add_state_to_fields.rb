@@ -1,5 +1,5 @@
 class AddStateToFields < ActiveRecord::Migration
-   def up
+  def up
     add_column :fields, :state, :string
   end
 

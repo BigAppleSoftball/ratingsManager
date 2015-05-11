@@ -1,6 +1,7 @@
 class TeamsnapController < ApplicationController
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
+  skip_before_filter :verify_authenticity_token, :only => [:import_season_data]
 
   include TeamsnapHelper
   def teamsnap_divs_by_id
@@ -168,6 +169,23 @@ class TeamsnapController < ApplicationController
   def log_out_user
     cookies.delete :teamsnap_token
     cookies.delete :teamsnap_is_admin
+  end
+
+  def import_divisions
+    # get teamsnap account
+    #latest_account = TeamsnapScanAccount.order('created_at DESC').first
+    # log into teamsnap api
+    #log_in_to_teamsnap(latest_account.username, latest_account.password)
+    # get the divisions
+    @divisions = teamsnap_divisions_to_objects(get_all_divisions, get_all_teams)
+    @seasons = Season.all
+  end
+
+  def import_season_data
+    ap 'Running season import'
+    ap params
+    ap params['season_id']
+    run_import(params['season_id'].to_i)
   end
 
 end

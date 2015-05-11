@@ -12,12 +12,18 @@
       %tr
         %td
           %span.away_team
-            = game.away_team.name
+            - if game.away_team_id
+              = game.away_team.name
+            - else
+              N/A
             -if game.is_played?
               %span.team_score="(#{game.away_score})"
         %td
           %span.home_team
-            =game.home_team.name
+            - if game.home_team_id
+              =game.home_team.name
+            - else
+              N/A
             -if game.is_played?
               %span.team_score="(#{game.home_score})"
         %td
@@ -37,4 +43,5 @@
             ="--"
         %td
           =link_to 'View Game', game, :class => 'btn btn-primary'
+          =link_to 'View Attendance',"/games/#{game.id}/#{team.id}", :class => 'btn btn-default'
 

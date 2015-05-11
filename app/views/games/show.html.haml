@@ -23,25 +23,22 @@
         = link_to @game.home_team.name, @game.home_team
       = @game.home_score.nil? ? '-' : @game.home_score
     %td
-      =link_to @game.field.park.name, @game.field.park
-      =@game.field.name
+      - if @game.field_id
+        -if @game.field.park
+          =link_to @game.field.park.name, @game.field.park
+          =@game.field.name
     %td=@game.start_time.to_s(:event_date)
 
 - if @team && @roster
-  .panel.panel-default.attendance-tracker-panel.js-games-attendance-panel
-    .panel-heading
-      Game Attendance
-    .panel-body
-      %table.table.table-bordered.table-striped.table-condensed
-        %tr
-          %th Player
-          %th is Attending?
-        -@roster.each do |player|
-          - player_attendance = @attendance.select{|h| h[:profile_id]==player.profile.id}
-
-          %tr.js-player-row{:class => "#{attendance_class(player_attendance[0])}",:data => {:profile_id => player.profile.id, :game_id => @game.id}}
-            %td=player.profile.name
-            %td
-              %button.btn.btn-success.js-attendance-btn.is-yes Yes
-              %button.btn.btn-danger.js-attendance-btn.is-no No
+  %table.table.table-bordered.table-striped.table-condensed.attendance-tracker-panel.js-games-attendance-panel
+    %tr
+      %th Player
+      %th is Attending?
+    -@roster.each do |player|
+      - player_attendance = @attendance.select{|h| h[:roster_id]==player.id}
+      %tr.js-player-row{:class => "#{attendance_class(player_attendance[0])}",:data => {:roster_id => player.id, :game_id => @game.id}}
+        %td=player.profile.name
+        %td
+          %button.btn.btn-success.js-attendance-btn.is-yes Yes
+          %button.btn.btn-danger.js-attendance-btn.is-no No
 

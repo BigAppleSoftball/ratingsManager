@@ -1,3 +1,5 @@
 .modal-footer
   .btn.btn-default{:data => {:dismiss => "modal"}} Cancel
-  .btn{:class=> "#{actionBtnClass}"} Save
+  .btn.btn-default.js-save-close-btn{:class=> "#{actionBtnClass}"} Save
+  - #.btn.js-save-continue-btn{:class=> "#{actionBtnClass}"}
+  -#  %span.js-save-continue-btn-text Next >>

@@ -1,6 +1,6 @@
 %select.chosen-select.form-control.js-teams-selector{:id =>"#{selector_id}", :name => "#{selector_name}", :data => {:placeholder => "#{selector_placeholder}"}}
   %option
-  = teamsByDivision.each do |division|
+  -@teamsByDivision.each do |division|
     %optgroup{:label=>"#{division[:name]}"}
       =division[:teams].each do |team|
         -if selector_value && selector_value == team.id

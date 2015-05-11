@@ -77,7 +77,7 @@
     this.$container.find('.js-attendance-btn').on('click', function() {
       var $this = $(this),
           $row = $this.closest('.js-player-row'),
-          profile_id = $row.data('profile-id'),
+          roster_id = $row.data('roster-id'),
           game_id = $row.data('game-id');
 
       if ($this.hasClass('is-yes')) {
@@ -97,7 +97,7 @@
         dataType: 'JSON',
         data: {
           'is_attending': is_attending,
-          'profile_id': profile_id,
+          'roster_id': roster_id,
           'game_id': game_id
         },
         success: function(data) {

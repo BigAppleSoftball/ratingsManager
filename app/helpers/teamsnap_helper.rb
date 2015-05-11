@@ -72,6 +72,401 @@ module TeamsnapHelper
     end
   end
 
+  #
+  # convert teamsnap data to objects
+  #
+  def teamsnap_divisions_to_objects(divisions, teams)
+    # all the divisions inside big apple softball league
+    divisionObjList = Array.new
+    playerPayments = TeamsnapPayment.all
+
+    divisions['division']['divisions'].each do |division|
+      isCoed = false
+      isWomens = false
+      division_name = division['name']
+      if division_name.include?('Open')
+        isCoed = true
+      elsif division_name.include?('Women')
+        isWomens = true
+      end 
+
+      # all of the divisions inside the sub division (women's coed)
+      division['divisions'].each do |subdivision|
+        divisionObj = Hash.new
+        divisionObj[:description] = subdivision['name']
+        if isCoed
+          divisionObj[:kind] = 0
+        elsif isWomens
+          divisionObj[:kind] = 1
+        end
+        divisionObj[:teamsnap_id] = subdivision['id'].to_i
+        divisionObj[:teams] = Array.new
+        # get division teams
+        division_teams = teams[subdivision['id'].to_i]
+        division_teams.each do |division_team|          
+          divisionTeam = Hash.new
+          divisionTeam[:name] = division_team['team_name']
+          divisionTeam[:teamsnap_id] = division_team['id'].to_i
+          roster_id  = division_team['available_rosters'].first['id']
+          divisionTeam[:roster_id] = roster_id
+          divisionTeam[:roster] = Array.new
+
+          # get teamsm roster
+          roster = get_roster(divisionTeam[:teamsnap_id], divisionTeam[:roster_id])
+          playerRating = preprocess_player_data(roster, playerPayments)
+          ap "PlayerRating"
+          ap playerRating
+          roster.each do |playerData|
+            team_player = Hash.new
+            team_player[:roster] = Hash.new
+            team_player[:profile] = Hash.new
+            team_player[:rating] = Hash.new
+            team_player[:profile][:emails] = Array.new
+            player = playerData["roster"]
+            playerCustomLeague = player['league_custom_data']
+            team_player[:roster][:teamsnap_id] = player['id']
+            team_player[:profile][:first_name] = player['first']
+            team_player[:profile][:last_name] = player['last']
+            team_player[:profile][:gender] = player['gender']
+            playerCustomLeague.each do |customItem|
+              if (customItem['custom_field_id'] == 126483)
+                team_player[:profile][:shirt_size] = customItem['content']
+              elsif (customItem['custom_field_id'] == 126470)
+                 team_player[:profile][:gender] = customItem['content']
+              elsif (customItem['custom_field_id'] == 126485)
+                if customItem['content'].include?('Non-Player')
+                  team_player[:roster][:is_non_player] = true
+                end
+              elsif (customItem['custom_field_id'] == 126473)
+                if customItem['content'].include?('Yes')
+                  team_player[:profile][:is_pickup_player] = true
+                end
+              elsif (customItem['custom_field_id'] == 126478)
+                team_player[:profile][:emergency_contact_name] = customItem['content']
+              elsif (customItem['custom_field_id'] == 126479)
+                team_player[:profile][:emergency_contact_relationship] = customItem['content']
+              elsif (customItem['custom_field_id'] == 126480)
+                team_player[:profile][:emergency_contact_phone] = customItem['content']
+              end
+            end
+
+            team_player[:profile][:dob] = player['birthdate']
+            if player['roster_email_addresses']
+              player['roster_email_addresses'].each do |email_address|
+                team_player[:profile][:emails].push(email_address['email'])
+              end
+            else
+              ap "-------NO PLAYER EMAILS--------"
+              ap player
+            end
+            if team_player[:profile][:last_name].include?"Hou"
+              ap player
+            end
+            if player['is_manager']
+              team_player[:roster][:is_manager] = true
+            end
+            if player['address']
+              team_player[:profile][:address] = player['address']['address']
+              team_player[:profile][:address2] = player['address']['address2']
+              team_player[:profile][:city] = player['address']['city']
+              team_player[:profile][:state] = player['address']['state']
+              team_player[:profile][:zip] = player['address']['zip']
+            end
+            
+            if player['roster_telephone_numbers'].first
+              team_player[:profile][:phone_number] = player['roster_telephone_numbers'].first['phone_number']
+            end 
+            playerNumber = player['number']
+            # we've been adding "paid" to players on teamsnap, 
+            # we want to remove that now
+            if playerNumber
+              playerNumber.slice! 'Paid'
+              playerNumber.slice! '-'
+              playerNumber.strip 
+              if !playerNumber.empty?
+                team_player[:roster][:jersey_number] = playerNumber.strip
+              end 
+            end
+
+
+            playerRatingInfo = playerRating[team_player[:roster][:teamsnap_id].to_s]
+            ap "PLAYER RATING INFO #{team_player[:roster][:teamsnap_id].to_s}"
+            ap playerRatingInfo
+            if playerRatingInfo
+              team_player[:rating]= teamsnap_ratings_to_object(playerRatingInfo)
+              team_player[:rating][:teamsnap_id] = player['id']
+            end
+            divisionTeam[:roster].push(team_player)
+          end
+          divisionObj[:teams].push(divisionTeam)
+        end
+        divisionObjList.push(divisionObj)
+      end
+    end
+    #ap divisionObjList
+    divisionObjList
+  end
+
+  #
+  # Converts the teamsnap player ratings to an object
+  # that matches up with the database
+  #
+  def teamsnap_ratings_to_object(playerRating)
+    teamsnapRatingIds = get_customIds
+    rating = Hash.new
+    # rating[:all] = playerRating
+    playerRatingThrowing = playerRating[:throwing][:ratings]
+    playerRatingFielding = playerRating[:fielding][:ratings]
+    playerRatingRunning = playerRating[:running][:ratings]
+    playerRatingHitting = playerRating[:hitting][:ratings]
+
+    # throwing 1 - 5
+    rating[:rating_1] = playerRatingThrowing[teamsnapRatingIds['throwing'][1]]
+    rating[:rating_2] = playerRatingThrowing[teamsnapRatingIds['throwing'][2]]
+    rating[:rating_3] =playerRatingThrowing[teamsnapRatingIds['throwing'][3]]
+    rating[:rating_4] = playerRatingThrowing[teamsnapRatingIds['throwing'][4]]
+    rating[:rating_5] = playerRatingThrowing[teamsnapRatingIds['throwing'][5]]
+    # field 6 - 14 
+    rating[:rating_6] = playerRatingFielding[teamsnapRatingIds['fielding'][6]]
+    rating[:rating_7] = playerRatingFielding[teamsnapRatingIds['fielding'][7]]
+    rating[:rating_8] = playerRatingFielding[teamsnapRatingIds['fielding'][8]]
+    rating[:rating_9] = playerRatingFielding[teamsnapRatingIds['fielding'][9]]
+    rating[:rating_10] = playerRatingFielding[teamsnapRatingIds['fielding'][10]]
+    rating[:rating_11] = playerRatingFielding[teamsnapRatingIds['fielding'][11]]
+    rating[:rating_12] = playerRatingFielding[teamsnapRatingIds['fielding'][12]]
+    rating[:rating_13] = playerRatingFielding[teamsnapRatingIds['fielding'][13]]
+    rating[:rating_13] = playerRatingFielding[teamsnapRatingIds['fielding'][13]]
+    rating[:rating_14] = playerRatingFielding[teamsnapRatingIds['fielding'][14]]
+    # running 15 - 18
+    rating[:rating_15] = playerRatingRunning[teamsnapRatingIds['baserunning'][15]]
+    rating[:rating_16] = playerRatingRunning[teamsnapRatingIds['baserunning'][16]]
+    rating[:rating_17] = playerRatingRunning[teamsnapRatingIds['baserunning'][17]]
+    rating[:rating_18] = playerRatingRunning[teamsnapRatingIds['baserunning'][18]]
+    # hitting 19 - 27
+    rating[:rating_19] = playerRatingHitting[teamsnapRatingIds['hitting'][19]]
+    rating[:rating_20] = playerRatingHitting[teamsnapRatingIds['hitting'][20]]
+    rating[:rating_21] = playerRatingHitting[teamsnapRatingIds['hitting'][21]]
+    rating[:rating_22] = playerRatingHitting[teamsnapRatingIds['hitting'][22]]
+    rating[:rating_23] = playerRatingHitting[teamsnapRatingIds['hitting'][23]]
+    rating[:rating_24] = playerRatingHitting[teamsnapRatingIds['hitting'][24]]
+    rating[:rating_25] = playerRatingHitting[teamsnapRatingIds['hitting'][25]]
+    rating[:rating_26] = playerRatingHitting[teamsnapRatingIds['hitting'][26]]
+    rating[:rating_27] = playerRatingHitting[teamsnapRatingIds['hitting'][27]]
+    rating
+  end
+
+  #
+  # Run a sync through teamsnap data 
+  # and save the new data to the database
+  #
+  def run_import(season_id)
+    # going to just assume the last active season is the current season for now
+    season_id = season_id.to_i
+    season = Season.where(:id => season_id)
+    if season.nil?
+      ap 'No season found, cancelling import'
+      return
+    end
+    divisions = teamsnap_divisions_to_objects(get_all_divisions, get_all_teams)
+    divisions.each do |division|
+      imported_division = run_import_division(division, season_id)
+      if imported_division.nil?
+        ap "Division Failed to Import #{division}"
+        return
+      end
+      division[:teams].each do |team|
+        imported_team = run_import_team(team, imported_division.id)
+        if imported_team.nil?
+          ap "Team Failed To Import #{team}"
+          return
+        end
+        team[:roster].each do |player|
+          player = run_import_player(player, imported_team.id)
+        end
+      end
+    end
+  end
+
+  #
+  # Check to see if the division exists, if not save it
+  #
+  def run_import_division(division, season_id)
+    # see if the division exists
+    import_division = Division.where(:teamsnap_id => division[:teamsnap_id]).first
+
+    if import_division.nil?
+      import_division = Division.new
+    end
+    import_division.description = division[:description]
+    import_division.kind = division[:kind]
+    import_division.teamsnap_id = division[:teamsnap_id]
+    import_division.season_id = season_id
+    if !import_division.valid?
+      ap "______ DIVISION IS NOT VALID TO SAVE _____"
+      return
+    end
+    import_division.save
+    import_division
+  end 
+
+  #
+  # Check to see if the team exists, if not create it
+  # Then update it and save the information
+  #
+  def run_import_team(team, division_id)
+    # get the team if it exists in the database
+    import_team = Team.where(:teamsnap_id => team[:teamsnap_id]).first
+    if import_team.nil?
+      import_team = Team.new
+    end
+    
+    import_team.name = team[:name]
+    import_team.teamsnap_id = team[:teamsnap_id]
+    import_team.division_id = division_id
+    if !import_team.valid?
+      ap "______ TEAM #{team[:name]} IS NOT VALID TO SAVE _____"
+      return
+    end
+    import_team.save
+    import_team
+  end
+
+  #
+  # Import Player Profile, ratings and roster relation to database
+  #
+  def run_import_player(player, team_id)
+    # run profile import
+    imported_profile = run_import_profile(player[:profile])
+    # run roster import
+    imported_roster = run_import_roster(player[:roster], team_id, imported_profile.id)
+    # run ratings import
+    imported_ratings = run_import_ratings(player[:rating],imported_profile.id)
+  end
+
+  #
+  # Import roster to the database
+  #
+  def run_import_roster(roster, team_id, profile_id)
+    import_roster = Roster.where(:teamsnap_id => roster[:teamsnap_id]).first
+    if import_roster.nil?
+      import_roster = Roster.new
+      import_roster.teamsnap_id = roster[:teamsnap_id]
+    end
+
+    import_roster.is_non_player = roster[:is_non_player]
+    import_roster.is_manager = roster[:is_manager]
+    import_roster.jersey_number = roster[:jersey_number]
+    import_roster.team_id = team_id
+    import_roster.profile_id = profile_id
+
+    if !import_roster.valid?
+      ap "______ Roster #{roster[:teamsnap_id]} IS NOT VALID TO SAVE _____"
+      ap import_roster.errors
+      return
+    end
+    import_roster.save
+    import_roster
+  end
+
+  #
+  # Import Player Rating to the database
+  #
+  def run_import_ratings(rating,profile_id)
+    # See if the rating teamsnap import already exist
+    import_rating = Rating.where(:teamsnap_id => rating[:teamsnap_id]).first
+    if import_rating.nil?
+      import_rating = Rating.new
+      import_rating.teamsnap_id = rating[:teamsnap_id]
+      import_rating.profile_id = profile_id
+    end
+
+    import_rating.rating_1 = rating[:rating_1]
+    import_rating.rating_2 = rating[:rating_2]
+    import_rating.rating_3 = rating[:rating_3]
+    import_rating.rating_4 = rating[:rating_4]
+    import_rating.rating_5 = rating[:rating_5]
+    import_rating.rating_6 = rating[:rating_6]
+    import_rating.rating_7 = rating[:rating_7]
+    import_rating.rating_8 = rating[:rating_8]
+    import_rating.rating_9 = rating[:rating_9]
+    import_rating.rating_10 = rating[:rating_10]
+    import_rating.rating_11 = rating[:rating_11]
+    import_rating.rating_12 = rating[:rating_12]
+    import_rating.rating_13 = rating[:rating_13]
+    import_rating.rating_14 = rating[:rating_14]
+    import_rating.rating_15 = rating[:rating_15]
+    import_rating.rating_16 = rating[:rating_16]
+    import_rating.rating_17 = rating[:rating_17]
+    import_rating.rating_18 = rating[:rating_18]
+    import_rating.rating_19 = rating[:rating_19]
+    import_rating.rating_20 = rating[:rating_20]
+    import_rating.rating_21 = rating[:rating_21]
+    import_rating.rating_22 = rating[:rating_22]
+    import_rating.rating_23 = rating[:rating_23]
+    import_rating.rating_24 = rating[:rating_24]
+    import_rating.rating_25 = rating[:rating_25]
+    import_rating.rating_26 = rating[:rating_26]
+    import_rating.rating_27 = rating[:rating_27]
+
+    if import_rating.valid?
+      ap "______ rating #{rating} Could Not save_____"  
+      ap import_rating.errors
+      return
+    end
+    
+    import_rating.save
+    import_rating
+  end
+
+  #
+  # Import Profile to the database
+  #
+  def run_import_profile(profile)
+    ap "importing #{profile}"
+    # check to see if the player profile exists, otherwise import it
+    import_profile = Hash.new
+    profile[:emails].each do |player_email|
+      import_profile = Profile.where(:email => [player_email]).first
+      if !import_profile.nil?
+        break
+      end
+    end
+    ap "DOES import_profile exist #{import_profile}"
+    ap import_profile.blank?
+    # this player doesn't exist create a new profile
+    # Set the profile as the first email from the list
+    if import_profile.blank?
+      ap "No Profile create a new one"
+      import_profile = Profile.new
+      import_profile.email = profile[:emails].first
+    end
+    ap profile
+    # try to find a profile with at least one of the email addresses     
+    import_profile.first_name = profile[:first_name]
+    import_profile.last_name = profile[:last_name]
+    import_profile.gender = profile[:gender]
+    import_profile.shirt_size = profile[:shirt_size]
+    import_profile.is_pickup_player = profile[:is_pickup_player]
+    import_profile.emergency_contact_name = profile[:emergency_contact_name]
+    import_profile.emergency_contact_relationship = profile[:emergency_contact_relationship]
+    import_profile.emergency_contact_phone = profile[:emergency_contact_phone]       
+    import_profile.dob = profile[:dob]
+    import_profile.address = profile[:address]
+    import_profile.address2 = profile[:address2]
+    import_profile.city = profile[:city]
+    import_profile.state = profile[:state]
+    import_profile.zip = profile[:zip]
+    random_string = (0...8).map { (65 + rand(26)).chr }.join
+    import_profile.password = random_string
+
+    if !import_profile.valid?
+      ap "---------Couldn't save profile #{import_profile.first_name} #{import_profile.last_name} ----------"
+      ap import_profile.errors
+    end
+    import_profile.save
+    import_profile
+  end
+
   # TODO get rid of old teamsnap crap
   def get_divisions(token = nil)
     divisionsURL = "https://api.teamsnap.com/v2/divisions/16139"
@@ -84,6 +479,12 @@ module TeamsnapHelper
 
   #todo get rid of old teamsnap crap
   def get_roster(teamId, rosterId, token = nil)
+    Rails.cache.fetch("team_roster-#{teamId}-#{rosterId}", :expires_in => 60.minutes) do
+      get_roster_api(teamId, rosterId, token)
+    end
+  end
+
+  def get_roster_api(teamId, rosterId, token=nil)
     rosterURL = "https://api.teamsnap.com/v2/teams/#{teamId}/as_roster/#{rosterId}/rosters"
     conn = connect
     conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => get_teamsnap_token(token)}
@@ -227,7 +628,7 @@ module TeamsnapHelper
   def get_division_team_data_api(division_id, token = nil)
     division_data = Hash.new
     division_data[:all_teams] = get_all_teams(token)
-    
+    playerPayments = TeamsnapPayment.all
     division_data[:all_divisions] =  get_all_divisions(token)
     division_teams= Array.new
     division_data[:all_divisions]['division']['divisions'].each do |league|
@@ -254,7 +655,7 @@ module TeamsnapHelper
                 #team = get_team(params[:teamId])['team'])
                 player = Hash.new
                 player[:roster] = roster
-                division_team[:player] = preprocess_player_data(roster)
+                division_team[:player] = preprocess_player_data(roster, playerPayments)
               end
 
             end
@@ -270,15 +671,17 @@ module TeamsnapHelper
 
 
   # adds and compiles players rankings
-  def preprocess_player_data(roster)
+  def preprocess_player_data(roster, playerPayments = nil)
     playersHash = Hash.new
-    playerPayments = TeamsnapPayment.all
+    if playerPayments.nil?
+      playerPayments = TeamsnapPayment.all
+    end
     customThrowingIds = get_customIds('throwing').values
     customFieldingIds = get_customIds('fielding').values
     customRunningIds = get_customIds('baserunning').values
     customHittingIds = get_customIds('hitting').values
 
-    @roster.each do |playerData|
+    roster.each do |playerData|
       playerHash = Hash.new
       playerHash[:throwing] = Hash.new
       playerHash[:fielding] = Hash.new

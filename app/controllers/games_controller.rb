@@ -4,9 +4,8 @@ class GamesController < ApplicationController
   # GET /games
   # GET /games.json
   def index
-    @games = Game.all
+    @seasons = Season.select('description, id').all
   end
-
   # GET /games/1
   # GET /games/1.json
   def show
@@ -18,25 +17,43 @@ class GamesController < ApplicationController
     get_universal_game_variables
     # if there is a division in the params get the season
     if (params[:division_id])
-      division = Division.find_by( :id =>params[:division_id].to_i)
+      division = Division.find_by(:id =>params[:division_id].to_i)
       if !division.nil? 
-        @selected_season_id = division.season_id
+        @selected_season = division.season
         @teamsByDivision = get_teams_by_division(params[:division_id].to_i)
         @seasons = Array.new
         @seasons.push(division.season)
       end
+    elsif (params[:season_id])
+      season = Season.find_by(:id => params[:season_id])
+      
+      if (season.present?)
+        @selected_season = season
+        division_ids = get_division_ids_for_season(@selected_season.id)
+        @teamsByDivision = get_teams_by_division(division_ids)
+      end
     end
+  end
+
+  #
+  # Returns an array of division ids for a given season
+  #
+  def get_division_ids_for_season(season_id)
+    division_ids = Division.select('id').where(:season_id => @selected_season.id).pluck(:id)
+    division_ids
   end
 
   # GET /games/1/edit
   def edit
-    @selected_season_id = 0
+    
+    @selected_season = nil
     # if its a game with a home OR an away team it already has a set season, get it to reflect it in the edit screen
     if (@game.home_team_id) 
-      @selected_season_id = @game.home_team.division.season.id
+      @selected_season = @game.home_team.division.season
     elsif (@game.away_team_id)
-      @selected_season_id = @game.away_team.division.season.id
+      @selected_season = @game.away_team.division.season
     end
+    @teamsByDivision = get_teams_by_division(get_division_ids_for_season(@selected_season.id))
   end
 
   # POST /games
@@ -85,13 +102,11 @@ class GamesController < ApplicationController
     if teamId == @game.home_team_id || teamId == @game.away_team_id
       @team = Team.where(:id => teamId)
       if !@team.nil?
-        @roster = Roster.where(:team_id => teamId, :is_active => true)
+        @roster = Roster.where(:team_id => teamId)
         @attendance = GameAttendance.where(:game_id => @game.id)
       end
     end
     # make sure team is on one of the games
-
-
     render 'show'
   end
 
@@ -99,7 +114,6 @@ class GamesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_game
       @game = Game.find(params[:id])
-      @teamsByDivision = get_all_teams_by_division
       get_universal_game_variables
     end
 

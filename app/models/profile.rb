@@ -4,7 +4,7 @@ class Profile < ActiveRecord::Base
 
   #TODO This will break when editing a user profile as an admin
   has_secure_password
-  #validates :password, length: { minimum: 6 }, on: :create
+  validates :password, length: { minimum: 6 }, on: :create
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :last_name, presence: true
@@ -13,14 +13,12 @@ class Profile < ActiveRecord::Base
                     format:{ with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
   belongs_to :team
-  has_one :hallof_famer
-  has_many :rosters
-  has_one :rating
-  has_one :board_member
-  has_one :committee
-  #has_one :team
+  has_one :hallof_famer, dependent: :destroy
+  has_many :rosters, dependent: :destroy
+  has_one :rating, dependent: :destroy
+  has_many :board_members, dependent: :nullify
+  has_many :committees, dependent: :nullify
 
-  # TODO(paige) implement
   def staff?
     true
   end

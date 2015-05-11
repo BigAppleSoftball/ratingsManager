@@ -26,6 +26,7 @@
     %th Address
     %th Google map url
     %th Lat/Long
+    %th Fields
     %th.actions-column
   - statuses = get_park_statuses
   - @parks.each do |park|
@@ -47,6 +48,10 @@
           = park.long
         -else
           = render partial: "shared/warning_column", locals: { text: 'No Lat or Long'}
+      %td 
+        %ul
+          - park.fields.each do |field|
+            %li= link_to field.name, park_field_path(park, field)
       %td
         = render partial: 'shared/actions/table_actions', locals: { editPath: edit_park_path(park), deletePath: park}
 

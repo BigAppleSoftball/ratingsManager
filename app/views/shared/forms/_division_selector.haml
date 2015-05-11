@@ -2,7 +2,7 @@
   - selected_season = selected_division.season
   - divisions = selected_season.divisions
 
-= render 'shared/forms/season_selector', {:selected_season => selected_season.id, :seasons => seasons, :name => 'division_selector[season]'}
+= render 'shared/forms/season_selector', {:selected_season => selected_season, :seasons => seasons, :name => 'division_selector[season]'}
 
 
 %select.chosen-select.form-control.js-division-selector{:id =>"#{selector_id}", :name => "#{selector_name}", :data => {:placeholder => "Select A Division"}}

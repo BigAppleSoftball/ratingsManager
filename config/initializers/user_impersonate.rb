@@ -24,7 +24,7 @@ module UserImpersonate
 
     # Devise filter method used to protect impersonation controller
     # For Active Admin "AdminUser" model, change to 'authenticate_admin_user!'
-    #config.authenticate_user_method = 'authenticate_user!'
+    config.authenticate_user_method = 'authenticate_user!'
 
     # Devise method used to sign user in
     config.sign_in_user_method = 'sign_in'

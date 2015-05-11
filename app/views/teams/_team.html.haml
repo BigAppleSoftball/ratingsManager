@@ -1,4 +1,3 @@
-
 -if team.description
   .well.well-sm= raw(team.description)
 %table.table.table-bordered
@@ -17,9 +16,10 @@
     %td= team.stat_pt_scored
     %td= team.stat_pt_allowed
 
+
 -if teamsRosters.length > 0
-  = render :partial => 'teams/roster', :locals => {:rosters => teamsRosters}
+  = render :partial => 'teams/roster_list', :locals => {:rosters => teamsRosters}
 -if teamsSponsors.length > 0
   = render :partial => 'teams/sponsors', :locals => {:sponsors => teamsSponsors}
 -if games.length > 0
-  = render :partial => 'teams/schedule', :locals => {:games => games}
+  = render :partial => 'teams/schedule', :locals => {:games => games, :team => team}

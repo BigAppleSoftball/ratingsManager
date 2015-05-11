@@ -22,21 +22,21 @@
   %p
     %b Player number:
     = @profile.player_number
-  - if @rosters.length > 0
+  - if @profile.rosters.length > 0
     %b Teams:
     %ul
-      -@rosters.each do |roster|
+      -@profile.rosters.each do |roster|
         - team = roster.team
         - divison = team.division
         %li=link_to raw("#{team.name} <span>(#{divison.description} #{divison.season.description}</span>)"), team
-  -if @board_members.length > 0
+  -if @profile.board_members.length > 0
     Board Positions:
     %ul
-      -@board_members.each do |board_member|
+      -@profile.board_members.each do |board_member|
         %li=link_to board_member.position, board_member
-  -if @committees.length > 0
+  -if @profile.committees.length > 0
     Committees:
     %ul
-      -@committees.each do |committee|
+      -@profile.committees.each do |committee|
         %li=link_to committee.name, committee
 
