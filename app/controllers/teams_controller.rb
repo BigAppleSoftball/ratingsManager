@@ -7,15 +7,16 @@ class TeamsController < ApplicationController
   # GET /teams
   # GET /teams.json
   def index
-    @teams = Team.eager_load(:division).includes(:rosters => :profile).where('rosters.is_manager = 1').all
+    @teams = Team.eager_load(:division => :season).includes(:rosters => :profile).where('rosters.is_manager = 1').all
   end
 
   # GET /teams/1
   # GET /teams/1.json
   def show
     @teamSponsors = TeamsSponsor.eager_load(:sponsor).where(:team_id => params[:id])
-    @teamsRosters = Roster.includes(:profile => :rating).where(:team_id => params[:id])
-    @games = Game.eager_load(:home_team, :away_team, :field).where("home_team_id = ? OR away_team_id = ?", params[:id], params[:id])    
+    @teamsRosters = Roster.includes(:profile => :rating).where(:team_id => params[:id]).order('profiles.last_name')
+    @games = Game.eager_load(:home_team, :away_team, :field).where("home_team_id = ? OR away_team_id = ?", params[:id], params[:id]) 
+    @team_rating = calculate_team_ratings(@teamsRosters)   
   end
 
   # GET /teams/new
@@ -30,7 +31,7 @@ class TeamsController < ApplicationController
   # GET /teams/1/edit
   def edit
     get_form_presets
-    @rosters = Roster.where(:team_id => params[:id])
+    @rosters = Roster.includes(:profile => :rating).where(:team_id => params[:id]).order('profiles.last_name')
   end
 
   # POST /teams
@@ -79,10 +80,17 @@ class TeamsController < ApplicationController
   def show_player_ratings
     team_id = params[:teamid].to_i
     @team = Team.find_by(:id => team_id)
-    teamsRosters = Roster.eager_load(:profile => :rating).where(:team_id => team_id)
+    teamsRosters = Roster.eager_load(:profile => :rating).where(:team_id => team_id).order('profiles.last_name')
     @teamsRosters = teamsRosters
     @ratings_json = get_roster_json(teamsRosters).to_json
-    render 'ratings'
+    @teamRating = calculate_team_ratings(@teamsRosters) 
+    respond_to do |format|
+      format.html { render 'ratings' }
+      format.csv do
+        response.headers['Content-Disposition'] = "attachment; filename=#{@team.name}-#{@team.division.full_name}.csv"
+        render 'ratings.csv.haml'
+      end
+    end
   end
 
   #
@@ -109,14 +117,29 @@ class TeamsController < ApplicationController
     end
   end
 
+  #
+  # Team rating is the sum of the top ten player ratings
+  #
+  def calculate_team_ratings(roster)
+    ratings = Array.new
+    roster.each do|player|
+      if (player && player.profile && player.profile.rating)
+        ratings.push(player.profile.rating.total)
+      end
+    end
+    
+    top_ratings = ratings.sort.reverse.take(10)
+    top_ratings.sum
+  end
+
   private
     def get_form_presets
-      @profiles = Profile.all
-      @seasons = Season.all
+      @profiles = Profile.select('first_name, last_name, id').all
+      @seasons = Season.select('description, id').all
     end
     # Use callbacks to share common setup or constraints between actions.
     def set_team
-      @team = Team.find(params[:id])
+      @team = Team.eager_load(:division => :season).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

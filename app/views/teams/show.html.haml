@@ -1,16 +1,25 @@
 - content_for :panel_head do
   .team-details-container.pull-left
-    = link_to 'View All Teams', teams_path, {:class =>'btn btn-default'}
+    %h1
+      = @team.name
+      - if @team.teamsnap_id
+        %span.small-text 
+          (Imported from teamsnap:
+          = @team.teamsnap_id
+          )
+    %h4= link_to "#{@team.division.season.description} #{@team.division.description}", @team.division
     - if is_admin? || is_team_manager?(@team.id)
       - if !(@team && @team.division && @team.division.season && !@team.division.season.is_editable_season?)
         =link_to raw("<i class='fa fa-pencil'></i> Edit Team"), edit_team_path(@team), {:class =>"btn btn-default"}
       = link_to raw("<i class='fa fa-line-chart'></i> Player Ratings"),"/teams/#{@team.id}/ratings", {:class =>"btn btn-default"}
-      - if @team.teamsnap_id
-        %span.small-text 
-          (Team imported from teamsnap)
-          = @team.teamsnap_id
-    %h1= @team.name
-    %h4= link_to "#{@team.division.season.description} #{@team.division.description}", @team.division
+      = link_to 'View All Teams', teams_path, {:class =>'btn btn-default'}
+    .team-rating
+      %strong Team Rating:
+      = @team_rating
+      .small-text
+        (Team rating is calculated by summing up the ratings of the top 
+        %strong TEN
+        players)
   .team-admin-container.pull-right
     = render partial: "teams/managers_list", locals: { team: @team}
     = render partial: "teams/reps_list", locals: { team: @team}
