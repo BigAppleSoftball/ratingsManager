@@ -69,6 +69,10 @@ class TeamsController < ApplicationController
   def destroy
     name = @team.name
     division = @team.division
+    # get all games played but this team
+    games = Game.select('id').where('(home_team_id = ? AND away_team_id is null) OR (away_team_id = ? AND home_team_id is null)', @team.id, @team.id)
+    # these games are going to have both teams be null, remove them
+    games.destroy_all
     @team.destroy
     respond_to do |format|
       format.html { redirect_to division_path(division), notice: "#{division.description} #{name} was successfully destroyed." }
