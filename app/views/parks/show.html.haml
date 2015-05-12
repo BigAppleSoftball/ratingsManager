@@ -12,7 +12,7 @@
       = render partial: "status_indicator", locals: {statusValue: @park.status , statusString: statuses[@park.status]}
 
 
-  - if !@park.address.empty? || !@park.city.empty?
+  - if !@park.address.blank? || !@park.city.blank?
     .row
       .col-md-2
         %b Address:
@@ -28,7 +28,7 @@
           By Car:
       .col-md-10= raw(@park.by_car)
 
-  - if !@park.by_bus.empty?
+  - if !@park.by_bus.blank?
     .row
       .col-md-2
         %b 
@@ -36,7 +36,7 @@
           By Bus or Train:
       .col-md-10= raw(@park.by_bus)
 
-  -if !@park.parking.empty?
+  -if !@park.parking.blank?
     .row
       .col-md-2
         %b Parking:

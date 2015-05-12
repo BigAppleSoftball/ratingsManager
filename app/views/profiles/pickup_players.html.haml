@@ -1,0 +1,31 @@
+- content_for :panel_head do
+  %h1 Pick up Players
+  .well
+    This is a list of players that have marked themselves as available for tournaments. If you wish to be taken off this list please update your profile and uncheck the "Available for Tournaments" Checkbox
+
+.pickup-players
+  %table.table.table-condensed.table-bordered.legend-table
+    %tr
+      %th{:colspan => 4} Ratings Legend
+    %tr
+      %td 
+        .badge.badge-d 10 
+      %td D Division Rated Players
+      %td 
+        .badge.badge-c 14
+      %td C Division Rated Players
+    %tr
+      %td 
+        .badge.badge-b 19
+      %td B Division Rated Players
+      %td 
+        .badge.badge-a 20^
+      %td A Division Rated Players
+
+  %ul.list-group
+    -@players.each do |player|
+      %li.list-group-item
+        = player.to_s
+        = link_to 'View Profile', player
+        -if player.rating.present?
+          .badge{:class=>"#{get_rating_badge_class(player.rating.total)}"}=player.rating.total

@@ -4,8 +4,6 @@ one:
   team_id: 1
   profile_id: 1
   date_created: 2015-01-28 21:34:50
-  date_approved: 2015-01-28 21:34:50
-  date_updated: 
   is_approved: false
   is_player: false
   is_rep: false
@@ -17,8 +15,6 @@ two:
   team_id: 1
   profile_id: 1
   date_created: 2015-01-28 21:34:50
-  date_approved: 2015-01-28 21:34:50
-  date_updated: 
   is_approved: false
   is_player: false
   is_rep: false

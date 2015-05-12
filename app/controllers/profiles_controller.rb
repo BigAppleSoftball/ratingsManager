@@ -64,6 +64,13 @@ class ProfilesController < ApplicationController
     end
   end
 
+  #
+  # Gets a list of all players available for tournaments
+  #
+  def pickup_players
+    @players = Profile.eager_load(:rating).where(:is_pickup_player => true).order('last_name')
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_profile
@@ -74,7 +81,7 @@ class ProfilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params.require(:profile).permit(:profile_code, :first_name, :last_name, :email, :display_name, :player_number, :gender, :shirt_size, :address, :state, :zip, :phone, :position, :dob, :team_id, :long_image_url, :password, :password_confirmation, :is_admin, :permissions, :address2, :city)
+      params.require(:profile).permit(:profile_code, :first_name, :last_name, :email, :display_name, :player_number, :gender, :shirt_size, :address, :state, :zip, :phone, :position, :dob, :team_id, :long_image_url, :password, :password_confirmation, :is_admin, :permissions, :address2, :city, :is_pickup_player)
     end
 
     def sort_column

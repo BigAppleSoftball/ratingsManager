@@ -10,5 +10,6 @@
     - if @division.teamsnap_id
       This division is connected to division id 
       = @division.teamsnap_id
+    = link_to raw("<i class='fa fa-trash'></i> Delete Division"),@division, :method => :delete, :data => { :confirm => 'Deleting a Division Will Delete all related teams, games, rosters & game attendances. You cannot undo this. Are you sure?' }, :class => 'btn btn-danger', :title => 'Delete'
 
 = render :partial => 'division', :locals => {:division => @division, :isShow => true}

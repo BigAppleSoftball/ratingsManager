@@ -50,32 +50,44 @@ module SessionsHelper
   # checks if user is a site adminstrator
   #
   def is_admin?
-    current_user && current_user.is_admin
+    is_logged_in? && current_user.is_admin
   end
 
   #
   # Checks to see if the user is an admin
   #
   def is_manager?
-    roster = Roster.where(:profile_id => current_profile.id, :is_manager => true)
-    current_profile && roster.length > 0
+    if is_logged_in?
+      roster = Roster.where(:profile_id => current_profile.id, :is_manager => true)
+      current_profile && roster.length > 0
+    else
+      false
+    end
   end
 
   #
   # checks to see if the team id is in the list of user ids
   #
   def is_team_manager?(team_id)
-    current_profile.teams_managed_list.include?(team_id)
+    if is_logged_in?
+      current_profile.teams_managed_list.include?(team_id)
+    else
+      false
+    end
   end
 
   #
   # Checks to see if the user is a division rep
   #
   def is_division_rep?(division_id = nil)
-    if !division_id.nil?
-      current_profile.divisions_repped_list.include?(division_id)
+    if is_logged_in?
+      if !division_id.nil?
+        current_profile.divisions_repped_list.include?(division_id)
+      else
+        !current_profile.divisions_repped.empty?
+      end
     else
-      !current_profile.divisions_repped.empty?
+      false
     end
   end
 
@@ -90,7 +102,7 @@ module SessionsHelper
   # check to see if the user is logged int
   #
   def is_logged_in?
-    !current_profile.nil?
+    current_profile.present?
   end
 
   #

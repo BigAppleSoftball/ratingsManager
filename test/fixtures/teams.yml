@@ -10,7 +10,7 @@ one:
   stat_pt_scored: 1
   stat_tie: 1
   teamsnap_id: 1
-  team_desc: MyText
+  description: MyText
   name: MyString
 
 two:
@@ -23,5 +23,5 @@ two:
   stat_pt_scored: 1
   stat_tie: 1
   teamsnap_id: 1
-  team_desc: MyText
+  description: MyText
   name: MyString

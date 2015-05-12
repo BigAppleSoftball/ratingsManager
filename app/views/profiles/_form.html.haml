@@ -18,9 +18,31 @@
     .col-sm-10
       = f.text_field :email, {:class => 'form-control'}
   .form-group
-    = f.label :player_number, {:class => 'col-sm-2 control-label'}
+    = f.label :phone, {:class => 'col-sm-2 control-label'}
     .col-sm-10
-      = f.number_field :player_number, {:class => 'form-control'}
+      = f.text_field :phone, {:class => 'form-control'}
+  .emp-action-container
+    %h4 Address
+    .form-group
+      = f.label :address, {:class => 'col-sm-2 control-label'}
+      .col-sm-10
+        = f.text_field :address, {:class => 'form-control'}
+    .form-group
+      = f.label :address2, {:class => 'col-sm-2 control-label'}
+      .col-sm-10
+        = f.text_field :address2, {:class => 'form-control'}
+    .form-group
+      = f.label :city, {:class => 'col-sm-2 control-label'}
+      .col-sm-10
+        = f.text_field :city, {:class => 'form-control'}
+    .form-group
+      = f.label :state, {:class => 'col-sm-2 control-label'}
+      .col-sm-10
+        = f.text_field :state, {:class => 'form-control'}
+    .form-group
+      = f.label :zip, {:class => 'col-sm-2 control-label'}
+      .col-sm-10
+        = f.text_field :zip, {:class => 'form-control'}
   .form-group
     = f.label :long_image_url, {:class => 'col-sm-2 control-label'}
     .col-sm-10
@@ -37,22 +59,45 @@
     = f.label :password_confirmation, {:class => 'col-sm-2 control-label'}
     .col-sm-10
       = f.password_field :password_confirmation, {:class => 'form-control'}
-  - if is_admin?
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      .checkbox
+        %label
+          = f.check_box :is_pickup_player
+          Are You Available For Tournaments?
+      .alert.alert-info
+        This will display your name and contact information on the pick up player board. If you do not wish for your information to be displayed, please uncheck the "Are you available for Tournaments?" Checkbox.
+  .emp-action-container
+    %h4 Emergency Contact
     .form-group
-      .col-sm-offset-2.col-sm-10.admin-action-container
-        .alert.alert-danger
-          %strong 
-            %i.glyphicon.glyphicon-warning-sign
-            WARNING
-          Site Adminstrators can make changes sitewide to profiles, teams, rosters, games, fields...etc. Please only make knowledgable & technical users Site Adminstrators 
-          %br
-          (For the ability to edit League data consider making the user a League Administrator on the 
-          =link_to 'board members page', board_members_path
-          )
-        .checkbox
-          %label
-            = f.check_box :is_admin?
-            Is Site Administrator?
+      = f.label :emergency_contact_name, 'Name', {:class => 'col-sm-2 control-label'}
+      .col-sm-10
+        = f.text_field :emergency_contact_name, {:class => 'form-control'}
+    .form-group
+      = f.label :emergency_contact_relationship, 'Relationship', {:class => 'col-sm-2 control-label'}
+      .col-sm-10
+        = f.text_field :emergency_contact_relationship, {:class => 'form-control'}
+    .form-group
+      = f.label :emergency_contact_phone, 'Phone', {:class => 'col-sm-2 control-label'}
+      .col-sm-10
+        = f.text_field :emergency_contact_phone, {:class => 'form-control', :placeholder => "(xxx) xxx-xxxx"}
+  - if is_admin?
+    .admin-action-container
+      .form-group
+        .col-sm-offset-2.col-sm-10
+          .alert.alert-danger
+            %strong 
+              %i.glyphicon.glyphicon-warning-sign
+              WARNING
+            Site Adminstrators can make changes sitewide to profiles, teams, rosters, games, fields...etc. Please only make knowledgable & technical users Site Adminstrators 
+            %br
+            (For the ability to edit League data consider making the user a League Administrator on the 
+            =link_to 'board members page', board_members_path
+            )
+          .checkbox
+            %label
+              = f.check_box :is_admin?
+              Is Site Administrator?
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit 'Save', {:class => 'btn btn-primary'}

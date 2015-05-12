@@ -139,8 +139,10 @@ class ApplicationController < ActionController::Base
           teamsByDivision.push(currentDivision)
         end
         currentDivision = Hash.new
-        currentDivision[:id] = team.division_id
-        currentDivision[:name] = team.division.description
+        if (team.division.present?)
+          currentDivision[:id] = team.division_id
+          currentDivision[:name] = team.division.description
+        end
         currentDivision[:teams] = Array.new
       end
       currentDivision[:teams].push(team)

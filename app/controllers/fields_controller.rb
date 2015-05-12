@@ -5,6 +5,7 @@ class FieldsController < ApplicationController
   # GET /fields.json
   def index
     @fields = Field.all
+    @park = Park.find_by(:id => params[:park_id])
   end
 
   # GET /fields/1
@@ -15,7 +16,6 @@ class FieldsController < ApplicationController
   # GET /fields/new
   def new
     set_univeral_params
-    ap params
     @field = Field.new
     if params[:park_id]
       current_park = Park.find_by(:id => params[:park_id].to_i)
@@ -29,6 +29,8 @@ class FieldsController < ApplicationController
   # GET /fields/1/edit
   def edit
     set_univeral_params
+
+      @field = Field.find(params[:id])
   end
 
   # POST /fields
@@ -79,7 +81,6 @@ class FieldsController < ApplicationController
 
     def set_univeral_params
       @parks = Park.all
-      @field = Field.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

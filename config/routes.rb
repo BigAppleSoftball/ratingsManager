@@ -110,4 +110,7 @@ Rails.application.routes.draw do
   # divisions
   get 'teamsnap/divisions/import', to: 'teamsnap#import_divisions'
 
+  # profiles
+  get 'pickup', to: 'profiles#pickup_players'
+
 end
