@@ -64,6 +64,13 @@ class ProfilesController < ApplicationController
     end
   end
 
+  #
+  # Gets a list of all players available for tournaments
+  #
+  def pickup_players
+    @players = Profile.eager_load(:rating).where(:is_pickup_player => true).order('last_name')
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_profile

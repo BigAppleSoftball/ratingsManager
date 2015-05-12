@@ -128,4 +128,20 @@ module ApplicationHelper
     end
     is_attending_class
   end
+
+  #
+  # Returns a string class based on the players rating total
+  # and the division that rating belongs to
+  #
+  def get_rating_badge_class(rating)
+    if (rating < 11) 
+      'badge-d'
+    elsif (rating < 14)
+      'badge-c'
+    elsif (rating < 20)
+      'badge-b'
+    elsif (rating > 19)
+      'badge-a'
+    end
+  end
 end
