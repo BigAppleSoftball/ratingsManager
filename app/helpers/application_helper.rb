@@ -114,10 +114,7 @@ module ApplicationHelper
   # Sets the attendance class for a player row
   #
   def attendance_class(attendance)
-    ap '------------------------'
     is_attending_class = nil
-    ap 'attendance'
-    ap attendance.nil?
     if !attendance.nil?
       is_attending = attendance.is_attending
       if is_attending
