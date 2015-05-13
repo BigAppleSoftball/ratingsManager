@@ -16,17 +16,19 @@
   %p
     %b Last name:
     = @profile.last_name
-  %p
-    %b Email:
-    = @profile.email
+  -if is_logged_in?
+    %p
+      %b Email:
+      = @profile.email
   %p
     %b DOB:
     = @profile.dob
-  %p 
-    %b Address
-    %p= @profile.address
-    %p= @profile.address2
-    %p= "#{@profile.city}, #{@profile.state} #{@profile.zip}"
+  -if is_current_user_or_admin?(@profile.id)
+    %p 
+      %b Address
+      %p= @profile.address
+      %p= @profile.address2
+      %p= "#{@profile.city}, #{@profile.state} #{@profile.zip}"
 
   %p
     %b Available for Tournaments?
@@ -34,19 +36,20 @@
       Yes
     - else
       No
-  .well
-    -if @profile.emergency_contact_phone.blank?
-      %h5 No Emergency Contact Information Found! Please Update this now!
-    - else
-      %p
-        %b Emergency Contact Name: 
-        = @profile.emergency_contact_name
-      %p
-        %b Emergency Contact Relationship: 
-        = @profile.emergency_contact_relationship
-      %p
-        %b Emergency Contact Phone: 
-        = @profile.emergency_contact_phone
+    -if is_current_user_or_admin?(@profile.id)
+      .well
+      -if @profile.emergency_contact_phone.blank?
+        %h5 No Emergency Contact Information Found! Please Update this now!
+      - else
+        %p
+          %b Emergency Contact Name: 
+          = @profile.emergency_contact_name
+        %p
+          %b Emergency Contact Relationship: 
+          = @profile.emergency_contact_relationship
+        %p
+          %b Emergency Contact Phone: 
+          = @profile.emergency_contact_phone
   - if @profile.rosters.length > 0
     %b Teams:
     %ul

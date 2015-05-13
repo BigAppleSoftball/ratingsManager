@@ -182,9 +182,6 @@ class TeamsnapController < ApplicationController
   end
 
   def import_season_data
-    ap 'Running season import'
-    ap params
-    ap params['season_id']
     run_import(params['season_id'].to_i)
   end
 

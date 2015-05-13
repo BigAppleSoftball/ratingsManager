@@ -104,6 +104,18 @@ module SessionsHelper
   def is_logged_in?
     current_profile.present?
   end
+  
+  #
+  # if given user is th logged in user
+  #
+  def is_current_user?(user_id)
+    is_logged_in? && current_profile.id == user_id
+  end
+
+
+  def is_current_user_or_admin?(user_id)
+    is_logged_in? && current_profile.id == user_id || is_admin?
+  end
 
   #
   # redirect for pages only meant for site adminstrators
@@ -145,6 +157,12 @@ module SessionsHelper
   #
   def only_division_rep(division_id)
     if (!is_admin? && !is_division_rep?(division_id.to_i))
+      redirect_to :action =>'error403', :controller => 'welcome'
+    end
+  end
+
+  def only_logged_in
+    if (!is_logged_in?)
       redirect_to :action =>'error403', :controller => 'welcome'
     end
   end
