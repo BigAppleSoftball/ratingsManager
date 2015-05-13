@@ -56,7 +56,7 @@ module PaymentsTrackerHelper
 
       if is_login_successful?(login_results)
         players = Array.new
-        league_page = login_results.link_with(:text => "Big Apple Softball League ").click
+        league_page = login_results.link_with(:href => "/team/set_division/16139").click
         @players = fetch_league_roster(league_page)
       else
         puts "Web Scrapper has failed"
