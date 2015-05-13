@@ -1,6 +1,7 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
   before_filter :only_for_admin, only: [:edit, :update, :destroy]
+  before_filter :only_logged_in, only: [:show, :index]
   helper_method :sort_column, :sort_direction
   # GET /profiles
   # GET /profiles.json

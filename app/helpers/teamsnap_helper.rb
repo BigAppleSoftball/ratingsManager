@@ -265,22 +265,31 @@ module TeamsnapHelper
     season_id = season_id.to_i
     season = Season.where(:id => season_id)
     if season.nil?
-      @errors.push('No season found, cancelling import')
+      error = Hash.new
+      error[:type] = 'Season'
+      error[:errors] = "Season Not Found"
+      @errors.push(error)
       ap 'No season found, cancelling import'
       return
     end
     divisions = teamsnap_divisions_to_objects(get_all_divisions, get_all_teams)
     divisions.each do |division|
       imported_division = run_import_division(division, season_id)
-      if imported_division.nil?
-        @errors.push("Division Failed to Import #{division}")
+      if imported_division.blank?
+        error = Hash.new
+        error[:type] = 'Division'
+        error[:errors] = "Division failed to import"
+        @errors.push(error)
         ap "Division Failed to Import #{division}"
         return
       end
       division[:teams].each do |team|
         imported_team = run_import_team(team, imported_division.id)
-        if imported_team.nil?
-          @errors.push("Team Failed To Import #{team}")
+        if imported_team.blank?
+          error = Hash.new
+          error[:type] = 'Team'
+          error[:errors] = "Team failed to import"
+          @errors.push(error)
           return
         end
         team[:roster].each do |player|
@@ -305,7 +314,10 @@ module TeamsnapHelper
     import_division.teamsnap_id = division[:teamsnap_id]
     import_division.season_id = season_id
     if !import_division.valid?
-      @errors.push("______ DIVISION IS NOT VALID TO SAVE _____ #{import_division.errors}")
+      error = Hash.new
+      error[:type] = "Division #{import_division[:teamsnap_id]}"
+      error[:errors] = import_division.errors
+      @errors.push(error)
       ap "______ DIVISION IS NOT VALID TO SAVE _____"
       return
     end
@@ -328,7 +340,10 @@ module TeamsnapHelper
     import_team.teamsnap_id = team[:teamsnap_id]
     import_team.division_id = division_id
     if !import_team.valid?
-      @errors.push("______ TEAM #{team[:name]} IS NOT VALID TO SAVE _____")
+      error = Hash.new
+      error[:type] = "Team #{team[:name]}"
+      error[:errors] = import_team.errors?
+      @errors.push(error)
       ap "______ TEAM #{team[:name]} IS NOT VALID TO SAVE _____"
       return
     end
@@ -365,7 +380,10 @@ module TeamsnapHelper
     import_roster.profile_id = profile_id
 
     if !import_roster.valid?
-      @errors.push("______ Roster #{roster[:teamsnap_id]} IS NOT VALID TO SAVE _____")
+      error = Hash.new
+      error[:type] = " Roster #{roster[:teamsnap_id]} #{team_id} #{profile_id}"
+      error[:errors] = import_roster.errors
+      @errors.push(error)
       ap import_roster.errors
       return
     end
@@ -413,9 +431,12 @@ module TeamsnapHelper
     import_rating.rating_26 = rating[:rating_26]
     import_rating.rating_27 = rating[:rating_27]
 
-    if import_rating.valid?
-      @errors.push("______ rating #{rating} Could Not save_____")
-      ap "______ rating #{rating} Could Not save_____"
+    if !import_rating.valid?
+      error = Hash.new
+      error[:type] = "Rating-#{import_rating.teamsnap_id}"
+      error[:errors] = import_rating.errors
+      @errors.push(error)
+      ap "______ rating #{import_rating.teamsnap_id} Could Not save_____"
       ap import_rating.errors
       return
     end
@@ -446,9 +467,18 @@ module TeamsnapHelper
       import_profile = Profile.new
       import_profile.email = profile[:emails].first
     end
+
+
     # try to find a profile with at least one of the email addresses     
     import_profile.first_name = profile[:first_name]
     import_profile.last_name = profile[:last_name]
+    if import_profile.first_name.blank?
+      import_profile.first_name = 'importedPlayer*'
+    end
+
+    if import_profile.last_name.blank?
+      import_profile.last_name = 'importedPlayer*'
+    end
     import_profile.gender = profile[:gender]
     import_profile.shirt_size = profile[:shirt_size]
     import_profile.is_pickup_player = profile[:is_pickup_player]
@@ -465,8 +495,11 @@ module TeamsnapHelper
     import_profile.password = random_string
 
     if !import_profile.valid?
-      @errors.push( "---------Couldn't save profile #{import_profile.first_name} #{import_profile.last_name} ----------")
-      ap "---------Couldn't save profile #{import_profile.first_name} #{import_profile.last_name} ----------"
+      error = Hash.new
+      error[:type] = "profile #{import_profile.first_name} #{import_profile.last_name} #{import_profile.email}"
+      error[:errors] = import_profile.errors
+      @errors.push(error)
+      ap "---------Couldn't save profile #{import_profile.first_name} #{import_profile.last_name} #{import_profile.email} ----------"
       ap import_profile.errors
     end
     import_profile.save

@@ -1,3 +1,14 @@
 - content_for :panel_head do
-  %h1 Importing Season Data...
-%h5 Please Wait...
+  %h1 Importing Season Data Results
+
+%table.table.table-bordered.table-striped
+  %tr
+    %td Error Type
+    %td Errors
+  - @errors.each do |error|
+    %tr
+      %td=error[:type]
+      %td
+        %ul
+          -error[:errors].each do |type_error|
+            %li=type_error
