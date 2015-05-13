@@ -115,7 +115,7 @@ module PaymentsTrackerHelper
       login_form.field_with(:name => "login").value = latest_account.username
       login_form.field_with(:name => "password").value = latest_account.password
       login_results = @agent.submit login_form
-      league_page = login_results.link_with(:text => "Big Apple Softball League ").click
+      league_page = login_results.link_with(:href => "/team/set_division/16139").click
       if is_login_successful?(login_results)
         @agent
       else
