@@ -75,9 +75,6 @@ GEM
     jbuilder (2.2.13)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
-    jquery-rails (3.1.2)
-      railties (>= 3.0, < 5.0)
-      thor (>= 0.14, < 2.0)
     json (1.8.2)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
@@ -106,7 +103,7 @@ GEM
     parse-ruby-client (0.3.0)
       faraday
       faraday_middleware
-    pg (0.18.1)
+    pg (0.18.2)
     rack (1.5.3)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -196,7 +193,6 @@ DEPENDENCIES
   font-awesome-sass (~> 4.3.0)
   haml-rails
   jbuilder (~> 2.0)
-  jquery-rails
   json
   mechanize
   mysql2
