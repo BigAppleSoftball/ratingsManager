@@ -16,5 +16,5 @@
         .btn.btn-danger.edit-btn.js-hitting-btn=raw("<span class='js-value'>#{player_rating.hitting_total}</span> <i class='fa fa-pencil fa-lg'></i>")
     - else
       %td.warning.no-ranking-warning.center-column{:colspan => '5'}
-        No Ranking Found.
-        =link_to '+ Add Ranking', '#', {:class => 'btn btn-default js-add-player-ranking'}
+        No Rating Found.
+        =link_to '+ Add Rating', '#', {:class => 'btn btn-default js-add-player-ranking'}
