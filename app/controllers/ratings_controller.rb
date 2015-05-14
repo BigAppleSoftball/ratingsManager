@@ -14,7 +14,7 @@ class RatingsController < ApplicationController
     response[:ratings] = ratings
     response[:type] = type
 
-    @rating = Rating.find_by(:profile_id => profile_id)
+    @rating = Rating.where(:profile_id => profile_id).order(:id).last
     if @rating.nil?
       puts "Rating not found on #{profile_id}"
       response.error = "Rating not found"

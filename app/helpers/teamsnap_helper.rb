@@ -459,7 +459,7 @@ module TeamsnapHelper
       end
     end
     if profile[:emails].blank?
-      profile[:emails].push("#{profile[:first_name]}-#{profile[:last_name]}@teamsnap.com")
+      profile[:emails].push("#{profile[:first_name]}#{profile[:last_name]}@teamsnap.com")
     end
     # this player doesn't exist create a new profile
     # Set the profile as the first email from the list

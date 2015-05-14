@@ -1,7 +1,29 @@
+
+
 class Rating < ActiveRecord::Base
   belongs_to :profile
-
+  validate :throwing_cannot_be_out_of_order
   validates :profile_id, presence: true
+
+  #
+  # Validating throwing
+  #
+  def throwing_cannot_be_out_of_order
+    throwing = throwing_ratings
+    ap throwing
+
+    current_value = 0
+    throwing.reverse_each do |throwing_rating|
+      ap "throwing_Rating: #{throwing_rating} - current Value #{current_value}"
+      ap "throwing_rating <= current_value == #{throwing_rating >= current_value}"
+      if (throwing_rating < current_value)
+        ap "throwing out of order"
+        errors.add(:throwing_rating, "cannot rate players out of order")
+      else
+        current_value = throwing_rating
+      end
+    end
+  end
 
   # calculating the total throwing rating
   def throwing_total
@@ -53,4 +75,15 @@ class Rating < ActiveRecord::Base
     baserunning_total +
     hitting_total
   end
+
+  def throwing_ratings
+    throwing = Array.new
+    throwing.push(self.rating_1)
+    throwing.push(self.rating_2)
+    throwing.push(self.rating_3)
+    throwing.push(self.rating_4)
+    throwing.push(self.rating_5)
+  end
 end
+
+
