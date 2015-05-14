@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   get '/season/:seasonId/games', to:'seasons#games'
 
   # sessions
-  match '/signup',  to: 'profiles#new', via: 'get'
+  #match '/signup',  to: 'profiles#new', via: 'get'
   match '/signin',  to: 'sessions#new', via: 'get'
   get '/signout', to: 'sessions#destroy', via: 'delete'
   get '/teams_by_season', to: 'teams#get_teams_by_season'
