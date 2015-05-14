@@ -46,7 +46,7 @@ module TeamsnapHelper
   # Get all teams from the teamsnamp api and cache them
   #
   def get_all_teams(token = nil)
-    Rails.cache.fetch("all_teamsv2", :expires_in => 60.minutes) do
+    Rails.cache.fetch("all_teamsv3", :expires_in => 60.minutes) do
       get_all_teams_api(token)
     end
   end
@@ -76,7 +76,6 @@ module TeamsnapHelper
   # convert teamsnap data to objects
   #
   def teamsnap_divisions_to_objects(divisions, teams)
-    # all the divisions inside big apple softball league
     divisionObjList = Array.new
     playerPayments = TeamsnapPayment.all
 
@@ -114,8 +113,7 @@ module TeamsnapHelper
           # get teamsm roster
           roster = get_roster(divisionTeam[:teamsnap_id], divisionTeam[:roster_id])
           playerRating = preprocess_player_data(roster, playerPayments)
-          ap "PlayerRating"
-          ap playerRating
+
           roster.each do |playerData|
             team_player = Hash.new
             team_player[:roster] = Hash.new
@@ -152,6 +150,14 @@ module TeamsnapHelper
 
             team_player[:profile][:dob] = player['birthdate']
             if player['roster_email_addresses']
+              ap "Player Emails ----- #{player['last']}"
+
+              ap player['roster_email_addresses']
+              if (player['roster_email_addresses'].blank?)
+                ap player
+              else
+                ap player
+              end
               player['roster_email_addresses'].each do |email_address|
                 team_player[:profile][:emails].push(email_address['email'])
               end
@@ -159,9 +165,7 @@ module TeamsnapHelper
               ap "-------NO PLAYER EMAILS--------"
               ap player
             end
-            if team_player[:profile][:last_name].include?"Hou"
-              ap player
-            end
+
             if player['is_manager']
               team_player[:roster][:is_manager] = true
             end
@@ -187,11 +191,7 @@ module TeamsnapHelper
                 team_player[:roster][:jersey_number] = playerNumber.strip
               end 
             end
-
-
             playerRatingInfo = playerRating[team_player[:roster][:teamsnap_id].to_s]
-            ap "PLAYER RATING INFO #{team_player[:roster][:teamsnap_id].to_s}"
-            ap playerRatingInfo
             if playerRatingInfo
               team_player[:rating]= teamsnap_ratings_to_object(playerRatingInfo)
               team_player[:rating][:teamsnap_id] = player['id']
@@ -260,24 +260,36 @@ module TeamsnapHelper
   # and save the new data to the database
   #
   def run_import(season_id)
+    @errors = Array.new
     # going to just assume the last active season is the current season for now
     season_id = season_id.to_i
     season = Season.where(:id => season_id)
     if season.nil?
+      error = Hash.new
+      error[:type] = 'Season'
+      error[:errors] = "Season Not Found"
+      @errors.push(error)
       ap 'No season found, cancelling import'
       return
     end
     divisions = teamsnap_divisions_to_objects(get_all_divisions, get_all_teams)
     divisions.each do |division|
       imported_division = run_import_division(division, season_id)
-      if imported_division.nil?
+      if imported_division.blank?
+        error = Hash.new
+        error[:type] = 'Division'
+        error[:errors] = "Division failed to import"
+        @errors.push(error)
         ap "Division Failed to Import #{division}"
         return
       end
       division[:teams].each do |team|
         imported_team = run_import_team(team, imported_division.id)
-        if imported_team.nil?
-          ap "Team Failed To Import #{team}"
+        if imported_team.blank?
+          error = Hash.new
+          error[:type] = 'Team'
+          error[:errors] = "Team failed to import"
+          @errors.push(error)
           return
         end
         team[:roster].each do |player|
@@ -302,6 +314,10 @@ module TeamsnapHelper
     import_division.teamsnap_id = division[:teamsnap_id]
     import_division.season_id = season_id
     if !import_division.valid?
+      error = Hash.new
+      error[:type] = "Division #{import_division[:teamsnap_id]}"
+      error[:errors] = import_division.errors
+      @errors.push(error)
       ap "______ DIVISION IS NOT VALID TO SAVE _____"
       return
     end
@@ -324,6 +340,10 @@ module TeamsnapHelper
     import_team.teamsnap_id = team[:teamsnap_id]
     import_team.division_id = division_id
     if !import_team.valid?
+      error = Hash.new
+      error[:type] = "Team #{team[:name]}"
+      error[:errors] = import_team.errors?
+      @errors.push(error)
       ap "______ TEAM #{team[:name]} IS NOT VALID TO SAVE _____"
       return
     end
@@ -360,7 +380,10 @@ module TeamsnapHelper
     import_roster.profile_id = profile_id
 
     if !import_roster.valid?
-      ap "______ Roster #{roster[:teamsnap_id]} IS NOT VALID TO SAVE _____"
+      error = Hash.new
+      error[:type] = " Roster #{roster[:teamsnap_id]} #{team_id} #{profile_id}"
+      error[:errors] = import_roster.errors
+      @errors.push(error)
       ap import_roster.errors
       return
     end
@@ -408,8 +431,12 @@ module TeamsnapHelper
     import_rating.rating_26 = rating[:rating_26]
     import_rating.rating_27 = rating[:rating_27]
 
-    if import_rating.valid?
-      ap "______ rating #{rating} Could Not save_____"  
+    if !import_rating.valid?
+      error = Hash.new
+      error[:type] = "Rating-#{import_rating.teamsnap_id}"
+      error[:errors] = import_rating.errors
+      @errors.push(error)
+      ap "______ rating #{import_rating.teamsnap_id} Could Not save_____"
       ap import_rating.errors
       return
     end
@@ -426,24 +453,32 @@ module TeamsnapHelper
     # check to see if the player profile exists, otherwise import it
     import_profile = Hash.new
     profile[:emails].each do |player_email|
-      import_profile = Profile.where(:email => [player_email]).first
+      import_profile = Profile.where("lower(email) = LOWER('#{player_email}')").first
       if !import_profile.nil?
         break
       end
     end
-    ap "DOES import_profile exist #{import_profile}"
-    ap import_profile.blank?
+    if profile[:emails].blank?
+      profile[:emails].push("#{profile[:first_name]}#{profile[:last_name]}@teamsnap.com")
+    end
     # this player doesn't exist create a new profile
     # Set the profile as the first email from the list
     if import_profile.blank?
-      ap "No Profile create a new one"
       import_profile = Profile.new
       import_profile.email = profile[:emails].first
     end
-    ap profile
+
+
     # try to find a profile with at least one of the email addresses     
     import_profile.first_name = profile[:first_name]
     import_profile.last_name = profile[:last_name]
+    if import_profile.first_name.blank?
+      import_profile.first_name = 'importedPlayer*'
+    end
+
+    if import_profile.last_name.blank?
+      import_profile.last_name = 'importedPlayer*'
+    end
     import_profile.gender = profile[:gender]
     import_profile.shirt_size = profile[:shirt_size]
     import_profile.is_pickup_player = profile[:is_pickup_player]
@@ -460,7 +495,11 @@ module TeamsnapHelper
     import_profile.password = random_string
 
     if !import_profile.valid?
-      ap "---------Couldn't save profile #{import_profile.first_name} #{import_profile.last_name} ----------"
+      error = Hash.new
+      error[:type] = "profile #{import_profile.first_name} #{import_profile.last_name} #{import_profile.email}"
+      error[:errors] = import_profile.errors
+      @errors.push(error)
+      ap "---------Couldn't save profile #{import_profile.first_name} #{import_profile.last_name} #{import_profile.email} ----------"
       ap import_profile.errors
     end
     import_profile.save

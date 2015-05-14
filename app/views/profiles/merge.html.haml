@@ -1,0 +1,12 @@
+- content_for :panel_head do
+  %h1 Merge Profile
+
+.pull-right
+  = render partial: "shared/profile_picker", locals: { profiles: @all_profiles, currentValue: '0', placeHolder: "Choose another User", selectName: 'merge_profile_id', selectId: 'merge_profile_id'}
+%table.table.table-striped.table-bordered.merge-table
+  %tr
+    %td Profile 1 Details
+    %td Profile 2
+  %tr
+    %td= render partial: "details", locals: { profile: @profile, hideCard: true}
+    %td.js-merge-profile-details= render partial: "details", locals: { profile: @profile, hideCard: true}

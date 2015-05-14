@@ -26,4 +26,34 @@
   .table-filter {
     @include clearfix;
   }
+
+  .pickup-players {
+    .legend-table {
+      width: 500px;
+    }
+  }
+
+  .merge-table {
+    .profile-details {
+      width: 400px;
+    }
+  }
+}
+
+.badge {
+  &.badge-d {
+    background: $blue;
+  }
+
+  &.badge-c {
+    background: $purple;
+  }
+
+  &.badge-b {
+    background: $green;
+  }
+
+  &.badge-a {
+    background: $red;
+  }
 }

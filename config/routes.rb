@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   resources :games
   resources :hallof_famers
   resources :offers
-  resources :profiles
+  resources :profiles do
+    get 'merge'
+  end
   resources :rosters, :only => [:destroy]
   resources :teams
   resources :teamsnap_payments
@@ -32,7 +34,7 @@ Rails.application.routes.draw do
   get '/season/:seasonId/games', to:'seasons#games'
 
   # sessions
-  match '/signup',  to: 'profiles#new', via: 'get'
+  #match '/signup',  to: 'profiles#new', via: 'get'
   match '/signin',  to: 'sessions#new', via: 'get'
   get '/signout', to: 'sessions#destroy', via: 'delete'
   get '/teams_by_season', to: 'teams#get_teams_by_season'
@@ -109,5 +111,9 @@ Rails.application.routes.draw do
 
   # divisions
   get 'teamsnap/divisions/import', to: 'teamsnap#import_divisions'
+
+  # profiles
+  get 'pickup', to: 'profiles#pickup_players'
+  get 'profile_details', to: 'profiles#details'
 
 end

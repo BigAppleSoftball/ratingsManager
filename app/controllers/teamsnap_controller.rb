@@ -173,18 +173,15 @@ class TeamsnapController < ApplicationController
 
   def import_divisions
     # get teamsnap account
-    #latest_account = TeamsnapScanAccount.order('created_at DESC').first
+    latest_account = TeamsnapScanAccount.order('created_at DESC').first
     # log into teamsnap api
-    #log_in_to_teamsnap(latest_account.username, latest_account.password)
+    log_in_to_teamsnap(latest_account.username, latest_account.password)
     # get the divisions
     @divisions = teamsnap_divisions_to_objects(get_all_divisions, get_all_teams)
     @seasons = Season.all
   end
 
   def import_season_data
-    ap 'Running season import'
-    ap params
-    ap params['season_id']
     run_import(params['season_id'].to_i)
   end
 

@@ -1,6 +1,7 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
-  before_filter :only_for_admin, only: [:edit, :update, :destroy]
+  before_filter :only_for_admin, only: [:edit, :update, :destroy, :merge]
+  before_filter :only_logged_in, only: [:show, :index]
   helper_method :sort_column, :sort_direction
   # GET /profiles
   # GET /profiles.json
@@ -43,6 +44,10 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1
   # PATCH/PUT /profiles/1.json
   def update
+    if params[:profile][:password].blank?
+      params[:profile].delete(:password) 
+      params[:profile].delete(:password_confirmation) 
+    end
     respond_to do |format|
       if @profile.update(profile_params)
         format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
@@ -64,6 +69,35 @@ class ProfilesController < ApplicationController
     end
   end
 
+  #
+  # Merges one profile into another (first profile will be destroyed)
+  #
+  def merge
+    @profile = Profile.eager_load(:board_members, :committees, :rosters => {:team => {:division =>:season }}).find(params[:profile_id])
+    @all_profiles = Profile.select('first_name, last_name, id').all
+  end
+
+  #
+  # Gets a list of all players available for tournaments
+  #
+  def pickup_players
+    @players = Profile.eager_load(:rating).where(:is_pickup_player => true).order('last_name')
+  end
+
+  #
+  # Load just the profile details without a layout
+  #
+  def details
+    response = Hash.new
+    profile = Profile.eager_load(:board_members, :committees, :rosters => {:team => {:division =>:season }}).find(params[:profile_id])
+
+    profile_details_html = render_to_string "_details.html.haml", :layout => false, :locals => { :profile => profile}
+    response[:html] = profile_details_html
+    respond_to do |format|
+      format.json { render :json=> response}
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_profile
@@ -74,7 +108,7 @@ class ProfilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params.require(:profile).permit(:profile_code, :first_name, :last_name, :email, :display_name, :player_number, :gender, :shirt_size, :address, :state, :zip, :phone, :position, :dob, :team_id, :long_image_url, :password, :password_confirmation, :is_admin, :permissions, :address2, :city)
+      params.require(:profile).permit(:profile_code, :first_name, :last_name, :email, :display_name, :player_number, :gender, :shirt_size, :address, :state, :zip, :phone, :position, :dob, :team_id, :long_image_url, :password, :password_confirmation, :is_admin, :permissions, :address2, :city, :is_pickup_player)
     end
 
     def sort_column

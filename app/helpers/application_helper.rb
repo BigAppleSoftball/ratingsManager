@@ -114,10 +114,7 @@ module ApplicationHelper
   # Sets the attendance class for a player row
   #
   def attendance_class(attendance)
-    ap '------------------------'
     is_attending_class = nil
-    ap 'attendance'
-    ap attendance.nil?
     if !attendance.nil?
       is_attending = attendance.is_attending
       if is_attending
@@ -127,5 +124,21 @@ module ApplicationHelper
       end
     end
     is_attending_class
+  end
+
+  #
+  # Returns a string class based on the players rating total
+  # and the division that rating belongs to
+  #
+  def get_rating_badge_class(rating)
+    if (rating < 11) 
+      'badge-d'
+    elsif (rating < 14)
+      'badge-c'
+    elsif (rating < 20)
+      'badge-b'
+    elsif (rating > 19)
+      'badge-a'
+    end
   end
 end

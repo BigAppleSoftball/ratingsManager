@@ -6,6 +6,7 @@
     this.initDialogActions();
     this.bindSaveBtn();
     this.bindCreateNewPlayer();
+    this.bindCheckboxValidation();
   };
 
   /**
@@ -14,6 +15,7 @@
   PlayerRatings.prototype.initDialogActions = function () {
     var self = this;
     $('.js-ratings-table').on('click', '.js-throwing-btn, .js-fielding-btn, .js-hitting-btn, .js-baserunning-btn', function(){
+      self.resetModal();
       self.initDialog($(this));
     });
   };
@@ -68,7 +70,7 @@
    */
   PlayerRatings.prototype.bindSaveBtn = function() {
     var self = this;
-    $('.js-save-close-btn').on('click', function(){
+    $('.js-save-close-btn').on('click', function() {
       // get the updating player id
       var $this = $(this),
           $modal = $this.closest('.modal'),
@@ -76,6 +78,7 @@
           ratingType = $modal.data('rating-type'),
           requestData = {};
 
+      self.resetModal();
       requestData.profileId = playerId;
       requestData.type = ratingType;
 
@@ -94,7 +97,17 @@
 
       var onPlayerUpdated = function(data) {
         // show toast
-        if (data.success && data.ratings && data.type){
+        if (data.errors) {
+          self.showError();
+          var error_string = "";
+          $(data.errors).each(function(){
+            var error_item = this;
+            $.each(error_item, function(){
+              error_string += this;
+            });         
+          });
+          $('.js-' + ratingType + '-modal-error').html(error_string).fadeIn();
+        } else if (data.success && data.ratings && data.type){
           $.toaster({ priority : 'success', title : 'Success!', message : 'Player Updated!'});
           // update the field with animation so the user noticed it
           var $btnValue = $(".js-player-row-" + playerId + " .js-" + ratingType + '-btn').find('.js-value'),
@@ -103,10 +116,8 @@
           self.updateAnimation($totalValue, data.rating_total);
           window.playersJson[data.profile_id].ratings[data.type] = data.ratings;
           // update total
-        } else if (data.errors.length > 0) {
-          self.showError();
+          $modal.modal('hide');
         }
-        $modal.modal('hide');
       }; 
 
       // run ajax to update the player
@@ -117,6 +128,34 @@
         data: requestData,
         success: onPlayerUpdated
       });
+    });
+  };
+
+  /**
+   * Prevents user from selecting checkboxes out of order
+   * @return {[type]} [description]
+   */
+  PlayerRatings.prototype.bindCheckboxValidation  = function(){
+
+    $('.js-rating-checkbox').on('click', function(){
+      var $this = $(this),
+          $modal = $this.closest('.js-modal'),
+          $firstCheckbox = $modal.find('.js-rating-checkbox').first();
+
+      console.log($this.is(':checked'));
+      // if its checked make sure to check every value in front
+      if ($this.is(':checked')) {
+        firstCheckboxValue = parseInt($firstCheckbox.val());
+        currentCheckboxValue = parseInt($this.val());
+        // from the first checkbox to the current checkbox
+        var i = firstCheckboxValue;
+        for(i; i <=currentCheckboxValue; i++) {
+          console.log(i);
+          console.log($modal.find('.js-rating-'+i));
+          $modal.find('.js-rating-'+i).attr('checked', true);
+          $modal.find('.js-rating-'+i).prop('checked', true);
+        }
+      }
     });
   };
 
@@ -154,6 +193,13 @@
         }
       }
     });
+  };
+
+  /*
+   * Remove error messages.
+   */
+  PlayerRatings.prototype.resetModal = function() {
+    $('.js-modal-error').hide().html('');
   };
 
   /**
@@ -204,7 +250,7 @@
    * Shows an Error Message Toast
    */
   PlayerRatings.prototype.showError = function () {
-    $.toaster({ priority : 'danger', title : 'Error!', message : 'Please Refresh and try again'});
+    $.toaster({ priority : 'danger', title : 'Error!', message : 'Could not update information'});
   };
 
   window.PlayerRatings = PlayerRatings;
