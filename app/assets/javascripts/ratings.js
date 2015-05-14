@@ -139,19 +139,22 @@
 
     $('.js-rating-checkbox').on('click', function(){
       var $this = $(this),
-          $modal = $this.closest('.js-modal');
-          $allCheckboxes = $modal.find('.js-rating-checkbox');
+          $modal = $this.closest('.js-modal'),
+          $firstCheckbox = $modal.find('.js-rating-checkbox').first();
 
-      $firstCheckbox = $allCheckboxes[0];
-      console.log($firstCheckbox);
-      $lastCheckbox = $allCheckboxes[$allCheckboxes.length-1];
-      console.log($lastCheckbox);
+      console.log($this.is(':checked'));
+      // if its checked make sure to check every value in front
       if ($this.is(':checked')) {
-        console.log("checked");
-        console.log($this.val());
-        /*.reverse()).each(function() { 
-
-        });*/
+        firstCheckboxValue = parseInt($firstCheckbox.val());
+        currentCheckboxValue = parseInt($this.val());
+        // from the first checkbox to the current checkbox
+        var i = firstCheckboxValue;
+        for(i; i <=currentCheckboxValue; i++) {
+          console.log(i);
+          console.log($modal.find('.js-rating-'+i));
+          $modal.find('.js-rating-'+i).attr('checked', true);
+          $modal.find('.js-rating-'+i).prop('checked', true);
+        }
       }
     });
   };
