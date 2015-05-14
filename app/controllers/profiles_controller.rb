@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
-  before_filter :only_for_admin, only: [:edit, :update, :destroy]
+  before_filter :only_for_admin, only: [:edit, :update, :destroy, :merge]
   before_filter :only_logged_in, only: [:show, :index]
   helper_method :sort_column, :sort_direction
   # GET /profiles
@@ -70,10 +70,32 @@ class ProfilesController < ApplicationController
   end
 
   #
+  # Merges one profile into another (first profile will be destroyed)
+  #
+  def merge
+    @profile = Profile.eager_load(:board_members, :committees, :rosters => {:team => {:division =>:season }}).find(params[:profile_id])
+    @all_profiles = Profile.select('first_name, last_name, id').all
+  end
+
+  #
   # Gets a list of all players available for tournaments
   #
   def pickup_players
     @players = Profile.eager_load(:rating).where(:is_pickup_player => true).order('last_name')
+  end
+
+  #
+  # Load just the profile details without a layout
+  #
+  def details
+    response = Hash.new
+    profile = Profile.eager_load(:board_members, :committees, :rosters => {:team => {:division =>:season }}).find(params[:profile_id])
+
+    profile_details_html = render_to_string "_details.html.haml", :layout => false, :locals => { :profile => profile}
+    response[:html] = profile_details_html
+    respond_to do |format|
+      format.json { render :json=> response}
+    end
   end
 
   private

@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   resources :games
   resources :hallof_famers
   resources :offers
-  resources :profiles
+  resources :profiles do
+    get 'merge'
+  end
   resources :rosters, :only => [:destroy]
   resources :teams
   resources :teamsnap_payments
@@ -112,5 +114,6 @@ Rails.application.routes.draw do
 
   # profiles
   get 'pickup', to: 'profiles#pickup_players'
+  get 'profile_details', to: 'profiles#details'
 
 end
