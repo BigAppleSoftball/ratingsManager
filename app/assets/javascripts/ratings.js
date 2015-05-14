@@ -6,6 +6,7 @@
     this.initDialogActions();
     this.bindSaveBtn();
     this.bindCreateNewPlayer();
+    this.bindCheckboxValidation();
   };
 
   /**
@@ -127,6 +128,31 @@
         data: requestData,
         success: onPlayerUpdated
       });
+    });
+  };
+
+  /**
+   * Prevents user from selecting checkboxes out of order
+   * @return {[type]} [description]
+   */
+  PlayerRatings.prototype.bindCheckboxValidation  = function(){
+
+    $('.js-rating-checkbox').on('click', function(){
+      var $this = $(this),
+          $modal = $this.closest('.js-modal');
+          $allCheckboxes = $modal.find('.js-rating-checkbox');
+
+      $firstCheckbox = $allCheckboxes[0];
+      console.log($firstCheckbox);
+      $lastCheckbox = $allCheckboxes[$allCheckboxes.length-1];
+      console.log($lastCheckbox);
+      if ($this.is(':checked')) {
+        console.log("checked");
+        console.log($this.val());
+        /*.reverse()).each(function() { 
+
+        });*/
+      }
     });
   };
 
