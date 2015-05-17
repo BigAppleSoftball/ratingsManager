@@ -40,6 +40,10 @@
   }
 }
 
+.to-be-deleted {
+  background: lighten($red, 30%);
+}
+
 .badge {
   &.badge-d {
     background: $blue;
