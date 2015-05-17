@@ -4,7 +4,7 @@ class TeamsController < ApplicationController
   before_filter(:only => [:edit, :update]) { only_team_manager params[:id]
                                              only_team_in_active_season params[:id] }
 
-  before_filter(:only => [:show_player_ratings]) { only_team_manager params[:id]}
+  before_filter(:only => [:show_player_ratings]) { only_team_manager params[:teamid]}
 
   # GET /teams
   # GET /teams.json
