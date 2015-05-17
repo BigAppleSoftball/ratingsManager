@@ -1,12 +1,16 @@
 - content_for :panel_head do
-  %h1 Merge Profile
+  %h1 Delete & Merge Profile
 
 .pull-right
   = render partial: "shared/profile_picker", locals: { profiles: @all_profiles, currentValue: '0', placeHolder: "Choose another User", selectName: 'merge_profile_id', selectId: 'merge_profile_id'}
 %table.table.table-striped.table-bordered.merge-table
   %tr
-    %td Profile 1 Details
-    %td Profile 2
+    %td Profile 1 (To Be Merged & Deleted)
+    %td Profile 2 (Base Profile (To be saved))
   %tr
-    %td= render partial: "details", locals: { profile: @profile, hideCard: true}
-    %td.js-merge-profile-details= render partial: "details", locals: { profile: @profile, hideCard: true}
+    %td.to-be-deleted.js-profile-1= render partial: "details", locals: { profile: @profile, hideCard: true}
+    %td.js-merge-profile-details.js-profile-2 Selete a Player to Merge into
+
+.alert.alert-danger
+  This is a destructive behavior, Profile 1 WILL BE DELETED and all of the connected Ratings, Teams, Board Members, HOF, Committees will be connected to PROFILE 2. Please only submit this action if you are confident in the results
+= link_to 'Run Merge', '#', {:class => 'btn btn-danger js-run-merge'}

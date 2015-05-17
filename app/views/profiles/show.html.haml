@@ -5,5 +5,6 @@
   = render partial: "shared/actions/show_actions", locals: { editPath: edit_profile_path(@profile), fieldName: 'Field', allPath: profiles_path}
   -if is_admin?
     =link_to raw("<i class='fa fa-user-secret'></i> Impersonate"), impersonate_engine.impersonate_user_path(@profile), {:class =>'btn btn-default'}
+    =link_to raw("<i class='fa fa-compress'></i> Merge Profile"), profile_merge_path(@profile.id), {:class =>'btn btn-danger'}
 
 = render partial: "details", locals: { profile: @profile, showCard: true}

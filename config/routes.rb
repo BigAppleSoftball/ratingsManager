@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resources :offers
   resources :profiles do
     get 'merge'
+    post 'merge', :action => 'run_merge'
   end
   resources :rosters, :only => [:destroy]
   resources :teams

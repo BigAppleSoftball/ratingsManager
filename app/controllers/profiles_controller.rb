@@ -1,8 +1,9 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
-  before_filter :only_for_admin, only: [:edit, :update, :destroy, :merge]
+  before_filter :only_for_admin, only: [:edit, :update, :destroy, :merge, :run_merge]
   before_filter :only_logged_in, only: [:show, :index]
   helper_method :sort_column, :sort_direction
+  skip_before_action :verify_authenticity_token, only: [:run_merge]
   # GET /profiles
   # GET /profiles.json
   def index
@@ -75,6 +76,64 @@ class ProfilesController < ApplicationController
   def merge
     @profile = Profile.eager_load(:board_members, :committees, :rosters => {:team => {:division =>:season }}).find(params[:profile_id])
     @all_profiles = Profile.select('first_name, last_name, id').all
+  end
+
+  def run_merge
+    response = Hash.new
+    if (params[:profile1_id].to_i == params[:profile2_id] )
+      response[:error] = "Cannot run merge on same profiles"
+    else
+      # get profile 1
+      mergeProfile = Profile.eager_load(:rosters, :board_members, :committees, :rating).find(params[:profile1_id])
+      # get profile2
+      baseProfile = Profile.eager_load(:rating).find(params[:profile2_id])
+
+      if (mergeProfile.present? && baseProfile.present?)
+        # get all the fields we are looking to update
+        
+        # update all the rosters
+        mergeProfile.rosters.each do |roster|
+          roster.profile_id = baseProfile.id
+          roster.save
+        end
+        # update all the board_committees
+        mergeProfile.board_members.each do |member|
+          member.profile_id = baseProfile.id
+          member.save
+        end
+
+        mergeProfile.committees.each do |committee|
+          committee.profile_id = baseProfile.id
+          committee.save
+        end
+
+        #mergeProfile.hall_offamer.each do |famer|
+        #  famer.profile_id = baseProfile.id
+        #  famer.save
+        #end
+        
+        #
+        # only merge the ratings if the base profile doesn't have a rating
+        if (baseProfile.rating.blank?)
+          if mergeProfile.rating.present?
+            mergeProfile.rating.profile_id = baseProfile.id
+          end
+        end
+
+        #save the update to baseProfile
+        baseProfile.save
+
+        response[:success] = "Players merged!"
+        response[:profile_link] = profile_url(baseProfile.id)
+        # delete merge profile
+        #mergeProfile.destroy
+      else
+        response[:error] = "Need Two Profiles to run a merge"
+      end
+    end
+    respond_to do |format|
+      format.json { render :json=> response }
+    end
   end
 
   #
