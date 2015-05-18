@@ -397,6 +397,121 @@ def create_default_admin_profile
   profile.save
 end
 
+def set_all_null_ratings_to_zero
+  ratings = Rating.all
+  ratings.each do |rating|
+    if rating.rating_1.nil?
+      rating.rating_1 = 0
+    end
+
+    if rating.rating_2.nil?
+      rating.rating_2 = 0
+    end
+
+    if rating.rating_3.nil?
+      rating.rating_3 = 0
+    end
+
+    if rating.rating_4.nil?
+      rating.rating_4 = 0
+    end
+
+    if rating.rating_5.nil?
+      rating.rating_5 = 0
+    end
+
+    if rating.rating_6.nil?
+      rating.rating_6 = 0
+    end
+
+    if rating.rating_7.nil?
+      rating.rating_7 = 0
+    end
+
+    if rating.rating_8.nil?
+      rating.rating_8 = 0
+    end
+
+        if rating.rating_9.nil?
+      rating.rating_9 = 0
+    end
+
+    if rating.rating_10.nil?
+      rating.rating_10 = 0
+    end
+
+    if rating.rating_11.nil?
+      rating.rating_11 = 0
+    end
+
+    if rating.rating_12.nil?
+      rating.rating_12 = 0
+    end
+
+    if rating.rating_13.nil?
+      rating.rating_13 = 0
+    end
+
+    if rating.rating_14.nil?
+      rating.rating_14 = 0
+    end
+
+    if rating.rating_15.nil?
+      rating.rating_15 = 0
+    end
+
+    if rating.rating_16.nil?
+      rating.rating_16 = 0
+    end
+
+    if rating.rating_17.nil?
+      rating.rating_17 = 0
+    end
+
+    if rating.rating_18.nil?
+      rating.rating_18 = 0
+    end
+
+    if rating.rating_19.nil?
+      rating.rating_19 = 0
+    end
+
+    if rating.rating_20.nil?
+      rating.rating_20 = 0
+    end
+
+    if rating.rating_21.nil?
+      rating.rating_21 = 0
+    end
+
+    if rating.rating_22.nil?
+      rating.rating_22 = 0
+    end
+
+    if rating.rating_23.nil?
+      rating.rating_23 = 0
+    end
+
+    if rating.rating_24.nil?
+      rating.rating_24 = 0
+    end
+
+    if rating.rating_25.nil?
+      rating.rating_25 = 0
+    end
+
+    if rating.rating_26.nil?
+      rating.rating_26 = 0
+    end
+
+    if rating.rating_27.nil?
+      rating.rating_27 = 0
+    end
+
+    rating.save
+  end
+end
+
 #generate_team_backup
 #generate_division_backup
 #generate_season_backup
@@ -416,4 +531,5 @@ end
 #generate_fields_backup
 #generate_fields_lat
 #generate_games_backup
-create_default_admin_profile
+#create_default_admin_profile
+set_all_null_ratings_to_zero

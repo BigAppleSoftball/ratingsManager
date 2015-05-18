@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     get 'merge'
     post 'merge', :action => 'run_merge'
   end
+  resources :ratings, :only => [:index]
   resources :rosters, :only => [:destroy]
   resources :teams
   resources :teamsnap_payments

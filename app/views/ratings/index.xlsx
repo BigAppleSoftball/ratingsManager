@@ -1,0 +1,134 @@
+!!! XML
+%Workbook{:xmlns => "urn:schemas-microsoft-com:office:spreadsheet", "xmlns:html" => "http://www.w3.org/TR/REC-html40", "xmlns:o" => "urn:schemas-microsoft-com:office:office", "xmlns:ss" => "urn:schemas-microsoft-com:office:spreadsheet", "xmlns:x" => "urn:schemas-microsoft-com:office:excel"}
+  %Worksheet{"ss:Name" => "Sheet1"}
+    %Table
+      %Row
+        %Cell
+          %Data{"ss:Type" => "String"}
+        %Cell
+          %Data{"ss:Type" => "String"}
+        %Cell
+          %Data{"ss:Type" => "String"}
+        %Cell
+          %Data{"ss:Type" => "String"}
+        %Cell
+          %Data{"ss:Type" => "String"}
+        %Cell
+          %Data{"ss:Type" => "String"}
+        %Cell
+          %Data{"ss:Type" => "String"}
+        %Cell
+          %Data{"ss:Type" => "String"}
+        %Cell
+          %Data{"ss:Type" => "String"}
+        %Cell
+          %Data{"ss:Type" => "String"} Throwing
+        %Cell
+          %Data{"ss:Type" => "String"} Fielding
+        %Cell
+          %Data{"ss:Type" => "String"} Baserunning
+        %Cell
+          %Data{"ss:Type" => "String"} Hitting
+      %Row
+        %Cell
+          %Data{"ss:Type" => "String"} First Name
+        %Cell
+          %Data{"ss:Type" => "String"} Last Name
+        %Cell
+          %Data{"ss:Type" => "String"} E-Mail
+        %Cell
+          %Data{"ss:Type" => "String"} DOB
+        %Cell
+          %Data{"ss:Type" => "String"}
+        %Cell
+          %Data{"ss:Type" => "String"} Division
+        %Cell
+          %Data{"ss:Type" => "String"} Team
+        %Cell
+          %Data{"ss:Type" => "String"}
+        %Cell
+          %Data{"ss:Type" => "String"} Rating
+        %Cell
+          %Data{"ss:Type" => "String"} 1
+        %Cell
+          %Data{"ss:Type" => "String"} 2
+        %Cell
+          %Data{"ss:Type" => "String"} 3
+        %Cell
+          %Data{"ss:Type" => "String"} 4
+        %Cell
+          %Data{"ss:Type" => "String"} 5
+        %Cell
+          %Data{"ss:Type" => "String"} 6
+        %Cell
+          %Data{"ss:Type" => "String"} 7
+        %Cell
+          %Data{"ss:Type" => "String"} 8
+        %Cell
+          %Data{"ss:Type" => "String"} 9
+        %Cell
+          %Data{"ss:Type" => "String"} 10
+        %Cell
+          %Data{"ss:Type" => "String"} 11
+        %Cell
+          %Data{"ss:Type" => "String"} 12
+        %Cell
+          %Data{"ss:Type" => "String"} 13
+        %Cell
+          %Data{"ss:Type" => "String"} 14
+        %Cell
+          %Data{"ss:Type" => "String"} 15
+        %Cell
+          %Data{"ss:Type" => "String"} 16
+        %Cell
+          %Data{"ss:Type" => "String"} 17
+        %Cell
+          %Data{"ss:Type" => "String"} 18
+        %Cell
+          %Data{"ss:Type" => "String"} 19
+        %Cell
+          %Data{"ss:Type" => "String"} 20
+        %Cell
+          %Data{"ss:Type" => "String"} 21
+        %Cell
+          %Data{"ss:Type" => "String"} 22
+        %Cell
+          %Data{"ss:Type" => "String"} 23
+        %Cell
+          %Data{"ss:Type" => "String"} 24
+        %Cell
+          %Data{"ss:Type" => "String"} 25
+        %Cell
+          %Data{"ss:Type" => "String"} 26
+        %Cell
+          %Data{"ss:Type" => "String"} 27
+      - @active_season.divisions.each do |division|
+        - division.teams.each do |team|
+          - team.rosters.each do |player|
+            %Row
+              %Cell
+                %Data{"ss:Type" => "String"}=player.profile.first_name
+              %Cell
+                %Data{"ss:Type" => "String"}=player.profile.last_name
+              %Cell
+                %Data{"ss:Type" => "String"}=player.profile.email
+              %Cell
+                %Data{"ss:Type" => "String"}=player.profile.dob
+              %Cell
+                %Data{"ss:Type" => "Number"}
+              %Cell
+                %Data{"ss:Type" => "String"}=division.description
+              %Cell
+                %Data{"ss:Type" => "String"}=team.name
+              %Cell
+                %Data{"ss:Type" => "String"}
+              -if player.profile.rating
+                %Cell
+                  %Data{"ss:Type" => "Number"}=player.profile.rating.total
+                %Cell
+                  %Data{"ss:Type" => "Number"}=player.profile.rating.rating_1
+                %Cell
+                  %Data{"ss:Type" => "Number"}=player.profile.rating.rating_2
+              - else
+                %Cell
+                  %Data{"ss:Type" => "String"} No Player Rating

@@ -31,6 +31,10 @@ gem 'awesome_print'
 gem 'rest-client'
 gem 'rails-erd'
 
+# generating xls files
+gem 'axlsx', '~> 2.0'
+gem "axlsx_rails"
+
 # admin tools
 gem 'user_impersonate2', :require => 'user_impersonate'
 

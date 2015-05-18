@@ -2,7 +2,7 @@
 
 class Rating < ActiveRecord::Base
   belongs_to :profile
-  validate :ratings_cannot_be_out_of_order
+  #validate :ratings_cannot_be_out_of_order
   validates :profile_id, presence: true
 
   #
@@ -24,7 +24,9 @@ class Rating < ActiveRecord::Base
     current_value = 0
 
     ratings.reverse_each do |rating|
-      if (rating < current_value)
+      ap 'Current Value ' + current_value
+      ap 'rating ' + rating
+      if (rating.present? && rating < current_value)
         errors.add(:rating, "Cannot rate #{type} levels out of order")
       else
         current_value = rating
