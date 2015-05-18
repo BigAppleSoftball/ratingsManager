@@ -1,12 +1,12 @@
 class RatingsController < ApplicationController
   before_action :set_rating, only: [:show, :edit, :update, :destroy]
+  skip_before_filter  :update_player
 
   #
   # From ajax updates player from a given id
   #
   def update_player
     response = Hash.new
-    ap params
     profile_id = params[:profileId].to_i
     ratings = params[:ratings]
     type = params[:type]
