@@ -3,7 +3,7 @@
     -if profile.long_image_url
       .card-img-logo
         %img{:src => profile.long_image_url}
-.profile-details.pull-left
+.profile-details.js-profile-details.pull-left{:data => {:name => profile.name, :id => profile.id}}
   %p
     %b First name:
     = profile.first_name
@@ -23,7 +23,6 @@
       %p= profile.address
       %p= profile.address2
       %p= "#{profile.city}, #{profile.state} #{profile.zip}"
-
   %p
     %b Available for Tournaments?
     - if profile.is_pickup_player

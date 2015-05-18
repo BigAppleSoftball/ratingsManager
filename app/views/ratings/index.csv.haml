@@ -1,0 +1,6 @@
+,,,,,,,,,Throwing,,,,,Fielding,,,,,,,,Baserunning,,,,,Hitting,,,,,,,,,
+First Name,Last Name,E-Mail,DOB,,Division,Team,,Rating,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27
+-@active_season.divisions.each do |division|
+  - division.teams.each do |team|
+    - team.rosters.each do |player| 
+      = "#{player.profile.first_name},#{player.profile.last_name},#{player.profile.email},#{player.profile.dob},,#{division.description},#{team.name},,#{player.profile.rating ? player.profile.rating.total : 'No Player Rating' },#{player.profile.rating ? player.profile.rating.to_s : ''}"

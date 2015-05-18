@@ -5,6 +5,23 @@ class Rating < ActiveRecord::Base
   validate :ratings_cannot_be_out_of_order
   validates :profile_id, presence: true
 
+
+  def to_s
+    ratingstring = "#{section_to_s(throwing_ratings)},#{section_to_s(fielding_ratings)},#{section_to_s(running_ratings)},#{section_to_s(hitting_ratings)}"
+    
+  end
+
+  def section_to_s(ratings)
+    ratingstring = nil
+    ratings.each do |rating|
+      if ratingstring.nil?
+        ratingstring ="#{rating}"
+      else
+        ratingstring ="#{ratingstring},#{rating}"
+      end
+    end
+    ratingstring
+  end
   #
   # Validating fielding, can't rank levels out of order
   # 
@@ -24,7 +41,9 @@ class Rating < ActiveRecord::Base
     current_value = 0
 
     ratings.reverse_each do |rating|
-      if (rating < current_value)
+      ap 'Current Value ' + current_value
+      ap 'rating ' + rating
+      if (rating.present? && rating < current_value)
         errors.add(:rating, "Cannot rate #{type} levels out of order")
       else
         current_value = rating
