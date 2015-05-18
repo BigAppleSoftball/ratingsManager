@@ -41,8 +41,6 @@ class Rating < ActiveRecord::Base
     current_value = 0
 
     ratings.reverse_each do |rating|
-      ap 'Current Value ' + current_value
-      ap 'rating ' + rating
       if (rating.present? && rating < current_value)
         errors.add(:rating, "Cannot rate #{type} levels out of order")
       else
