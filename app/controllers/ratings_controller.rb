@@ -76,6 +76,7 @@ class RatingsController < ApplicationController
     
     respond_to do |format|
       format.html
+      format.csv
     end
   end
 

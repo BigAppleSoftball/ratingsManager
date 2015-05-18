@@ -2,6 +2,7 @@
   %h1 
     Big Apple Softball League Player Ratings for
     =@active_season.description 
+  = link_to raw('<i class="fa fa-download"></i> Download CSV'), ratings_path('csv'), :class => 'btn btn-default'
 
 = render :partial => 'ratings/ratings', :locals => {:season => @active_season}
 

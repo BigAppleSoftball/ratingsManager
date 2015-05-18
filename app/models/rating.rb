@@ -2,9 +2,26 @@
 
 class Rating < ActiveRecord::Base
   belongs_to :profile
-  #validate :ratings_cannot_be_out_of_order
+  validate :ratings_cannot_be_out_of_order
   validates :profile_id, presence: true
 
+
+  def to_s
+    ratingstring = "#{section_to_s(throwing_ratings)},#{section_to_s(fielding_ratings)},#{section_to_s(running_ratings)},#{section_to_s(hitting_ratings)}"
+    
+  end
+
+  def section_to_s(ratings)
+    ratingstring = nil
+    ratings.each do |rating|
+      if ratingstring.nil?
+        ratingstring ="#{rating}"
+      else
+        ratingstring ="#{ratingstring},#{rating}"
+      end
+    end
+    ratingstring
+  end
   #
   # Validating fielding, can't rank levels out of order
   # 
