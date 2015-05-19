@@ -1,6 +1,5 @@
 class RatingsController < ApplicationController
   before_action :set_rating, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :verify_authenticity_token, only: [:update_player]
 
   #
   # From ajax updates player from a given id

@@ -1,7 +1,6 @@
 class TeamsnapController < ApplicationController
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  skip_before_filter :verify_authenticity_token, :only => [:import_season_data]
 
   include TeamsnapHelper
   def teamsnap_divs_by_id
