@@ -1,0 +1,10 @@
+- content_for :panel_head do
+  %h1 FOUL!
+
+.error-container
+  .error-message
+    %h3 Oops! The page you requested has not been found.
+    %p It seems like the page you are trying to reached doesn't exist anymore. 
+    %p Maybe you should head back to Home and start all over again.
+    = link_to 'Home',home_path, :class => 'btn btn-default'
+  = image_tag 'empty-field.jpg'

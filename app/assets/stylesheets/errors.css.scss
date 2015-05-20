@@ -1,0 +1,41 @@
+#controller-errors {
+  .main-panel {
+    .panel-heading {
+      background: $red;
+      color: white;
+    }
+  }
+
+  .error-container {
+    text-align: center;
+    
+    .error-message {
+      padding-bottom: 20px;
+      width: 500px;
+      margin: 0 auto;
+    }
+
+    h3 {
+      color: $red;
+    }
+
+    img {
+      width: 500px;
+      height: 300px;
+    }
+  }
+
+  &.action-error_500 {
+    .error-container img {
+      width: 450px;
+      height: 338px;
+    }
+  }
+
+  &.action-error_403 {
+    .error-container img {
+      width: 244px;
+      height: 432px;
+    }
+  }
+}

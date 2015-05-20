@@ -17,5 +17,6 @@
         .panel-heading
           = yield :panel_head 
         .panel-body= yield
+      = render 'shared/footer'
     = javascript_include_tag 'application'
     = javascript_include_tag 'sponsorsCarousel.js'

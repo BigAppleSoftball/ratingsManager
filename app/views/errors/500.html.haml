@@ -1,0 +1,11 @@
+- content_for :panel_head do
+  %h1 Whoops!
+
+.error-container
+  .error-message
+    %h3 Oops! Something has gone wrong.
+    %p 
+      We're sorry, it looks like we're having some technical difficulties. If the error continues please contact the BASL Webteam
+      = link_to 'webteam@bigapplsoftball.com','mailto:webteam@bigapplesoftball.com?Subject=BASL%20Manager'
+    = link_to 'Home',home_path, :class => 'btn btn-default'
+  = image_tag 'ripped-softball.jpg'

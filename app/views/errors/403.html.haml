@@ -1,0 +1,15 @@
+- content_for :panel_head do
+  %h1 Denied!
+
+.error-container
+  .error-message
+    %h3 Sorry It doesn't look like you have permission to view this page.
+    - if is_logged_in?
+      %p 
+        If you think this message is in error please contact the BASL webteam
+        = link_to 'webteam@bigapplsoftball.com','mailto:webteam@bigapplesoftball.com?Subject=BASL%20Manager'
+    -else
+      %p Try Signing in first
+      = link_to 'Signin','signin', :class => 'btn btn-default'
+    = link_to 'Home',home_path, :class => 'btn btn-default'
+  = image_tag 'umpire-out.jpg'

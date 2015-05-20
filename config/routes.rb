@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   post '/set_attendance', to: 'game_attendances#set_attendance'
 
   get '/home', to:'static_pages#home'
+  get '/contact', to:'static_pages#contact'
 
   # seasons
   get '/get_divisions_by_season', to:'seasons#get_divisions_by_season'
@@ -86,9 +87,6 @@ Rails.application.routes.draw do
 
   mount UserImpersonate::Engine => "/impersonate", as: "impersonate_engine"
 
-  #errors
-  get '/403', to: 'welcome#error403'
-
   #payments trackers
   get 'payments', to:'payments_tracker#index'
   get 'payments/tracker', to:'payments_tracker#home'
@@ -117,5 +115,10 @@ Rails.application.routes.draw do
   # profiles
   get 'pickup', to: 'profiles#pickup_players'
   get 'profile_details', to: 'profiles#details'
+
+  get "/404", :to => "errors#error_404"
+  get "/422", :to => "errors#error_404"
+  get "/500", :to => "errors#error_500"
+  get '/403', to: 'errors#error_403'
 
 end
