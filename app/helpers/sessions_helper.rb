@@ -180,7 +180,6 @@ module SessionsHelper
   # Only for Admins or the current user
   #
   def only_for_admin_or_current_user(profile_id)
-    ap profile_id
     if (!is_current_user_or_admin?(profile_id))
       redirect_to :action =>'error_403', :controller => 'errors'
     end

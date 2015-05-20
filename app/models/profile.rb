@@ -1,5 +1,4 @@
 class Profile < ActiveRecord::Base
-  attr_accessor :reset_token
   before_save { self.email = email.downcase }
   before_create :create_remember_token
 
@@ -48,14 +47,13 @@ class Profile < ActiveRecord::Base
 
   # Sets the password reset attributes.
   def create_reset_digest
-    self.reset_token = Profile.new_token
-    update_attribute(:reset_digest,  Profile.digest(reset_token))
-    update_attribute(:reset_sent_at, Time.zone.now)
+    self.reset_token = self.new_token
+    update_attributes(:reset_sent_at => Time.zone.now, :reset_token => self.reset_token)
   end
 
    # Sends password reset email.
   def send_password_reset_email
-    ProfileMailer.password_reset(self).deliver_now
+    ProfileMailer.reset(self).deliver
   end
 
   #

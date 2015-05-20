@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   end
 
   resources :password_resets, only: [:new, :create, :edit, :update]
+  post "/password_resets/new", to: 'password_resets#create'
   
   # games
   get '/games/:id/:teamid', to: 'games#game_attendance'

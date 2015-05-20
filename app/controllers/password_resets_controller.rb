@@ -4,6 +4,10 @@ class PasswordResetsController < ApplicationController
 
   def edit
     @profile = Profile.find_by(reset_token: params[:id])
+    if @profile.blank?
+      flash[:error] = "No Password Reset Found or your reset password has expired, please try to send another email and remember to reset your password before it expires!"
+      render 'new'
+    end
   end
 
   def create
@@ -14,7 +18,7 @@ class PasswordResetsController < ApplicationController
       flash[:notice] = "An email has been sent with password reset instructions please check your inbox"
       redirect_to root_url
     else
-      flash[:error] = "Account with email address Not found, please try again"
+      flash[:error] = "Account with email address #{params[:password_reset][:email]} not found, please try again. You can also <a href='#{signup_path}'>Signup Here</a>".html_safe
       render 'new'
     end
   end
