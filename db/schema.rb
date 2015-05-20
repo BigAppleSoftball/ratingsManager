@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150510204716) do
+ActiveRecord::Schema.define(version: 20150520145221) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -162,6 +162,9 @@ ActiveRecord::Schema.define(version: 20150510204716) do
     t.string   "emergency_contact_phone"
     t.string   "address2"
     t.string   "city"
+    t.string   "reset_token"
+    t.datetime "reset_sent_at"
+    t.string   "reset_digest"
   end
 
   create_table "ratings", force: true do |t|

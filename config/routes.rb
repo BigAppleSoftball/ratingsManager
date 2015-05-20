@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   root 'static_pages#home'
 
   resources :admins
@@ -17,6 +18,7 @@ Rails.application.routes.draw do
   resources :teams
   resources :teamsnap_payments
   resources :teams_sponsors
+  resources :sessions, only: [:new, :create, :destroy]
   resources :seasons
   resources :sessions, only: [:new, :create, :destroy]
   resources :sponsors
@@ -25,6 +27,8 @@ Rails.application.routes.draw do
     resources :fields
   end
 
+  resources :password_resets, only: [:new, :create, :edit, :update]
+  
   # games
   get '/games/:id/:teamid', to: 'games#game_attendance'
   post '/set_attendance', to: 'game_attendances#set_attendance'
@@ -37,7 +41,7 @@ Rails.application.routes.draw do
   get '/season/:seasonId/games', to:'seasons#games'
 
   # sessions
-  #match '/signup',  to: 'profiles#new', via: 'get'
+  match '/signup',  to: 'profiles#new', via: 'get'
   match '/signin',  to: 'sessions#new', via: 'get'
   get '/signout', to: 'sessions#destroy', via: 'delete'
   get '/teams_by_season', to: 'teams#get_teams_by_season'

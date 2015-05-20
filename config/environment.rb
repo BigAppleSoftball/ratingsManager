@@ -8,6 +8,8 @@ Rails.application.initialize!
 # I recommend using this line to show error
 ActionMailer::Base.raise_delivery_errors = true
 
+
+
 ActionMailer::Base.smtp_settings = {
   :address        => 'smtp.gmail.com',
   :domain         => 'mail.google.com',

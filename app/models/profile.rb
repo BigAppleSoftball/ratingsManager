@@ -1,4 +1,5 @@
 class Profile < ActiveRecord::Base
+  attr_accessor :reset_token
   before_save { self.email = email.downcase }
   before_create :create_remember_token
 
@@ -45,6 +46,18 @@ class Profile < ActiveRecord::Base
     Digest::SHA1.hexdigest(token.to_s)
   end
 
+  # Sets the password reset attributes.
+  def create_reset_digest
+    self.reset_token = Profile.new_token
+    update_attribute(:reset_digest,  Profile.digest(reset_token))
+    update_attribute(:reset_sent_at, Time.zone.now)
+  end
+
+   # Sends password reset email.
+  def send_password_reset_email
+    ProfileMailer.password_reset(self).deliver_now
+  end
+
   #
   # Display name of the user
   def name
@@ -81,6 +94,11 @@ class Profile < ActiveRecord::Base
   #
   def league_admin_positions
     BoardMember.select('id, position').where(:profile_id => self.id, :is_league_admin => true)
+  end
+
+  # Returns a random token.
+  def new_token
+    SecureRandom.urlsafe_base64
   end
   
   private
