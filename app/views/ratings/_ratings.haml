@@ -1,0 +1,97 @@
+%table.table.table-striped.table-bordered.table-condensed.ratings-display-table
+  %tr
+    %th
+    %th
+    %th
+    %th
+    %th
+    %th
+    %th
+    %th
+    %th
+    %th.center-column.throwing{:colspan => 5, :align => 'center', :bgcolor => '#f0f'} Throwing
+    %th.center-column.fielding{:colspan => 9, :align => 'center'} Fielding
+    %th.center-column.baserunning{:colspan => 4, :align => 'center'} Baserunning
+    %th.center-column.hitting{:colspan => 9, :align => 'center'} Hitting
+  %tr
+    %th First Name
+    %th Last Name
+    %th E-mail
+    %th DOB
+    %th 
+    %th Division
+    %th Team
+    %th
+    %th Rating
+    %th.throwing 1
+    %th.throwing 2
+    %th.throwing 3
+    %th.throwing 4
+    %th.throwing 5
+    %th.fielding 6
+    %th.fielding 7
+    %th.fielding 8
+    %th.fielding 9
+    %th.fielding 10
+    %th.fielding 11
+    %th.fielding 12
+    %th.fielding 13
+    %th.fielding 14
+    %th.baserunning 15
+    %th.baserunning 16
+    %th.baserunning 17
+    %th.baserunning 18
+    %th.hitting 19
+    %th.hitting 20
+    %th.hitting 21
+    %th.hitting 22
+    %th.hitting 23
+    %th.hitting 24
+    %th.hitting 25
+    %th.hitting 26
+    %th.hitting 27
+
+  - season.divisions.each do |division|
+    - division.teams.each do |team|
+      - team.rosters.each do |player|
+        %tr
+          %td=player.profile.first_name
+          %td=player.profile.last_name
+          %td=player.profile.email
+          %td=player.profile.dob
+          %td=#intentionally left blank
+          %td=division.description
+          %td=team.name
+          %td
+          -if player.profile.rating
+            %td.center-column=player.profile.rating.total
+            %td.throwing=player.profile.rating.rating_1
+            %td.throwing=player.profile.rating.rating_2
+            %td.throwing=player.profile.rating.rating_3
+            %td.throwing=player.profile.rating.rating_4
+            %td.throwing=player.profile.rating.rating_5
+            %td.fielding=player.profile.rating.rating_6
+            %td.fielding=player.profile.rating.rating_7
+            %td.fielding=player.profile.rating.rating_8
+            %td.fielding=player.profile.rating.rating_9
+            %td.fielding=player.profile.rating.rating_10
+            %td.fielding=player.profile.rating.rating_11
+            %td.fielding=player.profile.rating.rating_12
+            %td.fielding=player.profile.rating.rating_13
+            %td.fielding=player.profile.rating.rating_14
+            %td.baserunning=player.profile.rating.rating_15
+            %td.baserunning=player.profile.rating.rating_16
+            %td.baserunning=player.profile.rating.rating_17
+            %td.baserunning=player.profile.rating.rating_18
+            %td.hitting=player.profile.rating.rating_19
+            %td.hitting=player.profile.rating.rating_20
+            %td.hitting=player.profile.rating.rating_21
+            %td.hitting=player.profile.rating.rating_22
+            %td.hitting=player.profile.rating.rating_23
+            %td.hitting=player.profile.rating.rating_24
+            %td.hitting=player.profile.rating.rating_25
+            %td.hitting=player.profile.rating.rating_26
+            %td.hitting=player.profile.rating.rating_27
+          - else
+            %td{:colspan => 28} No Player Rating
+

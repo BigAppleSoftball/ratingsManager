@@ -6,7 +6,6 @@ class RatingsController < ApplicationController
   #
   def update_player
     response = Hash.new
-    ap params
     profile_id = params[:profileId].to_i
     ratings = params[:ratings]
     type = params[:type]
@@ -70,22 +69,16 @@ class RatingsController < ApplicationController
   # GET /ratings
   # GET /ratings.json
   def index
-    @ratings = Rating.all
+    #@profile_ratings = Profile.all
+    @active_season = Season.includes(:divisions => {:teams => {:rosters => {:profile => :rating}}}).where(:is_active => true).last
+
+    
+    respond_to do |format|
+      format.html
+      format.csv
+    end
   end
 
-  # GET /ratings/1
-  # GET /ratings/1.json
-  def show
-  end
-
-  # GET /ratings/new
-  def new
-    @rating = Rating.new
-  end
-
-  # GET /ratings/1/edit
-  def edit
-  end
 
   # POST /ratings
   # POST /ratings.json

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   root 'static_pages#home'
 
   resources :admins
@@ -12,10 +13,12 @@ Rails.application.routes.draw do
     get 'merge'
     post 'merge', :action => 'run_merge'
   end
+  resources :ratings, :only => [:index]
   resources :rosters, :only => [:destroy]
   resources :teams
   resources :teamsnap_payments
   resources :teams_sponsors
+  resources :sessions, only: [:new, :create, :destroy]
   resources :seasons
   resources :sessions, only: [:new, :create, :destroy]
   resources :sponsors
@@ -24,18 +27,22 @@ Rails.application.routes.draw do
     resources :fields
   end
 
+  resources :password_resets, only: [:new, :create, :edit, :update]
+  post "/password_resets/new", to: 'password_resets#create'
+  
   # games
   get '/games/:id/:teamid', to: 'games#game_attendance'
   post '/set_attendance', to: 'game_attendances#set_attendance'
 
   get '/home', to:'static_pages#home'
+  get '/contact', to:'static_pages#contact'
 
   # seasons
   get '/get_divisions_by_season', to:'seasons#get_divisions_by_season'
   get '/season/:seasonId/games', to:'seasons#games'
 
   # sessions
-  #match '/signup',  to: 'profiles#new', via: 'get'
+  match '/signup',  to: 'profiles#new', via: 'get'
   match '/signin',  to: 'sessions#new', via: 'get'
   get '/signout', to: 'sessions#destroy', via: 'delete'
   get '/teams_by_season', to: 'teams#get_teams_by_season'
@@ -85,9 +92,6 @@ Rails.application.routes.draw do
 
   mount UserImpersonate::Engine => "/impersonate", as: "impersonate_engine"
 
-  #errors
-  get '/403', to: 'welcome#error403'
-
   #payments trackers
   get 'payments', to:'payments_tracker#index'
   get 'payments/tracker', to:'payments_tracker#home'
@@ -116,5 +120,10 @@ Rails.application.routes.draw do
   # profiles
   get 'pickup', to: 'profiles#pickup_players'
   get 'profile_details', to: 'profiles#details'
+
+  get "/404", :to => "errors#error_404"
+  get "/422", :to => "errors#error_404"
+  get "/500", :to => "errors#error_500"
+  get '/403', to: 'errors#error_403'
 
 end

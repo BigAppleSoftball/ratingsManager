@@ -1,0 +1,34 @@
+//$throwing-color: $green; // green
+//$fielding-color: $blue; // blue
+//$running-color: $purple; // purple
+//$hitting-color: $red; // red
+//
+#controller-ratings {
+  .panel-body {
+    overflow: auto;
+  }
+}
+
+.ratings-display-table {
+  &.table > tbody > tr > td {
+    vertical-align: middle;
+  }
+
+  &.table-bordered > tbody > tr {
+    > th,
+    > td {
+      &.throwing {
+        background-color: lighten($throwing-color, 40%);
+      }
+      &.fielding {
+        background-color: lighten($fielding-color, 40%);
+      }
+      &.baserunning {
+        background-color: lighten($running-color, 35%);
+      }
+      &.hitting {
+        background-color: lighten($hitting-color, 30%);
+      }
+    }
+  }
+}

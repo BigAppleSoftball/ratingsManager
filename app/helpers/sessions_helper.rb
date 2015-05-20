@@ -30,6 +30,13 @@ module SessionsHelper
     current_profile
   end
 
+  #
+  # Checks to see if the current user is the given profile id
+  #
+  def is_current_user?(profile_id)
+    is_logged_in? && (is_profile_id == current_profile.id)
+  end
+
   def signed_in?
     session[:current_user_id].nil? && !current_profile.nil?
   end
@@ -114,6 +121,8 @@ module SessionsHelper
 
 
   def is_current_user_or_admin?(user_id)
+    ap user_id
+    ap current_profile.id
     is_logged_in? && current_profile.id == user_id || is_admin?
   end
 
@@ -122,7 +131,7 @@ module SessionsHelper
   #
   def only_for_admin
     if (!is_admin?)
-      redirect_to :action =>'error403', :controller => 'welcome'
+      redirect_to :action =>'error_403', :controller => 'errors'
     end
   end
 
@@ -131,7 +140,7 @@ module SessionsHelper
   #
   def only_for_admin_user
     if !(is_admin_user?)
-      redirect_to :action =>'error403', :controller => 'welcome'
+      redirect_to :action =>'error_403', :controller => 'errors'
     end
   end
 
@@ -140,7 +149,7 @@ module SessionsHelper
   #
   def only_team_manager(team_id)
     if (!is_admin? && !is_team_manager?(team_id.to_i))
-      redirect_to :action =>'error403', :controller => 'welcome'
+      redirect_to :action =>'error_403', :controller => 'errors'
     end
   end
 
@@ -157,13 +166,22 @@ module SessionsHelper
   #
   def only_division_rep(division_id)
     if (!is_admin? && !is_division_rep?(division_id.to_i))
-      redirect_to :action =>'error403', :controller => 'welcome'
+      redirect_to :action =>'error_403', :controller => 'errors'
     end
   end
 
   def only_logged_in
     if (!is_logged_in?)
-      redirect_to :action =>'error403', :controller => 'welcome'
+      redirect_to :action =>'error_403', :controller => 'errors'
+    end
+  end
+
+  #
+  # Only for Admins or the current user
+  #
+  def only_for_admin_or_current_user(profile_id)
+    if (!is_current_user_or_admin?(profile_id))
+      redirect_to :action =>'error_403', :controller => 'errors'
     end
   end
 

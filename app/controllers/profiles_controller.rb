@@ -1,9 +1,9 @@
 class ProfilesController < ApplicationController
   before_action :set_profile, only: [:show, :edit, :update, :destroy]
-  before_filter :only_for_admin, only: [:edit, :update, :destroy, :merge, :run_merge]
+  before_filter :only_for_admin, only: [:destroy, :merge, :run_merge]
+  before_filter(:only => [:edit, :update]) { only_for_admin_or_current_user params[:id].to_i }
   before_filter :only_logged_in, only: [:show, :index]
   helper_method :sort_column, :sort_direction
-  skip_before_action :verify_authenticity_token, only: [:run_merge]
   # GET /profiles
   # GET /profiles.json
   def index
