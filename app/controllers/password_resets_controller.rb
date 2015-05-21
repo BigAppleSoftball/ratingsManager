@@ -29,6 +29,8 @@ class PasswordResetsController < ApplicationController
       flash.now[:error] = "Password can't be blank"
       render 'edit'
     elsif @profile.update_attributes(profile_params)
+      @profile.reset_token = ''
+      @profile.save
       sign_in @profile
       flash[:success] = "Password has been reset."
       redirect_to @profile
