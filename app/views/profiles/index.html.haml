@@ -14,6 +14,7 @@
   %tr
     %th= sortable 'id', 'Id', false, true
     %th= sortable 'last_name', 'Name', true
+    %th= sortable 'email', 'email, true'
     %th.actions-column
     -if is_admin?
       %th Site Admin Actions
@@ -30,6 +31,7 @@
           = render partial: 'shared/icons/rep'
         - if !profile.divisions_repped.empty?
           = render partial: 'shared/icons/division_rep'
+      %td=profile.email
       %td
         = render partial: "shared/actions/table_actions", locals: { editPath: edit_profile_path(profile), deletePath: profile}
       -if is_admin?
