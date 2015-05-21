@@ -1,10 +1,14 @@
 - content_for :panel_head do
-  %h1 Welcome to The League Manager
+  %h1 Welcome to The BASL  Manager
 
 .row
   .col-md-3.sidebar
     = render partial: "shared/sidebar"
   .col-md-8
-    %h3 Upcoming BASL Events
-    %h3 BASL News & Announcements
+    - if is_logged_in?
+      = render partial: 'shared/player_details'
+    - else
+      Welcome to the BASL Manager. 
+
+      = link_to 'Login to Get Started', signin_path, :class => 'btn btn-default'
 

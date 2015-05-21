@@ -1,0 +1,22 @@
+- if current_profile.rosters.length > 0
+  .panel.panel-default
+    .panel-heading
+      %h5 Your Teams
+    .list-group.your-teams-list-group
+      - current_profile.rosters.each do |roster|
+        = link_to raw("<i class='fa fa-pencil-square-o'></i> #{roster.team.full_name}"), roster.team, :class => 'list-group-item list-payments-item'
+    
+- if is_division_rep?
+  .panel.panel-default
+    .panel-heading
+      %h5 Your Repped Divisions
+    .list-group.your-divisions-list-group
+      - current_profile.divisions_repped.each do |position|
+        - if position.division
+          =link_to raw("<i class='fa fa-pencil-square-o'></i> #{position.division.description}"), position.division, :class => 'list-group-item'
+
+- if !is_division_rep? && current_profile.rosters.length <= 0
+  .well
+    You don't have any teams yet, join a team to get started!
+
+  %p Are you looking to join a team? Remember to attend the BASL Draft Days in the Early spring to get drafts on a team.
