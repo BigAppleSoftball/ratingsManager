@@ -15,6 +15,7 @@
   - if !@park.address.blank? || !@park.city.blank?
     .row
       .col-md-2
+        %i.fa.fa-location-arrow
         %b Address:
       .col-md-10
         = @park.address
@@ -49,7 +50,7 @@
           %i.fa.fa-map-marker
           Google Map:
       .col-md-10
-        = link_to 'Open Map', @park.google_map_url, {:target => '_blank'}
+        = link_to 'Open Map', @park.google_map_url, {:target => '_blank', :class => 'external-link'}
 
   .row
     .col-md-2
@@ -57,8 +58,9 @@
         %i.fa.fa-folder-open
         Fields
     .col-md-10
-      = link_to "+ Add Field", new_park_field_path(:park_id => @park.id), :class => 'btn btn-default'
       %ul
         - @park.fields.each do |field|
           %li= link_to field.name, park_field_path(@park, field)
+        - if is_admin?
+          %li= link_to "+ Add Field", new_park_field_path(:park_id => @park.id), :class => 'btn btn-default'
 

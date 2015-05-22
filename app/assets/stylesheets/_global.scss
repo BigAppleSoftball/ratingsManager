@@ -204,4 +204,13 @@ a:hover {
   color: $grey;
 }
 
+.list-group-item {
+  @include clearfix;
+}
+
+.external-link {
+  @extend .fa;
+  @extend .fa-external-link;
+}
+
 

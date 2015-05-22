@@ -6,7 +6,7 @@
   = will_paginate @profiles
   = form_tag profiles_path, :method => 'get', :id => "profiles_search", :class => 'form-inline' do
     .form-group
-      = text_field_tag :search, params[:search], {class: 'form-control', placeholder: 'Search by Name'}
+      = text_field_tag :search, params[:search], {class: 'form-control', placeholder: 'Search by Name, or Email'}
       = submit_tag "Search", :name => nil, :class => 'btn btn-primary'
   = hidden_field_tag :direction, params[:direction]
   = hidden_field_tag :sort, params[:sort]
