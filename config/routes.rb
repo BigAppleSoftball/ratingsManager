@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :offers
   resources :profiles do
     get 'merge'
+    get 'welcome_email'
     post 'merge', :action => 'run_merge'
   end
   resources :ratings, :only => [:index]

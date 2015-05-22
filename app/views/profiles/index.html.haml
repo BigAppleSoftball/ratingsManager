@@ -38,4 +38,6 @@
       -if is_admin?
         %td
           =link_to raw("<i class='fa fa-user-secret'></i> Impersonate"), impersonate_engine.impersonate_user_path(profile), {:class => 'btn btn-default'}
+          -if profile.last_log_in.blank?
+            = link_to raw("<i class='fa fa-paper-plane-o'></i> Send Welcome Email"),profile_welcome_email_path(profile), {:class => 'btn btn-default'}
           

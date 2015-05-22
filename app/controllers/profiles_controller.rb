@@ -162,6 +162,19 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def welcome_email
+    errors = Hash.new
+    @profile = Profile.find(params[:profile_id])
+    if @profile.last_log_in.blank?
+      @profile.create_reset_digest
+      ProfileMailer.welcome(@profile).deliver
+      flash[:notice] = "A Welcome Email has been sent to #{@profile.name}."
+      redirect_to profiles_path
+    else
+      errors.push("#{@profile.name} has already logged in, no email sent. If the player is having trouble logging in, recommend they reset their password from the login screen")
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_profile

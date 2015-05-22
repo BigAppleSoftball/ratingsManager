@@ -1,0 +1,9 @@
+- content_for :panel_head do
+  %h1 Confirmed!
+
+%h4 
+  A Welcome email has been sent to 
+  =@profile.name
+
+Go back to 
+= link_to 'profiles', profiles_path
