@@ -1,9 +1,12 @@
 module SessionsHelper
 
-  def sign_in(profile)
+  def sign_in(profile, is_impersonate = true)
     remember_token = Profile.new_remember_token
     cookies.permanent[:remember_token] = remember_token
     profile.update_attribute(:remember_token, Profile.encrypt(remember_token))
+    if !is_impersonate
+      profile.update_attribute(:last_log_in, DateTime.now)
+    end
     self.current_profile = profile
     session[:current_user_id] = profile
   end

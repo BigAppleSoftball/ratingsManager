@@ -31,7 +31,7 @@ class PasswordResetsController < ApplicationController
     elsif @profile.update_attributes(profile_params)
       @profile.reset_token = ''
       @profile.save
-      sign_in @profile
+      sign_in(@profile, false)
       flash[:success] = "Password has been reset."
       redirect_to @profile
     else

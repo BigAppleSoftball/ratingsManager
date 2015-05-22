@@ -8,8 +8,9 @@ class SessionsController < ApplicationController
       flash[:notice] = "First time signing into BASL Manager? Please Reset Your Password to get started." 
       redirect_to new_password_reset_path
     elsif profile && profile.authenticate(params[:session][:password])
+      flash[:success] = "You have signed in successfully!" 
       # Sign the user in and redirect to the user's show page.
-      sign_in profile
+      sign_in(profile, false)
       redirect_to root_path
     else
       flash.now[:error] = "Invalid Login. Please Try again. \n Did you forget your password? <a href='#{new_password_reset_path}'>Reset Password</a>".html_safe

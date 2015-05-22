@@ -31,6 +31,7 @@
           = render partial: 'shared/icons/rep'
         - if !profile.divisions_repped.empty?
           = render partial: 'shared/icons/division_rep'
+        .small-text= profile.last_log_in ? profile.last_log_in.in_time_zone('Eastern Time (US & Canada)').strftime("%Y-%d-%m %H:%M:%S %Z") : 'Never Logged In'
       %td=profile.email
       %td
         = render partial: "shared/actions/table_actions", locals: { editPath: edit_profile_path(profile), deletePath: profile}
