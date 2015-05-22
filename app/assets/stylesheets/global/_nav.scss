@@ -20,3 +20,14 @@
 .default-bar {
   background: rgba($dark-gray, 0.2);
 }
+
+@media (max-width: 768px) {
+  .navbar-default {
+    background: #F9F9F9;
+  }
+
+  .container {
+    padding: 0;
+    margin: 0;
+  }
+}
