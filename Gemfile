@@ -35,6 +35,9 @@ gem 'rails-erd'
 # for error testing
 gem 'rollbar', '~> 1.5.1'
 
+# for blocking unwanted ips
+gem 'rack-attack'
+
 # admin tools
 gem 'user_impersonate2', :require => 'user_impersonate'
 
