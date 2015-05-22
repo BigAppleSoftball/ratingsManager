@@ -87,6 +87,18 @@ module SessionsHelper
   end
 
   #
+  # checks to see if the division id is in the list of user division rep
+  #
+  def is_division_rep(division_id)
+    if is_logged_in?
+      ap current_profile.divisions.repped_list
+      current_profile.divisions_repped_list.include?(division_id)
+    else
+      false
+    end
+  end
+
+  #
   # Checks to see if the user is a division rep
   #
   def is_division_rep?(division_id = nil)
@@ -175,6 +187,17 @@ module SessionsHelper
 
   def only_logged_in
     if (!is_logged_in?)
+      redirect_to :action =>'error_403', :controller => 'errors'
+    end
+  end
+
+  #
+  # Redirect pages if not team manager, team rep or division rep of this team
+  #
+  def only_team_manager_reps_or_division_reps(team_id) 
+    team = Team.select('division_id').find(team_id.to_i)
+    ap team.division_id
+    if (!is_logged_in? && (!is_admin? || !is_team_manager?(team_id.to_i) || !is_division_rep?(team.division_id)))
       redirect_to :action =>'error_403', :controller => 'errors'
     end
   end

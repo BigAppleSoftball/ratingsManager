@@ -1,6 +1,6 @@
 .team-manager-container
   %b Managers:
-  %ul.team-managers-list
+  %ul.team-managers-list.list-unstyled
     - if team.managers.length > 0
       - team.managers.each do |manager|
         -if manager.profile

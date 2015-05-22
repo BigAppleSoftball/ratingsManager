@@ -10,7 +10,7 @@
   .form-group
     = f.label :season_id, {:class => 'col-sm-2 control-label'}
     .col-sm-10
-      = render 'shared/forms/season_selector', {:selected_season => @division.season_id, :seasons => @seasons, :name=> 'division[season_id]'}
+      = render 'shared/forms/season_selector', {:selected_season => @division.season, :seasons => @seasons, :name=> 'division[season_id]'}
   .form-group
     = f.label :description, {:class => 'col-sm-2 control-label'}
     .col-sm-10

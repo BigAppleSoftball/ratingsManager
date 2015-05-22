@@ -1,7 +1,7 @@
 - content_for :panel_head do
   %h1
+    Editing Player Ratings for 
     =@team.name
-    Player Ratings
   = link_to raw("<i class='fa fa-download'></i> Download CSV"), "/teams/#{@team.id}/ratings.csv", {:class => 'btn btn-default'}
 
 -if @teamsRosters.length > 0

@@ -185,3 +185,19 @@
 #controller-profiles .panel-default.main-panel > .panel-heading .well {
   color: #666;
 }
+
+ul.btn-list {
+  list-style: none;
+
+  li {
+    margin-bottom: 5px;
+
+    .btn {
+      width: 100%;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
