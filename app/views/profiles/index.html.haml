@@ -14,7 +14,7 @@
   %tr
     %th= sortable 'id', 'Id', false, true
     %th= sortable 'last_name', 'Name', true
-    %th= sortable 'email', 'email, true'
+    %th= sortable 'email', 'Email', true
     %th.actions-column
     -if is_admin?
       %th Site Admin Actions
@@ -22,14 +22,14 @@
     %tr
       %td= profile.id
       %td
-        = link_to profile.name, profile
-        - if !profile.league_admin_positions.empty?
+        %strong= link_to profile.name, profile
+        - if profile.is_admin
           = render partial: 'shared/icons/league_admin'
-        - if !profile.teams_managed.empty?
+        - if @team_managers_list.include?(profile.id)
           = render partial: 'shared/icons/manager'
-        - if !profile.teams_repped.empty?
+        - if @team_reps_list.include?(profile.id)
           = render partial: 'shared/icons/rep'
-        - if !profile.divisions_repped.empty?
+        - if @division_reps_list.include?(profile.id)
           = render partial: 'shared/icons/division_rep'
         .small-text= profile.last_log_in ? profile.last_log_in.in_time_zone('Eastern Time (US & Canada)').strftime("%Y-%d-%m %H:%M:%S %Z") : 'Never Logged In'
       %td=profile.email

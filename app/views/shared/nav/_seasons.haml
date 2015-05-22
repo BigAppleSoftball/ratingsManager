@@ -1,11 +1,14 @@
 - all_seasons_list
 %ul.dropdown-menu
   - if all_seasons_list[:current].length > 0
-    %li
-      %a.trigger.right-caret Current Seasons
-      %ul.dropdown-menu.sub-menu
-        -all_seasons_list[:current].each do |current_season|
-          %li=link_to current_season.description, current_season
+    - if all_seasons_list[:current].length == 1
+
+    - else
+      %li
+        %a.trigger.right-caret Current Seasons
+        %ul.dropdown-menu.sub-menu
+          -all_seasons_list[:current].each do |current_season|
+            %li=link_to current_season.description, current_season
   - if all_seasons_list[:upcoming].length > 0
     %li
       %a.trigger.right-caret Upcoming Seasons

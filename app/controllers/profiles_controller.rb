@@ -8,6 +8,11 @@ class ProfilesController < ApplicationController
   # GET /profiles.json
   def index
     @profiles = Profile.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 20,:page => params[:page])
+    profile_ids = @profiles.pluck(:id);
+    @team_managers_list = Roster.where(:is_manager => true).where(:profile_id => profile_ids).pluck(:profile_id)
+    @team_reps_list = Roster.where(:is_rep => true).where(:profile_id => profile_ids).pluck(:profile_id)
+    @division_reps_list = BoardMember.where(:is_division_rep => true).where(:profile_id => profile_ids).pluck(:profile_id)
+    ap @division_reps_list
   end
 
   # GET /profiles/1
