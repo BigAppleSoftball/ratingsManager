@@ -17,15 +17,17 @@
               =link_to 'Board Members', '/showallboard'
             %li
               =link_to 'Committees', '/showallcommittee'
+        %li=link_to 'Home', root_path
         %li.dropdown{:style => "position:relative"}
           %a.btn.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
             Seasons
             %span.caret
           =render :partial => 'shared/nav/seasons'
         %li=link_to 'Parks', parks_path
-        %li=link_to 'Calendar', '/loadcalendar'
-        %li=link_to 'Offers', '/alloffers'
-        %li=link_to 'Pickup Players', '/pickup'
+        %li=#link_to 'Calendar', '/loadcalendar'
+        %li=#link_to 'Offers', '/alloffers'
+        %li=link_to 'Pickup', '/pickup'
+        %li=link_to 'Feedback', feedback_path
       %ul.nav.navbar-nav.navbar-right
         - if is_admin_user?
           %li

@@ -36,6 +36,7 @@ Rails.application.routes.draw do
 
   get '/home', to:'static_pages#home'
   get '/contact', to:'static_pages#contact'
+  match '/feedback',  to: 'static_pages#feedback', via: 'get'
 
   # seasons
   get '/get_divisions_by_season', to:'seasons#get_divisions_by_season'

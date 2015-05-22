@@ -1,14 +1,18 @@
 - content_for :panel_head do
-  %h1 Welcome to The BASL  Manager
+  %h1 
+    Welcome to 
+    = image_tag 'email-logo.png' 
 
 .row
   .col-md-3.sidebar
     = render partial: "shared/sidebar"
   .col-md-8
+    .well
+      Welcome to the beta edition of the BASL Manager. 
+      %p Because, sometimes you just want to play.
+      
     - if is_logged_in?
       = render partial: 'shared/player_details'
     - else
-      Welcome to the BASL Manager. 
-
       = link_to 'Login to Get Started', signin_path, :class => 'btn btn-default'
 

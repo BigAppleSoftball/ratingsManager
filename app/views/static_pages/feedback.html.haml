@@ -1,0 +1,36 @@
+- content_for :panel_head do
+  %h1 Feedback
+.well
+  This application was created to make the lives easier for Big Apple Softball League Players, Managers and Administrators alike. It is still very much in development and being improved upon every day. But we need your help!
+
+%h3 How To Help
+%p
+  Please contact the 
+  = link_to 'webteam@bigapplesoftball.com', 'mailto:webteam@bigapplesoftball.com?Subject=BASL%20Manager'
+%ul.list-group
+  %li.list-group-item
+    %h4 Report Errors
+    %p What you can do to help us fix errors you see in the app
+    %dl
+      %dt Know Your Browser
+      %dd
+        Provide the name and version of your browser
+        =link_to 'go here to find out', 'https://www.whatismybrowser.com/'
+        )
+    %dl
+      %dt Remember where the error happened
+      %dd 
+        Links are useful to the page you were on or where it happened 
+    %dl
+      %dt Provide as Many details as possible
+      %dd "I was on the home page when I go a notification that said "Some text here"
+    %dl
+      %dt Take a Picture of your errored page
+      %dd 
+        You can take a picture of your screen (also known as a "screenshot"). 
+        = link_to 'See Instructions here', 'http://www.take-a-screenshot.org/'
+        Then you can easily attach images in emails to the webteam
+  %li.list-group-item
+    %h4 Provide Feedback
+    %p Sometimes you have ideas or suggestions that can make the application better and easier to use. Your feedback is always welcome, just remember to explain WHY a feature would make your life easier.
+    %p Note: We cannot honor or implement all ideas and suggestions
