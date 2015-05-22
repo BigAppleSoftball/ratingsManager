@@ -57,6 +57,7 @@ class Rack::Attack
   blacklist('block 180.76.*') do |req|
     # Requests are blocked if the return value is truthy
     '180.76.*' == req.ip
+    '192.187.*' == req.ip
   end
 
 end

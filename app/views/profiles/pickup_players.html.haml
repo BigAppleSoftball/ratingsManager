@@ -22,10 +22,20 @@
         .badge.badge-a 20^
       %td A Division Rated Players
 
-  %ul.list-group
+  .btn-group.rating-sort-btn-group.js-ratings-filters{"aria-label" => "...", :role => "group"}
+    %button.btn.btn-default.btn-all.btn-selected.js-filter-btn{:type => "button", :data => {:filter=>"*"}} Show All
+    %button.btn.btn-default.rating-d-btn.js-filter-btn{:type => "button", :data => {:filter=>".d-rating"}} Only D
+    %button.btn.btn-default.rating-c-btn.js-filter-btn{:type => "button", :data => {:filter=>".c-rating"}} Only C
+    %button.btn.btn-default.rating-b-btn.js-filter-btn{:type => "button", :data => {:filter=>".b-rating"}} Only B
+    %button.btn.btn-default.rating-a-btn.js-filter-btn{:type => "button", :data => {:filter=>".a-rating"}} Only A
+
+  %ul.pickup-player-list.js-pickup-players-list
     -@players.each do |player|
-      %li.list-group-item
-        = player.to_s
-        = link_to 'View Profile', player
-        -if player.rating.present?
-          .badge{:class=>"#{get_rating_badge_class(player.rating.total)}"}=player.rating.total
+      %li.pickup-player-list-item.js-pickup-players-list-item{:class => get_player_rating_class(player)}
+        .profile_title
+          %strong= player.to_s
+          .pull-right
+            -if player.rating.present?
+              .badge{:class=>"#{get_rating_badge_class(player.rating.total)}"}
+                = player.rating.total > 0 ? player.rating.total : 'N/A'
+        .profile_link= link_to 'View Profile', player
