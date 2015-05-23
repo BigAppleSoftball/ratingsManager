@@ -142,16 +142,8 @@
       .button-width {
         width: 228px;
       }
-
-      %style{:media => "screen", :type => "text/css"}
-      @import url(http://fonts.googleapis.com/css?family=Oxygen:400,700);
     %style{:media => "screen", :type => "text/css"}
-      @media screen {
-      \/* Thanks Outlook 2013! http://goo.gl/XLxpyl */
-      * {
-      font-family: 'Oxygen', 'Helvetica Neue', 'Arial', 'sans-serif' !important;
-      }
-      }
+      @import url(http://fonts.googleapis.com/css?family=Oxygen:400,700);
     %style{:media => "only screen and (max-width: 480px)", :type => "text/css"}
       \/* Mobile styles */
       @media only screen and (max-width: 480px) {
@@ -228,32 +220,28 @@
   %body{:bgcolor => "#f7f7f7"}
     %table.container-for-gmail-android{:align => "center", :cellpadding => "0", :cellspacing => "0", :width => "100%"}
       %tr
-        %td{:align => "left", :style => "background:repeat-x url(http://s3.amazonaws.com/swu-filepicker/4E687TRe69Ld95IDWyEg_bg_top_02.jpg) #ffffff;", :valign => "top", :width => "100%"}
+        %td{:align => "left", :style => "background: #ffffff;", :valign => "top", :width => "100%"}
           %center
-            %img.force-width-gmail{:src => "http://s3.amazonaws.com/swu-filepicker/SBb2fQPrQ5ezxmqUTgCr_transparent.png"}
-              %table{:background => "http://s3.amazonaws.com/swu-filepicker/4E687TRe69Ld95IDWyEg_bg_top_02.jpg", :bgcolor => "#ffffff", :cellpadding => "0", :cellspacing => "0", :style => "background-color:transparent", :width => "100%"}
+            /[if gte mso 9]
+              <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="mso-width-percent:1000;height:80px; v-text-anchor:middle;">
+              <v:fill type="tile" src="http://s3.amazonaws.com/swu-filepicker/4E687TRe69Ld95IDWyEg_bg_top_02.jpg" color="#ffffff" />
+              <v:textbox inset="0,0,0,0">
+            %center
+              %table.w320{:cellpadding => "0", :cellspacing => "0", :width => "600"}
                 %tr
-                  %td{:height => "80", :style => "text-align: center; vertical-align:middle;", :valign => "top", :width => "100%"}
-                    /[if gte mso 9]
-                      <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="mso-width-percent:1000;height:80px; v-text-anchor:middle;">
-                      <v:fill type="tile" src="http://s3.amazonaws.com/swu-filepicker/4E687TRe69Ld95IDWyEg_bg_top_02.jpg" color="#ffffff" />
-                      <v:textbox inset="0,0,0,0">
-                    %center
-                      %table.w320{:cellpadding => "0", :cellspacing => "0", :width => "600"}
-                        %tr
-                          %td.pull-left.mobile-header-padding-left{:style => "vertical-align: middle;"}
-                            %a{:href => ""}
-                              %img{:alt => "logo", :height => "47", :src => "#{image_url('email-logo.png')}", :width => "250"}/
-                          -#%td.pull-right.mobile-header-padding-right{:style => "color: #4d4d4d;"}
-                            %a{:href => ""}
-                              %img{:alt => "twitter", :height => "47", :src => "http://s3.amazonaws.com/swu-filepicker/k8D8A7SLRuetZspHxsJk_social_08.gif", :width => "44"}/
-                            %a{:href => ""}
-                              %img{:alt => "facebook", :height => "47", :src => "http://s3.amazonaws.com/swu-filepicker/LMPMj7JSRoCWypAvzaN3_social_09.gif", :width => "38"}/
-                            %a{:href => ""}
-                              %img{:alt => "rss", :height => "47", :src => "http://s3.amazonaws.com/swu-filepicker/hR33ye5FQXuDDarXCGIW_social_10.gif", :width => "40"}/
-                    /[if gte mso 9]
-                      </v:textbox>
-                      </v:rect>
+                  %td.pull-left.mobile-header-padding-left{:style => "vertical-align: middle;"}
+                    %a{:href => ""}
+                      %img{:alt => "logo", :height => "47", :src => "https://basl-manager.herokuapp.com/assets/email-logo-dcad39305f768dbe454cd98703fa343b.png", :width => "250"}/
+                  -#%td.pull-right.mobile-header-padding-right{:style => "color: #4d4d4d;"}
+                    %a{:href => ""}
+                      %img{:alt => "twitter", :height => "47", :src => "http://s3.amazonaws.com/swu-filepicker/k8D8A7SLRuetZspHxsJk_social_08.gif", :width => "44"}/
+                    %a{:href => ""}
+                      %img{:alt => "facebook", :height => "47", :src => "http://s3.amazonaws.com/swu-filepicker/LMPMj7JSRoCWypAvzaN3_social_09.gif", :width => "38"}/
+                    %a{:href => ""}
+                      %img{:alt => "rss", :height => "47", :src => "http://s3.amazonaws.com/swu-filepicker/hR33ye5FQXuDDarXCGIW_social_10.gif", :width => "40"}/
+            /[if gte mso 9]
+              </v:textbox>
+              </v:rect>
       %tr
         %td.content-padding{:align => "center", :style => "background-color: #f7f7f7;", :valign => "top", :width => "100%"}=yield
       

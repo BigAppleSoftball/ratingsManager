@@ -32,6 +32,9 @@ gem 'awesome_print'
 gem 'rest-client'
 gem 'rails-erd'
 
+# for styling the emails
+gem 'premailer-rails'
+
 # for error testing
 gem 'rollbar', '~> 1.5.1'
 
