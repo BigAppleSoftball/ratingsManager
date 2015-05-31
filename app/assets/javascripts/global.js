@@ -8,6 +8,7 @@
     this.initTooltips();
     this.divSelector = new DivisionSelector();
     this.initMultiLevelDropdown();
+    this.initBootstrapSwitcher();
   };
 
   /**
@@ -15,6 +16,17 @@
    */
   Global.prototype.initTooltips = function(){
     $('.js-tooltip').tooltip();
+  };
+
+  /**
+   * Intializes the Bootstrap switch plugin to make checkboxes look like toggles
+   * @return {[type]} [description]
+   */
+  Global.prototype.initBootstrapSwitcher = function() {
+    $('.js-bs-switcher').bootstrapSwitch({
+      onText: 'Yes',
+      offText: 'No'
+    });
   };
 
   Global.prototype.initMultiLevelDropdown = function() {

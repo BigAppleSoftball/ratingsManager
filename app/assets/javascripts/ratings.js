@@ -56,10 +56,13 @@
    */
   PlayerRatings.prototype.setDialogCheckboxValues = function(ratings, $dialog) {
    $.each(ratings, function(key, value){
+      var $checkbox = $dialog.find("input[value='" + key + "']");
       if (value > 0) {
-        $dialog.find("input[value='" + key + "']").prop('checked', true);
+        //$checkbox.prop('checked', true);
+        $checkbox.bootstrapSwitch('state', true, true);
       } else {
-        $dialog.find("input[value='" + key + "']").removeProp('checked');
+        //$checkbox.removeProp('checked');
+        $checkbox.bootstrapSwitch('state', false, true);
       }
     });
   };

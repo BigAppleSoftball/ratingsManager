@@ -1,65 +1,14 @@
 .panel.panel-success
   .panel-body
-    Does the player have the ability to:
-    .checkbox
-      %label
-        %input.js-rating-checkbox.js-rating-6{:type => "checkbox", :value => "6"}
-        6. occasionally on purpose catch balls that are thrown to the player with a rainbow arc?
-
-    .checkbox
-      %label
-        %input.js-rating-checkbox.js-rating-7{:type => "checkbox", :value => "7"}
-        7. occasionally on purpose catch balls that are thrown to the player without a rainbow arc?
-    .checkbox
-      %label
-        %input.js-rating-checkbox.js-rating-8{:type => "checkbox", :value => "8"}
-        8. consistently on purpose field slow hit balls that are within a few steps?
-        %br
-        OR
-        %br
-        consistently on purpose catch fly balls that are within 15 feet?
-    .checkbox
-      %label
-        %input.js-rating-checkbox.js-rating-9{:type => "checkbox", :value => "9"}
-        9. consistently on purpose field medium hit balls that are within a few steps?
-        %br
-        OR
-        %br
-        consistently on purpose catch fly balls that are more than 15 feet away?
-    .checkbox
-      %label
-        %input.js-rating-checkbox.js-rating-10{:type => "checkbox", :value => "10"}
-        10. occasionally on purpose field medium hit balls that are in the hole?
-        %br
-        OR
-        %br
-        occasionally on purpose catch fly balls that are more than 30 feet away?
-    .checkbox
-      %label
-        %input.js-rating-checkbox.js-rating-11{:type => "checkbox", :value => "11"}
-        11. consistently on purpose field medium hit balls that are in the hole?
-        %br
-        OR
-        %br
-        consistently on purpose catch fly balls that are more than 30 feet away?
-    .checkbox
-      %label
-        %input.js-rating-checkbox.js-rating-12{:type => "checkbox", :value => "12"}
-        12. occasionally on purpose field hard hit balls that are in the hole?
-        %br
-        OR
-        %br
-        occasionally on purpose stop line drives in the gaps from getting by the outfielders?
-    .checkbox
-      %label
-        %input.js-rating-checkbox.js-rating-13{:type => "checkbox", :value => "13"}
-        13. consistently on purpose field hard hit balls that are in the hole?
-        OR
-        %br
-        consistently on purpose stop line drives in the gaps from getting by the outfielders?
-    .checkbox
-      %label
-        %input.js-rating-checkbox.js-rating-14{:type => "checkbox", :value => "14"}
-        14. occasionally on purpose make spectacular catches?
+    %table.table-condensed.table-striped.table.table-bordered
+      = render partial:'modal/rating_question', locals: {question: "occasionally on purpose catch balls that are thrown to the player with a rainbow arc?", number: 6}
+      = render partial:'modal/rating_question', locals: {question: "occasionally on purpose catch balls that are thrown to the player with a rainbow arc?", number: 7}
+      = render partial:'modal/rating_question', locals: {question: "consistently on purpose field slow hit balls that are within a few steps or consistently on purpose catch fly balls that are within 15 feet?", number: 8}
+      = render partial:'modal/rating_question', locals: {question: "consistently on purpose field medium hit balls that are within a few steps or consistently on purpose catch fly balls that are more than 15 feet away?", number: 9}
+      = render partial:'modal/rating_question', locals: {question: "occasionally on purpose field medium hit balls that are in the hole?", number: 10}
+      = render partial:'modal/rating_question', locals: {question: "consistently on purpose field medium hit balls that are in the hole or consistently on purpose catch fly balls that are more than 30 feet away?", number: 11}
+      = render partial:'modal/rating_question', locals: {question: "occasionally on purpose field hard hit balls that are in the hole or occasionally on purpose stop line drives in the gaps from getting by the outfielders?", number: 12} 
+      = render partial:'modal/rating_question', locals: {question: "consistently on purpose field medium hit balls that are in the hole or consistently on purpose catch fly balls that are more than 30 feet away?", number: 13} 
+      = render partial:'modal/rating_question', locals: {question: "occasionally on purpose make spectacular catches?", number: 14} 
 
 .alert.alert-danger.js-fielding-modal-error.js-modal-error{:style=>'display:none'}

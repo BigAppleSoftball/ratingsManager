@@ -205,3 +205,10 @@ ul.btn-list {
 .form-inline .form-control.search-input {
   width: 300px;
 }
+
+// bootstrap switcher
+.bootstrap-switch {
+  .bootstrap-switch-label {
+    @include set-btn-gradient($btn-default-bg);
+  }
+}
