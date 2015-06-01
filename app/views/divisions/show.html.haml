@@ -1,15 +1,20 @@
 - content_for :panel_head do
   .team-details-container.pull-left
     %h4= link_to @division.season.description, @division.season
-    %h1=@division.description
-  - if is_division_rep?(@division.id)
-    .pull-right= link_to raw("<i class='fa fa-pencil'></i> Edit Division"), edit_division_path(@division), {:class => 'btn btn-default'}
-  - if is_admin?
-    = link_to '+ Add Team', new_team_path( :division_id => @division.id),  {:class => 'btn btn-default'}
-    = link_to '+ Add Game', new_game_path( :division_id => @division.id),  {:class => 'btn btn-default'}
-    - if @division.teamsnap_id
-      This division is connected to division id 
-      = @division.teamsnap_id
-    = link_to raw("<i class='fa fa-trash'></i> Delete Division"),@division, :method => :delete, :data => { :confirm => 'Deleting a Division Will Delete all related teams, games, rosters & game attendances. You cannot undo this. Are you sure?' }, :class => 'btn btn-danger', :title => 'Delete'
+    %h1
+      =@division.description
+      - if @division.teamsnap_id
+        .small-text
+          imported through teamsnap (
+          = @division.teamsnap_id
+          )
+  .pull-right
+    %ul.btn-list
+      - if is_division_rep?(@division.id)
+        %li= link_to raw("<i class='fa fa-pencil'></i> Edit Division"), edit_division_path(@division), {:class => 'btn btn-default'}
+      - if is_admin?
+        %li= link_to '+ Add Team', new_team_path( :division_id => @division.id),  {:class => 'btn btn-default'}
+        %li= link_to '+ Add Game', new_game_path( :division_id => @division.id),  {:class => 'btn btn-default'}
+        %li= link_to raw("<i class='fa fa-trash'></i> Delete Division"),@division, :method => :delete, :data => { :confirm => 'Deleting a Division Will Delete all related teams, games, rosters & game attendances. You cannot undo this. Are you sure?' }, :class => 'btn btn-danger', :title => 'Delete'
 
 = render :partial => 'division', :locals => {:division => @division, :isShow => true}
