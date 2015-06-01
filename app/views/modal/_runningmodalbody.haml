@@ -1,22 +1,9 @@
 .panel.panel-primary
   .panel-body
-    Does the player have the ability to:
-    .checkbox
-      %label
-        %input.js-rating-checkbox.js-rating-15{:type => "checkbox", :value => "15"}
-        15. go from base to base utilizing rudimentary knowledge of the rules?
-
-    .checkbox
-      %label
-        %input.js-rating-checkbox.js-rating-16{:type => "checkbox", :value => "16"}
-        16. run with average speed and occasionally take extra bases on good hits or errors against a limited level of defense?
-    .checkbox
-      %label
-        %input.js-rating-checkbox.js-rating-17{:type => "checkbox", :value => "17"}
-        17. run aggressively with average or better speed and occasionally take extra bases on good hits or errors against an intermediate level of defense?
-    .checkbox
-      %label
-        %input.js-rating-checkbox.js-rating-18{:type => "checkbox", :value => "18"}
-        18. run very aggressively and occasionally take extra bases on good hits or errors against an exceptional level of defense?
+    %table.table-condensed.table-striped.table.table-bordered
+      = render partial:'modal/rating_question', locals: {question: "go from base to base utilizing rudimentary knowledge of the rules?", number: 15}
+      = render partial:'modal/rating_question', locals: {question: "run with average speed and occasionally take extra bases on good hits or errors against a limited level of defense?", number: 16}
+      = render partial:'modal/rating_question', locals: {question: "run aggressively with average or better speed and occasionally take extra bases on good hits or errors against an intermediate level of defense?", number: 17}
+      = render partial:'modal/rating_question', locals: {question: "run very aggressively and occasionally take extra bases on good hits or errors against an exceptional level of defense?", number: 18}
 
 .alert.alert-danger.js-baserunning-modal-error.js-modal-error{:style=>'display:none'}

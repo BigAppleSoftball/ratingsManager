@@ -1,30 +1,33 @@
 - content_for :panel_head do
-  .team-details-container.pull-left
-    %h1
-      = @team.name
-      - if @team.teamsnap_id
-        %span.small-text 
-          (Imported from teamsnap:
-          = @team.teamsnap_id
-          )
-    %h4= link_to "#{@team.division.season.description} #{@team.division.description}", @team.division
-    - if is_admin? || is_team_manager?(@team.id)
-      - if is_admin?
-        = link_to raw("<i class='fa fa-trash'></i> Delete Team"), @team, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-danger', :title => 'Delete'
-      
-      - if !(@team && @team.division && @team.division.season && !@team.division.season.is_editable_season?)
-        =link_to raw("<i class='fa fa-pencil'></i> Edit Team"), edit_team_path(@team), {:class =>"btn btn-default"}
-      = link_to raw("<i class='fa fa-line-chart'></i> Player Ratings"),"/teams/#{@team.id}/ratings", {:class =>"btn btn-default"}
-      = link_to 'View All Teams', teams_path, {:class =>'btn btn-default'}
-    .team-rating
-      %strong Team Rating:
-      = @team_rating
-      .small-text
-        (Team rating is calculated by summing up the ratings of the top 
-        %strong TEN
-        players)
-  .team-admin-container.pull-right
-    = render partial: "teams/managers_list", locals: { team: @team}
-    = render partial: "teams/reps_list", locals: { team: @team}
+  .row
+    .col-md-7.team-details-container
+      %h1
+        = @team.name
+        - if @team.teamsnap_id
+          %span.small-text 
+            (Imported from teamsnap:
+            = @team.teamsnap_id
+            )
+      %h4= link_to "#{@team.division.season.description} #{@team.division.description}", @team.division
+      .team-rating
+        %strong Team Rating:
+        = @team_rating
+        .small-text
+          (Team rating is calculated by summing up the ratings of the top 
+          %strong TEN
+          players)
+    .col-md-2.team-admin-container
+      = render partial: "teams/managers_list", locals: { team: @team}
+      = render partial: "teams/reps_list", locals: { team: @team}
+    .col-md-3
+      %ul.btn-list
+        - if is_admin? || is_team_manager?(@team.id) || is_division_rep?(@team.division.id)
+          - if is_admin?
+            %li= link_to raw("<i class='fa fa-trash'></i> Delete Team"), @team, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-danger', :title => 'Delete'
+          - if !(@team && @team.division && @team.division.season && !@team.division.season.is_editable_season?)
+            %li=link_to raw("<i class='fa fa-pencil'></i> Edit Team"), edit_team_path(@team), {:class =>"btn btn-default"}
+          %li= link_to raw("<i class='fa fa-line-chart'></i> Player Ratings"),"/teams/#{@team.id}/ratings", {:class =>"btn btn-default"}
+          -if is_admin?
+            %li= link_to 'View All Teams', teams_path, {:class =>'btn btn-default'}
 
 = render 'team', :team => @team, :teamsSponsors => @teamSponsors, :teamsRosters => @teamsRosters, :games => @games

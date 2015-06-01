@@ -23,9 +23,9 @@
   %tr
     %th Status
     %th Name
-    %th Address
     %th Google map url
-    %th Lat/Long
+    - if is_admin?
+      %th Lat/Long
     %th Fields
     %th.actions-column
   - statuses = get_park_statuses
@@ -33,21 +33,24 @@
     %tr
       %td
         = render partial: 'status_indicator', locals: {statusValue: park.status , statusString: statuses[park.status]}
-      %td= link_to park.name, park
       %td
-        - if park.address
-          = park.address
+        %address
+          %strong= link_to park.name, park
           %br
-          = "#{park.city}, #{park.state} #{park.zip}"
+          - if park.address.present?
+            = park.address
+            %br
+            = "#{park.city}, #{park.state} #{park.zip}"
       %td
         -if park.google_map_url
-          = link_to 'Google Map', park.google_map_url, {:target => '_blank'}
-      %td{:class => park.lat && park.long ? '' : 'danger danger-column'}
-        -if park.lat && park.long
-          = park.lat
-          = park.long
-        -else
-          = render partial: "shared/warning_column", locals: { text: 'No Lat or Long'}
+          = link_to raw("<i class='fa fa-map-marker'></i> Google Map"), park.google_map_url, {:target => '_blank'}
+      -if is_admin?
+        %td{:class => park.lat && park.long ? '' : 'danger danger-column'}
+          -if park.lat && park.long
+            = park.lat
+            = park.long
+          -else
+            = render partial: "shared/warning_column", locals: { text: 'No Lat or Long'}
       %td 
         %ul
           - park.fields.each do |field|

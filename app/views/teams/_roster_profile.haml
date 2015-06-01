@@ -6,9 +6,9 @@
       = render partial: "shared/icons/manager"
     -if roster.is_rep
       = render partial: "shared/icons/rep"
-  -if is_admin? || is_team_manager?(@team.id)
+  -if is_admin? || is_team_manager?(roster.team_id)
     %td
-      = render partial: "shared/actions/delete", locals: { deleteItem: roster, deleteText: ''}
+      = link_to raw("Remove"), roster, :method => :delete, :data => { :confirm => "Are you sure you want to remove #{roster.profile.to_s} from you roster?" }, :class => 'btn btn-danger btn-xs', :title => 'Delete'
       - managerButtonText = 'Make Manager'
       - managerButtonData = {:is_make_manager => true}
       - if roster.is_manager

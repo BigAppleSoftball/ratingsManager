@@ -1,9 +1,11 @@
 -if defined?(showCard) && showCard
-  .profile-card.pull-left
-    -if profile.long_image_url
-      .card-img-logo
-        %img{:src => profile.long_image_url}
-.profile-details.js-profile-details.pull-left{:data => {:name => profile.name, :id => profile.id}}
+  .col-md-3
+    .profile-card
+      -if profile.long_image_url
+        .card-img-logo
+          %img{:src => profile.long_image_url}
+
+.col-md-7.profile-details.js-profile-details{:data => {:name => profile.name, :id => profile.id}}
   %p
     %b First name:
     = profile.first_name
@@ -31,18 +33,18 @@
       No
     -if is_current_user_or_admin?(profile.id)
       .well
-      -if profile.emergency_contact_phone.blank?
-        %h5 No Emergency Contact Information Found! Please Update this now!
-      - else
-        %p
-          %b Emergency Contact Name: 
-          = profile.emergency_contact_name
-        %p
-          %b Emergency Contact Relationship: 
-          = profile.emergency_contact_relationship
-        %p
-          %b Emergency Contact Phone: 
-          = profile.emergency_contact_phone
+        -if profile.emergency_contact_phone.blank?
+          %h5 No Emergency Contact Information Found! Please Update this now!
+        - else
+          %p
+            %b Emergency Contact Name: 
+            = profile.emergency_contact_name
+          %p
+            %b Emergency Contact Relationship: 
+            = profile.emergency_contact_relationship
+          %p
+            %b Emergency Contact Phone: 
+            = profile.emergency_contact_phone
   - if profile.rosters.length > 0
     %b Teams:
     %ul

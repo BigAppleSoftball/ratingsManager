@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :offers
   resources :profiles do
     get 'merge'
+    get 'welcome_email'
     post 'merge', :action => 'run_merge'
   end
   resources :ratings, :only => [:index]
@@ -36,6 +37,7 @@ Rails.application.routes.draw do
 
   get '/home', to:'static_pages#home'
   get '/contact', to:'static_pages#contact'
+  match '/feedback',  to: 'static_pages#feedback', via: 'get'
 
   # seasons
   get '/get_divisions_by_season', to:'seasons#get_divisions_by_season'

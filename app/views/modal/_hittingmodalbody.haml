@@ -1,53 +1,14 @@
 .panel.panel-danger
   .panel-body
-    Does the player have the ability to:
-    .checkbox
-      %label
-        %input.js-rating-checkbox.js-rating-19{:type => "checkbox", :value => "19"}
-        19. occasionally hit a fair ball?
-    .checkbox
-      %label
-        %input.js-rating-checkbox.js-rating-20{:type => "checkbox", :value => "20"}
-        20. consistently hit a fair ball?
-    .checkbox
-      %label
-        %input.js-rating-checkbox.js-rating-21{:type => "checkbox", :value => "21"}
-        21. occasionally hit a fair ball with at least medium velocity?
-    .checkbox
-      %label
-        %input.js-rating-checkbox.js-rating-21{:type => "checkbox", :value => "22"}
-        22. consistently hit a fair ball with at least medium velocity?
-    .checkbox
-      %label
-        %input.js-rating-checkbox.js-rating-23{:type => "checkbox", :value => "23"}
-        23. consistently reach base safely on a batted ball against a limited level of defense?
-        %br
-        OR
-        %br
-        occasionally reach base safely on a batted ball against an intermediate level of defense?
-    .checkbox
-      %label
-        %input.js-rating-checkbox.js-rating-24{:type => "checkbox", :value => "24"}
-        24. consistently reach base safely on a batted ball against an intermediate level of defense?
-        %br
-        OR
-        %br
-        occasionally reach base safely on a batted ball against an exceptional level of defense?
-    .checkbox
-      %label
-        %input.js-rating-checkbox.js-rating-25{:type => "checkbox", :value => "25"}
-        25. consistently reach base safely on a batted ball with high velocity against an intermediate level of defense:
-        %br
-        OR
-        %br
-        consistently reach base safely on a batted ball against an exceptional level of defense?
-    .checkbox
-      %label
-        %input.js-rating-checkbox.js-rating-26{:type => "checkbox", :value => "26"}
-        26. consistently reach base safely on a batted ball with high velocity against an exceptional level of defense?
-    .checkbox
-      %label
-        %input.js-rating-checkbox.js-rating-27{:type => "checkbox", :value => "27"}
-        27. occasionally hit a ball over a 300’ fence?
+    %table.table-condensed.table-striped.table.table-bordered
+      = render partial:'modal/rating_question', locals: {question: "occasionally hit a fair ball?", number: 19}
+      = render partial:'modal/rating_question', locals: {question: "consistently hit a fair ball?", number: 20}
+      = render partial:'modal/rating_question', locals: {question: "occasionally hit a fair ball with at least medium velocity?", number: 21}
+      = render partial:'modal/rating_question', locals: {question: "consistently hit a fair ball with at least medium velocity?", number: 22}
+      = render partial:'modal/rating_question', locals: {question: "consistently reach base safely on a batted ball against a limited level of defense or occasionally reach base safely on a batted ball against an intermediate level of defense?", number: 23}
+      = render partial:'modal/rating_question', locals: {question: "consistently reach base safely on a batted ball against an intermediate level of defense oroccasionally reach base safely on a batted ball against an exceptional level of defense?", number: 24}
+      = render partial:'modal/rating_question', locals: {question: "consistently reach base safely on a batted ball with high velocity against an intermediate level of defense or consistently reach base safely on a batted ball against an exceptional level of defense?", number: 25} 
+      = render partial:'modal/rating_question', locals: {question: "consistently reach base safely on a batted ball with high velocity against an exceptional level of defense?", number: 26} 
+      = render partial:'modal/rating_question', locals: {question: "occasionally hit a ball over a 300’ fence?", number: 27} 
 
 .alert.alert-danger.js-hitting-modal-error.js-modal-error{:style=>'display:none'}

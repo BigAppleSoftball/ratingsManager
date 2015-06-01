@@ -8,6 +8,11 @@ class ProfilesController < ApplicationController
   # GET /profiles.json
   def index
     @profiles = Profile.search(params[:search]).order(sort_column + " " + sort_direction).paginate(:per_page => 20,:page => params[:page])
+    profile_ids = @profiles.pluck(:id);
+    @team_managers_list = Roster.where(:is_manager => true).where(:profile_id => profile_ids).pluck(:profile_id)
+    @team_reps_list = Roster.where(:is_rep => true).where(:profile_id => profile_ids).pluck(:profile_id)
+    @division_reps_list = BoardMember.where(:is_division_rep => true).where(:profile_id => profile_ids).pluck(:profile_id)
+    ap @division_reps_list
   end
 
   # GET /profiles/1
@@ -157,6 +162,19 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def welcome_email
+    errors = Hash.new
+    @profile = Profile.find(params[:profile_id])
+    if @profile.last_log_in.blank?
+      @profile.create_reset_digest
+      ProfileMailer.welcome(@profile).deliver
+      flash[:notice] = "A Welcome Email has been sent to #{@profile.name}."
+      redirect_to profiles_path
+    else
+      errors.push("#{@profile.name} has already logged in, no email sent. If the player is having trouble logging in, recommend they reset their password from the login screen")
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_profile
@@ -167,7 +185,7 @@ class ProfilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params.require(:profile).permit(:profile_code, :first_name, :last_name, :email, :display_name, :player_number, :gender, :shirt_size, :address, :state, :zip, :phone, :position, :dob, :team_id, :long_image_url, :password, :password_confirmation, :is_admin, :permissions, :address2, :city, :is_pickup_player)
+      params.require(:profile).permit(:profile_code, :first_name, :last_name, :email, :display_name, :player_number, :gender, :shirt_size, :address, :state, :zip, :phone, :position, :dob, :team_id, :long_image_url, :password, :password_confirmation, :is_admin, :permissions, :address2, :city, :is_pickup_player, :emergency_contact_name, :emergency_contact_relationship, :emergency_contact_phone)
     end
 
     def sort_column

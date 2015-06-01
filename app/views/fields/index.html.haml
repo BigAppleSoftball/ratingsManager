@@ -2,22 +2,12 @@
   %h1 
     Fields for
     = @park.name
+  = link_to 'View Park', @park, :class => 'btn btn-default'
   = render partial: 'shared/actions/view_all_actions', locals: { newPath: new_park_field_path}
 
-%table.table.table-striped.table-bordered.table-condensed
-  %thead
-    %tr
-      %th Name
-      %th Park
-      %th.actions-column
 
-  %tbody
-    - @fields.each do |field|
-      %tr
-        %td= field.name
-        %td
-          - if field.park
-            = link_to field.park.name, field.park
-        %td
-          = link_to "delete", [field.park, field], :method  => :delete
-          = #render partial: 'shared/actions/table_actions', locals: { editPath: edit_park_field_path(field.park, field), [field.park, field], deletePath: field}
+%ul.list-group
+  - @fields.each do |field|
+    %li.list-group-item
+      .pull-left=field.name
+      .pull-right= render partial: 'shared/actions/table_actions', locals: { editPath: edit_park_field_path(field.park, field), deletePath: [field.park, field]}

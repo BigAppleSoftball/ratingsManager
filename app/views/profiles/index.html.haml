@@ -6,7 +6,7 @@
   = will_paginate @profiles
   = form_tag profiles_path, :method => 'get', :id => "profiles_search", :class => 'form-inline' do
     .form-group
-      = text_field_tag :search, params[:search], {class: 'form-control', placeholder: 'Search by Name'}
+      = text_field_tag :search, params[:search], {class: 'form-control search-input', placeholder: 'Search by Name, or Email'}
       = submit_tag "Search", :name => nil, :class => 'btn btn-primary'
   = hidden_field_tag :direction, params[:direction]
   = hidden_field_tag :sort, params[:sort]
@@ -14,6 +14,7 @@
   %tr
     %th= sortable 'id', 'Id', false, true
     %th= sortable 'last_name', 'Name', true
+    %th= sortable 'email', 'Email', true
     %th.actions-column
     -if is_admin?
       %th Site Admin Actions
@@ -21,18 +22,22 @@
     %tr
       %td= profile.id
       %td
-        = link_to profile.name, profile
-        - if !profile.league_admin_positions.empty?
+        %strong= link_to profile.name, profile
+        - if profile.is_admin
           = render partial: 'shared/icons/league_admin'
-        - if !profile.teams_managed.empty?
+        - if @team_managers_list.include?(profile.id)
           = render partial: 'shared/icons/manager'
-        - if !profile.teams_repped.empty?
+        - if @team_reps_list.include?(profile.id)
           = render partial: 'shared/icons/rep'
-        - if !profile.divisions_repped.empty?
+        - if @division_reps_list.include?(profile.id)
           = render partial: 'shared/icons/division_rep'
+        .small-text= profile.last_log_in ? profile.last_log_in.in_time_zone('Eastern Time (US & Canada)').strftime("%Y-%d-%m %H:%M:%S %Z") : 'Never Logged In'
+      %td=profile.email
       %td
         = render partial: "shared/actions/table_actions", locals: { editPath: edit_profile_path(profile), deletePath: profile}
       -if is_admin?
         %td
           =link_to raw("<i class='fa fa-user-secret'></i> Impersonate"), impersonate_engine.impersonate_user_path(profile), {:class => 'btn btn-default'}
+          -if profile.last_log_in.blank?
+            = link_to raw("<i class='fa fa-paper-plane-o'></i> Send Welcome Email"),profile_welcome_email_path(profile), {:class => 'btn btn-default'}
           

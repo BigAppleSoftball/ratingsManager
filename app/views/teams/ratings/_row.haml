@@ -5,7 +5,7 @@
       %strong= link_to profile.name, profile
     - if player_rating
       %td.center-column
-        .btn.btn-default.edit-btn.js-total-btn=raw("<span class='js-value'>#{player_rating.total}</span>")
+        .edit-btn.js-total-btn=raw("<span class='js-value'>#{player_rating.total}</span>")
       %td.center-column
         .btn.btn-primary.edit-btn.js-throwing-btn=raw("<span class='js-value'>#{player_rating.throwing_total}</span> <i class='fa fa-pencil fa-lg'></i>")
       %td.center-column

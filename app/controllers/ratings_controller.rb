@@ -69,9 +69,7 @@ class RatingsController < ApplicationController
   # GET /ratings
   # GET /ratings.json
   def index
-    #@profile_ratings = Profile.all
     @active_season = Season.includes(:divisions => {:teams => {:rosters => {:profile => :rating}}}).where(:is_active => true).last
-
     
     respond_to do |format|
       format.html

@@ -131,14 +131,33 @@ module ApplicationHelper
   # and the division that rating belongs to
   #
   def get_rating_badge_class(rating)
-    if (rating < 11) 
-      'badge-d'
-    elsif (rating < 14)
-      'badge-c'
-    elsif (rating < 20)
-      'badge-b'
-    elsif (rating > 19)
-      'badge-a'
+    if (rating > 0)
+      if (rating < 11) 
+        'badge-d'
+      elsif (rating < 14)
+        'badge-c'
+      elsif (rating < 20)
+        'badge-b'
+      elsif (rating > 19)
+        'badge-a'
+      end
+    end
+  end
+
+  def get_player_rating_class(profile)
+    if (profile && profile.rating)
+      rating = profile.rating.total
+      if (rating > 0)
+        if (rating < 11) 
+          'd-rating'
+        elsif (rating < 14)
+          'c-rating'
+        elsif (rating < 20)
+          'b-rating'
+        elsif (rating > 19)
+          'a-rating'
+        end
+      end
     end
   end
 end

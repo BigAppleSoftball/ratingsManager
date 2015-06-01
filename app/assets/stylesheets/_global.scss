@@ -5,6 +5,11 @@
         'global/table',
         'global/stop-light';
 
+@import url(https://fonts.googleapis.com/css?family=Oxygen:400,700);
+
+body {
+  font-family: 'Oxygen', 'Helvetica Neue', 'Arial', 'sans-serif' !important;
+}
 
 .global-notice {
   width: 100%;
@@ -196,6 +201,16 @@ a:hover {
 
 .small-text {
   font-size: 11px;
+  color: $grey;
+}
+
+.list-group-item {
+  @include clearfix;
+}
+
+.external-link {
+  @extend .fa;
+  @extend .fa-external-link;
 }
 
 

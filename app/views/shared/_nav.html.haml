@@ -1,10 +1,14 @@
 .navbar.navbar-default
   .container-fluid
     .navbar-header
-      .navbar-brand
-        %a{:href => "/", :title => "Ratings Manager"}
-          %i.brand-logo-40
-    .collapse.navbar-collapse
+      %button.navbar-toggle.collapsed{"aria-controls" => "navbar", "aria-expanded" => "false", "data-target" => "#navbar", "data-toggle" => "collapse", :type => "button"}
+        %span.sr-only Toggle navigation
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      %a{:href => "/", :title => "Ratings Manager", :class => 'navbar-brand'}
+        %i.brand-logo-40
+    #navbar.collapse.navbar-collapse
       %ul.nav.navbar-nav
         -#%li.dropdown
           %a.dropdown-toggle{"aria-expanded" => "false", "data-toggle" => "dropdown", :href => "#", :role => "button"}
@@ -17,15 +21,17 @@
               =link_to 'Board Members', '/showallboard'
             %li
               =link_to 'Committees', '/showallcommittee'
+        %li=link_to 'Home', root_path
         %li.dropdown{:style => "position:relative"}
-          %a.btn.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
+          %a.dropdown-toggle{"data-toggle" => "dropdown", :href => "#"}
             Seasons
             %span.caret
           =render :partial => 'shared/nav/seasons'
         %li=link_to 'Parks', parks_path
-        %li=link_to 'Calendar', '/loadcalendar'
-        %li=link_to 'Offers', '/alloffers'
-        %li=link_to 'Pickup Players', '/pickup'
+        %li=#link_to 'Calendar', '/loadcalendar'
+        %li=#link_to 'Offers', '/alloffers'
+        %li=link_to 'Pickup', '/pickup'
+        %li=link_to 'Feedback', feedback_path
       %ul.nav.navbar-nav.navbar-right
         - if is_admin_user?
           %li

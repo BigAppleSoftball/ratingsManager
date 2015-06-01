@@ -18,51 +18,51 @@
   .form-group
     = f.label :name, {:class => 'col-sm-2 control-label'}
     .col-sm-10
-      = f.text_field :name, {:class => 'form-control'}
+      = f.text_field :name, {:class => 'form-control', :placeholder => 'Name of the park'}
   .form-group
     = f.label :address, {:class => 'col-sm-2 control-label'}
     .col-sm-10
-      = f.text_field :address, {:class => 'form-control'}
+      = f.text_field :address, {:class => 'form-control', :placeholder => 'Mailing Address of the park. i.e. 95 Prospect Park West'}
   .form-group
     = f.label :city, {:class => 'col-sm-2 control-label'}
     .col-sm-10
-      = f.text_field :city, {:class => 'form-control'}
+      = f.text_field :city, {:class => 'form-control', :placeholder => 'City park is located in'}
   .form-group
     = f.label :state, {:class => 'col-sm-2 control-label'}
     .col-sm-10
-      = f.text_field :state, {:class => 'form-control'}
+      = f.text_field :state, {:class => 'form-control', :placeholder => 'State park is located in. i.e. NY'}
   .form-group
     = f.label :zip, {:class => 'col-sm-2 control-label'}
     .col-sm-10
-      = f.text_field :zip, {:class => 'form-control'}
+      = f.text_field :zip, {:class => 'form-control', :placeholder => 'Zipcode park is located in'}
   .form-group
     = f.label :by_car, {:class => 'col-sm-2 control-label'}
     .col-sm-10
-      = f.text_area :by_car, {:class => 'form-control'}
+      = f.text_area :by_car, {:class => 'form-control', :placeholder => 'Is the field accessible by car? Directions go here.'}
   .form-group
-    = f.label :by_bus, {:class => 'col-sm-2 control-label'}
+    = f.label :by_bus, 'By Transit', {:class => 'col-sm-2 control-label'}
     .col-sm-10
-      = f.text_area :by_bus, {:class => 'form-control'}
+      = f.text_area :by_bus, {:class => 'form-control', :placeholder => 'Is the field accessible by public transportation? Directions go here.'}
   .form-group
-    = f.label :parking, {:class => 'col-sm-2 control-label'}
+    = f.label :parking, 'Parking Instructions', {:class => 'col-sm-2 control-label'}
     .col-sm-10
-      = f.text_area :parking, {:class => 'form-control'}
+      = f.text_area :parking, {:class => 'form-control', :placeholder => "Specific parking instructions and/or tips go here."}
   .form-group
     = f.label :url, {:class => 'col-sm-2 control-label'}
     .col-sm-10
-      = f.text_field :url, {:class => 'form-control'}
+      = f.text_field :url, {:class => 'form-control', :placeholder => 'Website for the park.'}
   .form-group
     = f.label :lat, {:class => 'col-sm-2 control-label'}
     .col-sm-10
-      = f.text_field :lat, {:class => 'form-control'}
+      = f.text_field :lat, {:class => 'form-control', :placeholder => 'Lat location of the park'}
   .form-group
     = f.label :long, {:class => 'col-sm-2 control-label'}
     .col-sm-10
-      = f.text_field :long, {:class => 'form-control'}
+      = f.text_field :long, {:class => 'form-control', :placeholder => 'Long location of the park'}
   .form-group
     = f.label :google_map_url, {:class => 'col-sm-2 control-label'}
     .col-sm-10
-      = f.text_field :google_map_url, {:class => 'form-control'}
+      = f.text_field :google_map_url, {:class => 'form-control', :placeholder => 'URL for a google map location of the map'}
   .form-group
     .col-sm-offset-2.col-sm-10
       .checkbox

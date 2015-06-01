@@ -1,11 +1,11 @@
 class ParksController < ApplicationController
   before_action :set_park, only: [:show, :edit, :update, :destroy]
-  before_filter :only_for_admin, only: [:edit, :update, :destroy, :new]
+  before_filter :only_for_admin, only: [:edit, :update, :destroy, :new, :create, :set_all]
 
   # GET /fields
   # GET /fields.json
   def index
-    @parks = Park.eager_load(:fields).all
+    @parks = Park.eager_load(:fields).all.order('parks.name')
     parksClosedCount = @parks.where(:status => 2).length
     parksOpenCount = @parks.where(:status => 0).length
 

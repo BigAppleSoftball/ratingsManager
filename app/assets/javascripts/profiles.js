@@ -3,6 +3,12 @@
   var Profile = function(){
     if ($('#controller-profiles').length > 0) {
       this.init();
+
+      if ($('.action-pickup_players').length > 0) {
+        var pickupPlayers = new PickupProfile();
+      } else if ($('.action-merge').length > 0) {
+        var mergeProfile = new MergeProfile();
+      }
     }
   };
 
@@ -14,10 +20,11 @@
   };
 
 
+  /**
+   * @constructor for Merge Profile Screen
+   */
   var MergeProfile = function() {
-    if ($('#controller-profiles.action-merge').length > 0) {
-      this.init();
-    }
+    this.init();
   };
 
   MergeProfile.prototype.init = function() {
@@ -118,6 +125,36 @@
     $.toaster({ priority : 'danger', title : 'Error!', message : msg});
   };
 
+
+  /**
+   * @constructor for pickup profile screen
+   */
+  var PickupProfile = function() {
+    this.$grid = $('.js-pickup-players-list');
+    this.init();
+  };
+
+  PickupProfile.prototype.init = function() {
+    var self = this;
+
+    // initialize the grid layout
+    this.$grid.isotope({
+      itemSelector: '.js-pickup-players-list-item',
+      masonry: {
+        "gutter": 10
+      }
+    });
+
+    // bind filter button click
+    $('.js-ratings-filters').on( 'click', '.js-filter-btn', function() {
+      var $this = $(this),
+          filterValue = $this.attr('data-filter');
+
+      $('.js-filter-btn').removeClass('btn-selected');
+      $this.addClass('btn-selected');
+      self.$grid.isotope({ filter: filterValue });
+    });
+  };
+
   var profile = new Profile();
-  var mergeProfile = new MergeProfile();
 }());

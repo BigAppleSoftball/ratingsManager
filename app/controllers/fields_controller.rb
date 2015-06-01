@@ -1,6 +1,6 @@
 class FieldsController < ApplicationController
   before_action :set_field, only: [:show, :edit, :update, :destroy]
-  before_filter :only_for_admin, only: [:edit, :update, :destroy]
+  before_filter :only_for_admin, only: [:edit, :update, :destroy, :new, :create]
   # GET /fields
   # GET /fields.json
   def index
