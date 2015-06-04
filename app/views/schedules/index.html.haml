@@ -3,10 +3,23 @@
     Generating Schedule for
     =@division.description
 
-You are going to generate a schedule for 
-=@division.teams.size
-teams.
-%ul.list-group
-  -@division.teams.each do |team|
-    %li.list-group-item=team.name
+.well
+  You are going to generate a schedule for 
+  =@division.teams.size
+  teams with 10 weeks worth of games
+
+
+-@generated_weeks.each do |week|
+  .panel
+    .panel-heading
+      Week 
+      =week[:count]
+    .panel-body
+      %ul.list-group
+        - week[:games].each do |game|
+          %li.list-group-item
+            =link_to game[:visitor][0], team_path(game[:visitor][1])
+            @
+            =link_to game[:home][0], team_path(game[:home][1])
+      
 
