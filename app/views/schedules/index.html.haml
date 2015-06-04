@@ -1,0 +1,12 @@
+- content_for :panel_head do
+  %h1 
+    Generating Schedule for
+    =@division.description
+
+You are going to generate a schedule for 
+=@division.teams.size
+teams.
+%ul.list-group
+  -@division.teams.each do |team|
+    %li.list-group-item=team.name
+

@@ -128,4 +128,7 @@ Rails.application.routes.draw do
   get "/500", :to => "errors#error_500"
   get '/403', to: 'errors#error_403'
 
+  # schedule
+  get '/schedule', :to => 'schedules#index'
+
 end
