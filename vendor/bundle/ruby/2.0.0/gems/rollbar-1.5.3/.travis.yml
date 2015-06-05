@@ -1,0 +1,92 @@
+sudo: false
+language: ruby
+# Broken bundler on travis CI - https://github.com/bundler/bundler/issues/2784
+before_install:
+  - gem update --system 2.1.11
+  - gem --version
+rvm:
+  - 1.8.7
+  - 1.9.2
+  - 1.9.3
+  - 2.0.0
+  - 2.1.0
+  - ruby-head
+  - jruby-18mode
+  - jruby-19mode
+  - jruby-head
+  - rbx
+env:
+  - SKIP_DUMMY_ROLLBAR=true
+  - SKIP_DUMMY_ROLLBAR=false
+matrix:
+  allow_failures:
+    - rvm: ruby-head
+    - rvm: jruby-18mode
+    - rvm: jruby-19mode
+    - rvm: jruby-head
+    - rvm: rbx
+  exclude:
+    - rvm: 1.8.7
+      gemfile: gemfiles/rails40.gemfile
+    - rvm: 1.8.7
+      gemfile: gemfiles/rails41.gemfile
+    - rvm: 1.8.7
+      gemfile: gemfiles/rails32.gemfile
+    - rvm: 1.8.7
+      gemfile: gemfiles/rails31.gemfile
+    - rvm: 1.9.2
+      gemfile: gemfiles/rails40.gemfile
+    - rvm: 1.9.2
+      gemfile: gemfiles/rails41.gemfile
+    - rvm: 1.9.2
+      gemfile: gemfiles/rails32.gemfile
+    - rvm: 1.9.2
+      gemfile: gemfiles/rails31.gemfile
+    - rvm: 1.9.3
+      gemfile: gemfiles/rails41.gemfile
+    - rvm: ruby-head
+      gemfile: gemfiles/rails30.gemfile
+    - rvm: ruby-head
+      gemfile: gemfiles/rails31.gemfile
+    - rvm: ruby-head
+      gemfile: gemfiles/rails40.gemfile
+    - rvm: ruby-head
+      gemfile: gemfiles/rails41.gemfile
+    - rvm: jruby-18mode
+      gemfile: gemfiles/rails30.gemfile
+    - rvm: jruby-18mode
+      gemfile: gemfiles/rails31.gemfile
+    - rvm: jruby-18mode
+      gemfile: gemfiles/rails40.gemfile
+    - rvm: jruby-18mode
+      gemfile: gemfiles/rails41.gemfile
+    - rvm: jruby-19mode
+      gemfile: gemfiles/rails30.gemfile
+    - rvm: jruby-19mode
+      gemfile: gemfiles/rails31.gemfile
+    - rvm: jruby-19mode
+      gemfile: gemfiles/rails40.gemfile
+    - rvm: jruby-19mode
+      gemfile: gemfiles/rails41.gemfile
+    - rvm: jruby-head
+      gemfile: gemfiles/rails30.gemfile
+    - rvm: jruby-head
+      gemfile: gemfiles/rails31.gemfile
+    - rvm: jruby-head
+      gemfile: gemfiles/rails40.gemfile
+    - rvm: jruby-head
+      gemfile: gemfiles/rails41.gemfile
+    - rvm: rbx
+      gemfile: gemfiles/rails30.gemfile
+    - rvm: rbx
+      gemfile: gemfiles/rails31.gemfile
+    - rvm: rbx
+      gemfile: gemfiles/rails40.gemfile
+    - rvm: rbx
+      gemfile: gemfiles/rails41.gemfile
+gemfile:
+  - gemfiles/rails30.gemfile
+  - gemfiles/rails31.gemfile
+  - gemfiles/rails32.gemfile
+  - gemfiles/rails40.gemfile
+  - gemfiles/rails41.gemfile

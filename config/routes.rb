@@ -23,14 +23,14 @@ Rails.application.routes.draw do
   resources :seasons
   resources :sessions, only: [:new, :create, :destroy]
   resources :sponsors
-  
+
   resources :parks do
     resources :fields
   end
 
   resources :password_resets, only: [:new, :create, :edit, :update]
   post "/password_resets/new", to: 'password_resets#create'
-  
+
   # games
   get '/games/:id/:teamid', to: 'games#game_attendance'
   post '/set_attendance', to: 'game_attendances#set_attendance'
@@ -130,5 +130,6 @@ Rails.application.routes.draw do
 
   # schedule
   get '/schedule', :to => 'schedules#index'
+  get '/schedule/:divisionId', :to => 'schedules#generate'
 
 end
