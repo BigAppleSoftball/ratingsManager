@@ -56,6 +56,10 @@ class Profile < ActiveRecord::Base
     ProfileMailer.reset(self).deliver
   end
 
+  def get_rating
+    Rating.where(:profile_id => self.id).order('ratings.updated_at DESC').first
+  end
+
   #
   # Display name of the user
   def name

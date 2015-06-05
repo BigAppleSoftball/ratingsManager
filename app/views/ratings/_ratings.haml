@@ -63,35 +63,37 @@
           %td=division.description
           %td=team.name
           %td
-          -if player.profile.rating
-            %td.center-column=player.profile.rating.total
-            %td.throwing=player.profile.rating.rating_1
-            %td.throwing=player.profile.rating.rating_2
-            %td.throwing=player.profile.rating.rating_3
-            %td.throwing=player.profile.rating.rating_4
-            %td.throwing=player.profile.rating.rating_5
-            %td.fielding=player.profile.rating.rating_6
-            %td.fielding=player.profile.rating.rating_7
-            %td.fielding=player.profile.rating.rating_8
-            %td.fielding=player.profile.rating.rating_9
-            %td.fielding=player.profile.rating.rating_10
-            %td.fielding=player.profile.rating.rating_11
-            %td.fielding=player.profile.rating.rating_12
-            %td.fielding=player.profile.rating.rating_13
-            %td.fielding=player.profile.rating.rating_14
-            %td.baserunning=player.profile.rating.rating_15
-            %td.baserunning=player.profile.rating.rating_16
-            %td.baserunning=player.profile.rating.rating_17
-            %td.baserunning=player.profile.rating.rating_18
-            %td.hitting=player.profile.rating.rating_19
-            %td.hitting=player.profile.rating.rating_20
-            %td.hitting=player.profile.rating.rating_21
-            %td.hitting=player.profile.rating.rating_22
-            %td.hitting=player.profile.rating.rating_23
-            %td.hitting=player.profile.rating.rating_24
-            %td.hitting=player.profile.rating.rating_25
-            %td.hitting=player.profile.rating.rating_26
-            %td.hitting=player.profile.rating.rating_27
+
+          - rating = player.profile.get_rating
+          -if rating
+            %td.center-column=rating.total
+            %td.throwing=rating.rating_1
+            %td.throwing=rating.rating_2
+            %td.throwing=rating.rating_3
+            %td.throwing=rating.rating_4
+            %td.throwing=rating.rating_5
+            %td.fielding=rating.rating_6
+            %td.fielding=rating.rating_7
+            %td.fielding=rating.rating_8
+            %td.fielding=rating.rating_9
+            %td.fielding=rating.rating_10
+            %td.fielding=rating.rating_11
+            %td.fielding=rating.rating_12
+            %td.fielding=rating.rating_13
+            %td.fielding=rating.rating_14
+            %td.baserunning=rating.rating_15
+            %td.baserunning=rating.rating_16
+            %td.baserunning=rating.rating_17
+            %td.baserunning=rating.rating_18
+            %td.hitting=rating.rating_19
+            %td.hitting=rating.rating_20
+            %td.hitting=rating.rating_21
+            %td.hitting=rating.rating_22
+            %td.hitting=rating.rating_23
+            %td.hitting=rating.rating_24
+            %td.hitting=rating.rating_25
+            %td.hitting=rating.rating_26
+            %td.hitting=rating.rating_27
           - else
             %td{:colspan => 28} No Player Rating
 

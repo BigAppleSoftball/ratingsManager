@@ -23,14 +23,14 @@ Rails.application.routes.draw do
   resources :seasons
   resources :sessions, only: [:new, :create, :destroy]
   resources :sponsors
-  
+
   resources :parks do
     resources :fields
   end
 
   resources :password_resets, only: [:new, :create, :edit, :update]
   post "/password_resets/new", to: 'password_resets#create'
-  
+
   # games
   get '/games/:id/:teamid', to: 'games#game_attendance'
   post '/set_attendance', to: 'game_attendances#set_attendance'
@@ -127,5 +127,9 @@ Rails.application.routes.draw do
   get "/422", :to => "errors#error_404"
   get "/500", :to => "errors#error_500"
   get '/403', to: 'errors#error_403'
+
+  # schedule
+  match '/schedule',  to: 'schedules#index', via: 'get'
+  get '/schedule/:divisionId', :to => 'schedules#generate'
 
 end

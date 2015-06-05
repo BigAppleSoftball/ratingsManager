@@ -17,13 +17,13 @@ module PaymentsTrackerHelper
       :is_success => true
     )
     sync.save
-    
+
     response_data[:sync] = sync
     #response_data[:sync_created_string] = sync.created_at.strftime('%B %e at %l:%M %p')
     response_data[:players_updated_count] = players_by_payments[:new_paid].length
     #response_data[:scan_row_html] = render_to_string(:template => "payments_tracker/_payments_row.haml", :locals => {:scan => sync})
     response_data[:new_paid_players] = players_by_payments[:new_paid]
-    
+
     # send the email if there are new payments
     if response_data[:new_paid_players].length > 0
       puts 'Sending New Payment Emails'
@@ -66,7 +66,7 @@ module PaymentsTrackerHelper
   end
 
   #
-  # Sort players by paid, unpaid and new payments 
+  # Sort players by paid, unpaid and new payments
   #
   def sort_players(players)
     players_by_payments = Hash.new
@@ -133,19 +133,20 @@ module PaymentsTrackerHelper
   #
   def set_paid_teamsnap_player(agent, player_url)
     player_paid_text = "Paid"
+    if player_url.present?
+      player_page = agent.get(player_url)
 
-    player_page = agent.get(player_url)
+      player_form = player_page.forms.first
+      jersey_form_field = player_form.field_with(:name => "roster[number]")
+      current_jersey_value = jersey_form_field.value
 
-    player_form = player_page.forms.first
-    jersey_form_field = player_form.field_with(:name => "roster[number]")
-    current_jersey_value = jersey_form_field.value
+      if !current_jersey_value.include?(player_paid_text)
+        jersey_form_field.value = "#{current_jersey_value} #{player_paid_text}"
+      end
 
-    if !current_jersey_value.include?(player_paid_text)
-      jersey_form_field.value = "#{current_jersey_value} #{player_paid_text}"
+      player_form.checkbox_with(:name => "custom[143981]").check # set the Player as register
+      player_form.submit
     end
-
-    player_form.checkbox_with(:name => "custom[143981]").check # set the Player as register
-    player_form.submit
   end
 
   #
@@ -160,7 +161,7 @@ module PaymentsTrackerHelper
     division_rep = BoardMember.where(:teamsnap_id => division_id).first
     repEmail = division_rep[:email]
     ccEmail = 'webteam@bigapplesoftball.com'
-    
+
     send_division_roster_email(division_id, division_name, repEmail, ccEmail,token)
   end
 
@@ -183,7 +184,7 @@ module PaymentsTrackerHelper
     PaymentMailer.payments_roster(div_data, division_name, toEmail, ccEmail).deliver
     #render 'email_confirmation'
   end
-  
+
   #
   # Runs a payment Scan
   # if its Wednesday, or Saturday, send an email
@@ -194,10 +195,10 @@ module PaymentsTrackerHelper
     puts "Payments Synced."
 
     # if today is Wednesday or Friday send out the email with the division rosters
-  
+
     today = Time.now.utc.wday
 
-    # sunday    = 0 
+    # sunday    = 0
     # monday    = 1
     # tuesday   = 2
     # wednesday = 3
@@ -205,8 +206,8 @@ module PaymentsTrackerHelper
     # Friday    = 5
     # Saturday  = 6
     # Sunday    = 7
-    # 
-    # 
+    #
+    #
     puts "TODAY IS #{today}"
     # Only send out the emails for payments on Wednesday and Friday
     if today == 3 || today == 6 || manual
