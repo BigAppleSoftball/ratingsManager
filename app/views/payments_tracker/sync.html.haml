@@ -13,7 +13,10 @@
         %ul.list-group
           - @response_data[:new_paid_players].each do |player|
             %li.list-group-item
-              =link_to "#{player["name"]} (Click to Go to Teamsnap Profile)", player["player_url"], {:target => "_blank"}
+              - if player.present? && player["player_url"].present?
+                =link_to "#{player["name"]} (Click to Go to Teamsnap Profile)", player["player_url"], {:target => "_blank"}
+              - else
+                %span=player["name"]
       -else
         %h5 No New Paid Players Found
     = javascript_include_tag 'application', 'data-turbolinks-track' => true

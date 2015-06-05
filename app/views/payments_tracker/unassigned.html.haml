@@ -1,14 +1,17 @@
 - content_for :panel_head do
   %h1 Unassigned Paid Players
 
-.well 
+.well
   %p The below is a list of players that have paid their league fees but have yet to be assigned a team
-  %p 
-    If you click on the below links you will be taken immediately to the player page (as long as you have already logged into teamsnap and gone to the 
+  %p
+    If you click on the below links you will be taken immediately to the player page (as long as you have already logged into teamsnap and gone to the
     = link_to "Big Apple Softball League Page", 'https://go.teamsnap.com/16139/division_teams', {:target => '_blank'}
 
 
 %ul.list-group
   - @unassigned_player.each do |player|
     %li.list-group-item
-      =link_to player['name'], "https://go.teamsnap.com/#{player['division_id']}/league_roster/edit/#{player['teamsnap_id']}", {:target => '_blank'}
+      - if player['division_id'].present?
+        =link_to player['name'], "https://go.teamsnap.com/#{player['division_id']}/league_roster/edit/#{player['teamsnap_id']}", {:target => '_blank'}
+      - else
+        %span player['name']
