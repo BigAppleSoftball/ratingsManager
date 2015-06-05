@@ -129,7 +129,7 @@ Rails.application.routes.draw do
   get '/403', to: 'errors#error_403'
 
   # schedule
-  get '/schedule', :to => 'schedules#index'
+  match '/schedule',  to: 'schedules#index', via: 'get'
   get '/schedule/:divisionId', :to => 'schedules#generate'
 
 end
