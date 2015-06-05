@@ -8,7 +8,7 @@
     = favicon_link_tag 'favicon.ico'
   %body{:id => "controller-#{params[:controller]}"}
     .container
-      -if @response_data[:new_paid_players].length > 0
+      -if @response_data.present? && @response_data[:new_paid_players].length > 0
         %h5 New Payments Found
         %ul.list-group
           - @response_data[:new_paid_players].each do |player|
