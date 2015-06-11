@@ -87,7 +87,7 @@ module TeamsnapHelper
         isCoed = true
       elsif division_name.include?('Women')
         isWomens = true
-      end 
+      end
 
       # all of the divisions inside the sub division (women's coed)
       division['divisions'].each do |subdivision|
@@ -102,7 +102,7 @@ module TeamsnapHelper
         divisionObj[:teams] = Array.new
         # get division teams
         division_teams = teams[subdivision['id'].to_i]
-        division_teams.each do |division_team|          
+        division_teams.each do |division_team|
           divisionTeam = Hash.new
           divisionTeam[:name] = division_team['team_name']
           divisionTeam[:teamsnap_id] = division_team['id'].to_i
@@ -176,20 +176,20 @@ module TeamsnapHelper
               team_player[:profile][:state] = player['address']['state']
               team_player[:profile][:zip] = player['address']['zip']
             end
-            
+
             if player['roster_telephone_numbers'].first
               team_player[:profile][:phone_number] = player['roster_telephone_numbers'].first['phone_number']
-            end 
+            end
             playerNumber = player['number']
-            # we've been adding "paid" to players on teamsnap, 
+            # we've been adding "paid" to players on teamsnap,
             # we want to remove that now
             if playerNumber
               playerNumber.slice! 'Paid'
               playerNumber.slice! '-'
-              playerNumber.strip 
+              playerNumber.strip
               if !playerNumber.empty?
                 team_player[:roster][:jersey_number] = playerNumber.strip
-              end 
+              end
             end
             playerRatingInfo = playerRating[team_player[:roster][:teamsnap_id].to_s]
             if playerRatingInfo
@@ -226,7 +226,7 @@ module TeamsnapHelper
     rating[:rating_3] =playerRatingThrowing[teamsnapRatingIds['throwing'][3]]
     rating[:rating_4] = playerRatingThrowing[teamsnapRatingIds['throwing'][4]]
     rating[:rating_5] = playerRatingThrowing[teamsnapRatingIds['throwing'][5]]
-    # field 6 - 14 
+    # field 6 - 14
     rating[:rating_6] = playerRatingFielding[teamsnapRatingIds['fielding'][6]]
     rating[:rating_7] = playerRatingFielding[teamsnapRatingIds['fielding'][7]]
     rating[:rating_8] = playerRatingFielding[teamsnapRatingIds['fielding'][8]]
@@ -256,7 +256,7 @@ module TeamsnapHelper
   end
 
   #
-  # Run a sync through teamsnap data 
+  # Run a sync through teamsnap data
   # and save the new data to the database
   #
   def run_import(season_id)
@@ -323,7 +323,7 @@ module TeamsnapHelper
     end
     import_division.save
     import_division
-  end 
+  end
 
   #
   # Check to see if the team exists, if not create it
@@ -335,7 +335,7 @@ module TeamsnapHelper
     if import_team.nil?
       import_team = Team.new
     end
-    
+
     import_team.name = team[:name]
     import_team.teamsnap_id = team[:teamsnap_id]
     import_team.division_id = division_id
@@ -440,7 +440,7 @@ module TeamsnapHelper
       ap import_rating.errors
       return
     end
-    
+
     import_rating.save
     import_rating
   end
@@ -469,7 +469,7 @@ module TeamsnapHelper
     end
 
 
-    # try to find a profile with at least one of the email addresses     
+    # try to find a profile with at least one of the email addresses
     import_profile.first_name = profile[:first_name]
     import_profile.last_name = profile[:last_name]
     if import_profile.first_name.blank?
@@ -484,7 +484,7 @@ module TeamsnapHelper
     import_profile.is_pickup_player = profile[:is_pickup_player]
     import_profile.emergency_contact_name = profile[:emergency_contact_name]
     import_profile.emergency_contact_relationship = profile[:emergency_contact_relationship]
-    import_profile.emergency_contact_phone = profile[:emergency_contact_phone]       
+    import_profile.emergency_contact_phone = profile[:emergency_contact_phone]
     import_profile.dob = profile[:dob]
     import_profile.address = profile[:address]
     import_profile.address2 = profile[:address2]
@@ -675,11 +675,11 @@ module TeamsnapHelper
       league['divisions'].each do |division|
         # only crawl the information for the division we are looking for
         if (division['id'] == division_id)
-          
+
           teamsData = division_data[:all_teams][division_id]
           teamsData.each do |team|
             division_team = Hash.new
-            
+
             # get the team data for the team
             if team
               division_team[:team] = team
@@ -826,7 +826,9 @@ module TeamsnapHelper
       player['team'] = team_column.css('a').text.strip
       player['team_division'] = team_column.text.strip[/\(.*?\)/].tr(')(','').strip
       player['division_id'] = ids_by_div_name[player['team_division']]
-      player['player_url'] = "https://go.teamsnap.com/#{player['division_id']}/league_roster/edit/#{player['teamsnap_id']}"
+      if player['division_id'].present?
+        player['player_url'] = "https://go.teamsnap.com/#{player['division_id']}/league_roster/edit/#{player['teamsnap_id']}"
+      end
       players.push(player)
     end
     players

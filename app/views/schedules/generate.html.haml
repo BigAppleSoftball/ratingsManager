@@ -1,0 +1,40 @@
+- content_for :panel_head do
+  %h1
+    Generating Schedule for
+    =@division.description
+
+.well
+  You are going to generate a schedule for
+  =@division.teams.size
+  teams with 10 weeks worth of games
+  .well
+    %span.small-text *
+    indicates a split game
+
+
+-@generated_weeks.each do |week|
+  .panel.panel-default
+    .panel-heading
+      Week
+      =week[:count]
+    .panel-body
+      %ul.list-group
+        - week[:games].each do |game|
+          %li.list-group-item
+            - # if the team has a bye week the id is empty
+            - if game[:home].blank? || game[:visitor].blank?
+              - if game[:home]
+                = game[:home][:name]
+              - else
+                = game[:visitor][:name]
+              BYE
+            - else
+              =link_to game[:visitor][:name], team_path(game[:visitor][:id])
+              @
+              =link_to game[:home][:name], team_path(game[:home][:id])
+            - if game[:type] == 'split'
+              %span.small-text *
+
+
+
+

@@ -32,6 +32,7 @@
         %li=#link_to 'Offers', '/alloffers'
         %li=link_to 'Pickup', '/pickup'
         %li=link_to 'Feedback', feedback_path
+        %li=link_to 'Scheduler', schedule_path
       %ul.nav.navbar-nav.navbar-right
         - if is_admin_user?
           %li

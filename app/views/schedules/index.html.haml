@@ -1,0 +1,10 @@
+- content_for :panel_head do
+  %h1
+    Select a Division to generate a Schedule
+    = @season.first.description
+
+.alert.alert-danger Under Construction...
+%ul.list-group
+  - @season.first.divisions.each do |division|
+    %li.list-group-item
+      =link_to division.description, "/schedule/#{division.id}"
