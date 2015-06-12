@@ -13,7 +13,8 @@
   PaymentsTracker.prototype.bindEvents = function() {
     var self = this;
 
-    $('.js-run-sync').click(function(){
+    $('.js-run-sync').click(function(e){
+      e.preventDefault();
       self.runPaymentsSync();
     });
   };
@@ -30,18 +31,19 @@
 
     var onError = function(data) {
       $('.js-loading-sync').hide();
-      console.log('sync failed'. data);
     };
+
+    var onAlways = function() {
+      $('.js-loading-sync').hide();
+    }
 
     var request = $.ajax({
       url: "/payments/sync",
       type: "GET",
-      dataType: 'json'
+      dataType: 'json',
+      success: onSuccess,
+      error: onError
     });
-     
-    request.done(onSuccess);
-     
-    request.fail(onError);
   };
 
 

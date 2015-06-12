@@ -74,22 +74,33 @@ module PaymentsTrackerHelper
     players_by_payments[:unpaid] = Array.new
     players_by_payments[:new_paid] = Array.new
     players_update_count = 0
+    all_payments_ids = TeamsnapPayment.all.pluck(:teamsnap_player_id)
     # get all paid players
     players.each do |player|
+      ap player
       if player['has_paid?']
         players_by_payments[:paid].push(player)
-
-        teamsnap_payment = TeamsnapPayment.new(
-            :teamsnap_player_id => player['teamsnap_id'],
-            :teamsnap_player_name => player['name'],
-            :teamsnap_player_email => player['email']
-          )
-        # make sure we can save the payment
-        if teamsnap_payment.valid?
-          teamsnap_payment.save
-          players_update_count += 1
-          players_by_payments[:new_paid].push(player)
+        # if the player has already paid do nothing
+        # we only want to save and update players registered in a division
+        if (!all_payments_ids.include?(player['teamsnap_id']))
+          if (player['division_id'].present?)
+            teamsnap_payment = TeamsnapPayment.new(
+              :teamsnap_player_id => player['teamsnap_id'],
+              :teamsnap_player_name => player['name'],
+              :teamsnap_player_email => player['email']
+            )
+            # make sure we can save the payment
+            if teamsnap_payment.valid?
+              teamsnap_payment.save
+              players_update_count += 1
+              players_by_payments[:new_paid].push(player)
+            end
+          else
+            # this is a tournament player, do nothing
+          end
+          
         end
+        
         # for each paid player check and add them to the teamsnap_payments page
       else
         players_by_payments[:unpaid].push(player)
@@ -179,7 +190,7 @@ module PaymentsTrackerHelper
     toEmail = toEmail
     ccEmail = ccEmail
     div_data = get_division_team_data(division_id, token)
-    #ap div_data
+
     # get the rosters of all teams in this division
     PaymentMailer.payments_roster(div_data, division_name, toEmail, ccEmail).deliver
     #render 'email_confirmation'
@@ -210,7 +221,7 @@ module PaymentsTrackerHelper
     #
     puts "TODAY IS #{today}"
     # Only send out the emails for payments on Wednesday and Friday
-    if today == 3 || today == 6 || manual
+    if today == 3 || today == 5 || manual
       puts 'Sending out the Email Updates for Rosters'
       account = TeamsnapScanAccount.order('created_at DESC').first
       loginHash = log_in_to_teamsnap(account.username,account.password, false)

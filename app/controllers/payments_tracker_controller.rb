@@ -31,13 +31,17 @@ class PaymentsTrackerController < ApplicationController
   # Triggers sending the email to the given Rep
   #
   def emailDivisionRep
-    send_division_rep_roster_email(params[:divisionId].to_i, nil)
+    division_id = params[:divisionId].to_i
+    division = teamsnap_divs_by_id.select{|key, value| value == division_id }
+    send_division_rep_roster_email(params[:divisionId].to_i,division.first.first, nil)
     render 'email_confirmation'
   end
 
 
-  def emailWebTeam
-    send_web_team_roster_email(params[:division_id])
+  def emailWebteam
+    division_id = params[:divisionId].to_i
+    division = teamsnap_divs_by_id.select{|key, value| value == division_id }
+    send_web_team_roster_email(division_id, division.first.first, nil)
     render 'email_confirmation'
   end
 
@@ -85,7 +89,9 @@ class PaymentsTrackerController < ApplicationController
     @league_id = ids_by_div_name["Big Apple Softball League"]
     players_by_payments = sort_players(players)
     players_by_payments[:paid].each do |player|
-      if player['division_id'] == @league_id
+      if player['division_id'].blank? && player['team'].blank? && !player['name'].include?('Sponsor Payment') # tournament player
+        @unassigned_player.push(player)
+      elsif player['division_id'] == @league_id # season player
         @unassigned_player.push(player)
       end
     end

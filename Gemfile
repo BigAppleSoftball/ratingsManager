@@ -53,6 +53,7 @@ end
 
 # http://ruby-doc.org/stdlib-2.0.0/libdoc/open-uri/rdoc/OpenURI.html
 gem 'faraday'
+
 # https://github.com/flori/json
 gem 'json'
 

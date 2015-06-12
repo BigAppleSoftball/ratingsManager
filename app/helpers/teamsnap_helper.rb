@@ -36,7 +36,13 @@ module TeamsnapHelper
   #
   def get_teamsnap_token(token = nil)
     if (token.nil?)
-      cookies[:teamsnap_token]
+      if (cookies[:teamsnap_token].present?)
+        cookies[:teamsnap_token]
+      else
+        latest_account = TeamsnapScanAccount.order('created_at DESC').first
+        # log into teamsnap api
+        token = log_in_to_teamsnap(latest_account.username, latest_account.password, true)
+      end
     else
       token
     end
@@ -46,7 +52,7 @@ module TeamsnapHelper
   # Get all teams from the teamsnamp api and cache them
   #
   def get_all_teams(token = nil)
-    Rails.cache.fetch("all_teamsv3", :expires_in => 60.minutes) do
+    Rails.cache.fetch("all_teamsv6", :expires_in => 60.minutes) do
       get_all_teams_api(token)
     end
   end
@@ -56,6 +62,7 @@ module TeamsnapHelper
   # Get all teams api
   #
   def get_all_teams_api(token = nil)
+    token = get_teamsnap_token(token)
     teamsURL = 'https://api.teamsnap.com/v2/teams'
     conn = connect
     conn.headers = {'Content-Type'=> 'application/json', 'X-Teamsnap-Token' => get_teamsnap_token(token)}
@@ -552,18 +559,25 @@ module TeamsnapHelper
         loginHash[:success] = true
         if use_cookies
           cookies[:teamsnap_token] = teamsnapToken
-          set_admin(username)
         else
           teamsnapToken # if we aren't using the cookies return it
         end
       end
-      teamsnapToken
+      return teamsnapToken
     else
       response = conn.post loginURL
       teamsnapToken = response.headers['x-teamsnap-token']
       loginHash[:teamsnapToken] = teamsnapToken
     end
-    loginHash
+    return loginHash
+  end
+
+  def create_connection(url)
+    conn = Faraday.new(:url => url) do |faraday|
+      faraday.request  :url_encoded             # form-encode POST params
+      faraday.response :logger                  # log requests to STDOUT
+      faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
+    end
   end
 
   #
@@ -573,7 +587,7 @@ module TeamsnapHelper
     url = 'https://api.teamsnap.com/'
     conn = Faraday.new(:url => url) do |faraday|
       faraday.request  :url_encoded             # form-encode POST params
-      faraday.response :logger                  # log requests to STDOUT
+      faraday.response :logger       # <-- Inserts the logger into the connection
       faraday.adapter  Faraday.default_adapter  # make requests with Net::HTTP
     end
   end
