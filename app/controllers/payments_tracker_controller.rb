@@ -89,7 +89,9 @@ class PaymentsTrackerController < ApplicationController
     @league_id = ids_by_div_name["Big Apple Softball League"]
     players_by_payments = sort_players(players)
     players_by_payments[:paid].each do |player|
-      if player['division_id'] == @league_id
+      if player['division_id'].blank? && player['team'].blank? && !player['name'].include?('Sponsor Payment') # tournament player
+        @unassigned_player.push(player)
+      elsif player['division_id'] == @league_id # season player
         @unassigned_player.push(player)
       end
     end

@@ -14,4 +14,4 @@
       - if player['division_id'].present?
         =link_to player['name'], "https://go.teamsnap.com/#{player['division_id']}/league_roster/edit/#{player['teamsnap_id']}", {:target => '_blank'}
       - else
-        %span player['name']
+        %span=player['name']

@@ -77,6 +77,7 @@ module PaymentsTrackerHelper
     all_payments_ids = TeamsnapPayment.all.pluck(:teamsnap_player_id)
     # get all paid players
     players.each do |player|
+      ap player
       if player['has_paid?']
         players_by_payments[:paid].push(player)
         # if the player has already paid do nothing
