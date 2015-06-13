@@ -1,0 +1,23 @@
+-weeks.each do |week|
+  .panel.panel-default
+    .panel-heading
+      Week
+      =week[:count]
+    .panel-body.game-list
+      - games_count = 0
+      - week[:games].each do |game_set|
+        %ul.list-group
+          -game_set.each do |game|
+            %li.list-group-item
+              - if game[:home].blank? || game[:visitor].blank?
+                - if game[:home]
+                  = game[:home][:name]
+                - else
+                  = game[:visitor][:name]
+                BYE
+              - else
+                =link_to game[:visitor][:name], team_path(game[:visitor][:id])
+                @
+                =link_to game[:home][:name], team_path(game[:home][:id])
+              - if game[:type] == 'split'
+                %span.small-text *

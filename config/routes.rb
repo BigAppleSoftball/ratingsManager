@@ -131,5 +131,6 @@ Rails.application.routes.draw do
   # schedule
   match '/schedule',  to: 'schedules#index', via: 'get'
   get '/schedule/:divisionId', :to => 'schedules#generate'
+  get '/scheduler/run', :to => 'schedules#run_generator'
 
 end

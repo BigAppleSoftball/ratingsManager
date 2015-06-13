@@ -8,14 +8,25 @@ class SchedulesController < ApplicationController
 
   def generate
     @division = Division.eager_load(:teams).find(params[:divisionId])
-    @generated_weeks = generate_schedule(@division.teams,10)
+    @generated_weeks = generate_schedule(@division.teams,15, true)
     render
+  end
+
+  def run_generator
+    results = Hash.new
+    ap params
+    divisions = Division.eager_load(:teams).find(params[:divisionId])
+    totalGames = params[:totalGames].to_i
+    #hasDoubleHeaders = params[:hasDoubleHeaders].to_b
+    weeks = generate_schedule(divisions.teams,totalGames, true)
+    results[:results_html] = render_to_string "schedules/_generated_weeks.haml", :layout => false, :locals => {:weeks => weeks}
+    render :json => results.to_json
   end
 
 
   private
 
-    def generate_schedule(division_teams, totalGames)
+    def generate_schedule(division_teams, totalGames = 10, hasDoubleHeaders = false)
       teams = init_teams(division_teams)
       if (teams.size % 2 == 1)
         has_odd_teams = true
@@ -29,7 +40,7 @@ class SchedulesController < ApplicationController
         week = Hash.new
         week[:count] = week_count
         #TODO make sure this is set by and actual value
-        week[:games] = get_week_games(matchups, has_odd_teams, has_odd_teams)
+        week[:games] = get_week_games(matchups, has_odd_teams, has_odd_teams, hasDoubleHeaders)
         weeks.push(week)
         shift_teams(matchups)
       end
@@ -128,7 +139,7 @@ class SchedulesController < ApplicationController
     #
     # Set the matchups for this week's games
     #
-    def get_week_games(matchups, has_odd_teams = false, has_no_bye = false)
+    def get_week_games(matchups, has_odd_teams = false, has_no_bye = false, has_double_headers = false)
       numOfGames = matchups[0].size
       games = []
       # check to see if their is a BYE Week
@@ -139,15 +150,16 @@ class SchedulesController < ApplicationController
         split_results = get_split_teams(matchups, bye_week_coord, search_direction)
         split_teams = split_results[:teams]
         split_games = generate_split_games(split_teams[0], split_teams[1], split_teams[2])
-        games += split_games
+        games.push(split_games)
       else
         weeklyMatchups = matchups
       end
       for x in 0..(numOfGames - 1)
-        game = generate_game(matchups[1][x], matchups[0][x])
-        if game.present? # if the game is part of a split game we might get back nothing
-          game[:type] = 'normal'
-          games.push(game)
+        games_set = generate_game(matchups[1][x], matchups[0][x], has_double_headers)
+        if games_set.present? # if the game is part of a split game we might get back nothing
+          #game[:type] = 'normal'
+          games.push(games_set)
+          #games += games_set
         end
       end
       games
@@ -213,9 +225,9 @@ class SchedulesController < ApplicationController
     # Generates a set of 3 games where 3 teams play each other with a middle split between
     #
     def generate_split_games(team1, team2, team3)
-      game1 = generate_game(team1, team2, true)
-      game2 = generate_game(team2, team3, true)
-      game3 = generate_game(team3, team1, true)
+      game1 = generate_game(team1, team2, false, true)[0]
+      game2 = generate_game(team2, team3, false, true)[0]
+      game3 = generate_game(team3, team1, false, true)[0]
 
       game1[:type] = 'split'
       game2[:type] = 'split'
@@ -226,7 +238,7 @@ class SchedulesController < ApplicationController
     #
     # generates normal games
     #
-    def generate_game(home, away, is_split = false)
+    def generate_game(home, away, has_double_headers = false,  is_split = false)
       if home.blank? && away[:has_split].present?
         away.delete(:has_split)
         return nil
@@ -241,10 +253,19 @@ class SchedulesController < ApplicationController
         away.delete(:has_split)
         return nil
       else
-        game = Hash.new
-        game[:visitor] = away
-        game[:home] = home
-        game
+        games = Array.new
+        game1 = Hash.new
+        game1[:visitor] = away
+        game1[:home] = home
+        games.push(game1)
+        if has_double_headers
+          game2 = {
+            :visitor => home,
+            :home => away
+          }
+          games.push(game2)
+        end
+        games
       end
     end
 end
