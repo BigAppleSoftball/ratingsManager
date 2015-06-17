@@ -1,5 +1,6 @@
 class RatingsController < ApplicationController
   before_action :set_rating, only: [:show, :edit, :update, :destroy]
+  before_filter :only_for_admin, only: [:destroy, :index, :show, :show_duplicates]
 
   #
   # From ajax updates player from a given id
@@ -69,13 +70,54 @@ class RatingsController < ApplicationController
   # GET /ratings
   # GET /ratings.json
   def index
-    @active_season = Season.includes(:divisions => {:teams => {:rosters => {:profile => :rating}}}).where(:is_active => true).last
+    @active_season = Season.includes(:divisions => {:teams => {:rosters => {:profile => {:rating => :profile}}}}).where(:is_active => true).last
     
     respond_to do |format|
       format.html
       format.csv
     end
   end
+
+  #
+  # Gets all the duplicate ratings and show them
+  #
+  def show_duplicates
+    @duplicate_ratings = get_duplicates
+  end
+
+  def remove_duplicates
+    ratings = Rating.all.order(:profile_id)
+    profile_ids = ratings.pluck(:profile_id)
+    duplicate_profile_ids = profile_ids.group_by {|e| e}.select { |k,v| v.size > 1}.keys
+    ap duplicate_profile_ids
+    @profile_ids = duplicate_profile_ids
+
+    @profile_ids.each do |profile_id|
+      duplicate_ratings = Rating.where(:profile_id => profile_id).order(:updated_at)
+      duplicates_count = duplicate_ratings.size
+      for x in 0..(duplicates_count - 2)
+        duplicate_ratings[x].destroy
+      end
+    end
+
+  end
+
+  def get_duplicates
+    ratings = Rating.all.order(:profile_id)
+    profile_ids = ratings.pluck(:profile_id)
+    duplicate_profile_ids = profile_ids.group_by {|e| e}.select { |k,v| v.size > 1}.keys
+    duplicate_ratings = Rating.where(:profile_id => duplicate_profile_ids).order(:profile_id)
+
+    duplicate_ratings
+  end
+
+
+  # GET /profiles/1
+  # GET /profiles/1.json
+  def show
+
+  end
+
 
 
   # POST /ratings
@@ -113,7 +155,7 @@ class RatingsController < ApplicationController
   def destroy
     @rating.destroy
     respond_to do |format|
-      format.html { redirect_to ratings_url, notice: 'Rating was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Duplicate Rating was successfully Removed.' }
       format.json { head :no_content }
     end
   end
