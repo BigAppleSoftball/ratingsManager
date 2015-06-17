@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     get 'welcome_email'
     post 'merge', :action => 'run_merge'
   end
-  resources :ratings, :only => [:index]
+  resources :ratings, :only => [:index, :show, :destroy]
   resources :rosters, :only => [:destroy]
   resources :teams
   resources :teamsnap_payments
@@ -73,6 +73,8 @@ Rails.application.routes.draw do
   # ratings
   post '/ratings/update', to:'ratings#update_player'
   post '/ratings/new', to:'ratings#new_player'
+  get '/rating/duplicates', to:'ratings#show_duplicates'
+  get '/rating/duplicates/remove', to:'ratings#remove_duplicates'
 
   # website iframes
   get '/showallsponsors', to: 'sponsors#all_sponsors'
