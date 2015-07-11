@@ -3,6 +3,8 @@
   %tr.js-player-row{:data => {'player_id' => profile.id}, :class => "js-player-row-#{profile.id}"}
     %td
       %strong= link_to profile.name, profile
+    %td.center-column
+      %span=profile.dob
     - if player_rating
       %td.center-column
         .edit-btn.js-total-btn=raw("<span class='js-value'>#{player_rating.total}</span>")
