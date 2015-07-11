@@ -16,10 +16,12 @@ class HallofFamersController < ApplicationController
   # GET /hallof_famers/new
   def new
     @hallof_famer = HallofFamer.new
+    @profiles = Profile.all
   end
 
   # GET /hallof_famers/1/edit
   def edit
+    @profiles = Profile.all
   end
 
   # POST /hallof_famers
@@ -75,6 +77,6 @@ class HallofFamersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def hallof_famer_params
-      params.require(:hallof_famer).permit(:profile_id, :date_inducted, :is_active, :is_inducted, :details, :first_name, :last_name, :image_url, :display_order)
+      params.require(:hallof_famer).permit(:profile_id, :date_inducted, :is_active, :is_inducted, :details, :profile_id, :image_url, :display_order)
     end
 end

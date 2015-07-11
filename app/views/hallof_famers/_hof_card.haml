@@ -10,8 +10,8 @@
     .hof-card-back-container
       .hof-card-header
         .hof-card-name
-          =hof.first_name
-          =hof.last_name
+          - if hof.profile
+            =hof.profile.name
         .hof-card-inducted
           Inducted in
           =hof.date_inducted.strftime("%Y")

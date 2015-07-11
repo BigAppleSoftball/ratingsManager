@@ -4,6 +4,7 @@
 
 %table.table.table-striped.table-bordered.table-condensed
   %tr
+    %th Profile
     %th Order
     %th
     %th Name
@@ -15,12 +16,20 @@
 
   - @hallof_famers.each do |hallof_famer|
     %tr
+      %th
+        -if hallof_famer.profile
+          =hallof_famer.profile.id
       %th=hallof_famer.display_order
       %th
         -if hallof_famer.image_url
           .image30-wrapper
             %img{:src => hallof_famer.image_url}
-      %td= link_to "#{hallof_famer.first_name} #{hallof_famer.last_name}", hallof_famer
+      %td{:class => hallof_famer.profile ? '' : 'danger danger-column'}
+        -if hallof_famer.profile
+          =hallof_famer.profile.id= link_to "#{hallof_famer.first_name} #{hallof_famer.last_name}", hallof_famer
+        - else
+          = render partial: "shared/warning_column", locals: { text: 'No Profile'}
+
       %td= hallof_famer.date_inducted.strftime("%Y")
       %td
         %p= hallof_famer.details
