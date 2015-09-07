@@ -26,7 +26,7 @@
             %img{:src => hallof_famer.image_url}
       %td{:class => hallof_famer.profile ? '' : 'danger danger-column'}
         -if hallof_famer.profile
-          =hallof_famer.profile.id= link_to "#{hallof_famer.first_name} #{hallof_famer.last_name}", hallof_famer
+          =hallof_famer.profile.id= link_to "#{hallof_famer.profile.name}", hallof_famer
         - else
           = render partial: "shared/warning_column", locals: { text: 'No Profile'}
 
