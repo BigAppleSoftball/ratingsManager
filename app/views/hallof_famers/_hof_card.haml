@@ -4,8 +4,8 @@
       %img{:src=>"#{hof.image_url ? hof.image_url : 'https://style.anu.edu.au/_anu/4/images/placeholders/person_6x8.png'}"}
       .hof-card-overlay
     .hof-card-name
-      =hof.first_name
-      =hof.last_name
+      - if hof.profile
+        = hof.profile.name
   .hof-card-back
     .hof-card-back-container
       .hof-card-header
