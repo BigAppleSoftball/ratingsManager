@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :motions
   get '/motions/:id/options', :to => 'motions#add_options'
   post '/motions/:id/options', :to => 'motions#add_new_option'
+  delete '/motions/:id/options/', :to => 'motions#delete_option'
 
   root 'static_pages#home'
 

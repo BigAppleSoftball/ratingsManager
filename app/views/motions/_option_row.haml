@@ -1,2 +1,3 @@
-%li 
+%li.js-option{:data => {:id => option.id}, :class=> "js-option-#{option.id}"}
   =option.title
+  =link_to 'Delete', '#', :class => 'js-delete-option'

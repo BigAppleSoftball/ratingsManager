@@ -1,6 +1,6 @@
 class MotionsController < ApplicationController
   before_action :set_motion, only: [:show, :edit, :update, :destroy, :add_options]
-  before_filter :only_for_admin, only: [:destroy, :new, :edit, :update]
+  before_filter :only_for_admin, only: [:destroy, :new, :edit, :update, :add_new_option]
 
   # GET /motions
   # GET /motions.json
@@ -93,7 +93,21 @@ class MotionsController < ApplicationController
   end
 
   def delete_option
-
+    results = Hash.new
+    motion_option = MotionOption.find(params[:option_id])
+    if (motion_option)
+      results[:success] = true
+      results[:option_id] = motion_option.id
+      motion_option.destroy
+    else
+      results[:fail] = true
+      results[:message] = 'Option not found, try again'
+    end
+    respond_to do |format|
+      format.json {
+        render json: results
+      }
+    end
   end
 
   private
