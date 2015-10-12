@@ -1,0 +1,37 @@
+= form_for @motion, :html => {:class => 'form-horizontal'} do |f|
+  - if @motion.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@motion.errors.count, "error")} prohibited this motion from being saved:"
+      %ul
+        - @motion.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label :title, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_field :title, {:class => 'form-control'}
+  .form-group
+    = f.label :description, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.text_area :description, {:class => 'form-control'}
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      .checkbox
+        %label
+          = f.check_box :is_active, {:checked => true}
+          Active Vote?
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      .checkbox
+        %label
+          = f.check_box :is_anonymous
+          Anonymous Vote?
+          %br
+          Check box if you want all votes to be saved Anonymously. This will also cause uncomplete votes to be deleted.
+  .form-group
+    =link_to 'Add New Options', motion_options_path(@motion.id)
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit 'Save', {:class => 'btn btn-primary'}
+
+

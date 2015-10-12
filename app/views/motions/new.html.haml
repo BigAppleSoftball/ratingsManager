@@ -1,0 +1,6 @@
+- content_for :panel_head do
+  %h1 New Motion
+  = render partial: "shared/actions/all", locals: { allPath: motions_path}
+
+= render 'form'
+

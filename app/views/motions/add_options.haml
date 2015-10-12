@@ -1,0 +1,21 @@
+- content_for :panel_head do
+  %h1
+    Adding for
+    = @motion.title
+
+%p=@motion.description
+
+%div
+  %h3 Current Options
+  %ul.js-options-container
+    -@options.each do |option|
+      =render partial: 'motions/option_row', locals: { option: option}
+%form.form-horizontal.js-add-option-form
+  %input.js-motion-id{:type=>'hidden', :value => @motion.id}
+  .form-group
+    %label.col-sm-2-control-label Option
+    .col-sm-10
+      %input.form-control.js-motion-title{:type=>'text', :placeholder => "Yes, I would like to..."}
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      %button.btn.btn-primary{:type=>"submit"} Save

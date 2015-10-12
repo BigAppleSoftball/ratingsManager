@@ -1,0 +1,24 @@
+- content_for :panel_head do
+  %h1 Motions
+  = render partial: 'shared/actions/view_all_actions', locals: { newPath: new_motion_path}
+
+%table.table.table-striped.table-condensed.table-bordered.js-fields-table
+  %thead
+    %tr
+      %th Title
+      %th Description
+      %th Is active
+      %th Is anonymous
+      - if is_admin?
+        %th.actions-column
+  %tbody
+    - @motions.each do |motion|
+      %tr
+        %td= motion.title
+        %td= motion.description
+        %td=yes_or_no_icon(motion.is_active).html_safe
+        %td=yes_or_no_icon(motion.is_anonymous).html_safe
+        - if is_admin?
+          %td
+            = render partial: "shared/actions/table_actions", locals: { editPath: edit_motion_path(motion), deletePath: motion}
+

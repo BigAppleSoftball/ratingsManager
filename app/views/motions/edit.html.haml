@@ -1,0 +1,7 @@
+- content_for :panel_head do
+  %h1 
+    Motions
+    =@motion.title
+  = render partial: "shared/actions/edit_actions", locals: { allPath: motions_path, fieldName: 'Motion', showPath: @motion}
+
+= render 'form'

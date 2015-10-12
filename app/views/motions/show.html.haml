@@ -1,0 +1,31 @@
+- content_for :panel_head do
+  %h1= @motion.title  
+  = render partial: "shared/actions/show_actions", locals: { editPath: edit_motion_path(@motion), fieldName: 'Motion', allPath: motions_path}
+%p= @motion.description
+%div
+  -if @motion.is_active
+    .alert.alert-success
+      This Vote is
+      %strong active
+      and accepting new votes.
+  - else
+    .alert.alert-danger
+      This motion is 
+      %strong inactive
+      and no longer accepting new votes
+%div
+  - if @motion.is_anonymous
+    .alert.alert-warning
+      This vote is 
+      %strong Anonymous.
+      %p That means that your vote will not be public or accessible to any BASL board members or admins
+  -else
+    .alert.alert-warning
+      This vote is
+      %strong Public.
+      %p That means that your vote will be publically viewable by BASL board members and admins
+
+
+= link_to 'Edit', edit_motion_path(@motion)
+\|
+= link_to 'Back', motions_path

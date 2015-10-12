@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150522120112) do
+ActiveRecord::Schema.define(version: 20151012142306) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -101,6 +101,22 @@ ActiveRecord::Schema.define(version: 20150522120112) do
     t.string   "last_name"
     t.string   "image_url"
     t.integer  "display_order"
+  end
+
+  create_table "motion_options", force: true do |t|
+    t.integer  "motion_id"
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "motions", force: true do |t|
+    t.string   "title"
+    t.text     "description"
+    t.boolean  "is_active"
+    t.boolean  "is_anonymous"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "offers", force: true do |t|
