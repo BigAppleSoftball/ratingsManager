@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151012142306) do
+ActiveRecord::Schema.define(version: 20151012154433) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -106,6 +106,13 @@ ActiveRecord::Schema.define(version: 20151012142306) do
   create_table "motion_options", force: true do |t|
     t.integer  "motion_id"
     t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "motion_teams", force: true do |t|
+    t.integer  "team_id"
+    t.integer  "motion_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

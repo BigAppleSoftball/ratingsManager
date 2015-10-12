@@ -28,8 +28,11 @@
           Anonymous Vote?
           %br
           Check box if you want all votes to be saved Anonymously. This will also cause uncomplete votes to be deleted.
-  .form-group
-    =link_to 'Add New Options', motion_options_path(@motion.id)
+  - if @motion
+    .form-group
+      =link_to 'Add New Options', "/motions/#{@motion.id}/options", :class => "btn btn-primary"
+    .form-group
+      =link_to 'Add Eligible Teams', "/motions/#{@motion.id}/eligible", :class => "btn btn-primary"
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit 'Save', {:class => 'btn btn-primary'}
