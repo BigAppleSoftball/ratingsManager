@@ -1,0 +1,14 @@
+- content_for :panel_head do
+  %h1
+    Eligible Teams for
+    = @motion.title
+
+.div
+  %p Show Teams from which season?
+  
+  = render 'shared/forms/season_selector', {:selected_season => @default_season, :seasons => @seasons, :name=> 'teams_season_selector'}
+
+  = form_tag("/motions/#{@motion.id}/save_eligible_teams", method: "post") do
+    .js-division-checklist
+      = render partial: 'motions/division_teams_list', locals: {divisions: @default_divisions}
+    %input.btn.btn-primary{:type => 'submit', :value => "Save"}

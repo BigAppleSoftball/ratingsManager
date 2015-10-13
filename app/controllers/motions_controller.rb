@@ -138,14 +138,27 @@ class MotionsController < ApplicationController
   end
 
   def save_eligible_teams
-    ap params
+    @motion = Motion.find(params[:id])
+    team_ids = params[:team_ids]
+    if @motion
+      team_ids.keys.each do |team_id|
+        motionTeam = MotionTeam.create
+        motionTeam.team_id = team_id
+        motionTeam.motion_id = @motion.id
+        motionTeam.save!
+      end
+      respond_to do |format|
+        if @motion.save
+          format.html { redirect_to @motion, notice: 'Eligible Teams were successfully updated.' }
+        end
+      end
+    end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_motion
-      @motion = Motion.find(params[:id])
-      @options = MotionOption.where(:motion_id => params[:id])
+      @motion = Motion.eager_load(:motion_options, :teams).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

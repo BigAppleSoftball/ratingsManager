@@ -1,0 +1,16 @@
+.js-all-divisions-container
+  %label
+    %input.js-select-all{:type=>"checkbox", :checked => true} 
+    %span.js-text Select None
+  %ul
+    - divisions.each do |division|
+      %li.division.js-divisions-container
+        %label
+          %input.js-select-all-division{:type=>"checkbox", :checked => true}
+          =division.description
+        %ul
+          -division.teams.each do |team|
+            %li
+              %label
+                %input.js-team-checkbox{:type=>"checkbox", :checked => true, :name => "team_ids[#{team.id}]"}
+                =team.name

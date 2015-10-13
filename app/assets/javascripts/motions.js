@@ -106,7 +106,6 @@
     });
 
     $('.js-division-checklist').on('change','.js-select-all', function() {
-      console.log("here");
       var $this = $(this),
           isChecked = $(this).is(':checked'),
           $divisionsContainer = $(this).closest('.js-all-divisions-container');
@@ -148,8 +147,6 @@
         $text.html("Select All");
       }
   };
-
-
 
   var motion = new Motion();
 }());

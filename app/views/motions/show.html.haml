@@ -24,8 +24,15 @@
       This vote is
       %strong Public.
       %p That means that your vote will be publically viewable by BASL board members and admins
+%div
+  %h4 Options
+  %ul
+    -@motion.motion_options.each do |option|
+      %li
+        =option.title
+%div
+  %h3 Eligible Teams
+  %ul
+    - @motion.teams.each do |team|
+      %li=team.name
 
-
-= link_to 'Edit', edit_motion_path(@motion)
-\|
-= link_to 'Back', motions_path
