@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
 
   resources :motions
-  get '/motions/:id/options', :to => 'motions#add_options'
+  get '/motions/:id/options', :to => 'motions#options'
   post '/motions/:id/options', :to => 'motions#add_new_option'
   delete '/motions/:id/options/', :to => 'motions#delete_option'
+  get '/motions/:id/eligible', :to => 'motions#eligible'
+  post '/motions/:id/save_eligible_teams', :to => 'motions#save_eligible_teams'
+  get '/getdivisionchecklist', :to => 'motions#get_division_checklist'
+
 
   root 'static_pages#home'
 

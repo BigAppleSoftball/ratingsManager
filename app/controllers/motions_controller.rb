@@ -1,6 +1,6 @@
 class MotionsController < ApplicationController
-  before_action :set_motion, only: [:show, :edit, :update, :destroy, :add_options]
-  before_filter :only_for_admin, only: [:destroy, :new, :edit, :update, :add_new_option]
+  before_action :set_motion, only: [:show, :edit, :update, :destroy, :options, :eligible]
+  before_filter :only_for_admin, only: [:destroy, :new, :edit, :update, :options, :add_new_option]
 
   # GET /motions
   # GET /motions.json
@@ -66,8 +66,7 @@ class MotionsController < ApplicationController
     end
   end
 
-  def add_options
-
+  def options
   end
 
   def add_new_option
@@ -108,6 +107,38 @@ class MotionsController < ApplicationController
         render json: results
       }
     end
+  end
+
+  #
+  # Shows the list of eligible teams
+  def eligible
+    @seasons = Season.all
+    @default_season = @seasons.last
+    @default_divisions = Division.eager_load(:teams).where(:season_id => @default_season.id)
+  end
+
+  #
+  # Gets the list of division/teams to select
+  # from a season_id
+  #
+  def get_division_checklist
+    divisions = Division.eager_load(:teams).where(:season_id => params[:season_id])
+    results = Hash.new
+    if divisions
+      results[:success] = true
+      results[:html] = render_to_string(:template => "motions/_division_teams_list.haml", :locals => {:divisions => divisions})
+    else
+      result[:fail] = true
+    end
+    respond_to do |format|
+      format.json {
+        render json: results
+      }
+    end
+  end
+
+  def save_eligible_teams
+    ap params
   end
 
   private

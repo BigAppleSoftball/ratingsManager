@@ -14,6 +14,8 @@
   Motion.prototype.init = function() {
     this.bindAddOptionSubmit();
     this.bindDeleteOptions();
+    this.bindDivisionSeasonSelectorChange();
+    this.bindSelectAll();
   };
 
   /**
@@ -27,7 +29,6 @@
       var submitData = {};
       submitData.id = $form.find('.js-motion-id').val();
       submitData.title = $form.find('.js-motion-title').val();
-      console.log(submitData);
       $.ajax({
         dataType: 'json',
         type: 'post',
@@ -69,6 +70,85 @@
 
     });
   };
+
+  /**
+   * When a User changes the selector on the "Motions eligible teams page"
+   * It uses ajax to update the html of that view
+   */
+  Motion.prototype.bindDivisionSeasonSelectorChange = function() {
+    $('.js-division-season-selector').on('change', function() {
+      var updateData = {
+        season_id: $(this).val()
+      };
+      $.ajax({
+        dataType: 'json',
+        url: '/getdivisionchecklist',
+        type: 'get',
+        data: updateData,
+        success: function(data) {
+          if (data && data.success) {
+            $('.js-division-checklist').html(data.html);
+          }
+        }
+      });
+    });
+  };
+
+  Motion.prototype.bindSelectAll = function() {
+    var self = this;
+    $('.js-division-checklist').on('change', '.js-select-all-division', function() {
+      var $this = $(this),
+          isChecked = $(this).is(':checked'),
+          $divisionContainer = $(this).closest('.js-divisions-container');
+
+      self.setAllTeams(isChecked, $divisionContainer);
+
+    });
+
+    $('.js-division-checklist').on('change','.js-select-all', function() {
+      console.log("here");
+      var $this = $(this),
+          isChecked = $(this).is(':checked'),
+          $divisionsContainer = $(this).closest('.js-all-divisions-container');
+      self.setAllTeams(isChecked, $divisionsContainer);
+      self.setAllDivisions(isChecked);
+    });
+  };
+
+  /**
+   * Sets All teams as checked or unchecked
+   */
+  Motion.prototype.setAllTeams = function(isChecked, $container) {
+    if (isChecked) {
+        $container.find("input.js-team-checkbox").each(function(){
+          $(this).prop('checked', true);
+        });
+      } else {
+        $container.find("input.js-team-checkbox").each(function(){
+          $(this).removeProp('checked');
+        });
+      }
+  };
+
+  /**
+   * Sets All Divisions as Checked or Unchecked
+   */
+  Motion.prototype.setAllDivisions = function(isChecked){
+    var $container = $('.js-all-divisions-container'),
+        $text = $container.find('.js-text');
+    if (isChecked) {
+        $container.find("input.js-select-all-division").each(function(){
+          $(this).prop('checked', true);
+        });
+        $text.html("Select None");
+      } else {
+        $container.find("input.js-select-all-division").each(function(){
+          $(this).removeProp('checked');
+        });
+        $text.html("Select All");
+      }
+  };
+
 
 
   var motion = new Motion();
