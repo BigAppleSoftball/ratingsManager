@@ -47,7 +47,7 @@ gem 'user_impersonate2', :require => 'user_impersonate'
 # Spring speeds up development by keeping your application running in the background
 group :development do
   gem 'spring'
-  gem 'mysql2'
+  gem 'mysql2', '~> 0.3.18'
 end
 
 
@@ -60,7 +60,7 @@ gem 'json'
 group :production do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
-  gem 'pg'
+  #gem 'pg'
 end
 
 # web scrapping for the payments-tracker

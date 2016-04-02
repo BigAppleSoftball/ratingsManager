@@ -569,6 +569,7 @@ module TeamsnapHelper
       teamsnapToken = response.headers['x-teamsnap-token']
       loginHash[:teamsnapToken] = teamsnapToken
     end
+    ap loginHash
     return loginHash
   end
 
