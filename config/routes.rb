@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :roles
+
   resources :motions
   get '/motions/:id/options', :to => 'motions#options'
   post '/motions/:id/options', :to => 'motions#add_new_option'

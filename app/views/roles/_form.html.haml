@@ -1,0 +1,22 @@
+= form_for @role do |f|
+  - if @role.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@role.errors.count, "error")} prohibited this role from being saved:"
+      %ul
+        - @role.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :season_id
+    = f.number_field :season_id
+  .field
+    = f.label :division_id
+    = f.number_field :division_id
+  .field
+    = f.label :team_id
+    = f.number_field :team_id
+  .actions
+    = f.submit 'Save'

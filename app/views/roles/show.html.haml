@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @role.name
+%p
+  %b Season:
+  = @role.season_id
+%p
+  %b Division:
+  = @role.division_id
+%p
+  %b Team:
+  = @role.team_id
+
+= link_to 'Edit', edit_role_path(@role)
+\|
+= link_to 'Back', roles_path
