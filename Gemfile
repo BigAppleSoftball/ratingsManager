@@ -36,7 +36,7 @@ gem 'rails-erd'
 gem 'premailer-rails'
 
 # for error testing
-gem 'rollbar', '~> 1.5.1'
+gem 'rollbar', '~> 2.7'
 
 # for blocking unwanted ips
 gem 'rack-attack'

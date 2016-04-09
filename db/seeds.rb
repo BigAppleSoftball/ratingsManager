@@ -15,10 +15,8 @@ def generate_division_backup
     division = Division.new(
       :id => row[:divid],
       :season_id => row[:seasonid],
-      :pool_id => row[:poolid],
-      :div_description => row[:divdesc],
+      :description => row[:divdesc],
       :div_order => row[:divorder],
-      :standings => row[:standingstype],
       :team_cap => row[:teamcap],
       :waitlist_cap => row[:waitlistcap],
       :is_active => row[:isactive]
@@ -34,8 +32,7 @@ def generate_season_backup
     season = Season.new(
       :id => row[:seasonid],
       :league_id => row[:leagueid],
-      :pool_id => row[:poolid],
-      :season_desc=> row[:seasondesc],
+      :description=> row[:seasondesc],
       :date_start => row[:datestart],
       :date_end => row[:dateend]
       )
@@ -53,10 +50,6 @@ def generate_sponsors_backup
       :email => row[:sponsoremail],
       :phone => row[:sponsorphone],
       :details => row[ :sponsordetails],
-      :date_created => row[:datecreated],
-      :date_updated => row[:dateupdated],
-      :created_user_id => row[:bycreated],
-      :updated_user_id => row[:byupdated],
       :is_active => row[:isactive],
       :is_league => row[:isleague],
       :show_carousel => row[:showcarousel],
@@ -86,13 +79,13 @@ end
 def generate_profile_backup
   csvRows = get_csv_file('profiles.csv')
   csvRows.each do |row|
+    #ap row
     profile = Profile.new(
       :id => row[:profileid],
       :profile_code => row[:profilecode],
       :first_name => row[:firstname],
       :last_name => row[:lastname],
       :email => row[:email],
-      :nickname => row[:nickname],
       :display_name => row[:displayname],
       :player_number => row[:playernumber],
       :gender => row[:gender],
@@ -101,13 +94,13 @@ def generate_profile_backup
       :state => row[:state],
       :zip => row[:zip],
       :phone => row[:phone],
-      :emergency_name => row[:emergencyname],
-      :emergency_relation => row[:emergencyrelation],
-      :emergency_phone => row[:emergencyphone],
-      :emergency_email => row[:emergencyemail],
+      :emergency_contact_name => row[:emergencyname],
+      :emergency_contact_relationship => row[:emergencyrelation],
+      :emergency_contact_phone => row[:emergencyphone],
       :position => row[:prefosositions],
       :dob => row[:datedob],
-      :team_id => row[:teamid]
+      :team_id => row[:teamid],
+      :password => "123456"
     )
     profile.save
   end
@@ -127,16 +120,12 @@ def generate_team_backup
     :stat_pt_allowed => row[:statptsallowed],
     :stat_pt_scored => row[:statptsscored],
     :stat_tie => row[:statties],
-    :team_desc => row[:teamdesc],
+    :description => row[:teamdesc],
     :name => row[:teamname],
-    :team_code => row[:teamcode],
-    :team_status => row[:teamcode],
     :win_perc => row[:statwinsperc],
     :stat_games_back => row[:statgamesback],
     :date_created => row[:datecreated],
     :date_updated => row[:dateupdated],
-    :contact => row[:teamcontact],
-    :email => row[:teamemail],
     :created_user_id => row[:bycreated],
     :updated_user_id => row[:byupdated]
     )
@@ -154,7 +143,6 @@ def generate_roster_backup
     :team_id => row[:teamid],
     :profile_id => row[:profileid],
     :date_created => row[:datecreated],
-    :date_approved => row[:dateapproved],
     :date_updated => row[:dateupdated],
     :is_approved => row[:isapproved],
     :is_player => row[:isplayer],
@@ -176,23 +164,13 @@ def generate_ratings_backup
     rating = Rating.new(
     :id => row[:ratingid],
     :profile_id => row[:profileid],
-    :rating_notes => row[:ratingnotes],
-    :approver_notes => row[:approvernotes],
-    :rating_list => row[:ratinglist],
-    :rating_total => row[:ratingtotal],
     :date_rated => row[:daterated],
-    :date_approved => row[:dateapproved],
     :is_approved => row[:isapproved],
     :rated_by_profile_id => row[:byrated],
     :approved_by_profile_id => row[:byapproved],
     :is_active => row[:isactive],
     :is_provisional => row[:isprovisional],
-    :is_approved => row[:isapproved],
-    :history => row[:history],
-    :updated => row[:updated],
-    :ssma_timestamp => row[:ssma_timeStamp],
-    :ng => row[:ng],
-    :nr => row[:nr]
+    :is_approved => row[:isapproved]
     )
     generate_ratings_from_list(row, rating)
     rating.save
@@ -265,7 +243,6 @@ def generate_fields_backup
 
   csvRows.each do |row|
     field = Field.new(
-    :is_active => row[:isactive],
     :address => row[:locaddress],
     :city => row[:loccity],
     :zip => row[:loczip],
@@ -294,7 +271,6 @@ def generate_games_backup
     :home_team_id => row[:hometeamid],
     :away_team_id => row[:awayteamid],
     :is_flip => row[:isflip],
-    :field => row[:field],
     :home_score => row[:homescore],
     :away_score => row[:awayscore],
     :is_rainout => row[:israinout]
@@ -512,6 +488,7 @@ def set_all_null_ratings_to_zero
   end
 end
 
+#create_default_admin_profile
 #generate_team_backup
 #generate_division_backup
 #generate_season_backup
@@ -532,4 +509,4 @@ end
 #generate_fields_lat
 #generate_games_backup
 #create_default_admin_profile
-set_all_null_ratings_to_zero
+#set_all_null_ratings_to_zero

@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 20151012154433) do
   create_table "games", force: true do |t|
     t.integer  "day_id"
     t.datetime "start_time"
-    t.integer  "home_team_id"
+    t.string   "home_team_id"
     t.integer  "away_team_id"
     t.boolean  "is_flip"
     t.integer  "home_score"
@@ -269,11 +269,11 @@ ActiveRecord::Schema.define(version: 20151012154433) do
     t.string   "phone"
     t.text     "details"
     t.boolean  "is_active"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.boolean  "is_league"
     t.boolean  "show_carousel"
     t.string   "logo_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "teams", force: true do |t|

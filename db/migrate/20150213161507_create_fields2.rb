@@ -1,4 +1,4 @@
-class CreateFields < ActiveRecord::Migration
+class CreateFields2 < ActiveRecord::Migration
   def change
     create_table :fields do |t|
       t.integer :status
