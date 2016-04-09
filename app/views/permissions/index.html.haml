@@ -1,21 +1,14 @@
-%h1 Listing permissions
-
+- content_for :panel_head do
+  %h1 Permissions
+  = render partial: 'shared/actions/view_all_actions', locals: { newPath: new_permission_path}
 %table
   %thead
     %tr
       %th Name
-      %th
-      %th
-      %th
+      %th.action-column
 
   %tbody
     - @permissions.each do |permission|
       %tr
         %td= permission.name
-        %td= link_to 'Show', permission
-        %td= link_to 'Edit', edit_permission_path(permission)
-        %td= link_to 'Destroy', permission, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Permission', new_permission_path
+        %td= render partial: 'shared/actions/table_actions', locals: { editPath: edit_permission_path(permission), deletePath: permission}

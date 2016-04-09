@@ -1,9 +1,6 @@
-%p#notice= notice
-
+- content_for :panel_head do
+  %h1 Editing Permission
+  = render partial: "shared/actions/show_actions", locals: { editPath: edit_permission_path(@permission), fieldName: 'Role', allPath: permission_path}
 %p
   %b Name:
   = @permission.name
-
-= link_to 'Edit', edit_permission_path(@permission)
-\|
-= link_to 'Back', permissions_path
