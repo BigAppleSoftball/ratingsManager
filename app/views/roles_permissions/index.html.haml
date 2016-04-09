@@ -13,7 +13,7 @@
     - @roles_permissions.each do |roles_permission|
       %tr
         %td= roles_permission.role_id
-        %td= roles_permission.permissions_id
+        %td= roles_permission.permission_id
         %td= link_to 'Show', roles_permission
         %td= link_to 'Edit', edit_roles_permission_path(roles_permission)
         %td= link_to 'Destroy', roles_permission, :method => :delete, :data => { :confirm => 'Are you sure?' }

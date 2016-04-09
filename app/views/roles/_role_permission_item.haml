@@ -1,0 +1,4 @@
+%li.js-role-permission-item
+  = permission.name
+  = link_to "X", "",{:data => {:permission_id => permission.id, :role_id => role.id},
+  :class => "btn btn-danger js-remove-role-permission js-role-permission-#{role.id}-#{permission.id}"}

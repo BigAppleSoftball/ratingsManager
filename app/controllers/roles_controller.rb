@@ -10,6 +10,10 @@ class RolesController < ApplicationController
   # GET /roles/1
   # GET /roles/1.json
   def show
+    # load all the profiles that have this role
+    # load all the permissions for this role
+    @permissions = Permission.all
+
   end
 
   # GET /roles/new
@@ -64,7 +68,7 @@ class RolesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_role
-      @role = Role.find(params[:id])
+      @role = Role.eager_load(:permissions).find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -2,16 +2,26 @@
 - content_for :panel_head do
   %h1= @role.name
   = render partial: "shared/actions/show_actions", locals: { editPath: edit_role_path(@role), fieldName: 'Role', allPath: roles_path}
+  = link_to '+ Create Permission', new_permission_path, {:class => 'btn btn-default'}
 
 %p
   %b Name:
   = @role.name
-%p
-  %b Season:
-  = @role.season_id
-%p
-  %b Division:
-  = @role.division_id
-%p
-  %b Team:
-  = @role.team_id
+%input{:type => 'hidden', :value=>@role.id, :class=>'js-role-id'}
+- # Show All Current Permissions 
+.column
+  %b Permissions
+  %ul.js-role-permissions
+    - @role.permissions.each do |p|
+      - if !p.nil?
+        = render partial: "roles/role_permission_item", locals: {:role => @role, :permission => p }
+  .add-permission-container
+    %select.chosen-select.js-add-permission-select
+      - @permissions.each do |p|
+        %option{:value => p.id}=p.name
+    %br
+    %button.btn-default.btn.js-add-new-permission 
+      + Add Permission
+- # Option to Add Permission
+- # Show All Current Profiles
+- # Option to Add a Profile

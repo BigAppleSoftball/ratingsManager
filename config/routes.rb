@@ -1,13 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :profile_roles
-
-  resources :roles_permissions
-
-  resources :permissions
-
-  resources :roles
-
   resources :motions
   get '/motions/:id/options', :to => 'motions#options'
   post '/motions/:id/options', :to => 'motions#add_new_option'
@@ -32,6 +24,14 @@ Rails.application.routes.draw do
     post 'merge', :action => 'run_merge'
   end
   resources :ratings, :only => [:index, :show, :destroy]
+  # Roles and Permissions
+  resources :profile_roles
+  resources :roles_permissions
+  resources :permissions
+  resources :roles
+  delete '/remove_permission_from_role', :to => 'roles_permissions#remove_permission_from_role'
+  post '/add_permission_to_role', :to => 'roles_permissions#add_permission_to_role'
+
   resources :rosters, :only => [:destroy]
   resources :teams
   resources :teamsnap_payments

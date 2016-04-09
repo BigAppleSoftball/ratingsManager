@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160409004842) do
+ActiveRecord::Schema.define(version: 20160409020139) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -258,7 +258,7 @@ ActiveRecord::Schema.define(version: 20160409004842) do
 
   create_table "roles_permissions", force: true do |t|
     t.integer  "role_id"
-    t.integer  "permissions_id"
+    t.integer  "permission_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
