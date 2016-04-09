@@ -1,15 +1,15 @@
-%h1 Listing roles
+- content_for :panel_head do
+  %h1 Roles
+  = render partial: 'shared/actions/view_all_actions', locals: { newPath: new_role_path}
 
-%table
+%table.table.table-striped.table-condensed.table-bordered.js-roles-table
   %thead
     %tr
       %th Name
       %th Season
       %th Division
       %th Team
-      %th
-      %th
-      %th
+      %th.action-column
 
   %tbody
     - @roles.each do |role|
@@ -18,10 +18,4 @@
         %td= role.season_id
         %td= role.division_id
         %td= role.team_id
-        %td= link_to 'Show', role
-        %td= link_to 'Edit', edit_role_path(role)
-        %td= link_to 'Destroy', role, :method => :delete, :data => { :confirm => 'Are you sure?' }
-
-%br
-
-= link_to 'New Role', new_role_path
+        %td= render partial: 'shared/actions/table_actions', locals: { editPath: edit_role_path(role), deletePath: role}

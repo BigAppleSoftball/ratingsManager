@@ -1,7 +1,8 @@
-%h1 Editing role
+- content_for :panel_head do
+  %h1 
+    Editing 
+    #{@role.name}
+    Role
+  = render partial: "shared/actions/edit_actions", locals: { allPath: roles_path, fieldName: 'Role', showPath: @role}
 
 = render 'form'
-
-= link_to 'Show', @role
-\|
-= link_to 'Back', roles_path

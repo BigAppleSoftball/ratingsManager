@@ -1,4 +1,7 @@
 %p#notice= notice
+- content_for :panel_head do
+  %h1= @role.name
+  = render partial: "shared/actions/show_actions", locals: { editPath: edit_role_path(@role), fieldName: 'Role', allPath: roles_path}
 
 %p
   %b Name:
@@ -12,7 +15,3 @@
 %p
   %b Team:
   = @role.team_id
-
-= link_to 'Edit', edit_role_path(@role)
-\|
-= link_to 'Back', roles_path
