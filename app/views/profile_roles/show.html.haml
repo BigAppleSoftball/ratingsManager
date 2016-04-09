@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Profle:
+  = @profile_role.profle_id
+%p
+  %b Role:
+  = @profile_role.role_id
+
+= link_to 'Edit', edit_profile_role_path(@profile_role)
+\|
+= link_to 'Back', profile_roles_path

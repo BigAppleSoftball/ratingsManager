@@ -1,0 +1,23 @@
+%h1 Listing profile_roles
+
+%table
+  %thead
+    %tr
+      %th Profle
+      %th Role
+      %th
+      %th
+      %th
+
+  %tbody
+    - @profile_roles.each do |profile_role|
+      %tr
+        %td= profile_role.profle_id
+        %td= profile_role.role_id
+        %td= link_to 'Show', profile_role
+        %td= link_to 'Edit', edit_profile_role_path(profile_role)
+        %td= link_to 'Destroy', profile_role, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Profile role', new_profile_role_path

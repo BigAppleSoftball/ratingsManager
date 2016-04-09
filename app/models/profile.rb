@@ -20,6 +20,9 @@ class Profile < ActiveRecord::Base
   has_many :board_members, dependent: :nullify
   has_many :committees, dependent: :nullify
 
+  has_many :roles, :through => :profile_roles
+  has_many :profile_roles, dependent: :destroy
+
   def staff?
     true
   end
