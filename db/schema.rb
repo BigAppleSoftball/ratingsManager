@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151012154433) do
+ActiveRecord::Schema.define(version: 20160409004842) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -157,6 +157,19 @@ ActiveRecord::Schema.define(version: 20151012154433) do
     t.float    "long",           limit: 24
   end
 
+  create_table "permissions", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "profile_roles", force: true do |t|
+    t.integer  "profle_id"
+    t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "profiles", force: true do |t|
     t.string   "profile_code"
     t.string   "first_name"
@@ -232,6 +245,22 @@ ActiveRecord::Schema.define(version: 20151012154433) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "teamsnap_id"
+  end
+
+  create_table "roles", force: true do |t|
+    t.string   "name"
+    t.integer  "season_id"
+    t.integer  "division_id"
+    t.integer  "team_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles_permissions", force: true do |t|
+    t.integer  "role_id"
+    t.integer  "permissions_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "rosters", force: true do |t|
