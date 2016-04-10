@@ -2,17 +2,18 @@ class ApplicationController < ActionController::Base
   require 'open-uri'
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
+  before_filter :get_permissions
   protect_from_forgery with: :exception
   include ErrorsHelper
   include SessionsHelper
   include TeamsnapHelper
+
 
   Time::DATE_FORMATS[:google_date] = "%Y-%m-%d"
   Time::DATE_FORMATS[:week_date] = "%a, %b %d"
   Time::DATE_FORMATS[:event_date] = "%a, %b %d %l:%M %P"
 
   helper_method :all_seasons_list
-
   #
   # Map PermissionNames to Permission Id
   # MUST MATCH ID in Database
@@ -28,38 +29,6 @@ class ApplicationController < ActionController::Base
     permissions[:CanEditAllPermissions] = 7
     permissions[:CanImport] = 7
     @permissions = permissions
-  end
-
-  #
-  # If the User Doesn't have the Permissions to view 
-  #
-  def has_permissions_redirect(pid)
-    if !has_permissions(pid)
-      redirect_to :action =>'error_403', :controller => 'errors'
-    end
-  end
-
-  def has_permissions(pid)
-    user_permissions = get_current_user_permissions
-    return user_permissions.include?(pid)
-  end
-
-  #
-  # TODO(Paige) Store this as a cookie or something
-  # Shouldn't get this every page load
-  #
-  def get_current_user_permissions
-    user_permissions = Array.new
-    # Get All the Users Roles
-    proles = ProfileRole.eager_load(:role => :roles_permission).where(:profile_id => current_user.id)
-    proles.each do |pr|
-      pr.role.roles_permission.each do |rp|
-        if !(user_permissions.include?(rp.permission_id)) 
-          user_permissions.push(rp.permission_id)
-        end
-      end
-    end
-    user_permissions
   end
 
 

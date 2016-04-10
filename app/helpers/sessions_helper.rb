@@ -225,5 +225,39 @@ module SessionsHelper
     session[:return_to] = request.url
   end
 
+  ## Permissions Stuff
+  #
+  #
+  # If the User Doesn't have the Permissions to view 
+  #
+  def has_permissions_redirect(pid)
+    if !has_permissions?(pid)
+      redirect_to :action =>'error_403', :controller => 'errors'
+    end
+  end
+
+  def has_permissions?(pid)
+    user_permissions = get_current_user_permissions
+    return user_permissions.include?(pid)
+  end
+
+  #
+  # TODO(Paige) Store this as a cookie or something
+  # Shouldn't get this every page load
+  #
+  def get_current_user_permissions
+    user_permissions = Array.new
+    # Get All the Users Roles
+    proles = ProfileRole.eager_load(:role => :roles_permission).where(:profile_id => current_user.id)
+    proles.each do |pr|
+      pr.role.roles_permission.each do |rp|
+        if !(user_permissions.include?(rp.permission_id)) 
+          user_permissions.push(rp.permission_id)
+        end
+      end
+    end
+    user_permissions
+  end
+
 
 end

@@ -1,7 +1,8 @@
-%h1 Editing asana_rating
+- content_for :panel_head do
+  %h1 
+    Editing ASANA Rating for
+    =@profile.name
+  = render partial: "shared/actions/edit_actions", locals: { allPath: asana_ratings_path, fieldName: 'ASANA Rating', showPath: @asana_rating}
 
 = render 'form'
 
-= link_to 'Show', @asana_rating
-\|
-= link_to 'Back', asana_ratings_path

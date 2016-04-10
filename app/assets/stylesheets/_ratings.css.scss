@@ -32,3 +32,11 @@
     }
   }
 }
+
+.rating-panel {
+  // make sure the chosen select box doesn't overflow the container
+  .chosen-container {
+    min-width: 100px;
+    width: 100% !important;
+  }
+}

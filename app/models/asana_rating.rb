@@ -1,5 +1,7 @@
 class AsanaRating < ActiveRecord::Base
   belongs_to :profile 
+  # can't have a rating without a profile
+  validates :profil_id, presence: true
 
   # Display total rating
   def total

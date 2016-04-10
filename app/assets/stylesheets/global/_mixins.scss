@@ -18,6 +18,15 @@
   }
 }
 
+@mixin custom-panel($bg) {
+  border-color: $bg;
+
+  > .panel-heading {
+    background: $bg;
+    color: white;
+  }
+}
+
 @mixin clearfix {
   &:after {
     content: "";

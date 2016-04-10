@@ -1,0 +1,121 @@
+= form_for @asana_rating,:html => {:class => 'form-horizontal'} do |f|
+  - if @asana_rating.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@asana_rating.errors.count, "error")} prohibited this asana_rating from being saved:"
+      %ul
+        - @asana_rating.errors.full_messages.each do |msg|
+          %li= msg
+  - if @profile.present?
+    =f.hidden_field :profile_id
+  - else
+    .field
+      = f.label :profile_id
+      = f.number_field :profile_id
+  -#.field
+    = f.label :is_approved
+    = f.check_box :is_approved
+  -#.field
+    = f.label :approved_profile_id
+    = f.number_field :approved_profile_id
+  = render layout: 'rating_group', locals: {rating_title: 'Throwing', rating_class: 'throwing'} do
+    %ul.list-group
+      %li.list-group-item
+        = question_1
+        .col-sm-10
+          = f.select(:rating_1, ratings_options,{}, :class=> "chosen-select")
+      %li.list-group-item
+        = question_2
+        .col-sm-10
+          = f.select(:rating_2, ratings_options,{}, :class=> "chosen-select")
+      %li.list-group-item
+        = question_3
+        .col-sm-10
+          = f.select(:rating_3, ratings_options,{}, :class=> "chosen-select")
+      %li.list-group-item
+        = question_4
+        .col-sm-10
+          = f.select(:rating_4, ratings_options,{}, :class=> "chosen-select")
+  = render layout: 'rating_group', locals: {rating_title: 'Fielding', rating_class: 'fielding'} do
+    %ul.list-group
+      %li.list-group-item
+        = question_5
+        .col-sm-10
+          = f.select(:rating_5, ratings_options,{}, :class=> "chosen-select")
+      %li.list-group-item
+        = question_6
+        .col-sm-10
+          = f.select(:rating_6, ratings_options,{}, :class=> "chosen-select")
+      %li.list-group-item
+        = question_7
+        .col-sm-10
+          = f.select(:rating_7, ratings_options,{}, :class=> "chosen-select")
+      %li.list-group-item
+        = question_8
+        .col-sm-10
+          = f.select(:rating_8, ratings_options,{}, :class=> "chosen-select")
+      %li.list-group-item
+        = question_9
+        .col-sm-10
+          = f.select(:rating_9, ratings_options,{}, :class=> "chosen-select")
+      %li.list-group-item
+        = question_10
+        .col-sm-10
+          = f.select(:rating_10, ratings_options,{}, :class=> "chosen-select")
+  = render layout: 'rating_group', locals: {rating_title: 'Batting', rating_class: 'hitting'} do
+    %ul.list-group
+      %li.list-group-item
+        = question_11
+        .col-sm-10
+          = f.select(:rating_11, ratings_options,{}, :class=> "chosen-select")
+      %li.list-group-item
+        = question_12
+        .col-sm-10
+          = f.select(:rating_12, ratings_options,{}, :class=> "chosen-select")
+      %li.list-group-item
+        = question_13
+        .col-sm-10
+          = f.select(:rating_13, ratings_options,{}, :class=> "chosen-select")
+      %li.list-group-item
+        = question_14
+        .col-sm-10
+          = f.select(:rating_14, ratings_options,{}, :class=> "chosen-select")
+      %li.list-group-item
+        = question_15
+        .col-sm-10
+          = f.select(:rating_15, ratings_options,{}, :class=> "chosen-select")
+      %li.list-group-item
+        = question_16
+        .col-sm-10
+          = f.select(:rating_16, ratings_options,{}, :class=> "chosen-select")
+  = render layout: 'rating_group', locals: {rating_title: 'Baserunning', rating_class: 'running'} do
+    %ul.list-group
+      %li.list-group-item
+        = question_17
+        .col-sm-10
+          = f.select(:rating_17, ratings_options,{}, :class=> "chosen-select")
+      %li.list-group-item
+        = question_18
+        .col-sm-10
+          = f.select(:rating_18, ratings_options,{}, :class=> "chosen-select")
+      %li.list-group-item
+        = question_19
+        .col-sm-10
+          = f.select(:rating_19, ratings_options,{}, :class=> "chosen-select")
+  = render layout: 'rating_group', locals: {rating_title: 'Fundamentals', rating_class: 'fundamentals'} do
+    %ul.list-group
+      %li.list-group-item
+        = question_20
+        .col-sm-10
+          = f.select(:rating_20, ratings_options,{}, :class=> "chosen-select")
+  = render layout: 'rating_group', locals: {rating_title: 'Experience', rating_class: 'experience'} do
+    %ul.list-group
+      %li.list-group-item
+        = question_21
+        .col-sm-10
+          = f.select(:rating_21, [['0 - No', 0], ['5 - Won Last Year', 5], ['10 - Won Past 2 Years', 10]],{}, :class=> "chosen-select")
+      %li.list-group-item
+        = question_22 
+        .col-sm-10
+          = f.select(:rating_22, [['0 - No', 0], ['5 - Yes', 5]],{}, :class=> "chosen-select")
+  .actions
+    = f.submit 'Save', {:class => 'btn btn-primary'}

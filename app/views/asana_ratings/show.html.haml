@@ -1,51 +1,100 @@
-%p#notice= notice
+- content_for :panel_head do
+  %h1 
+    ASANA Rating For
+    = @profile.name
+  = render partial: "shared/actions/show_actions", locals: { editPath: edit_asana_rating_path(@asana_rating), fieldName: 'ASANA Rating', allPath: asana_ratings_path}
+  = link_to "View #{@profile.name}", @profile
+  %p#notice= notice
 
-%p
-  %b Profile:
-  = @asana_rating.profile_id
 %p
   %b Is approved:
   = @asana_rating.is_approved
+
 %p
   %b Approved profile:
   = @asana_rating.approved_profile_id
-%p
-  %b Rating 1:
-  = @asana_rating.rating_1
-%p
-  %b Rating 2:
-  = @asana_rating.rating_2
-%p
-  %b Rating 3:
-  = @asana_rating.rating_3
-%p
-  %b Rating 4:
-  = @asana_rating.rating_4
-%p
-  %b Rating 5:
-  = @asana_rating.rating_5
-%p
-  %b Rating 6:
-  = @asana_rating.rating_6
-%p
-  %b Rating 7:
-  = @asana_rating.rating_7
-%p
-  %b Rating 8:
-  = @asana_rating.rating_8
-%p
-  %b Rating 9:
-  = @asana_rating.rating_9
-%p
-  %b Rating 10:
-  = @asana_rating.rating_10
-%p
-  %b Rating 11:
-  = @asana_rating.rating_11
-%p
-  %b Rating 12:
-  = @asana_rating.rating_12
 
-= link_to 'Edit', edit_asana_rating_path(@asana_rating)
-\|
-= link_to 'Back', asana_ratings_path
+= render layout: 'rating_group', locals: {rating_title: 'Throwing', rating_class: 'throwing'} do
+  %ul.list-group
+    %li.list-group-item
+      %h5=question_1
+      %p=response(@asana_rating.rating_1)
+    %li.list-group-item
+      %h5=question_2
+      %p=response(@asana_rating.rating_2)
+    %li.list-group-item
+      %h5=question_3
+      %p=response(@asana_rating.rating_3)
+    %li.list-group-item
+      %h5=question_4
+      %b=response(@asana_rating.rating_4)
+
+= render layout: 'rating_group', locals: {rating_title: 'Fielding', rating_class: 'fielding'} do
+  %ul.list-group
+    %li.list-group-item
+      %h5=question_5
+      = response(@asana_rating.rating_5)
+    %li.list-group-item
+      %h5=question_6
+      = response(@asana_rating.rating_6)
+    %li.list-group-item
+      %h5=question_7
+      = response(@asana_rating.rating_7)
+    %li.list-group-item
+      %h5=question_8
+      = response(@asana_rating.rating_8)
+    %li.list-group-item
+      %h5=question_9
+      = response(@asana_rating.rating_9)
+    %li.list-group-item
+      %h5=question_10
+      = response(@asana_rating.rating_10)
+
+= render layout: 'rating_group', locals: {rating_title: 'Batting', rating_class: 'hitting'} do
+  %ul.list-group
+    %li.list-group-item
+      %h5=question_11
+      = response(@asana_rating.rating_11)
+    %li.list-group-item
+      %h5=question_12
+      = response(@asana_rating.rating_12)
+    %li.list-group-item
+      %h5=question_13
+      = response(@asana_rating.rating_13)
+    %li.list-group-item
+      %h5=question_14
+      = response(@asana_rating.rating_14)
+    %li.list-group-item
+      %h5=question_15
+      = response(@asana_rating.rating_15)
+    %li.list-group-item
+      %h5=question_16
+      = response(@asana_rating.rating_16)
+
+= render layout: 'rating_group', locals: {rating_title: 'Baserunning', rating_class: 'running'} do
+  %ul.list-group
+    %li.list-group-item
+      %h5=question_17
+      = response(@asana_rating.rating_17)
+    %li.list-group-item
+      %h5=question_18
+      = response(@asana_rating.rating_18)
+    %li.list-group-item
+      %h5=question_19
+      = response(@asana_rating.rating_19)
+
+= render layout: 'rating_group', locals: {rating_title: 'Fundamentals', rating_class: 'fundamentals'} do
+  %ul.list-group
+    %li.list-group-item
+      %h5=question_20
+      = response(@asana_rating.rating_20)
+
+= render layout: 'rating_group', locals: {rating_title: 'Experience', rating_class: 'experience'} do
+  %ul.list-group
+    %li.list-group-item
+      %h5=question_21
+      = response_ws(@asana_rating.rating_21)
+    %li.list-group-item
+      %h5=question_22
+      = response_runnerup(@asana_rating.rating_22)
+

@@ -8,6 +8,13 @@ $profiles-bg: $pink;
 $games-bg: $deep-blue;
 $parks-bg: lighten($fields-bg, 10%);
 
+$throwing-color: $blue;
+$fielding-color: $green;
+$running-color: $purple;
+$hitting-color: $red;
+$misc-color:  $orange;
+$experience-color: $yellow;
+
 #controller-admins {
   @include set-panel($admins-bg, white);
 }
@@ -83,4 +90,32 @@ $parks-bg: lighten($fields-bg, 10%);
   .fields-group-item:hover {
     background: lighten($fields-bg, 30%);
   }
+}
+
+/**
+ * Custom Ratings Styling
+ * 
+ */
+.panel-throwing {
+  @include custom-panel($throwing-color);
+}
+
+.panel-fielding {
+  @include custom-panel($fielding-color);
+}
+
+.panel-hitting {
+  @include custom-panel($hitting-color);
+}
+
+.panel-running {
+  @include custom-panel($running-color);
+}
+
+.panel-fundamentals {
+  @include custom-panel($misc-color);
+}
+
+.panel-experience {
+  @include custom-panel($experience-color);
 }

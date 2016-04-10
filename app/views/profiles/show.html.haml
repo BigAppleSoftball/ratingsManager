@@ -8,4 +8,4 @@
     =link_to raw("<i class='fa fa-user-secret'></i> Impersonate"), impersonate_engine.impersonate_user_path(@profile), {:class =>'btn btn-default'}
     =link_to raw("<i class='fa fa-compress'></i> Merge Profile"), profile_merge_path(@profile.id), {:class =>'btn btn-danger'}
 
-.row= render partial: "details", locals: { profile: @profile, showCard: true}
+.row= render partial: "details", locals: { profile: @profile, showCard: true, permissions: @permissions}
