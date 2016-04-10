@@ -1,0 +1,56 @@
+= form_for @asana_rating,:html => {:class => 'form-horizontal'} do |f|
+  - if @asana_rating.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@asana_rating.errors.count, "error")} prohibited this asana_rating from being saved:"
+      %ul
+        - @asana_rating.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :profile_id
+    = f.number_field :profile_id
+  .field
+    = f.label :is_approved
+    = f.check_box :is_approved
+  .field
+    = f.label :approved_profile_id
+    = f.number_field :approved_profile_id
+  .field
+    = f.label :rating_1
+    = f.number_field :rating_1
+  .field
+    = f.label :rating_2
+    = f.number_field :rating_2
+  .field
+    = f.label :rating_3
+    = f.number_field :rating_3
+  .field
+    = f.label :rating_4
+    = f.number_field :rating_4
+  .field
+    = f.label :rating_5
+    = f.number_field :rating_5
+  .field
+    = f.label :rating_6
+    = f.number_field :rating_6
+  .field
+    = f.label :rating_7
+    = f.number_field :rating_7
+  .field
+    = f.label :rating_8
+    = f.number_field :rating_8
+  .field
+    = f.label :rating_9
+    = f.number_field :rating_9
+  .field
+    = f.label :rating_10
+    = f.number_field :rating_10
+  .field
+    = f.label :rating_11
+    = f.number_field :rating_11
+  .field
+    = f.label :rating_12
+    = f.number_field :rating_12
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit 'Save', {:class => 'btn btn-primary'}

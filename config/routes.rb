@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :asana_ratings
+
   resources :motions
   get '/motions/:id/options', :to => 'motions#options'
   post '/motions/:id/options', :to => 'motions#add_new_option'
@@ -155,5 +157,8 @@ Rails.application.routes.draw do
   get '/scheduler/run', :to => 'schedules#run_generator'
   get '/import', :to => 'imports#index'
   post '/import/upload', :to => 'imports#upload'
+
+  # ratings
+  get "/asana_rating_to_profile/:profile_id", :to => 'asana_ratings#new_for_profile'
 
 end

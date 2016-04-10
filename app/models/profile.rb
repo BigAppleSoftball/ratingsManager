@@ -22,6 +22,7 @@ class Profile < ActiveRecord::Base
 
   has_many :roles, :through => :profile_roles
   has_many :profile_roles, dependent: :destroy
+  has_many :asana_ratings, dependent: :destroy
 
   def staff?
     true

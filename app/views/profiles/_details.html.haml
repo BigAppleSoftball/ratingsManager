@@ -1,5 +1,5 @@
 -if defined?(showCard) && showCard
-  .col-md-3
+  .col-md-2
     .profile-card
       -if profile.long_image_url
         .card-img-logo
@@ -62,3 +62,14 @@
     %ul
       -profile.committees.each do |committee|
         %li=link_to committee.name, committee
+
+.col-md-3
+  %b Player Ratings
+  -# TODO(Paige) Check if ASANA Rating exists
+  - if @asana_rating.present?
+    .asana_rating
+      %b ASANA Rating:
+      = @asana_rating.total
+  - else
+    %br
+    =link_to 'Add ASANA Rating', "/asana_rating_to_profile/#{profile.id}", :class => 'btn btn-default'

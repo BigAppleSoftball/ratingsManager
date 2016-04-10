@@ -1,0 +1,2 @@
+module AsanaRatingsHelper
+end

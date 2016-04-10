@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  profile_id: 1
+  is_approved: false
+  approved_profile_id: 1
+  rating_1: 1
+  rating_2: 1
+  rating_3: 1
+  rating_4: 1
+  rating_5: 1
+  rating_6: 1
+  rating_7: 1
+  rating_8: 1
+  rating_9: 1
+  rating_10: 1
+  rating_11: 1
+  rating_12: 1
+
+two:
+  profile_id: 1
+  is_approved: false
+  approved_profile_id: 1
+  rating_1: 1
+  rating_2: 1
+  rating_3: 1
+  rating_4: 1
+  rating_5: 1
+  rating_6: 1
+  rating_7: 1
+  rating_8: 1
+  rating_9: 1
+  rating_10: 1
+  rating_11: 1
+  rating_12: 1

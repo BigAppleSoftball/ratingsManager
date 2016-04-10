@@ -1,0 +1,125 @@
+= form_for @asana_rating,:html => {:class => 'form-horizontal'} do |f|
+  - if @asana_rating.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@asana_rating.errors.count, "error")} prohibited this asana_rating from being saved:"
+      %ul
+        - @asana_rating.errors.full_messages.each do |msg|
+          %li= msg
+  - if @profile.present?
+    =f.hidden_field :profile_id
+  - else
+    .field
+      = f.label :profile_id
+      = f.number_field :profile_id
+  -#.field
+    = f.label :is_approved
+    = f.check_box :is_approved
+  -#.field
+    = f.label :approved_profile_id
+    = f.number_field :approved_profile_id
+  THROWING
+  .form-group
+    1. Player can throw the ball accurately from third base to first base:
+    .col-sm-10
+      = render partial: "asana_ratings/rating_dropdown", locals: { rating_id: '1'}
+  .form-group
+    2. Player can throw the ball with good speed from third base to first base:
+    .col-sm-10
+      = render partial: "asana_ratings/rating_dropdown", locals: { rating_id: '2'}
+  .form-group
+    3. Player can throw the ball accurately from the white co-ed line (150ft) in left field to second base:
+    .col-sm-10
+      = render partial: "asana_ratings/rating_dropdown", locals: { rating_id: '3'}
+  .form-group
+    4. Player can throw the ball with good speed the white co-ed (150 ft) line in left field to second base
+    .col-sm-10
+      = render partial: "asana_ratings/rating_dropdown", locals: { rating_id: '4'}
+  FIELDING
+  .form-group
+    5. Player fields solid ground balls hit right at them
+    .col-sm-10
+      = render partial: "asana_ratings/rating_dropdown", locals: { rating_id: '5'}
+  .form-group
+    6. Player fields solid ground balls on the run (shows good range within 10 steps in any direction)
+    .col-sm-10
+      = render partial: "asana_ratings/rating_dropdown", locals: { rating_id: '6'}
+  .form-group
+    7. Player fields fields solid fly balls hit right at them.
+    .col-sm-10
+      = render partial: "asana_ratings/rating_dropdown", locals: { rating_id: '7'}
+  .form-group
+    8. Player fields solid fly balls on the run (shows good range within 10 steps in any direction)
+    .col-sm-10
+      = render partial: "asana_ratings/rating_dropdown", locals: { rating_id: '8'}
+  .form-group
+    9. Player dives to field balls
+    .col-sm-10
+      = render partial: "asana_ratings/rating_dropdown", locals: { rating_id: '9'}
+  .form-group
+    10. Player catches fast balls throw to her
+    .col-sm-10
+      = render partial: "asana_ratings/rating_dropdown", locals: { rating_id: '10'}
+  BATTING
+  .form-group
+    11. Player hits line drives with power.
+    .col-sm-10
+      = render partial: "asana_ratings/rating_dropdown", locals: { rating_id: '11'}
+  .form-group
+    12. Player hits doubles.
+    .col-sm-10
+      = render partial: "asana_ratings/rating_dropdown", locals: { rating_id: '12'}
+  .form-group
+    13. Player hits triples.
+    .col-sm-10
+      = render partial: "asana_ratings/rating_dropdown", locals: { rating_id: '13'}
+  .form-group
+    14. Player hits homeruns.
+    .col-sm-10
+      = render partial: "asana_ratings/rating_dropdown", locals: { rating_id: '14'}
+  .form-group
+    15. Player gets on base (hits and/or walks)
+    .col-sm-10
+      = render partial: "asana_ratings/rating_dropdown", locals: { rating_id: '15'}
+  .form-group
+    16. Player has the ability to hit to all fields 
+    .col-sm-10
+      = render partial: "asana_ratings/rating_dropdown", locals: { rating_id: '16'}
+  BASERUNNING
+  .form-group
+    17. Player runs the bases with good speed (can make it to first within 5 seconds) 
+    .col-sm-10
+      = render partial: "asana_ratings/rating_dropdown", locals: { rating_id: '17'}
+  .form-group
+    18. Player slides effectively into bases. 
+    .col-sm-10
+      = render partial: "asana_ratings/rating_dropdown", locals: { rating_id: '18'}
+  .form-group
+    19. Player runs the bases aggressively and effectively.
+    .col-sm-10
+      = render partial: "asana_ratings/rating_dropdown", locals: { rating_id: '19'}
+  Fundamentals
+  .form-group
+    20. Player knows the fundamentals of her position (backing up, covering bases, knowing where to throw etc...)
+    .col-sm-10
+      = render partial: "asana_ratings/rating_dropdown", locals: { rating_id: '20'}
+  EXPERIENCE
+  .form-group
+    21. Did the Player play on a team that won the ASANA World Series?
+    .col-sm-10
+      %select.chosen-select{:name=>"asana_rating[rating_21]", :id => "asana_rating_rating_21"}
+        %option{:value=>'0'} 
+          No
+        %option{:value=>'5'} 
+          Won Last Year
+        %option{:value=>'10'} 
+          Won Past 2 Years
+  .form-group
+    22. If you answered yes to #21, Is this the players second consecutive year of World Series Victories? 
+    .col-sm-10
+      %select.chosen-select{:name=>"asana_rating[rating_22]", :id => "asana_rating_rating_22"}
+        %option{:value=>'0'} 
+          No
+        %option{:value=>'5'} 
+          Yes
+  .actions
+    = f.submit 'Save', {:class => 'btn btn-primary'}

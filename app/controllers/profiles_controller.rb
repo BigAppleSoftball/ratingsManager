@@ -181,6 +181,7 @@ class ProfilesController < ApplicationController
       @profile = Profile.eager_load(:board_members, :committees, :rosters => {:team => {:division =>:season }}).find(params[:id])
       @board_members = BoardMember.where(:profile_id => params[:id])
       @committees = Committee.where(:profile_id => params[:id])
+      @asana_rating = AsanaRating.where(:profile_id => params[:id]).last
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

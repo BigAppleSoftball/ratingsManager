@@ -11,12 +11,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160409173551) do
+ActiveRecord::Schema.define(version: 20160410033921) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "asana_ratings", force: true do |t|
+    t.integer  "profile_id"
+    t.boolean  "is_approved"
+    t.integer  "approved_profile_id"
+    t.integer  "rating_1",            default: 0
+    t.integer  "rating_2",            default: 0
+    t.integer  "rating_3",            default: 0
+    t.integer  "rating_4",            default: 0
+    t.integer  "rating_5",            default: 0
+    t.integer  "rating_6",            default: 0
+    t.integer  "rating_7",            default: 0
+    t.integer  "rating_8",            default: 0
+    t.integer  "rating_9",            default: 0
+    t.integer  "rating_10",           default: 0
+    t.integer  "rating_11",           default: 0
+    t.integer  "rating_12",           default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "rating_13",           default: 0
+    t.integer  "rating_14",           default: 0
+    t.integer  "rating_15",           default: 0
+    t.integer  "rating_16",           default: 0
+    t.integer  "rating_17",           default: 0
+    t.integer  "rating_18",           default: 0
+    t.integer  "rating_19",           default: 0
+    t.integer  "rating_20",           default: 0
+    t.integer  "rating_21",           default: 0
+    t.integer  "rating_22",           default: 0
   end
 
   create_table "board_members", force: true do |t|

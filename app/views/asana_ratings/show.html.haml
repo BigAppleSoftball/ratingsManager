@@ -1,0 +1,51 @@
+%p#notice= notice
+
+%p
+  %b Profile:
+  = @asana_rating.profile_id
+%p
+  %b Is approved:
+  = @asana_rating.is_approved
+%p
+  %b Approved profile:
+  = @asana_rating.approved_profile_id
+%p
+  %b Rating 1:
+  = @asana_rating.rating_1
+%p
+  %b Rating 2:
+  = @asana_rating.rating_2
+%p
+  %b Rating 3:
+  = @asana_rating.rating_3
+%p
+  %b Rating 4:
+  = @asana_rating.rating_4
+%p
+  %b Rating 5:
+  = @asana_rating.rating_5
+%p
+  %b Rating 6:
+  = @asana_rating.rating_6
+%p
+  %b Rating 7:
+  = @asana_rating.rating_7
+%p
+  %b Rating 8:
+  = @asana_rating.rating_8
+%p
+  %b Rating 9:
+  = @asana_rating.rating_9
+%p
+  %b Rating 10:
+  = @asana_rating.rating_10
+%p
+  %b Rating 11:
+  = @asana_rating.rating_11
+%p
+  %b Rating 12:
+  = @asana_rating.rating_12
+
+= link_to 'Edit', edit_asana_rating_path(@asana_rating)
+\|
+= link_to 'Back', asana_ratings_path
