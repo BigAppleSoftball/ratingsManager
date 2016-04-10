@@ -18,10 +18,23 @@
   .add-permission-container
     %select.chosen-select.js-add-permission-select
       - @permissions.each do |p|
+        - #TODO(Paige) Only Show the permission that aren't on this role
         %option{:value => p.id}=p.name
     %br
     %button.btn-default.btn.js-add-new-permission 
       + Add Permission
-- # Option to Add Permission
+.column
+  %b Profiles
+  %ul.js-role-profiles
+    - @role.profiles.each do |profile|
+      = render partial: "roles/role_profile_item", locals:{:role => @role, :profile => profile }
+  .add-profile-container
+    %select.chosen-select.js-add-profile-select
+      - @profiles.each do |p|
+        - #TODO(paige) Only Show the profiles that don't have this role
+        %option{:value => p.id}=p.name
+    %br
+    %button.btn-default.btn.js-add-role-profile 
+      + Add Profile
 - # Show All Current Profiles
 - # Option to Add a Profile

@@ -2,6 +2,7 @@ class AdminsController < ApplicationController
   before_action :set_admin, only: [:show, :edit, :update, :destroy]
   before_filter :only_for_admin, only: [:show, :edit, :update, :destroy]
   before_filter :only_for_admin_user, only: [:home]
+  before_filter :get_permissions
 
   # GET /admins
   # GET /admins.json
@@ -24,7 +25,7 @@ class AdminsController < ApplicationController
   end
 
   def home
-
+    @user_permissions = get_current_user_permissions
   end
 
   # POST /admins

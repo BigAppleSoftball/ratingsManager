@@ -23,7 +23,7 @@ module SessionsHelper
   end
 
   def get_current_profile
-    Rails.cache.fetch("current_profile_#{cookies[:remember_token]}", :expires_in => 60.minutes) do
+    Rails.cache.fetch("current_profile2_#{cookies[:remember_token]}", :expires_in => 60.minutes) do
       remember_token = Profile.encrypt(cookies[:remember_token])
       Profile.eager_load(:rosters => {:team => {:division =>:season }}).find_by_remember_token(remember_token)
     end

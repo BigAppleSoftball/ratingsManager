@@ -1,5 +1,6 @@
 class ProfileRolesController < ApplicationController
   before_action :set_profile_role, only: [:show, :edit, :update, :destroy]
+  before_filter {|c| c.has_permissions_redirect get_permissions[:CanEditAllRoles]}
 
   # GET /profile_roles
   # GET /profile_roles.json
@@ -58,6 +59,57 @@ class ProfileRolesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to profile_roles_url, notice: 'Profile role was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  #
+  # Endpoint to add a profile to a role
+  # TODO Make this check better (use the model)
+  #
+  def add_profile_to_role
+    profile_id = params[:profile_id]
+    role_id = params[:role_id]
+    pr = ProfileRole.where(:role_id => role_id, :profile_id => profile_id)
+    response = Hash.new
+    if (!pr.empty?)
+      # this profile already had this role
+      response[:message] = "This Profile Already has this role!"
+      response[:success] = false
+    else
+      response[:success] = true
+      profileRole = ProfileRole.new
+      profileRole[:role_id] = role_id
+      profileRole[:profile_id] = profile_id
+      profileRole.save
+      # create a new one
+      view = render_to_string "roles/_role_profile_item.haml", :layout => false, :locals => { :role => profileRole.role, :profile => profileRole.profile}
+      response[:view] = view
+    end
+    respond_to do |format|
+      format.json {
+        render json: response
+      }
+    end
+  end
+
+
+  #
+  # Endpoint from Roles for removing a profile
+  #
+  def remove_profile_from_role
+    profileId = params[:profile_id]
+    roleId = params[:role_id]
+    # find the roles_permission based on the Params
+    rp = ProfileRole.where(:role_id => roleId, :profile_id => profileId).first
+    rp.destroy
+    response = Hash.new
+    response[:success] = rp.destroyed?
+    response[:role_id] = roleId
+    response[:profile_id] = profileId
+    respond_to do |format|
+      format.json {
+        render json: response
+      }
     end
   end
 

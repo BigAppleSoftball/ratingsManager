@@ -45,6 +45,11 @@
     .list-group.admin-list-group
       = link_to 'Offers', offers_path, :class => 'list-group-item list-payments-item'
       = link_to 'Teamsnap', '/teamsnap', :class => 'list-group-item list-payments-item'
+      - if @user_permissions.include?(@permissions[:CanEditAllRoles])
+        = link_to 'Roles', roles_path, :class => 'list-group-item list-roles-item'
+      - if @user_permissions.include?(@permissions[:CanImport])
+        = link_to 'Import', '/import', :class => 'list-group-item list-roles-item'
+
 = render partial: 'shared/player_details'
 
 - #if is_manager?

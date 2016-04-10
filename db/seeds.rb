@@ -488,6 +488,98 @@ def set_all_null_ratings_to_zero
   end
 end
 
+def insert_default_permissions
+  canEditPermission = Permission.new
+  canEditPermission[:id] = 1
+  canEditPermission[:name] = "CanEditAllTeams"
+  canEditPermission.save
+
+  canEditAllPlayers = Permission.new
+  canEditAllPlayers[:id] = 2
+  canEditAllPlayers[:name] = "CanEditAllPlayers"
+  canEditAllPlayers.save
+
+  canEditAllSeasons = Permission.new
+  canEditAllSeasons[:id] = 3
+  canEditAllSeasons[:name] = "CanEditAllSeasons"
+  canEditAllSeasons.save
+
+  canEditAllDivisions = Permission.new
+  canEditAllDivisions[:id] = 4
+  canEditAllDivisions[:name] = "CanEditAllDivisions"
+  canEditAllDivisions.save
+
+  canEditAllRatings = Permission.new
+  canEditAllRatings[:id] = 5
+  canEditAllRatings[:name] = "canEditAllRatings"
+  canEditAllRatings.save
+end
+
+#
+# Default Admin Permissions
+#
+def insert_admin_permissions
+
+  permission_ids = [1,2,3,4,5]
+
+  # create superadmin role
+  superAdmin = Role.new
+  superAdmin[:name] = 'SuperAdmin'
+  superAdmin.save
+
+  # Add permissions to superAdmin
+  permission_ids.each do |pid|
+    rp = RolesPermission.new
+    rp[:permission_id] = pid
+    rp[:role_id] = superAdmin.id
+    rp.save
+  end
+
+  # find webteam profile
+  webteam = Profile.where(:email => "webteam@bigapplesoftball.com").first
+  rp1 = ProfileRole.new
+  rp1[:profile_id] = webteam.id
+  rp1[:role_id] = superAdmin.id
+  rp1.save
+end
+
+#
+# Add Edit Role and Permissions to 
+#
+def insert_roles_and_permissions_permissions
+  create_permission(6, 'CanEditAllRoles')
+  create_permission(7, 'CanEditAllPermissions')
+  add_permission_to_super_admin(6)
+  add_permission_to_super_admin(7)
+end
+
+#
+# Add a permission to the Superadmin role
+#
+def add_permission_to_super_admin(pid);
+  r = Role.where(:name => 'SuperAdmin').first
+  rp = RolesPermission.new
+  rp[:role_id] = r.id
+  rp[:permission_id] = pid
+  rp.save
+end
+
+def insert_import_permissions
+  create_permission(8, 'CanImport')
+  add_permission_to_super_admin(8)
+end
+
+private 
+  #
+  # Creates a New Permission and adds it to the SuperAdmin
+  #
+  def create_permission(id, name)
+    p = Permission.new
+    p[:id] = id
+    p[:name] = name
+    p.save
+  end
+
 #create_default_admin_profile
 #generate_team_backup
 #generate_division_backup
@@ -510,3 +602,9 @@ end
 #generate_games_backup
 #create_default_admin_profile
 #set_all_null_ratings_to_zero
+
+#TODO(Paige) Turn on for seeding in production
+#insert_default_permissions
+#insert_admin_permissions
+#insert_roles_and_permissions_permissions
+#insert_import_permissions

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160409020139) do
+ActiveRecord::Schema.define(version: 20160409173551) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -164,7 +164,7 @@ ActiveRecord::Schema.define(version: 20160409020139) do
   end
 
   create_table "profile_roles", force: true do |t|
-    t.integer  "profle_id"
+    t.integer  "profile_id"
     t.integer  "role_id"
     t.datetime "created_at"
     t.datetime "updated_at"

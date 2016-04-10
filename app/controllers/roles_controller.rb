@@ -1,5 +1,6 @@
 class RolesController < ApplicationController
   before_action :set_role, only: [:show, :edit, :update, :destroy]
+  before_filter {|c| c.has_permissions_redirect get_permissions[:CanEditAllRoles]}
 
   # GET /roles
   # GET /roles.json
@@ -13,7 +14,7 @@ class RolesController < ApplicationController
     # load all the profiles that have this role
     # load all the permissions for this role
     @permissions = Permission.all
-
+    @profiles = Profile.all
   end
 
   # GET /roles/new

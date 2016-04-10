@@ -8,6 +8,8 @@ class Team < ActiveRecord::Base
   has_many :teams_sponsor, dependent: :destroy
   has_many :motions, :through => :motion_teams
   has_many :motion_teams, dependent: :destroy
+  validates :name, presence: true
+  validates :division_id, presence: true
 
   def managers
     Roster.where(:team_id => self.id, :is_manager => true)

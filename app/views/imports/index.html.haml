@@ -1,0 +1,10 @@
+- content_for :panel_head do
+  %h1 Import Teamsnap CSV
+
+%row
+  %column
+    %h4 Upload a CSV
+    = form_tag '/import/upload', multipart: true do
+      = render 'shared/forms/season_selector', {:selected_season => nil, :seasons => @seasons, :name=> 'seasons'}
+      = file_field(:file, 'csv')
+      = submit_tag "Import CSV"

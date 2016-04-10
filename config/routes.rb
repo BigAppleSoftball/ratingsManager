@@ -31,6 +31,8 @@ Rails.application.routes.draw do
   resources :roles
   delete '/remove_permission_from_role', :to => 'roles_permissions#remove_permission_from_role'
   post '/add_permission_to_role', :to => 'roles_permissions#add_permission_to_role'
+  post '/add_profile_to_role', :to => 'profile_roles#add_profile_to_role'
+  delete '/remove_profile_from_role', :to => 'profile_roles#remove_profile_from_role'
 
   resources :rosters, :only => [:destroy]
   resources :teams
@@ -151,5 +153,7 @@ Rails.application.routes.draw do
   match '/schedule',  to: 'schedules#index', via: 'get'
   get '/schedule/:divisionId', :to => 'schedules#generate'
   get '/scheduler/run', :to => 'schedules#run_generator'
+  get '/import', :to => 'imports#index'
+  post '/import/upload', :to => 'imports#upload'
 
 end

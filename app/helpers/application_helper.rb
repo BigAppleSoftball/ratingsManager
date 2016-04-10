@@ -1,4 +1,5 @@
 module ApplicationHelper
+
   def unranked_class(ranking)
     if ranking.nil?
       "unranked-player danger"

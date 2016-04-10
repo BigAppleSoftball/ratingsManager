@@ -1,0 +1,23 @@
+- content_for :panel_head do
+  %h1 Uploaded
+
+%p
+  %b=@selected_season.description
+  Season
+
+%p
+  %b=$team_added_count 
+  Teams Added
+
+%p
+  =$divisions_added_count
+  Divisions Added
+
+%p
+  %b=$profiles_added_count 
+  New Profiles Created 
+
+%p 
+  %b=$roster_update_count
+  Roster Updates Committed
+

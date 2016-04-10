@@ -1,5 +1,6 @@
 class PermissionsController < ApplicationController
   before_action :set_permission, only: [:show, :edit, :update, :destroy]
+  before_filter {|c| c.has_permissions_redirect get_permissions[:CanEditAllRoles]}
 
   # GET /permissions
   # GET /permissions.json
