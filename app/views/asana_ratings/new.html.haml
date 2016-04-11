@@ -1,5 +1,6 @@
-%h1 New asana_rating
+- content_for :panel_head do
+  %h1 Create New Rating
+  = render partial: "shared/actions/all", locals: { allPath: asana_ratings_path}
 
 = render 'form'
 
-= link_to 'Back', asana_ratings_path
