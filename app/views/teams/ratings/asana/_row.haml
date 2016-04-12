@@ -14,9 +14,9 @@
       %td.center-column.batting-column=player_rating.batting_total
       %td.center-column.fundamentals-column=player_rating.fundamentals_total
       %td.center-column.experience-column=player_rating.experience_total
-      - if @CanEditRatings
-        %td.center-column
-          = link_to raw('<i class="fa fa-pencil"></i>'), player_rating, {:class => 'btn btn-sm btn-default'}
+      %td.center-column
+        = link_to raw('<i class="fa fa-eye"></i>'), player_rating, {:class => 'btn btn-sm btn-default', :title => 'View'}
+        - if @CanApproveRatings
     - else
       %td.warning.no-ranking-warning.center-column{:colspan => '7'}
         No Rating Found.
