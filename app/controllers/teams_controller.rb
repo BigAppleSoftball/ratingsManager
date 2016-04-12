@@ -103,12 +103,35 @@ class TeamsController < ApplicationController
 
   def show_asana_ratings
     @CanEditRatings = has_permissions?(@permissions[:CanEditAllRatings])
+    @CanApproveRatings = has_permissions?(@permissions[:CanApproveRatings])
     @isAsana = true
     team_id = params[:teamid]
     @team = Team.find(team_id)
     @teamRoster = Roster.eager_load(:profile => :asana_ratings).where(:team_id => team_id).order('profiles.last_name')
-    ap @teamRoster
+  end
 
+  def update_asana_rating
+    isApproved = params[:isApproved]
+    ratingId = params[:ratingId]
+    response = Hash.new
+    ap "UPDATING RATINGS"
+    ap ratingId
+    ap isApproved
+    # find the rating with the id 
+    rating = AsanaRating.find(ratingId)
+    if rating.present?
+      rating[:is_approved] = isApproved
+      rating.save
+      response[:success] = true
+      response[:message] = rating.valid?
+      response[:ratingId] = ratingId
+      response[:isApproved] = isApproved
+    else
+      response[:message] = "No Rating Found with Id: #{ratingId}"
+    end
+    respond_to do |format|
+      format.json { render :json=> response}
+    end
   end
 
   #

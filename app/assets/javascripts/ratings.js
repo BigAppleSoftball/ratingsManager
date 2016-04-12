@@ -6,6 +6,7 @@
     this.initDialogActions();
     this.bindSaveBtn();
     this.bindCreateNewPlayer();
+    this.bindRowActions();
   };
 
   /**
@@ -225,6 +226,60 @@
    */
   PlayerRatings.prototype.showError = function () {
     $.toaster({ priority : 'danger', title : 'Error!', message : 'Could not update information'});
+  };
+
+  /**
+   * Bind the Approve and Reject Actions on
+   * a ASANA Rating Row
+   */
+  PlayerRatings.prototype.bindRowActions = function() {
+    console.log("binding actions");
+    var $ratingRow = $('.js-rating-row'),
+        self = this;
+
+    $ratingRow.on('click', '.js-approve-rating', function(){
+      var ratingId = $(this).closest('.js-rating-row').data('asana-rating-id');
+      self.runApproveOrRejectRating(ratingId, true);
+    });
+
+    $ratingRow.on('click', '.js-reject-rating', function(){
+      var ratingId = $(this).closest('.js-rating-row').data('asana-rating-id');
+      self.runApproveOrRejectRating(ratingId, false);
+    });
+  };
+
+  /**
+   * Run the Ajax Call to Reject or approve the rating
+   * @param  {integer}  ratingId  Asana rating id
+   * @param  {Boolean} isApproved whether or not to approve a rating
+   */
+  PlayerRatings.prototype.runApproveOrRejectRating = function(ratingId, isApproved) {
+    var self = this;
+    $.ajax({
+      url: '/teams/asana/update',
+      type: 'POST',
+      data: {
+        isApproved: isApproved,
+        ratingId: ratingId
+      },
+      success: self.onApproveRejectSuccess,
+      failure: self.onApproveRejectFailure
+    })
+  };
+
+  PlayerRatings.prototype.onApproveRejectSuccess = function(data) {
+    var $ratingRow = $('.js-rating-row-' + data.ratingId);
+    if (data.isApproved === 'true') {
+      $ratingRow.removeClass('danger info');
+      $ratingRow.addClass('success');
+    } else {
+      $ratingRow.removeClass('success info');
+      $ratingRow.addClass('danger');
+    }
+  };
+
+  PlayerRatings.prototype.onApproveRejectFailure = function(data) {
+    console.log("onApproveRejectFailure", data);
   };
 
   window.PlayerRatings = PlayerRatings;

@@ -1,6 +1,14 @@
 -if profile.present?
   - player_rating = profile.asana_ratings.first
-  %tr.js-player-row{:data => {'player_id' => profile.id}, :class => "js-player-row-#{profile.id}"}
+  - rating_id = nil
+  - rating_class = nil
+  - if player_rating.present?
+    - rating_id = player_rating.id
+    - if player_rating.is_approved == true
+      - rating_class = 'success'
+    - elsif player_rating.is_approved == false
+      - rating_class = 'danger'
+  %tr.js-rating-row{:data => {'player_id' => profile.id, :asana_rating_id => rating_id}, :class => "js-player-row-#{profile.id} js-rating-row-#{rating_id} #{rating_class}"}
     %td
       %strong=profile.name
     %td.center-column.medium-large-screen-only
@@ -15,8 +23,21 @@
       %td.center-column.fundamentals-column=player_rating.fundamentals_total
       %td.center-column.experience-column=player_rating.experience_total
       %td.center-column
-        = link_to raw('<i class="fa fa-eye"></i>'), player_rating, {:class => 'btn btn-sm btn-default', :title => 'View'}
-        - if @CanApproveRatings
+        .dropdown
+          %button#dropdownMenu1.btn.btn-default.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+            Actions
+            %span.caret
+          %ul.dropdown-menu
+            %li= link_to raw('<i class="fa fa-eye"></i><span>View</span>'), player_rating, {:title => 'View'}
+            - if @CanApproveRatings
+              %li
+                %a.js-approve-rating{:title => 'Approve'}
+                  %i.fa.fa-check
+                  Approve
+              %li
+                %a.js-reject-rating{:title => 'Approve'}
+                  %i.fa.fa-close
+                  Reject
     - else
       %td.warning.no-ranking-warning.center-column{:colspan => '7'}
         No Rating Found.

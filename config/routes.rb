@@ -93,11 +93,15 @@ Rails.application.routes.draw do
   
   get '/teams/:teamid/ratings/asana', to:'teams#show_asana_ratings'
 
+   post '/teams/asana/update', to:'teams#update_asana_rating'
+
   # ratings
   post '/ratings/update', to:'ratings#update_player'
   post '/ratings/new', to:'ratings#new_player'
   get '/rating/duplicates', to:'ratings#show_duplicates'
   get '/rating/duplicates/remove', to:'ratings#remove_duplicates'
+
+
 
   # website iframes
   get '/showallsponsors', to: 'sponsors#all_sponsors'
