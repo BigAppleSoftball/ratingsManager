@@ -27,7 +27,8 @@ class ApplicationController < ActionController::Base
     permissions[:CanEditAllRatings] = 5
     permissions[:CanEditAllRoles] = 6
     permissions[:CanEditAllPermissions] = 7
-    permissions[:CanImport] = 7
+    permissions[:CanImport] = 8
+    permissions[:CanApproveRatings] = 10
     @permissions = permissions
   end
 
