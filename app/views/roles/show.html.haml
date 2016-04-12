@@ -11,7 +11,7 @@
 - # Show All Current Permissions 
 .column
   %b Permissions
-  %ul.js-role-permissions
+  %table.table.table-bordered.table-striped.js-role-permissions
     - @role.permissions.each do |p|
       - if !p.nil?
         = render partial: "roles/role_permission_item", locals: {:role => @role, :permission => p }
@@ -25,7 +25,7 @@
       + Add Permission
 .column
   %b Profiles
-  %ul.js-role-profiles
+  %table.table.table-bordered.table-striped.js-role-profiles
     - @role.profiles.each do |profile|
       = render partial: "roles/role_profile_item", locals:{:role => @role, :profile => profile }
   .add-profile-container

@@ -1,4 +1,4 @@
-%li.js-role-profile-item
-  = link_to profile.name, profile
-  = link_to "X", "",{:data => {:profile_id => profile.id, :role_id => role.id},
-  :class => "btn btn-danger js-remove-role-profile js-role-profile-#{role.id}-#{profile.id}"}
+%tr.js-role-profile-item
+  %td= link_to profile.name, profile
+  %td= link_to "X", "",{:data => {:profile_id => profile.id, :role_id => role.id},
+  :class => "btn btn-sm btn-danger js-remove-role-profile js-role-profile-#{role.id}-#{profile.id}"}
