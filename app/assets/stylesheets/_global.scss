@@ -11,6 +11,23 @@ body {
   font-family: 'Oxygen', 'Helvetica Neue', 'Arial', 'sans-serif' !important;
 }
 
+
+.small-screen-only {
+   display: none;
+}
+
+@media (max-width: #{$screen-xs-max}) {
+  .small-screen-only {
+    display: block;
+  }
+}
+
+
+@media (max-width: #{$screen-xs-max}) {
+  .medium-large-screen-only {
+    display: none;
+  }
+}
 .global-notice {
   width: 100%;
 }
@@ -212,5 +229,4 @@ a:hover {
   @extend .fa;
   @extend .fa-external-link;
 }
-
 

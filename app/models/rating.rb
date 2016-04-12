@@ -1,5 +1,3 @@
-
-
 class Rating < ActiveRecord::Base
   belongs_to :profile
   validate :ratings_cannot_be_out_of_order

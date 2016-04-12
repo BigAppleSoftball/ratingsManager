@@ -26,7 +26,8 @@
             %li= link_to raw("<i class='fa fa-trash'></i> Delete Team"), @team, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-danger', :title => 'Delete'
           - if !(@team && @team.division && @team.division.season && !@team.division.season.is_editable_season?)
             %li=link_to raw("<i class='fa fa-pencil'></i> Edit Team"), edit_team_path(@team), {:class =>"btn btn-default"}
-          %li= link_to raw("<i class='fa fa-line-chart'></i> Player Ratings"),"/teams/#{@team.id}/ratings", {:class =>"btn btn-default"}
+          %li= link_to raw("<i class='fa fa-line-chart'></i> ASANA Ratings"),"/teams/#{@team.id}/ratings/asana", {:class =>"btn btn-warning"}
+          %li= link_to raw("<i class='fa fa-line-chart'></i> NAGAAA Ratings"),"/teams/#{@team.id}/ratings", {:class =>"btn btn-primary"}
           -if is_admin?
             %li= link_to 'View All Teams', teams_path, {:class =>'btn btn-default'}
 

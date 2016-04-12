@@ -13,6 +13,18 @@ $throwing-color: $green; // green
 $fielding-color: $blue; // blue
 $running-color: $purple; // purple
 $hitting-color: $red; // red
+$misc-color:  $orange;
+$experience-color: $yellow;
+
+$fields-bg: $purple;
+$admins-bg: $red;
+$sponsors-bg: $blue;
+$hofs-bg: $yellow;
+$board_members-bg: $green;
+$committees-bg: $orange;
+$profiles-bg: $pink;
+$games-bg: $deep-blue;
+$parks-bg: lighten($fields-bg, 10%);
 
 // overriding bootstrap vars
 $brand-primary: $fielding-color;

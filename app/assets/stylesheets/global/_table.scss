@@ -4,4 +4,37 @@ th {
   &.center-column {
     text-align: center;
   }
+
+  &.throwing-column, 
+  &.batting-column,
+  &.baserunning-column,
+  &.fielding-column,
+  &.fundamentals-column,
+  &.experience-column {
+    color: white;
+  }
+
+  &.throwing-column {
+    background: $throwing-color !important;
+  }
+
+  &.batting-column {
+    background: $hitting-color !important;
+  }
+
+  &.baserunning-column {
+    background: $running-color !important;
+  }
+
+  &.fielding-column {
+    background: $fielding-color !important;
+  }
+
+  &.fundamentals-column {
+    background: $misc-color !important;
+  }
+
+  &.experience-column {
+    background: $experience-color !important;
+  }
 }

@@ -1,0 +1,23 @@
+%th Player
+%th.center-column.medium-large-screen-only DOB
+%th.center-column Rating
+%th.center-column{:title => 'Throwing'}
+  %span.small-screen-only T
+  %span.medium-large-screen-only Throwing
+%th.center-column{:title => 'Fielding'}
+  %span.small-screen-only F
+  %span.medium-large-screen-only Fielding
+%th.center-column{:title => 'Batting'}
+  %span.small-screen-only B
+  %span.medium-large-screen-only Batting
+%th.center-column{:title => 'Running'} 
+  %span.small-screen-only R
+  %span.medium-large-screen-only Running
+%th.center-column{:title => 'Fundamentals'} 
+  %span.small-screen-only F
+  %span.medium-large-screen-only Fundamentals
+%th.center-column{:title => 'Experience'} 
+  %span.small-screen-only E
+  %span.medium-large-screen-only Experience
+- if @CanEditRatings
+  %th.center-column

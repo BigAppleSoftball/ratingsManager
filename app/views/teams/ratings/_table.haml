@@ -1,21 +1,22 @@
 %table.table.table-striped.table-bordered.table-condensed.ratings-table.js-ratings-table
   %tr
-    %th Player
-    %th.center-column DOB
-    %th.center-column Rating
-    %th.center-column Throwing
-    %th.center-column Fielding
-    %th.center-column Baserunning
-    %th.center-column Hitting
+    - if @isAsana
+      = render :partial => "teams/ratings/asana/head"
+    -else 
+      = render :partial => "team/ratings/nagaaa/head"
   -rosters.each do |roster|
     - player_profile = roster.profile
     - if player_profile.present?
-      = render :partial => "teams/ratings/row", :locals => {:profile => player_profile}
+      - if @isAsana
+        = render :partial => "teams/ratings/asana/row", :locals => {:profile => player_profile}
+      - else
+        = render :partial => "teams/ratings/nagaaa/row", :locals => {:profile => player_profile}
 
-= render :partial => "modal/throwingmodal"
-= render :partial => "modal/fieldingmodal"
-= render :partial => "modal/runningmodal"
-= render :partial => "modal/hittingmodal"
+- if !@isAsana
+  = render :partial => "modal/throwingmodal"
+  = render :partial => "modal/fieldingmodal"
+  = render :partial => "modal/runningmodal"
+  = render :partial => "modal/hittingmodal"
 
-:javascript
-  window.playersJson = #{@ratings_json || false}
+  :javascript
+    window.playersJson = #{@ratings_json || false}

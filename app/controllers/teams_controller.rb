@@ -85,7 +85,7 @@ class TeamsController < ApplicationController
   #
   # Get the players ratings
   #
-  def show_player_ratings
+  def show_nagaaa_ratings
     team_id = params[:teamid].to_i
     @team = Team.find_by(:id => team_id)
     teamsRosters = Roster.eager_load(:profile => :rating).where(:team_id => team_id).order('profiles.last_name')
@@ -99,6 +99,16 @@ class TeamsController < ApplicationController
         render 'ratings.csv.haml'
       end
     end
+  end
+
+  def show_asana_ratings
+    @CanEditRatings = has_permissions?(@permissions[:CanEditAllRatings])
+    @isAsana = true
+    team_id = params[:teamid]
+    @team = Team.find(team_id)
+    @teamRoster = Roster.eager_load(:profile => :asana_ratings).where(:team_id => team_id).order('profiles.last_name')
+    ap @teamRoster
+
   end
 
   #

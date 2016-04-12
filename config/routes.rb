@@ -89,7 +89,9 @@ Rails.application.routes.draw do
   post '/teamsnap/divisions/import', to:'teamsnap#import_season_data'
 
   # teams
-  get '/teams/:teamid/ratings', to:'teams#show_player_ratings'
+  get '/teams/:teamid/ratings', to:'teams#show_nagaaa_ratings'
+  
+  get '/teams/:teamid/ratings/asana', to:'teams#show_asana_ratings'
 
   # ratings
   post '/ratings/update', to:'ratings#update_player'
