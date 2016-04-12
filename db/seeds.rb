@@ -569,6 +569,11 @@ def insert_import_permissions
   add_permission_to_super_admin(8)
 end
 
+def insert_approve_ratings_permissions
+  create_permission(10, 'CanApproveRatings')
+  add_permission_to_super_admin(10)
+end
+
 private 
   #
   # Creates a New Permission and adds it to the SuperAdmin
@@ -608,3 +613,4 @@ private
 #insert_admin_permissions
 #insert_roles_and_permissions_permissions
 #insert_import_permissions
+#insert_approve_ratings_permissions
