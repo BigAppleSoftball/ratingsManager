@@ -114,13 +114,12 @@ class TeamsController < ApplicationController
     isApproved = params[:isApproved]
     ratingId = params[:ratingId]
     response = Hash.new
-    ap "UPDATING RATINGS"
-    ap ratingId
-    ap isApproved
+    current_profile_id = current_user.id
     # find the rating with the id 
     rating = AsanaRating.find(ratingId)
     if rating.present?
       rating[:is_approved] = isApproved
+      rating[:approved_profile_id] = current_profile_id
       rating.save
       response[:success] = true
       response[:message] = rating.valid?

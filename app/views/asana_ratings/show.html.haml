@@ -1,18 +1,20 @@
+%p#notice= notice
 - content_for :panel_head do
   %h1 
     ASANA Rating For
     = @profile.name
   = render partial: "shared/actions/show_actions", locals: { editPath: edit_asana_rating_path(@asana_rating), fieldName: 'ASANA Rating', allPath: asana_ratings_path}
   = link_to "View #{@profile.name}", @profile
-  %p#notice= notice
+  - if @asana_rating.is_approved.present?
+    - if @asana_rating.is_approved
+      %p
+        This Rating has been Approved by 
+        %strong=link_to @approved_profile.name, @approved_profile
+    - else @asana_rating.is_approved == false
+      %p
+        This Rating has been Rejected by 
+        %strong=link_to @approved_profile.name, @approved_profile
 
-%p
-  %b Is approved:
-  = @asana_rating.is_approved
-
-%p
-  %b Approved profile:
-  = @asana_rating.approved_profile_id
 
 = render layout: 'rating_group', locals: {rating_title: 'Throwing', rating_class: 'throwing'} do
   %ul.list-group
