@@ -8,26 +8,28 @@
     %tr
       %th{:colspan => 4} Ratings Legend
     %tr
-      %td 
-        .badge.badge-d 10 
+      %td
+        .badge.badge-d 10
       %td D Division Rated Players
-      %td 
+      %td
         .badge.badge-c 14
       %td C Division Rated Players
     %tr
-      %td 
+      %td
         .badge.badge-b 19
       %td B Division Rated Players
-      %td 
+      %td
         .badge.badge-a 20^
       %td A Division Rated Players
 
-  .btn-group.rating-sort-btn-group.js-ratings-filters{"aria-label" => "...", :role => "group"}
-    %button.btn.btn-default.btn-all.btn-selected.js-filter-btn{:type => "button", :data => {:filter=>"*"}} Show All
-    %button.btn.btn-default.rating-d-btn.js-filter-btn{:type => "button", :data => {:filter=>".d-rating"}} Only D
-    %button.btn.btn-default.rating-c-btn.js-filter-btn{:type => "button", :data => {:filter=>".c-rating"}} Only C
-    %button.btn.btn-default.rating-b-btn.js-filter-btn{:type => "button", :data => {:filter=>".b-rating"}} Only B
-    %button.btn.btn-default.rating-a-btn.js-filter-btn{:type => "button", :data => {:filter=>".a-rating"}} Only A
+  %div
+    %h5 NAGAAA Ratings
+    .btn-group.rating-sort-btn-group.js-ratings-filters{"aria-label" => "...", :role => "group"}
+      %button.btn.btn-default.btn-all.btn-selected.js-filter-btn{:type => "button", :data => {:filter=>"*"}} Show All
+      %button.btn.btn-default.rating-d-btn.js-filter-btn{:type => "button", :data => {:filter=>".d-rating"}} Only D
+      %button.btn.btn-default.rating-c-btn.js-filter-btn{:type => "button", :data => {:filter=>".c-rating"}} Only C
+      %button.btn.btn-default.rating-b-btn.js-filter-btn{:type => "button", :data => {:filter=>".b-rating"}} Only B
+      %button.btn.btn-default.rating-a-btn.js-filter-btn{:type => "button", :data => {:filter=>".a-rating"}} Only A
 
   %ul.pickup-player-list.js-pickup-players-list
     -@players.each do |player|
@@ -38,4 +40,11 @@
             -if player.rating.present?
               .badge{:class=>"#{get_rating_badge_class(player.rating.total)}"}
                 = player.rating.total > 0 ? player.rating.total : 'N/A'
+            .badge
+              - division_name = nil
+              - player.rosters.each do |roster|
+                - if roster && roster.team && roster.team.division
+                  - division_name = roster.team.division.description
+              - if division_name.present?
+                = get_division_short_name(division_name)
         .profile_link= link_to 'View Profile', player

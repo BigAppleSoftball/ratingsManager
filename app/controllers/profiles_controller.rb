@@ -51,8 +51,8 @@ class ProfilesController < ApplicationController
   # PATCH/PUT /profiles/1.json
   def update
     if params[:profile][:password].blank?
-      params[:profile].delete(:password) 
-      params[:profile].delete(:password_confirmation) 
+      params[:profile].delete(:password)
+      params[:profile].delete(:password_confirmation)
     end
     respond_to do |format|
       if @profile.update(profile_params)
@@ -95,7 +95,7 @@ class ProfilesController < ApplicationController
 
       if (mergeProfile.present? && baseProfile.present?)
         # get all the fields we are looking to update
-        
+
         # update all the rosters
         mergeProfile.rosters.each do |roster|
           roster.profile_id = baseProfile.id
@@ -116,7 +116,7 @@ class ProfilesController < ApplicationController
         #  famer.profile_id = baseProfile.id
         #  famer.save
         #end
-        
+
         #
         # only merge the ratings if the base profile doesn't have a rating
         if (baseProfile.rating.blank?)
@@ -145,7 +145,24 @@ class ProfilesController < ApplicationController
   # Gets a list of all players available for tournaments
   #
   def pickup_players
-    @players = Profile.eager_load(:rating).where(:is_pickup_player => true).order('last_name')
+    # go through each player and get their team for the current season
+    #@players = Profile.eager_load(:rating)..where(:is_pickup_player => true).order('last_name')
+    @players = Profile.eager_load(:rating, :rosters => {:team => {:division =>:season}}).where(:is_pickup_player => true).order('last_name')
+    @players.each do |player|
+      if player[:last_name].include?("Burns")
+        ap player
+        division_name = nil
+        player.rosters.each do |roster|
+          ap roster
+          ap roster.team
+          if roster.team.present?
+            ap "TEAM PRESENT"
+            division_name = roster.team.division.description
+          end
+        end
+        ap division_name
+      end
+    end
   end
 
   #
