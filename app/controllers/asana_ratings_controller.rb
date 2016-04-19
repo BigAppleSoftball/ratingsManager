@@ -10,7 +10,9 @@ class AsanaRatingsController < ApplicationController
   # GET /asana_ratings/1
   # GET /asana_ratings/1.json
   def show
-    @approved_profile = Profile.find(@asana_rating.approved_profile_id)
+    if @asana_rating.approved_profile_id.present?
+      @approved_profile = Profile.find(@asana_rating.approved_profile_id)
+    end
   end
 
   # GET /asana_ratings/new

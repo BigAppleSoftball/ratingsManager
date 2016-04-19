@@ -5,36 +5,58 @@ th {
     text-align: center;
   }
 
-  &.throwing-column, 
-  &.batting-column,
-  &.baserunning-column,
-  &.fielding-column,
-  &.fundamentals-column,
-  &.experience-column {
-    color: white;
-  }
-
   &.throwing-column {
-    background: $throwing-color !important;
+    color: $throwing-color;
+    border: 2px $throwing-color solid !important;
   }
 
   &.batting-column {
-    background: $hitting-color !important;
+    color: $hitting-color;
+    border: 2px $hitting-color solid !important;
   }
 
   &.baserunning-column {
-    background: $running-color !important;
+    color: $running-color;
+    border: 2px $running-color solid !important;
   }
 
   &.fielding-column {
-    background: $fielding-color !important;
+    color: $fielding-color;
+    border: 2px $fielding-color solid !important;
   }
 
   &.fundamentals-column {
-    background: $misc-color !important;
+    color: $misc-color;
+    border: 2px $misc-color solid !important;
   }
 
   &.experience-column {
-    background: $experience-color !important;
+    color: $experience-color;
+    border: 2px $experience-color solid !important;
+  }
+}
+
+td {
+  &.experience-column {
+    color: black;
+  }
+
+  &.fundamentals-column {
+    color: black;
+  }
+  &.throwing-column {
+    color: black;
+  }
+
+  &.batting-column {
+    color: black;
+  }
+
+  &.baserunning-column {
+    color: black;
+  }
+
+  &.fielding-column {
+    color: black;
   }
 }

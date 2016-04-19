@@ -108,6 +108,13 @@ class TeamsController < ApplicationController
     team_id = params[:teamid]
     @team = Team.find(team_id)
     @teamRoster = Roster.eager_load(:profile => :asana_ratings).where(:team_id => team_id).order('profiles.last_name')
+    respond_to do |format|
+      format.html { render 'show_asana_ratings' }
+      format.csv do
+        response.headers['Content-Disposition'] = "attachment; filename=#{@team.name}-#{@team.division.full_name}-asana.csv"
+        render 'teams/ratings/asana/export.csv.haml'
+      end
+    end
   end
 
   def update_asana_rating

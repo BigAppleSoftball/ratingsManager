@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     get 'welcome_email'
     post 'merge', :action => 'run_merge'
   end
-  resources :ratings, :only => [:index, :show, :destroy]
+
   # Roles and Permissions
   resources :profile_roles
   resources :roles_permissions
@@ -90,12 +90,12 @@ Rails.application.routes.draw do
 
   # teams
   get '/teams/:teamid/ratings', to:'teams#show_nagaaa_ratings'
-  
   get '/teams/:teamid/ratings/asana', to:'teams#show_asana_ratings'
-
-   post '/teams/asana/update', to:'teams#update_asana_rating'
+  post '/teams/asana/update', to:'teams#update_asana_rating'
 
   # ratings
+  resources :ratings, :only => [:index, :show, :destroy]
+  resources :asana_ratings
   post '/ratings/update', to:'ratings#update_player'
   post '/ratings/new', to:'ratings#new_player'
   get '/rating/duplicates', to:'ratings#show_duplicates'
