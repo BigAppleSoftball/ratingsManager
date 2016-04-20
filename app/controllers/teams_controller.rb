@@ -117,6 +117,22 @@ class TeamsController < ApplicationController
     end
   end
 
+  def import_asana_ratings
+    @team = Team.find(params[:teamid])
+  end
+
+  def run_asana_import
+    file = params[:file]['csv']
+    teamId = params[:teamId]
+    ap teamId
+    if !(file.nil?)
+      # process csv
+      CSV.foreach(file.path, headers: true) do |row|
+        ap row
+      end
+    end
+  end
+
   def update_asana_rating
     isApproved = params[:isApproved]
     ratingId = params[:ratingId]

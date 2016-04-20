@@ -52,4 +52,17 @@ class AsanaRating < ActiveRecord::Base
     self.fundamentals_total +
     self.experience_total
   end
+
+  def rank
+    total = self.total
+    if total <= 50
+      'D'
+    elsif total > 50 && total < 70
+      'C'
+    elsif total >= 70 && total <= 90
+      'B'
+    elsif self.total > 90
+      'A'
+    end
+  end
 end

@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :asana_ratings
-
   resources :motions
   get '/motions/:id/options', :to => 'motions#options'
   post '/motions/:id/options', :to => 'motions#add_new_option'
@@ -92,6 +90,8 @@ Rails.application.routes.draw do
   get '/teams/:teamid/ratings', to:'teams#show_nagaaa_ratings'
   get '/teams/:teamid/ratings/asana', to:'teams#show_asana_ratings'
   post '/teams/asana/update', to:'teams#update_asana_rating'
+  get '/teams/:teamid/ratings/import', to:'teams#import_asana_ratings'
+  post '/teams/:teamid/ratings/runimport', to: 'teams#run_asana_import'
 
   # ratings
   resources :ratings, :only => [:index, :show, :destroy]

@@ -1,0 +1,13 @@
+- content_for :panel_head do
+  %h1
+    Importing ASANA Ratings for 
+    =@team.name
+
+%row
+  %column
+    %h4 Upload a Team CSV
+    = form_tag "/teams/#{@team.id}/ratings/runimport", multipart: true do
+      %input{:type => 'hidden', :value => @team.id, :name => 'teamId'}
+      = file_field(:file, 'csv')
+      %br
+      = submit_tag "Import", {:class => 'btn btn-primary'}
