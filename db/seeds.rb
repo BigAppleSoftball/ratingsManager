@@ -609,8 +609,8 @@ private
 #set_all_null_ratings_to_zero
 
 #TODO(Paige) Turn on for seeding in production
-#insert_default_permissions
-#insert_admin_permissions
-#insert_roles_and_permissions_permissions
-#insert_import_permissions
-#insert_approve_ratings_permissions
+insert_default_permissions
+insert_admin_permissions
+insert_roles_and_permissions_permissions
+insert_import_permissions
+insert_approve_ratings_permissions
