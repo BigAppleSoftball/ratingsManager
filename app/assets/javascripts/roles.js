@@ -156,10 +156,9 @@
   };
 
   Roles.prototype.onAddProfileSuccess = function(data) {
-    console.log("ADDING PROFILE", data);
     if (data && data.success) {
       $.toaster({ priority : 'success', title : 'Success!', message : 'New Profile Added!!'});
-      $('.js-role-profiles').append(data.html);
+      $('.js-role-profiles').append(data.view);
     } else {
       $.toaster({ priority : 'danger', title : 'Error!', message : 'Issue Adding Profile: ' + data.message});
     }

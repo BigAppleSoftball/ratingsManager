@@ -24,8 +24,6 @@
   Game.prototype.bindSeasonSelector = function() {
     var self = this;
     $('.js-season-selector').on('change', function(){
-      console.log("season change");
-      console.log($(this).val());
 
       // run ajax call to update the teams selector with only season teams 
       $.ajax({

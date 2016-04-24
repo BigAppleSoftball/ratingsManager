@@ -233,7 +233,6 @@
    * a ASANA Rating Row
    */
   PlayerRatings.prototype.bindRowActions = function() {
-    console.log("binding actions");
     var $ratingRow = $('.js-rating-row'),
         self = this;
 
@@ -279,7 +278,6 @@
   };
 
   PlayerRatings.prototype.onApproveRejectFailure = function(data) {
-    console.log("onApproveRejectFailure", data);
   };
 
   window.PlayerRatings = PlayerRatings;
