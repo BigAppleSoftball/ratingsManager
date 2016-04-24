@@ -10,7 +10,7 @@
       - rating_class = 'danger'
   %tr.js-rating-row{:data => {'player_id' => profile.id, :asana_rating_id => rating_id}, :class => "js-player-row-#{profile.id} js-rating-row-#{rating_id} #{rating_class}"}
     %td
-      %strong=profile.name
+      %strong=link_to profile.name, profile
     %td.center-column.medium-large-screen-only
       %span=profile.dob
     - if player_rating

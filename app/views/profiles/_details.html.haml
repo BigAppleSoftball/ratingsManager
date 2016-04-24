@@ -50,8 +50,9 @@
     %ul
       -profile.rosters.each do |roster|
         - team = roster.team
-        - divison = team.division
-        %li=link_to raw("#{team.name} <span>(#{divison.description} #{divison.season.description}</span>)"), team
+        - if team
+          - divison = team.division
+          %li=link_to raw("#{team.name} <span>(#{divison.description} #{divison.season.description}</span>)"), team
   -if profile.board_members.length > 0
     Board Positions:
     %ul
