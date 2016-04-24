@@ -544,7 +544,7 @@ def insert_admin_permissions
 end
 
 #
-# Add Edit Role and Permissions to 
+# Add Edit Role and Permissions to
 #
 def insert_roles_and_permissions_permissions
   create_permission(6, 'CanEditAllRoles')
@@ -574,7 +574,7 @@ def insert_approve_ratings_permissions
   add_permission_to_super_admin(10)
 end
 
-private 
+private
   #
   # Creates a New Permission and adds it to the SuperAdmin
   #

@@ -58,22 +58,22 @@ module ApplicationHelper
 
   def sortable(column, title = nil, isAlphabet = false, isNum = false)
     title ||= column.titleize
-    
+
     css_class = column == sort_column ? "current-column #{sort_direction}" : 'sortable-column'
     direction = column == sort_column && sort_direction == 'asc' ? 'desc' : 'asc'
 
     if column == sort_column
       if sort_direction == 'asc'
-        
-        if isAlphabet 
+
+        if isAlphabet
           icon = "fa fa-sort-alpha-asc"
         elsif isNum
           icon = "fa fa-sort-numeric-asc"
         else
           icon = 'fa fa-sort-amount-asc'
         end
-      else 
-        if isAlphabet 
+      else
+        if isAlphabet
           icon = "fa fa-sort-alpha-desc"
         elsif isNum
           icon = "fa fa-sort-numeric-desc"
@@ -133,7 +133,7 @@ module ApplicationHelper
   #
   def get_rating_badge_class(rating)
     if (rating > 0)
-      if (rating < 11) 
+      if (rating < 11)
         'badge-d'
       elsif (rating < 14)
         'badge-c'
@@ -149,7 +149,7 @@ module ApplicationHelper
     if (profile && profile.rating)
       rating = profile.rating.total
       if (rating > 0)
-        if (rating < 11) 
+        if (rating < 11)
           'd-rating'
         elsif (rating < 14)
           'c-rating'
@@ -159,6 +159,28 @@ module ApplicationHelper
           'a-rating'
         end
       end
+    end
+  end
+
+  def get_division_short_name(division_name)
+    if (division_name.include?('Sachs'))
+      'Sachs'
+    elsif (division_name.include?('Panarace'))
+      'Panarace'
+    elsif(division_name.include?('Rainbow'))
+      'Rainbow'
+    elsif(division_name.include?('Fitzpatrick'))
+      'Fitzpatrick'
+    elsif(division_name.include?('Stonewall'))
+      'Stonewall'
+    elsif(division_name.include?('Dima'))
+      'Dima'
+    elsif(division_name.include?('Mousseau'))
+      'Mousseau'
+    elsif(division_name.include?('Green-Batten'))
+      'Green-Batten'
+    else
+      division_name
     end
   end
 end
