@@ -60,7 +60,7 @@ gem 'json'
 group :production do
   gem 'rails_12factor'
   gem 'newrelic_rpm'
-  #gem 'pg'
+  gem 'pg'
 end
 
 # web scrapping for the payments-tracker
