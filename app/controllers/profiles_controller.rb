@@ -152,8 +152,10 @@ class ProfilesController < ApplicationController
     @players.each do |player|
       player.rosters.each do |roster|
         if roster.team.present?
-          division_name = roster.team.division.description
-          divisions.append(division_name)
+          if roster.team.division.present?
+            division_name = roster.team.division.description
+            divisions.append(division_name)
+          end
         end
       end
     end

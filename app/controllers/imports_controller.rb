@@ -105,7 +105,7 @@ class ImportsController < ApplicationController
       profile = Profile.where(:email => email).first
       if (profile.nil?)
         profile = Profile.new
-        return create_profile(profile,fName, lName, email, pickup, address, city, state, zip, gender)
+        return update_profile(profile,fName, lName, email, pickup, address, city, state, zip, gender)
       else
         return update_profile(profile, fName, lName, email, pickup,  address, city, state, zip, gender)
       end
