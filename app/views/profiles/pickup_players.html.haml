@@ -6,7 +6,7 @@
 .pickup-players
   %table.table.table-condensed.table-bordered.legend-table
     %tr
-      %th{:colspan => 4} Ratings Legend
+      %th{:colspan => 4} NAGAAA Ratings Legend
     %tr
       %td
         .badge.badge-d 10
@@ -31,9 +31,21 @@
       %button.btn.btn-default.rating-b-btn.js-filter-btn{:type => "button", :data => {:filter=>".b-rating"}} Only B
       %button.btn.btn-default.rating-a-btn.js-filter-btn{:type => "button", :data => {:filter=>".a-rating"}} Only A
 
+  %div 
+    %h5 Division
+    .btn-group.rating-sort-btn-group.js-ratings-filters{"aria-label" => "...", :role => "group"}
+      %button.btn.btn-default.btn-all.btn-selected.js-filter-btn{:type => "button", :data => {:filter=>"*"}} Show All
+      - @divisions.each do |division|
+        - division_name = get_division_short_name(division)
+        %button.btn.btn-default.btn-all.js-filter-btn{:type => "button", :data => {:filter=>".#{division_name}"}}=division_name
+
   %ul.pickup-player-list.js-pickup-players-list
     -@players.each do |player|
-      %li.pickup-player-list-item.js-pickup-players-list-item{:class => get_player_rating_class(player)}
+      - division_name = nil
+      - player.rosters.each do |roster|
+        - if roster && roster.team && roster.team.division
+          - division_name = roster.team.division.description
+      %li.pickup-player-list-item.js-pickup-players-list-item{:class => "#{get_player_rating_class(player)} #{division_name}"}
         .profile_title
           %strong= player.to_s
           .pull-right
@@ -41,10 +53,7 @@
               .badge{:class=>"#{get_rating_badge_class(player.rating.total)}"}
                 = player.rating.total > 0 ? player.rating.total : 'N/A'
             .badge
-              - division_name = nil
-              - player.rosters.each do |roster|
-                - if roster && roster.team && roster.team.division
-                  - division_name = roster.team.division.description
+             
               - if division_name.present?
                 = get_division_short_name(division_name)
         .profile_link= link_to 'View Profile', player

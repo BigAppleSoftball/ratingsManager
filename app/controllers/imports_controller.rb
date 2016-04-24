@@ -104,14 +104,15 @@ class ImportsController < ApplicationController
     def check_or_create_profile(fName, lName, email, pickup, address, city, state, zip, gender)
       profile = Profile.where(:email => email).first
       if (profile.nil?)
-        return create_profile(fName, lName, email, pickup, address, city, state, zip, gender)
+        profile = Profile.new
+        return create_profile(profile,fName, lName, email, pickup, address, city, state, zip, gender)
       else
-        return profile
+        return update_profile(profile, fName, lName, email, pickup,  address, city, state, zip, gender)
       end
     end
 
-    def create_profile(fName, lName, email, pickup,  address, city, state, zip, gender)
-      profile = Profile.new
+
+    def update_profile(profile, fName, lName, email, pickup,  address, city, state, zip, gender)
       profile[:email] = email
       profile[:first_name] = fName
       profile[:last_name] = lName

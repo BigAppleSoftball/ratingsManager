@@ -148,21 +148,16 @@ class ProfilesController < ApplicationController
     # go through each player and get their team for the current season
     #@players = Profile.eager_load(:rating)..where(:is_pickup_player => true).order('last_name')
     @players = Profile.eager_load(:rating, :rosters => {:team => {:division =>:season}}).where(:is_pickup_player => true).order('last_name')
+    divisions = Array.new
     @players.each do |player|
-      if player[:last_name].include?("Burns")
-        ap player
-        division_name = nil
-        player.rosters.each do |roster|
-          ap roster
-          ap roster.team
-          if roster.team.present?
-            ap "TEAM PRESENT"
-            division_name = roster.team.division.description
-          end
+      player.rosters.each do |roster|
+        if roster.team.present?
+          division_name = roster.team.division.description
+          divisions.append(division_name)
         end
-        ap division_name
       end
     end
+    @divisions = ['Dima', 'Fitzpatrick', 'Panarace', 'Sachs', 'Mousseau', 'Green-Batten']
   end
 
   #
