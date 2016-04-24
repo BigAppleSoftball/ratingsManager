@@ -20,6 +20,7 @@ class ImportsController < ApplicationController
       seasonDivisions = Hash.new
       # process csv
       CSV.foreach(file.path, headers: true) do |row|
+
         rTeam = get_and_clean(row, 'Team')
         rDivision = get_and_clean(row, 'Division')
         rFirstName = get_and_clean(row, 'First Name')
@@ -120,7 +121,7 @@ class ImportsController < ApplicationController
       profile[:state] = state
       profile[:zip] = zip
       profile[:gender] = gender
-      profile.save
+      profile.save(validate: false)
       profile
     end
 
