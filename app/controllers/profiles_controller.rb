@@ -147,7 +147,9 @@ class ProfilesController < ApplicationController
   def pickup_players
     # go through each player and get their team for the current season
     #@players = Profile.eager_load(:rating)..where(:is_pickup_player => true).order('last_name')
-    @players = Profile.eager_load(:rating, :rosters => {:team => {:division =>:season}}).where(:is_pickup_player => true).order('last_name')
+    #get teams in the current season
+    
+    @players = Profile.eager_load(:rosters => {:team => {:division =>:season}}).preload(:rating).where('is_pickup_player = true AND seasons.is_active = true').order('last_name')
     divisions = Array.new
     @players.each do |player|
       player.rosters.each do |roster|
