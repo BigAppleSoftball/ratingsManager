@@ -12,7 +12,6 @@ class ProfilesController < ApplicationController
     @team_managers_list = Roster.where(:is_manager => true).where(:profile_id => profile_ids).pluck(:profile_id)
     @team_reps_list = Roster.where(:is_rep => true).where(:profile_id => profile_ids).pluck(:profile_id)
     @division_reps_list = BoardMember.where(:is_division_rep => true).where(:profile_id => profile_ids).pluck(:profile_id)
-    ap @division_reps_list
   end
 
   # GET /profiles/1
@@ -198,6 +197,7 @@ class ProfilesController < ApplicationController
       @board_members = BoardMember.where(:profile_id => params[:id])
       @committees = Committee.where(:profile_id => params[:id])
       @asana_rating = AsanaRating.where(:profile_id => params[:id]).last
+      @nagaaa_rating = Rating.where(:profile_id => params[:id]).last
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -66,14 +66,28 @@
 
 .col-md-3
   %b Player Ratings
-  - if @asana_rating.present?
-    .asana_rating
-      %b ASANA Rating:
+  - canEditRatings = permissions.present? && has_permissions?(permissions[:CanEditAllRatings])
+  %div
+    - if @asana_rating.present?
+      .asana_rating
+        %b ASANA Rating:
+        %br
+        - if canEditRatings
+          =link_to raw("<i class='fa fa-pencil'></i> #{@asana_rating.total}"), @asana_rating, :class => 'btn btn-default'
+        - else
+          =@asana_rating.total
+    - elsif canEditRatings
       %br
-      - if permissions.present? && has_permissions?(permissions[:CanEditAllRatings])
-        =link_to raw("<i class='fa fa-pencil'></i> #{@asana_rating.total}"), @asana_rating, :class => 'btn btn-default'
-      - else
-        =@asana_rating.total
-  - else
-    %br
-    =link_to 'Add ASANA Rating', "/asana_rating_to_profile/#{profile.id}", :class => 'btn btn-default'
+      =link_to 'Add ASANA Rating', "/asana_rating_to_profile/#{profile.id}", :class => 'btn btn-default'
+  %div
+    - if @nagaaa_rating.present?
+      .nagaaa_rating
+        %b NAGAAA Rating:
+        %br
+        - if canEditRatings
+          =link_to raw("<i class='fa fa-pencil'></i> #{@nagaaa_rating.total}"), @nagaaa_rating, :class => 'btn btn-default'
+        - else
+          = nagaaa_rating.total
+    - elsif canEditRatings
+      %br
+      TODO (Paige) Add Ability to add Ratings to a single Profile

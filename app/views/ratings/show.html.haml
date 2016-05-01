@@ -2,3 +2,126 @@
   %h1 
     Show Rating
 
+.panel.panel-default
+  .panel-body
+    %p  As a member of NAGAAA it is our duty and responsibility to rate all our league players and report these ratings, when applicable, to NAGAAA. The purpose of the ratings is to ensure all players are eligible to play in the appropriate NAGAAA division (A, B, C or D) should they attend a NAGAAA World Series or any other sanctioned NAGAAA slow-pitch, softball tournament. The ratings are not intended to forcibly move players into a higher division. Proper ratings protect players and teams - from penalty or expulsion from NAGAAA sanctioned tournaments – by fairly placing them into the division of their true caliber where they may compete against their peers.
+
+    %h4 Definitions for All Questions
+    %ul.list-group
+      %li.list-group-item
+        %strong OCCASIONALLY
+        to be able to perform the particular skill without regularity.
+        This means the skill can be performed 2 out of 5 times
+      %li.list-group-item
+        %strong CONSISTENTLY
+        to be able to perform the particular skill with regularity or more often than not.
+        This mean the skill can be performed 4 out of 5 times
+      %li.list-group-item
+        Consider the field conditions and weather to be normal when answering these questions. You are not factoring
+        bad field or weather conditions.
+
+    %ul.list-group
+      %li.list-group-item
+        %p 
+          Choose a 
+          %b YES 
+          or 
+          %b NO 
+          answer for each question.
+      %li.list-group-item
+        %p 
+          Many questions have multiple parts. A YES to any one part is a yes to the entire question.
+
+= render layout: 'shared/rating_group', locals: {rating_title: 'Throwing', rating_class: 'throwing'} do
+  %ul.list-group
+    %li.list-group-item
+      %h5=set_question(question_1)
+      %p=response(@rating.rating_1)
+    %li.list-group-item
+      %h5=set_question(question_2)
+      %p=response(@rating.rating_2)
+    %li.list-group-item
+      %h5=set_question(question_3)
+      %p=response(@rating.rating_3)
+    %li.list-group-item
+      %h5=set_question(question_4)
+      %b=response(@rating.rating_4)
+    %li.list-group-item
+      %h5=set_question(question_5)
+      %b=response(@rating.rating_5)
+
+= render layout: 'shared/rating_group', locals: {rating_title: 'Fielding', rating_class: 'fielding'} do
+  %ul.list-group
+    %li.list-group-item
+      %h5=set_question(question_6)
+      %b=response(@rating.rating_6)
+    %li.list-group-item
+      %h5=set_question(question_7)
+      %b=response(@rating.rating_7)
+    %li.list-group-item
+      %h5=set_question(question_8)
+      %b=response(@rating.rating_8)
+    %li.list-group-item
+      %h5=set_question(question_9)
+      %b=response(@rating.rating_9)
+    %li.list-group-item
+      %h5=set_question(question_10)
+      %b=response(@rating.rating_10)
+    %li.list-group-item
+      %h5=set_question(question_11)
+      %b=response(@rating.rating_11)
+    %li.list-group-item
+      %h5=set_question(question_12)
+      %b=response(@rating.rating_12)
+    %li.list-group-item
+      %h5=set_question(question_13)
+      %b=response(@rating.rating_13)
+    %li.list-group-item
+      %h5=set_question(question_14)
+      %b=response(@rating.rating_14)
+
+= render layout: 'shared/rating_group', locals: {rating_title: 'Baserunning', rating_class: 'running'} do
+  %ul.list-group
+    %li.list-group-item
+      %h5=set_question(question_15)
+      %b=response(@rating.rating_15)
+    %li.list-group-item
+      %h5=set_question(question_16)
+      %b=response(@rating.rating_16)
+    %li.list-group-item
+      %h5=set_question(question_17)
+      %b=response(@rating.rating_17)
+    %li.list-group-item
+      %h5=set_question(question_18)
+      %b=response(@rating.rating_18)
+
+= render layout: 'shared/rating_group', locals: {rating_title: 'Hitting', rating_class: 'hitting'} do
+  %ul.list-group
+    %li.list-group-item
+      %h5=set_question(question_19)
+      %b=response(@rating.rating_19)
+    %li.list-group-item
+      %h5=set_question(question_20)
+      %b=response(@rating.rating_20)
+    %li.list-group-item
+      %h5=set_question(question_21)
+      %b=response(@rating.rating_21)
+    %li.list-group-item
+      %h5=set_question(question_22)
+      %b=response(@rating.rating_22)
+    %li.list-group-item
+      %h5=set_question(question_23)
+      %b=response(@rating.rating_23)
+    %li.list-group-item
+      %h5=set_question(question_24)
+      %b=response(@rating.rating_24)    
+    %li.list-group-item
+      %h5=set_question(question_25)
+      %b=response(@rating.rating_25)
+    %li.list-group-item
+      %h5=set_question(question_26)
+      %b=response(@rating.rating_26)
+    %li.list-group-item
+      %h5=set_question(question_27)
+      %b=response(@rating.rating_27)
+

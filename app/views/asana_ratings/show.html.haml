@@ -16,7 +16,7 @@
         %strong=link_to @approved_profile.name, @approved_profile
 
 
-= render layout: 'rating_group', locals: {rating_title: 'Throwing', rating_class: 'throwing'} do
+= render layout: 'shared/rating_group', locals: {rating_title: 'Throwing', rating_class: 'throwing'} do
   %ul.list-group
     %li.list-group-item
       %h5=question_1
@@ -31,7 +31,7 @@
       %h5=question_4
       %b=response(@asana_rating.rating_4)
 
-= render layout: 'rating_group', locals: {rating_title: 'Fielding', rating_class: 'fielding'} do
+= render layout: 'shared/rating_group', locals: {rating_title: 'Fielding', rating_class: 'fielding'} do
   %ul.list-group
     %li.list-group-item
       %h5=question_5
@@ -52,7 +52,7 @@
       %h5=question_10
       = response(@asana_rating.rating_10)
 
-= render layout: 'rating_group', locals: {rating_title: 'Batting', rating_class: 'hitting'} do
+= render layout: 'shared/rating_group', locals: {rating_title: 'Batting', rating_class: 'hitting'} do
   %ul.list-group
     %li.list-group-item
       %h5=question_11
@@ -73,7 +73,7 @@
       %h5=question_16
       = response(@asana_rating.rating_16)
 
-= render layout: 'rating_group', locals: {rating_title: 'Baserunning', rating_class: 'running'} do
+= render layout: 'shared/rating_group', locals: {rating_title: 'Baserunning', rating_class: 'running'} do
   %ul.list-group
     %li.list-group-item
       %h5=question_17
@@ -85,13 +85,13 @@
       %h5=question_19
       = response(@asana_rating.rating_19)
 
-= render layout: 'rating_group', locals: {rating_title: 'Fundamentals', rating_class: 'fundamentals'} do
+= render layout: 'shared/rating_group', locals: {rating_title: 'Fundamentals', rating_class: 'fundamentals'} do
   %ul.list-group
     %li.list-group-item
       %h5=question_20
       = response(@asana_rating.rating_20)
 
-= render layout: 'rating_group', locals: {rating_title: 'Experience', rating_class: 'experience'} do
+= render layout: 'shared/rating_group', locals: {rating_title: 'Experience', rating_class: 'experience'} do
   %ul.list-group
     %li.list-group-item
       %h5=question_21
