@@ -1,5 +1,6 @@
 class RolesController < ApplicationController
   before_action :set_role, only: [:show, :edit, :update, :destroy]
+  before_filter :only_logged_in, only: [:show, :index]
   before_filter {|c| c.has_permissions_redirect get_permissions[:CanEditAllRoles]}
 
   # GET /roles

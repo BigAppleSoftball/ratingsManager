@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160410033921) do
+ActiveRecord::Schema.define(version: 20160501143659) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 20160410033921) do
     t.datetime "updated_at"
     t.integer  "teamsnap_id"
     t.integer  "kind"
+    t.boolean  "is_coed"
   end
 
   create_table "fields", force: true do |t|
@@ -107,7 +108,7 @@ ActiveRecord::Schema.define(version: 20160410033921) do
   create_table "games", force: true do |t|
     t.integer  "day_id"
     t.datetime "start_time"
-    t.integer  "home_team_id"
+    t.string   "home_team_id"
     t.integer  "away_team_id"
     t.boolean  "is_flip"
     t.integer  "home_score"
@@ -328,11 +329,11 @@ ActiveRecord::Schema.define(version: 20160410033921) do
     t.string   "phone"
     t.text     "details"
     t.boolean  "is_active"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.boolean  "is_league"
     t.boolean  "show_carousel"
     t.string   "logo_url"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "teams", force: true do |t|
