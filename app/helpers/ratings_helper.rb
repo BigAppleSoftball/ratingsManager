@@ -163,4 +163,11 @@ defense?',
       '0 - No'
     end
   end
+
+  def ratings_options
+    [
+      ['0 - No', 0], 
+      ['1 - Yes', 1]
+    ]
+  end
 end

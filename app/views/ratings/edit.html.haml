@@ -1,0 +1,7 @@
+- content_for :panel_head do
+  %h1 
+    Editing Rating for
+    =@rating.profile.name
+  = render partial: "shared/actions/edit_actions", locals: { allPath: ratings_path, fieldName: 'NAGAAA Rating', showPath: @rating}
+
+= render 'form'

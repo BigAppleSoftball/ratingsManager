@@ -1,0 +1,29 @@
+= form_for @rating,:html => {:class => 'form-horizontal'} do |f|
+  - if @rating.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@rating.errors.count, "error")} prohibited this NAGAAA rating from being saved:"
+      %ul
+        - @rating.errors.full_messages.each do |msg|
+          %li= msg
+  - if @rating.profile.present?
+    =f.hidden_field :profile_id
+  - else
+    .field
+      = f.label :profile_id
+      = f.number_field :profile_id
+  -#.field
+    = f.label :is_approved
+    = f.check_box :is_approved
+  -#.field
+    = f.label :approved_profile_id
+    = f.number_field :approved_profile_id
+  = render layout: 'shared/rating_group', locals: {rating_title: 'Throwing', rating_class: 'throwing'} do
+    %ul.list-group
+      %li.list-group-item
+        = set_question(question_1)
+        .col-sm-10= f.select(:rating_1, ratings_options,{}, :class=> "chosen-select")
+      %li.list-group-item
+        = set_question(question_2)
+        .col-sm-10= f.select(:rating_2, ratings_options,{}, :class=> "chosen-select")
+      %li.list-group-item
+        

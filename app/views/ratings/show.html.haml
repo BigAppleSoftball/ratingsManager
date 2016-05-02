@@ -1,6 +1,9 @@
 - content_for :panel_head do
   %h1 
     Show Rating
+    =@rating.profile.name
+  = render partial: "shared/actions/show_actions", locals: { editPath: edit_rating_path(@rating), fieldName: 'Rating', allPath: ratings_path}
+  = link_to "View #{@rating.profile.name}", @rating.profile
 
 .panel.panel-default
   .panel-body

@@ -94,7 +94,7 @@ Rails.application.routes.draw do
   post '/teams/:teamid/ratings/runimport', to: 'teams#run_asana_import'
 
   # ratings
-  resources :ratings, :only => [:index, :show, :destroy]
+  resources :ratings
   resources :asana_ratings
   post '/ratings/update', to:'ratings#update_player'
   post '/ratings/new', to:'ratings#new_player'

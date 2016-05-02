@@ -118,6 +118,10 @@ class RatingsController < ApplicationController
 
   end
 
+  def edit
+
+  end
+
 
 
   # POST /ratings
@@ -163,7 +167,8 @@ class RatingsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_rating
-      @rating = Rating.find(params[:id])
+      @rating = Rating.eager_load(:profile).find(params[:id])
+
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

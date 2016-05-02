@@ -17,7 +17,7 @@
   -#.field
     = f.label :approved_profile_id
     = f.number_field :approved_profile_id
-  = render layout: 'rating_group', locals: {rating_title: 'Throwing', rating_class: 'throwing'} do
+  = render layout: 'shared/rating_group', locals: {rating_title: 'Throwing', rating_class: 'throwing'} do
     %ul.list-group
       %li.list-group-item
         = question_1
@@ -35,7 +35,7 @@
         = question_4
         .col-sm-10
           = f.select(:rating_4, ratings_options,{}, :class=> "chosen-select")
-  = render layout: 'rating_group', locals: {rating_title: 'Fielding', rating_class: 'fielding'} do
+  = render layout: 'shared/rating_group', locals: {rating_title: 'Fielding', rating_class: 'fielding'} do
     %ul.list-group
       %li.list-group-item
         = question_5
@@ -61,7 +61,7 @@
         = question_10
         .col-sm-10
           = f.select(:rating_10, ratings_options,{}, :class=> "chosen-select")
-  = render layout: 'rating_group', locals: {rating_title: 'Batting', rating_class: 'hitting'} do
+  = render layout: 'shared/rating_group', locals: {rating_title: 'Batting', rating_class: 'hitting'} do
     %ul.list-group
       %li.list-group-item
         = question_11
@@ -87,7 +87,7 @@
         = question_16
         .col-sm-10
           = f.select(:rating_16, ratings_options,{}, :class=> "chosen-select")
-  = render layout: 'rating_group', locals: {rating_title: 'Baserunning', rating_class: 'running'} do
+  = render layout: 'shared/rating_group', locals: {rating_title: 'Baserunning', rating_class: 'running'} do
     %ul.list-group
       %li.list-group-item
         = question_17
@@ -101,13 +101,13 @@
         = question_19
         .col-sm-10
           = f.select(:rating_19, ratings_options,{}, :class=> "chosen-select")
-  = render layout: 'rating_group', locals: {rating_title: 'Fundamentals', rating_class: 'fundamentals'} do
+  = render layout: 'shared/rating_group', locals: {rating_title: 'Fundamentals', rating_class: 'fundamentals'} do
     %ul.list-group
       %li.list-group-item
         = question_20
         .col-sm-10
           = f.select(:rating_20, ratings_options,{}, :class=> "chosen-select")
-  = render layout: 'rating_group', locals: {rating_title: 'Experience', rating_class: 'experience'} do
+  = render layout: 'shared/rating_group', locals: {rating_title: 'Experience', rating_class: 'experience'} do
     %ul.list-group
       %li.list-group-item
         = question_21
