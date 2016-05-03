@@ -1,7 +1,7 @@
 class RatingsController < ApplicationController
   before_action :set_rating, only: [:show, :edit, :update, :destroy]
   before_filter :only_for_admin, only: [:destroy, :index, :show, :show_duplicates]
-
+  include RatingsHelper
   #
   # From ajax updates player from a given id
   #
@@ -119,10 +119,72 @@ class RatingsController < ApplicationController
   end
 
   def edit
-
+    @questions = get_questions
   end
 
+  def get_throwing_questions
+    questions = Array.new
+    questions.push(create_question(question_1, :rating_1))
+    questions.push(create_question(question_2, :rating_2))
+    questions.push(create_question(question_3, :rating_3))
+    questions.push(create_question(question_4, :rating_4))
+    questions.push(create_question(question_5, :rating_5))
+    questions
+  end
 
+  def get_fielding_questions
+    questions = Array.new
+    questions.push(create_question(question_6, :rating_6))
+    questions.push(create_question(question_7, :rating_7))
+    questions.push(create_question(question_8, :rating_8))
+    questions.push(create_question(question_9, :rating_9))
+    questions.push(create_question(question_10, :rating_10))
+    questions.push(create_question(question_11, :rating_11))
+    questions.push(create_question(question_12, :rating_12))
+    questions.push(create_question(question_13, :rating_13))
+    questions.push(create_question(question_14, :rating_14))
+    questions
+  end
+
+  def get_running_questions
+    questions = Array.new
+    questions.push(create_question(question_15, :rating_15))
+    questions.push(create_question(question_16, :rating_16))
+    questions.push(create_question(question_17, :rating_17))
+    questions.push(create_question(question_18, :rating_18))
+    questions
+  end
+
+  def get_hitting_questions
+    questions = Array.new
+    questions.push(create_question(question_19, :rating_19))
+    questions.push(create_question(question_20, :rating_20))
+    questions.push(create_question(question_21, :rating_21))
+    questions.push(create_question(question_22, :rating_22))
+    questions.push(create_question(question_23, :rating_23))
+    questions.push(create_question(question_24, :rating_24))
+    questions.push(create_question(question_25, :rating_25))
+    questions.push(create_question(question_26, :rating_26))
+    questions.push(create_question(question_27, :rating_27))
+    questions
+  end
+
+  def get_questions
+    questions = Hash.new
+    questions[:throwing] = get_throwing_questions
+    questions[:fielding] = get_fielding_questions
+    questions[:running]  = get_running_questions
+    questions[:hitting]  = get_hitting_questions
+    questions
+  end
+
+  def create_question(question, rating, options = ratings_options)
+    q = Hash.new
+    q[:question] = question
+    q[:rating] = rating
+    q[:options] = options
+    q
+  end
 
   # POST /ratings
   # POST /ratings.json

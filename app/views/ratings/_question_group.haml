@@ -1,0 +1,5 @@
+%ul.list-group
+  - @questions[:throwing].each do |qt|
+    %li.list-group-item
+      =set_question(qt[:question])
+      .col-sm-10=f.select(qt[:rating], qt[:options],{}, :class=> "chosen-select")

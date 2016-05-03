@@ -156,7 +156,7 @@ defense?',
     ['occasionally hit a ball over a 300’ fence?']
   end
 
-  def response(value)
+  def question_response(value)
     if value == 1 
       '1 - Yes'
     else
