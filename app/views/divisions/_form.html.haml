@@ -28,6 +28,10 @@
     .col-sm-10
       = f.number_field :teamsnap_id, {:class => 'form-control'}
   .form-group
+    = f.label :is_coed, {:class => 'col-sm-2 control-label'}
+    .col-sm-10
+      = f.check_box :is_coed
+  .form-group
     = f.label :is_active, {:class => 'col-sm-2 control-label'}
     .col-sm-10
       = f.check_box :is_active

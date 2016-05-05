@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160501143659) do
+ActiveRecord::Schema.define(version: 20160505024034) do
 
   create_table "admins", force: true do |t|
     t.string   "email"
@@ -87,7 +87,7 @@ ActiveRecord::Schema.define(version: 20160501143659) do
     t.datetime "updated_at"
     t.integer  "teamsnap_id"
     t.integer  "kind"
-    t.boolean  "is_coed"
+    t.boolean  "is_coed",      default: false
   end
 
   create_table "fields", force: true do |t|
