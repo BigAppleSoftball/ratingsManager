@@ -166,5 +166,6 @@ Rails.application.routes.draw do
 
   # ratings
   get "/asana_rating_to_profile/:profile_id", :to => 'asana_ratings#new_for_profile'
+  get "/nagaaa_rating_to_profile/:profile_id", :to => 'ratings#new_for_profile'
 
 end

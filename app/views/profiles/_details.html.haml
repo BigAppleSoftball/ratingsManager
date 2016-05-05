@@ -78,7 +78,7 @@
           =@asana_rating.total
     - elsif canEditRatings
       %br
-      =link_to 'Add ASANA Rating', "/asana_rating_to_profile/#{profile.id}", :class => 'btn btn-default'
+      =link_to '+ Add ASANA Rating', "/asana_rating_to_profile/#{profile.id}", :class => 'btn btn-default'
   %div
     - if @nagaaa_rating.present?
       .nagaaa_rating
@@ -90,4 +90,4 @@
           = nagaaa_rating.total
     - elsif canEditRatings
       %br
-      TODO (Paige) Add Ability to add Ratings to a single Profile
+      = link_to '+ Add NAGAAA Rating', "/nagaaa_rating_to_profile/#{profile.id}", :class=>'btn btn-default'

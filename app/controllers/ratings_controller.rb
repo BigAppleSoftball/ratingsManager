@@ -186,6 +186,17 @@ class RatingsController < ApplicationController
     q
   end
 
+  def new_for_profile
+    @profile = Profile.find(params[:profile_id])
+    if @profile.present?
+      @rating = Rating.new
+      @rating[:profile_id] = @profile.id
+      @questions = get_questions
+      render 'edit'
+    end
+
+  end
+
   # POST /ratings
   # POST /ratings.json
   def create
