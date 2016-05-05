@@ -1,6 +1,6 @@
 class PaymentMailer < ApplicationMailer
 
-  default from: 'notifications@example.com'
+  default from: 'webteam@bigapplesoftball.com'
 
   #
   # Send emails regarding new payments recieved

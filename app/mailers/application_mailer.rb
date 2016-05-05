@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "basl-manager@basl-manager.herokuapp.com"
+  default from: "webteam@bigapplesoftball.com"
   layout 'mailer'
 end

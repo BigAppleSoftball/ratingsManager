@@ -14,8 +14,8 @@ ActionMailer::Base.smtp_settings = {
   :address        => 'smtp.gmail.com',
   :domain         => 'mail.google.com',
   :port           => 587,
-  :user_name      => 'donotreply@bigapplesoftball.com',
-  :password       => 'Assistant',
+  :user_name      => 'mail@bigapplesoftball.com',
+  :password       => 'mailer12345',
   :authentication => :plain,
   :enable_starttls_auto => true
 }
