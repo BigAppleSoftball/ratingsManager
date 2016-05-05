@@ -1,9 +1,6 @@
 -if defined?(showCard) && showCard
   .col-md-2
-    .profile-card
-      -if profile.long_image_url
-        .card-img-logo
-          %img{:src => profile.long_image_url}
+    .profile-card{:style=>"background-image: url(#{profile.long_image_url.present? ? profile.long_image_url : ''})"}
 
 .col-md-7.profile-details.js-profile-details{:data => {:name => profile.name, :id => profile.id}}
   %p
