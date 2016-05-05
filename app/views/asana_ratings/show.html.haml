@@ -17,86 +17,26 @@
 
 
 = render layout: 'shared/rating_group', locals: {rating_title: 'Throwing', rating_class: 'throwing'} do
-  %ul.list-group
-    %li.list-group-item
-      %h5=question_1
-      %p=response(@asana_rating.rating_1)
-    %li.list-group-item
-      %h5=question_2
-      %p=response(@asana_rating.rating_2)
-    %li.list-group-item
-      %h5=question_3
-      %p=response(@asana_rating.rating_3)
-    %li.list-group-item
-      %h5=question_4
-      %b=response(@asana_rating.rating_4)
+  = render partial:'show_group', locals: {questions: @questions[:throwing], rating:@asana_rating}
 
 = render layout: 'shared/rating_group', locals: {rating_title: 'Fielding', rating_class: 'fielding'} do
-  %ul.list-group
-    %li.list-group-item
-      %h5=question_5
-      = response(@asana_rating.rating_5)
-    %li.list-group-item
-      %h5=question_6
-      = response(@asana_rating.rating_6)
-    %li.list-group-item
-      %h5=question_7
-      = response(@asana_rating.rating_7)
-    %li.list-group-item
-      %h5=question_8
-      = response(@asana_rating.rating_8)
-    %li.list-group-item
-      %h5=question_9
-      = response(@asana_rating.rating_9)
-    %li.list-group-item
-      %h5=question_10
-      = response(@asana_rating.rating_10)
+  = render partial:'show_group', locals: {questions: @questions[:fielding], rating:@asana_rating}
 
 = render layout: 'shared/rating_group', locals: {rating_title: 'Batting', rating_class: 'hitting'} do
-  %ul.list-group
-    %li.list-group-item
-      %h5=question_11
-      = response(@asana_rating.rating_11)
-    %li.list-group-item
-      %h5=question_12
-      = response(@asana_rating.rating_12)
-    %li.list-group-item
-      %h5=question_13
-      = response(@asana_rating.rating_13)
-    %li.list-group-item
-      %h5=question_14
-      = response(@asana_rating.rating_14)
-    %li.list-group-item
-      %h5=question_15
-      = response(@asana_rating.rating_15)
-    %li.list-group-item
-      %h5=question_16
-      = response(@asana_rating.rating_16)
+  = render partial:'show_group', locals: {questions: @questions[:batting], rating:@asana_rating}
 
 = render layout: 'shared/rating_group', locals: {rating_title: 'Baserunning', rating_class: 'running'} do
-  %ul.list-group
-    %li.list-group-item
-      %h5=question_17
-      = response(@asana_rating.rating_17)
-    %li.list-group-item
-      %h5=question_18
-      = response(@asana_rating.rating_18)
-    %li.list-group-item
-      %h5=question_19
-      = response(@asana_rating.rating_19)
+  = render partial:'show_group', locals: {questions: @questions[:running], rating:@asana_rating}
 
 = render layout: 'shared/rating_group', locals: {rating_title: 'Fundamentals', rating_class: 'fundamentals'} do
-  %ul.list-group
-    %li.list-group-item
-      %h5=question_20
-      = response(@asana_rating.rating_20)
+  = render partial:'show_group', locals: {questions: @questions[:fundamentals], rating:@asana_rating}
 
 = render layout: 'shared/rating_group', locals: {rating_title: 'Experience', rating_class: 'experience'} do
   %ul.list-group
     %li.list-group-item
-      %h5=question_21
+      %h5=@questions[:experience][0][:question][0]
       = response_ws(@asana_rating.rating_21)
     %li.list-group-item
-      %h5=question_22
+      %h5=@questions[:experience][1][:question][0]
       = response_runnerup(@asana_rating.rating_22)
 

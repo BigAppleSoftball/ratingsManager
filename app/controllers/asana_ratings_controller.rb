@@ -1,6 +1,6 @@
 class AsanaRatingsController < ApplicationController
   before_action :set_asana_rating, only: [:show, :edit, :update, :destroy]
-
+  include AsanaRatingsHelper
   # GET /asana_ratings
   # GET /asana_ratings.json
   def index
@@ -13,6 +13,7 @@ class AsanaRatingsController < ApplicationController
     if @asana_rating.approved_profile_id.present?
       @approved_profile = Profile.find(@asana_rating.approved_profile_id)
     end
+    @questions = get_questions
   end
 
   # GET /asana_ratings/new
@@ -22,12 +23,14 @@ class AsanaRatingsController < ApplicationController
 
   # GET /asana_ratings/1/edit
   def edit
+    @questions = get_questions
   end
 
   def new_for_profile
     @profile = Profile.find(params[:profile_id])
     @asana_rating = AsanaRating.new
     @asana_rating[:profile_id] = @profile.id
+    @questions = get_questions
   end
 
   # POST /asana_ratings
@@ -68,6 +71,77 @@ class AsanaRatingsController < ApplicationController
       format.html { redirect_to asana_ratings_url, notice: 'Asana rating was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def get_questions
+    questions = Hash.new
+    questions[:throwing] = get_throwing_questions
+    questions[:fielding] = get_fielding_questions
+    questions[:batting] = get_batting_questions
+    questions[:running] = get_running_questions
+    questions[:fundamentals] = get_fundamental_questions
+    questions[:experience] = get_experience_questions
+    questions
+  end
+
+  def get_throwing_questions
+    questions = Array.new
+    questions.push(create_question(question_1, :rating_1))
+    questions.push(create_question(question_2, :rating_2))
+    questions.push(create_question(question_3, :rating_3))
+    questions.push(create_question(question_4, :rating_4))
+    questions.push(create_question(question_5, :rating_5))
+    questions
+  end
+
+  def get_fielding_questions
+    questions = Array.new
+    questions.push(create_question(question_6, :rating_6))
+    questions.push(create_question(question_7, :rating_7))
+    questions.push(create_question(question_8, :rating_8))
+    questions.push(create_question(question_9, :rating_9))
+    questions.push(create_question(question_10, :rating_10))
+    questions
+  end
+
+  def get_batting_questions
+    questions = Array.new
+    questions.push(create_question(question_11, :rating_11))
+    questions.push(create_question(question_12, :rating_12))
+    questions.push(create_question(question_13, :rating_13))
+    questions.push(create_question(question_14, :rating_14))
+    questions.push(create_question(question_15, :rating_15))
+    questions.push(create_question(question_16, :rating_16))
+    questions
+  end
+
+  def get_running_questions
+    questions = Array.new
+    questions.push(create_question(question_17, :rating_17))
+    questions.push(create_question(question_18, :rating_18))
+    questions.push(create_question(question_19, :rating_19))
+    questions
+  end
+
+  def get_fundamental_questions
+    questions = Array.new
+    questions.push(create_question(question_20, :rating_20))
+    questions
+  end
+
+  def get_experience_questions
+    questions = Array.new
+    questions.push(create_question(question_21, :rating_21, [['0 - No', 0], ['5 - Won Last Year', 5], ['10 - Won Past 2 Years', 10]]))
+    questions.push(create_question(question_22, :rating_22, [['0 - No', 0], ['5 - Yes', 5]]))
+    questions
+  end
+
+  def create_question(question, rating, options = ratings_options)
+    q = Hash.new
+    q[:question] = question
+    q[:rating] = rating
+    q[:options] = options
+    q
   end
 
   private

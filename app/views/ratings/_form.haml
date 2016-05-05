@@ -18,16 +18,16 @@
     = f.label :approved_profile_id
     = f.number_field :approved_profile_id
   = render layout: 'shared/rating_group', locals: {rating_title: 'Throwing', rating_class: 'throwing'} do
-    = render partial:'ratings/question_group', locals: {questions: @questions[:throwing], f: f}
+    = render partial:'shared/ratings/question_group', locals: {questions: @questions[:throwing], f: f}
 
   = render layout: 'shared/rating_group', locals: {rating_title: 'Fielding', rating_class: 'fielding'} do
-    = render partial:'ratings/question_group', locals: {questions: @questions[:fielding], f: f}
+    = render partial:'shared/ratings/question_group', locals: {questions: @questions[:fielding], f: f}
 
   = render layout: 'shared/rating_group', locals: {rating_title: 'Baserunning', rating_class: 'running'} do
-    = render partial:'ratings/question_group', locals: {questions: @questions[:running], f: f}
+    = render partial:'shared/ratings/question_group', locals: {questions: @questions[:running], f: f}
 
   = render layout: 'shared/rating_group', locals: {rating_title: 'Hitting', rating_class: 'hitting'} do
-    = render partial:'ratings/question_group', locals: {questions: @questions[:hitting], f: f}
+    = render partial:'shared/ratings/question_group', locals: {questions: @questions[:hitting], f: f}
       
   .form-group
     .col-sm-offset-2.col-sm-10

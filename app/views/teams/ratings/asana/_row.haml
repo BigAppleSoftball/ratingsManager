@@ -22,22 +22,27 @@
       %td.center-column.baserunning-column=player_rating.batting_total
       %td.center-column.fundamentals-column=player_rating.fundamentals_total
       %td.center-column.experience-column=player_rating.experience_total
+      %td 
+        - if player_rating.present?
+          - if player_rating.is_approved
+            %i.fa.fa-check
+            %span.medium-large-screen-only Approved
+          - elsif player_rating.is_approved == false
+            %i.fa.fa-ban
+            %span.medium-large-screen-only Rejected
+          - else
+            %i.fa.fa-refresh
+            %span.medium-large-screen-only Pending
       %td.center-column
         .dropdown
-          %button#dropdownMenu1.btn.btn-default.dropdown-toggle{"aria-expanded" => "true", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
-            Actions
-            %span.caret
-          %ul.dropdown-menu
-            %li= link_to raw('<i class="fa fa-eye"></i><span>View</span>'), player_rating, {:title => 'View'}
-            - if @CanApproveRatings
-              %li
-                %a.js-approve-rating{:title => 'Approve'}
-                  %i.fa.fa-check
-                  Approve
-              %li
-                %a.js-reject-rating{:title => 'Approve'}
-                  %i.fa.fa-close
-                  Reject
+          = link_to raw('<i class="fa fa-eye"></i><span></span>'), player_rating, {:title => 'View Rating', :class=>'btn btn-default btn-sm'}
+          - if @CanApproveRatings
+            %a.btn.btn-sm.js-approve-rating{:title => 'Approve Rating', :class => "#{player_rating.is_approved ? 'btn-success' : 'btn-default'}"}
+              %i.fa.fa-check
+              -#Approve
+            %a.btn.btn-sm.btn-default.js-reject-rating{:title => 'Reject Rating', :class => "#{(!player_rating.is_approved.nil? && !player_rating.is_approved) ? 'btn-danger' : 'btn-default'}"}
+              %i.fa.fa-ban
+              -#Reject
     - else
       %td.warning.no-ranking-warning.center-column{:colspan => '7'}
         No Rating Found.

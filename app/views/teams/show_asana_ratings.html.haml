@@ -1,9 +1,9 @@
 - content_for :panel_head do
   %h1
-    Editing ASANA Ratings for 
+    ASANA Ratings for 
     =@team.name
   = link_to raw("<i class='fa fa-download'></i> Export"), "/teams/#{@team.id}/ratings/asana.csv", {:class => 'btn btn-default'}
-  = link_to raw("<i class='fa fa-upload'></i> Import"), "/teams/#{@team.id}/ratings/import", {:class => 'btn btn-default'}
+  = #link_to raw("<i class='fa fa-upload'></i> Import"), "/teams/#{@team.id}/ratings/import", {:class => 'btn btn-default'}
 
 -if @teamRoster.length > 0
   = render :partial => 'teams/ratings/table', :locals => {:rosters => @teamRoster}

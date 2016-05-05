@@ -180,7 +180,7 @@ class RatingsController < ApplicationController
 
   def create_question(question, rating, options = ratings_options)
     q = Hash.new
-    q[:question] = question
+    q[:question] = set_question(question)
     q[:rating] = rating
     q[:options] = options
     q
