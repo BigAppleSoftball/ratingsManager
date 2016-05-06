@@ -89,7 +89,6 @@ class RatingsController < ApplicationController
     ratings = Rating.all.order(:profile_id)
     profile_ids = ratings.pluck(:profile_id)
     duplicate_profile_ids = profile_ids.group_by {|e| e}.select { |k,v| v.size > 1}.keys
-    ap duplicate_profile_ids
     @profile_ids = duplicate_profile_ids
 
     @profile_ids.each do |profile_id|

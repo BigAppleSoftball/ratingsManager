@@ -92,6 +92,8 @@ class TeamsController < ApplicationController
     @teamsRosters = teamsRosters
     @ratings_json = get_roster_json(teamsRosters).to_json
     @teamRating = calculate_team_ratings(@teamsRosters) 
+    @CanEditRatings = has_permissions?(@permissions[:CanEditAllRatings])
+    @CanApproveRatings = has_permissions?(@permissions[:CanApproveRatings])
     respond_to do |format|
       format.html { render 'ratings' }
       format.csv do
@@ -124,11 +126,10 @@ class TeamsController < ApplicationController
   def run_asana_import
     file = params[:file]['csv']
     teamId = params[:teamId]
-    ap teamId
     if !(file.nil?)
       # process csv
       CSV.foreach(file.path, headers: true) do |row|
-        ap row
+
       end
     end
   end
