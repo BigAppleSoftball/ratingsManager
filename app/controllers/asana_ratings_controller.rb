@@ -90,12 +90,12 @@ class AsanaRatingsController < ApplicationController
     questions.push(create_question(question_2, :rating_2))
     questions.push(create_question(question_3, :rating_3))
     questions.push(create_question(question_4, :rating_4))
-    questions.push(create_question(question_5, :rating_5))
     questions
   end
 
   def get_fielding_questions
     questions = Array.new
+    questions.push(create_question(question_5, :rating_5))
     questions.push(create_question(question_6, :rating_6))
     questions.push(create_question(question_7, :rating_7))
     questions.push(create_question(question_8, :rating_8))
