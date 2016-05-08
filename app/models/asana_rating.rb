@@ -3,6 +3,22 @@ class AsanaRating < ActiveRecord::Base
   # can't have a rating without a profile
   validates :profile_id, presence: true
 
+  def classification
+    if self.total <= 30
+      'E'
+    elsif self.total > 30 && self.total <= 50
+      'D'
+    elsif self.total > 50 && self.total <= 69
+      'C'
+    elsif self.total > 69 && self.total <= 90
+      'B'
+    elsif self.total > 90
+      'A'
+    else
+      'N/A'
+    end
+  end
+
   def throwing_total
     self.rating_1 +
     self.rating_2 +

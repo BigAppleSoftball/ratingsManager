@@ -14,8 +14,8 @@
     %td.center-column.medium-large-screen-only
       %span=profile.dob
     - if player_rating
-      %td.center-column
-        .edit-btn.js-total-btn=player_rating.total
+      %td.center-column=player_rating.total
+      %td.center-column=player_rating.classification
       %td.center-column.throwing-column=player_rating.throwing_total
       %td.center-column.fielding-column=player_rating.fielding_total
       %td.center-column.batting-column=player_rating.baserunning_total
@@ -25,7 +25,7 @@
       %td=render :partial => "teams/ratings/shared/row_status", :locals => {:player_rating => player_rating}
       %td.center-column= render :partial => "teams/ratings/shared/row_actions", :locals => {:player_rating => player_rating}
     - else
-      %td.warning.no-ranking-warning.center-column{:colspan => '7'}
+      %td.warning.no-ranking-warning.center-column{:colspan => '10'}
         No Rating Found.
         - if @CanEditRatings
           = link_to '+ Add Rating', "/asana_rating_to_profile/#{profile.id}", {:class => 'btn btn-sm btn-default'}

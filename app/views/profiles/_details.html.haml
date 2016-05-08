@@ -67,12 +67,15 @@
   %div
     - if @asana_rating.present?
       .asana_rating
-        %b ASANA Rating:
-        %br
-        - if canEditRatings
-          =link_to raw("<i class='fa fa-pencil'></i> #{@asana_rating.total}"), @asana_rating, :class => 'btn btn-default'
-        - else
-          =@asana_rating.total
+        %ul.list-group
+          %li.list-group-item
+            %strong ASANA Rating:
+            =@asana_rating.total
+          %li.list-group-item
+            %strong ASANA Classification
+            =@asana_rating.classification
+          - if canEditRatings
+            %li.list-group-item=link_to raw("<i class='fa fa-pencil'></i> Edit ASANA Rating"), @asana_rating, :class => 'btn btn-default'
     - elsif canEditRatings
       %br
       =link_to '+ Add ASANA Rating', "/asana_rating_to_profile/#{profile.id}", :class => 'btn btn-default'
