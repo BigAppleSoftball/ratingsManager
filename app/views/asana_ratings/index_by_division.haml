@@ -1,0 +1,39 @@
+- content_for :panel_head do
+  %h1 
+    ASANA Ratings for 
+    %strong=@division.full_name
+  = link_to 'View Division', @division,  {:class => 'btn btn-default'}
+
+
+%table.table-striped.table.table-bordered.table-condensed
+  %thead
+    %tr
+      %th Profile
+      %th Team
+      %th Total
+      %th Classification
+      %th Status
+  %tbody
+    - @teams.each do |team|
+      - team.rosters.each do |roster|
+        - rating = roster.profile.asana_ratings.last
+        - if roster.profile
+          %tr
+            %td
+              -if roster.profile
+                = "#{roster.profile.last_name}, #{roster.profile.first_name}"
+            %td=team.name
+            %td.center-column
+              - if rating
+                = rating.total
+              - else
+                N/A
+            %td.center-column
+              -if rating
+                =rating.classification
+              - else
+                N/A
+            %td.center-column
+              -if rating
+                =render :partial => "teams/ratings/shared/row_status", :locals => {:player_rating => rating}
+

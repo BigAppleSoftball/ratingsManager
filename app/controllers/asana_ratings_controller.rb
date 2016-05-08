@@ -4,7 +4,16 @@ class AsanaRatingsController < ApplicationController
   # GET /asana_ratings
   # GET /asana_ratings.json
   def index
-    @asana_ratings = AsanaRating.all
+    @asana_ratings = AsanaRating.eager_load(:profile).order('profiles.last_name').all
+  end
+
+  def index_by_division
+    division_id = params[:divisionId]
+    @division = Division.find(division_id)
+    # get all the teams in the division
+    @teams = Team.includes(:rosters => {:profile => :asana_ratings}).where(:division_id => @division.id).order('teams.name ASC').order('profiles.last_name')
+    # get all the players on the teams in the division
+
   end
 
   # GET /asana_ratings/1

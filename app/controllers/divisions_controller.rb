@@ -12,6 +12,7 @@ class DivisionsController < ApplicationController
   # GET /divisions/1
   # GET /divisions/1.json
   def show
+    @CanEditRatings = has_permissions?(@permissions[:CanEditAllRatings])
   end
 
   # GET /divisions/new
