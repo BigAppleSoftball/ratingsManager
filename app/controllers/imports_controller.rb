@@ -10,7 +10,17 @@ class ImportsController < ApplicationController
     $divisions_added_count = 0
     $profiles_added_count = 0
     $roster_update_count = 0
+    $info = ''
     selected_season_id = params[:seasons].to_i
+    # these are names of accounts we should ignore
+    admin_names = [
+      'Division Representative', 
+      'Assistant Commissioner', 
+      'Secretary)', 
+      'League Commissioner', 
+      'BASL Webmaster',
+      'Treasurer)']
+
     file = params[:file]['csv']
     # load the details for the selected season
     selected_season = Season.eager_load(:divisions => :teams).find(selected_season_id)
@@ -35,20 +45,24 @@ class ImportsController < ApplicationController
         rNonPlayer = get_and_clean(row, 'Player / Non-Player')
         rPickup  = row['Are you available as a pick-up player during the season?']
 
-        # if that division doesn't exist create it and add Team
-        if (seasonDivisions[rDivision].nil?)
-          seasonDivisions[rDivision] = Hash.new
-        end
-        # if that team doesn't exist in the Division Create it
-        
-        if (seasonDivisions[rDivision][rTeam].nil?)
-          seasonDivisions[rDivision][rTeam] = Array.new
-        end
+        if admin_names.any? { |s| rLastName.include?(s) }
+          $info += "<strong>#{rFirstName} #{rLastName}</strong> contains a flag for an ADMIN NAME it won't be imported <br>"
+        else
+          # if that division doesn't exist create it and add Team
+          if (seasonDivisions[rDivision].nil?)
+            seasonDivisions[rDivision] = Hash.new
+          end
+          # if that team doesn't exist in the Division Create it
+          
+          if (seasonDivisions[rDivision][rTeam].nil?)
+            seasonDivisions[rDivision][rTeam] = Array.new
+          end
 
-        player = createNewPlayer(rFirstName, rLastName, rEmail, rPickup, rAddress, rCity, rState, rZip, rGender,rAffliation, rNonPlayer)
 
-        seasonDivisions[rDivision][rTeam].append(player)
-        
+          player = createNewPlayer(rFirstName, rLastName, rEmail, rPickup, rAddress, rCity, rState, rZip, rGender,rAffliation, rNonPlayer)
+
+          seasonDivisions[rDivision][rTeam].append(player)
+        end
       end
     else 
     end
@@ -104,6 +118,7 @@ class ImportsController < ApplicationController
     def check_or_create_profile(fName, lName, email, pickup, address, city, state, zip, gender)
       profile = Profile.where(:email => email).first
       if (profile.nil?)
+        $profiles_added_count += 1
         profile = Profile.new
         return update_profile(profile,fName, lName, email, pickup, address, city, state, zip, gender)
       else
