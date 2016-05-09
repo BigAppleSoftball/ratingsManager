@@ -1,7 +1,10 @@
 - content_for :panel_head do
   %h1 Pick up Players
   .well
-    This is a list of players that have marked themselves as available for tournaments. If you wish to be taken off this list please update your profile and uncheck the "Available for Tournaments" Checkbox
+    This is a list of players that have marked themselves as available for tournaments or pickup during the season. If you'd like to be removed from this list please update your teamsnap profile and contact the webteam@bigapplesoftball.com
+
+  - if is_admin?
+    = link_to 'Export List', 'pickup/export', {:class => 'btn btn-default'}
 
 .pickup-players
   %table.table.table-condensed.table-bordered.legend-table
@@ -38,7 +41,6 @@
       - @divisions.each do |division|
         - division_name = get_division_short_name(division)
         %button.btn.btn-default.btn-all.js-filter-btn{:type => "button", :data => {:filter=>".#{division_name}"}}=division_name
-
   %ul.pickup-player-list.js-pickup-players-list
     -@players.each do |player|
       - division_name = nil

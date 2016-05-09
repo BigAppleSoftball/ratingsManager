@@ -1,0 +1,5 @@
+player,email,division,team
+- @divisions.each do |division|
+  - division.teams.each do |team|
+    - team.rosters.each do |roster|
+      = "#{roster.profile.name}, #{roster.profile.email}, #{get_division_short_name(division.description)}, #{team.name}"

@@ -160,7 +160,11 @@ class ProfilesController < ApplicationController
         end
       end
     end
-    @divisions = ['Dima', 'Fitzpatrick', 'Panarace', 'Sachs', 'Mousseau', 'Green-Batten']
+    @divisions = get_all_divisions
+  end
+
+  def get_all_divisions
+    ['Dima', 'Fitzpatrick', 'Panarace', 'Sachs', 'Mousseau', 'Green-Batten']
   end
 
   #
@@ -188,6 +192,26 @@ class ProfilesController < ApplicationController
     else
       errors.push("#{@profile.name} has already logged in, no email sent. If the player is having trouble logging in, recommend they reset their password from the login screen")
     end
+  end
+
+  def export_pickup
+    @seasons = Season.eager_load(:divisions).where('seasons.is_active' => true)
+    respond_to do |format|
+      format.html do
+        response.headers['Content-Disposition'] = "attachment; filename=pickup_players.csv"
+        render 'ratings.csv.haml'
+      end
+  end
+
+  def export_players
+    division_ids = [params[:divisions]]
+    ap '----------------------------'
+    ap division_ids
+    division_ids.each do |division_id|
+      ap division_id.to_i
+    end
+    ## 
+    @divisions = Division.eager_load(:teams => {:rosters => :profile}).where(id: division_ids).order('profiles.last_name ASC')
   end
 
   private

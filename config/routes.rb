@@ -151,6 +151,8 @@ Rails.application.routes.draw do
 
   # profiles
   get 'pickup', to: 'profiles#pickup_players'
+  get 'pickup/export', to:'profiles#export_pickup'
+  post 'pickup/export_players', to: 'profiles#export_players'
   get 'profile_details', to: 'profiles#details'
 
   get "/404", :to => "errors#error_404"
