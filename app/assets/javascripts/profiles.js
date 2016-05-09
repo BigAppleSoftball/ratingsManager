@@ -145,14 +145,45 @@
       }
     });
 
-    // bind filter button click
-    $('.js-ratings-filters').on( 'click', '.js-filter-btn', function() {
-      var $this = $(this),
-          filterValue = $this.attr('data-filter');
+    // bind the Filters for NAGAAA Ratings
+    this.bindFilter($('.js-ratings-filters'));
+    // bind the Filters for Division
+    this.bindFilter($('.js-divisions-filter'));
 
-      $('.js-filter-btn').removeClass('btn-selected');
-      $this.addClass('btn-selected');
-      self.$grid.isotope({ filter: filterValue });
+  };
+
+  PickupProfile.prototype.bindFilter = function($filterContainer) {
+    var self = this;
+    // bind filter button click
+    $filterContainer.on( 'click', '.js-filter-btn', function() {
+      var $this = $(this),
+          filterValue = $this.attr('data-filter'),
+          filterType = $filterContainer.data('value');
+
+      // if this is the select all button remove all the others
+      if ($this.hasClass('js-all')) {
+        if ($this.hasClass('.btn-selected')) {
+          $this.removeClass('.btn-selected')
+        } else {
+          $filterContainer.find('.js-filter-btn').removeClass('btn-selected');
+          $this.addClass('btn-selected');
+        }
+      } else {
+        // all other buttons toggle and remove all selected state
+        $this.toggleClass('btn-selected');
+        $filterContainer.find('.js-filter-btn.js-all').removeClass('btn-selected');
+      }
+
+      // get all the selected values
+      var selectedFilters = $filterContainer.find('.btn-selected');
+      var filters = [];
+      selectedFilters.each(function(){
+        var filterString = $(this).data('filter');
+        filters.push(filterString);
+      });
+
+      self.$grid.isotope({ filter: filters.join(', ')});
+
     });
   };
 

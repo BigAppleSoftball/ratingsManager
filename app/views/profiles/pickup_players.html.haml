@@ -24,8 +24,8 @@
 
   %div
     %h5 NAGAAA Ratings
-    .btn-group.rating-sort-btn-group.js-ratings-filters{"aria-label" => "...", :role => "group"}
-      %button.btn.btn-default.btn-all.btn-selected.js-filter-btn{:type => "button", :data => {:filter=>"*"}} Show All
+    .btn-group.rating-sort-btn-group.js-ratings-filters{"aria-label" => "...", :role => "group", :data => {:value => 'nagaaa'}}
+      %button.btn.btn-default.btn-all.btn-selected.js-filter-btn.js-all{:type => "button", :data => {:filter=>"*"}} Show All
       %button.btn.btn-default.rating-d-btn.js-filter-btn{:type => "button", :data => {:filter=>".d-rating"}} Only D
       %button.btn.btn-default.rating-c-btn.js-filter-btn{:type => "button", :data => {:filter=>".c-rating"}} Only C
       %button.btn.btn-default.rating-b-btn.js-filter-btn{:type => "button", :data => {:filter=>".b-rating"}} Only B
@@ -33,8 +33,8 @@
 
   %div 
     %h5 Division
-    .btn-group.rating-sort-btn-group.js-ratings-filters{"aria-label" => "...", :role => "group"}
-      %button.btn.btn-default.btn-all.btn-selected.js-filter-btn{:type => "button", :data => {:filter=>"*"}} Show All
+    .btn-group.rating-sort-btn-group.js-divisions-filter{"aria-label" => "...", :role => "group"}
+      %button.btn.btn-default.btn-all.btn-selected.js-filter-btn.js-all{:type => "button", :data => {:filter=>"*"}} Show All
       - @divisions.each do |division|
         - division_name = get_division_short_name(division)
         %button.btn.btn-default.btn-all.js-filter-btn{:type => "button", :data => {:filter=>".#{division_name}"}}=division_name
