@@ -3,6 +3,10 @@
     .profile-card{:style=>"background-image: url(#{profile.long_image_url.present? ? profile.long_image_url : ''})"}
 
 .col-md-7.profile-details.js-profile-details{:data => {:name => profile.name, :id => profile.id}}
+  -if is_current_user_or_admin?(profile.id)
+    %p 
+      %b NAGAAA ID:
+      = profile.nagaaa_id
   %p
     %b First name:
     = profile.first_name
