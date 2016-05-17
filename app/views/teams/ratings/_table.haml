@@ -11,12 +11,3 @@
         = render :partial => "teams/ratings/asana/row", :locals => {:profile => player_profile}
       - else
         = render :partial => "teams/ratings/nagaaa/row", :locals => {:profile => player_profile}
-
-- if !@isAsana
-  = render :partial => "modal/throwingmodal"
-  = render :partial => "modal/fieldingmodal"
-  = render :partial => "modal/runningmodal"
-  = render :partial => "modal/hittingmodal"
-
-  :javascript
-    window.playersJson = #{@ratings_json || false}

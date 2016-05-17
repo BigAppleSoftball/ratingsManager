@@ -7,6 +7,8 @@
       %span=profile.dob
     - if player_rating
       %td.center-column
+        %span=profile.nagaaa_id
+      %td.center-column
         .edit-btn=player_rating.total
       %td.center-column
         .btn.btn-primary.edit-btn=player_rating.throwing_total
@@ -20,7 +22,7 @@
       %td
         =render :partial => "teams/ratings/shared/row_actions", :locals => {:player_rating => player_rating}
     - else
-      %td.warning.no-ranking-warning.center-column{:colspan => '7'}
+      %td.warning.no-ranking-warning.center-column{:colspan => '8'}
         No Rating Found.
         - if @CanEditRatings
           = link_to '+ Add Rating', "/nagaaa_rating_to_profile/#{profile.id}", {:class => 'btn btn-sm btn-default'}
