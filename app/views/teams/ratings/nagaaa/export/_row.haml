@@ -1,0 +1,15 @@
+- rating = profile.rating
+- if profile.present?
+  %td=profile.nagaaa_id
+  %td=profile.last_name
+  %td=profile.first_name
+  %td=profile.email
+  %td=profile.dob
+  - if rating.present?
+    %td=profile.rating.total
+    - (1..27).each do |i|
+      %td=profile.rating["rating_#{i}"]
+  - else
+    %td 0
+    - (1..27).each do |i|
+      %td{:align => 'center'} 0

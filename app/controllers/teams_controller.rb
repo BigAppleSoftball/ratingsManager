@@ -90,15 +90,20 @@ class TeamsController < ApplicationController
     @team = Team.find_by(:id => team_id)
     teamsRosters = Roster.eager_load(:profile => :rating).where(:team_id => team_id).order('profiles.last_name')
     @teamsRosters = teamsRosters
-    @ratings_json = get_roster_json(teamsRosters).to_json
     @teamRating = calculate_team_ratings(@teamsRosters) 
     @CanEditRatings = has_permissions?(@permissions[:CanEditAllRatings])
     @CanApproveRatings = has_permissions?(@permissions[:CanApproveRatings])
     respond_to do |format|
+      ap format
       format.html { render 'ratings' }
       format.csv do
         response.headers['Content-Disposition'] = "attachment; filename=#{@team.name}-#{@team.division.full_name}.csv"
         render 'ratings.csv.haml'
+      end
+      format.xls do
+        response.headers['Content-Type'] = "application/vnd.ms-excel"
+        response.headers['Content-Disposition'] = 'attachment; filename="report.xls"'
+        render 'ratings.xls.haml'
       end
     end
   end
