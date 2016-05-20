@@ -183,4 +183,24 @@ module ApplicationHelper
       division_name
     end
   end
+
+  def nagaaa_export_values
+    table = Hash.new
+    col_colors = Hash.new 
+    col_colors[:throwing] = '#ccffff'
+    col_colors[:hitting] = '#ffcccc'
+    col_colors[:running] = '#ccccff'
+    col_colors[:fielding] = '#ccffcc'
+    col_colors[:none] = '#eeeeee'
+    questions = Hash.new
+    questions[:throwing] = 5
+    questions[:fielding] = 9
+    questions[:running] = 4
+    questions[:hitting] = 9
+    total_columns = 27 + 8
+    table[:col_colors] = col_colors
+    table[:questions] = questions
+    table[:total_columns] = total_columns
+    table
+  end
 end

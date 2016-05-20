@@ -1,18 +1,7 @@
-- col_colors = Hash.new
-- col_colors[:throwing] = '#ccffff'
-- col_colors[:hitting] = '#ffcccc'
-- col_colors[:running] = '#ccccff'
-- col_colors[:fielding] = '#ccffcc'
-- questions = Hash.new
-- questions[:throwing] = 5
-- questions[:fielding] = 9
-- questions[:running] = 4
-- questions[:hitting] = 9
-
+- table_values = nagaaa_export_values
 %table
   %thead
-    = render :partial => "teams/ratings/nagaaa/export/head", :locals => {:team => @team, :team_rating => @teamRating, :col_colors => col_colors, :questions => questions }
+    = render :partial => "teams/ratings/nagaaa/export/head", :locals => {:team => @team, :col_colors => table_values[:col_colors], :questions => table_values[:questions] }
   %tbody
     - @teamsRosters.each do |roster|
-      %tr
-        = render :partial => "teams/ratings/nagaaa/export/row", :locals => {:profile => roster.profile, :questions => questions, :col_colors => col_colors}
+      = render :partial => "teams/ratings/nagaaa/export/row", :locals => {:roster => roster, :col_colors => table_values[:col_colors], :questions => table_values[:questions], :team_rating => @teamRating}

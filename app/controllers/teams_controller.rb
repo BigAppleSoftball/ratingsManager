@@ -102,7 +102,7 @@ class TeamsController < ApplicationController
       end
       format.xls do
         response.headers['Content-Type'] = "application/vnd.ms-excel"
-        response.headers['Content-Disposition'] = 'attachment; filename="report.xls"'
+        response.headers['Content-Disposition'] = "attachment; filename=\"#{@team.name}_#{@team.division.full_name}.xls\""
         render 'ratings.xls.haml'
       end
     end

@@ -1,9 +1,5 @@
 %tr
-  %td{:colspan => '3'}
-    =team.name
-  %td{:colspan => '3'}
-    %b Team Rating:
-    =team_rating
+  %td{:colspan => '8'}
   %td{:colspan => questions[:throwing], 
       :bgcolor => col_colors[:throwing],
       :align => 'center' } 
@@ -27,6 +23,10 @@
 %tr
   %td{:align => 'center'} 
     %b NAGAAA ID
+  %td
+    %b Team (Rating)
+  %td
+    %b Division
   %td{:align => 'center'} 
     %b Last Name
   %td{:align => 'center'} 
