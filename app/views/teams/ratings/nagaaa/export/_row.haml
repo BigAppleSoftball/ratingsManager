@@ -6,10 +6,24 @@
   %td=profile.email
   %td=profile.dob
   - if rating.present?
-    %td=profile.rating.total
-    - (1..27).each do |i|
-      %td=profile.rating["rating_#{i}"]
+    %td{:align => 'center'}
+      %b=profile.rating.total
+    - count = 0
+    - (1..questions[:throwing]).each do |i|
+      - count+= 1
+      %td{:bgcolor => col_colors[:throwing],:align => 'center'}
+        =profile.rating["rating_#{count}"]
+    - (1..questions[:fielding]).each do |i|
+      - count+= 1
+      %td{:bgcolor => col_colors[:fielding], :align => 'center'}
+        =profile.rating["rating_#{count}"]
+    - (1..questions[:running]).each do |i|
+      - count += 1
+      %td{:bgcolor => col_colors[:running], :align => 'center'}
+        =profile.rating["rating_#{count}"]
+    - (1..questions[:hitting]).each do |i|
+      - count += 1
+      %td{:bgcolor => col_colors[:hitting], :align => 'center'}
+        =profile.rating["rating_#{count}"]
   - else
-    %td 0
-    - (1..27).each do |i|
-      %td{:align => 'center'} 0
+    = render :partial => "teams/ratings/nagaaa/export/empty_rating_section", :locals => {:questions => questions, :col_colors => col_colors}

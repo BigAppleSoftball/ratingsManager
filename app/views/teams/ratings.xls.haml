@@ -15,4 +15,4 @@
   %tbody
     - @teamsRosters.each do |roster|
       %tr
-        = render :partial => "teams/ratings/nagaaa/export/row", :locals => {:profile => roster.profile}
+        = render :partial => "teams/ratings/nagaaa/export/row", :locals => {:profile => roster.profile, :questions => questions, :col_colors => col_colors}
