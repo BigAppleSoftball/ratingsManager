@@ -94,7 +94,6 @@ class TeamsController < ApplicationController
     @CanEditRatings = has_permissions?(@permissions[:CanEditAllRatings])
     @CanApproveRatings = has_permissions?(@permissions[:CanApproveRatings])
     respond_to do |format|
-      ap format
       format.html { render 'ratings' }
       format.csv do
         response.headers['Content-Disposition'] = "attachment; filename=#{@team.name}-#{@team.division.full_name}.csv"
@@ -184,21 +183,6 @@ class TeamsController < ApplicationController
     respond_to do |format|
       format.json { render :json=> teams_by_divisions(teams)}
     end
-  end
-
-  #
-  # Team rating is the sum of the top ten player ratings
-  #
-  def calculate_team_ratings(roster)
-    ratings = Array.new
-    roster.each do|player|
-      if (player && player.profile && player.profile.rating)
-        ratings.push(player.profile.rating.total)
-      end
-    end
-    
-    top_ratings = ratings.sort.reverse.take(10)
-    top_ratings.sum
   end
 
   private

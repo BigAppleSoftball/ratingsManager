@@ -1,0 +1,7 @@
+- table_values = nagaaa_export_values
+%table.table.table-bordered.table-condensed
+  %thead
+    = render :partial => "teams/ratings/nagaaa/export/head", :locals => {:team => @team, :col_colors => table_values[:col_colors], :questions => table_values[:questions] }
+  %tbody
+    - teamRoster.each do |roster|
+      = render :partial => "teams/ratings/nagaaa/export/row", :locals => {:roster => roster, :col_colors => table_values[:col_colors], :questions => table_values[:questions], :team_rating => team_rating}

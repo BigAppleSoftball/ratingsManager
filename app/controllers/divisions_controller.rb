@@ -32,6 +32,37 @@ class DivisionsController < ApplicationController
     @seasons = Season.all
   end
 
+  def show_nagaaa_ratings
+    division_id = params[:id].to_i
+    @division = Division.find(division_id)
+    # get all the teams in the division
+    teams = Team.where(:division_id => @division.id)
+    @team_names = Array.new 
+    valuesByTeamName = Hash.new
+    # Load the Roster onto the Team
+    teams.each do |team|
+      teamId = team.id
+      roster = Roster.eager_load(:profile => :rating).where(:team_id => teamId).order('profiles.last_name')
+      team_name = roster.first().team.name
+      @team_names.push(team_name)
+      values = Hash.new
+      values[:roster] = roster
+      values[:rating] = calculate_team_ratings(roster) 
+      valuesByTeamName[team_name] = values
+      @valuesByTeamName = valuesByTeamName
+    end 
+
+    respond_to do |format|
+      # TODO (Paige) Support rendering Ratings 
+      format.html { render layout: 'plain', template: 'divisions/ratings' }
+      format.xls do
+        response.headers['Content-Type'] = "application/vnd.ms-excel"
+        response.headers['Content-Disposition'] = "attachment; filename=\"#{@division.full_name}.xls\""
+        render 'ratings.xls.haml'
+      end
+    end
+  end
+
   # POST /divisions
   # POST /divisions.json
   def create

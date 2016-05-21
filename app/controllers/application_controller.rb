@@ -269,6 +269,21 @@ class ApplicationController < ActionController::Base
   def authenticate_user!
     current_user.is_admin?
   end
+
+  #
+  # Team rating is the sum of the top ten player ratings
+  #
+  def calculate_team_ratings(roster)
+    ratings = Array.new
+    roster.each do|player|
+      if (player && player.profile && player.profile.rating)
+        ratings.push(player.profile.rating.total)
+      end
+    end
+    
+    top_ratings = ratings.sort.reverse.take(10)
+    top_ratings.sum
+  end
 private
 
   # Finds the User with the ID stored in the session with the key

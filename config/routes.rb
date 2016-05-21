@@ -148,6 +148,7 @@ Rails.application.routes.draw do
 
   # divisions
   get 'teamsnap/divisions/import', to: 'teamsnap#import_divisions'
+  get '/divisions/:id/ratings', to:'divisions#show_nagaaa_ratings'
 
   # profiles
   get 'pickup', to: 'profiles#pickup_players'
