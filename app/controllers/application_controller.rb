@@ -284,6 +284,28 @@ class ApplicationController < ActionController::Base
     top_ratings = ratings.sort.reverse.take(10)
     top_ratings.sum
   end
+
+  #
+  # Returns a hashmap that stores rosters and ratings values by team name
+  #
+  def get_rosters_and_ratings(teams)
+    byName = Hash.new
+    byName[:team_names] = Array.new
+    byName[:by_name] = Hash.new
+
+    # Load the Roster onto the Team
+    teams.each do |team|
+      teamId = team.id
+      roster = Roster.eager_load(:profile => :rating).where(:team_id => teamId).order('profiles.last_name')
+      team_name = roster.first().team.name
+      byName[:team_names].push(team_name)
+      values = Hash.new
+      values[:roster] = roster
+      values[:rating] = calculate_team_ratings(roster) 
+      byName[:by_name][team_name] = values
+    end 
+    byName
+  end
 private
 
   # Finds the User with the ID stored in the session with the key

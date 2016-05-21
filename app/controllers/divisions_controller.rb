@@ -37,20 +37,9 @@ class DivisionsController < ApplicationController
     @division = Division.find(division_id)
     # get all the teams in the division
     teams = Team.where(:division_id => @division.id)
-    @team_names = Array.new 
-    valuesByTeamName = Hash.new
-    # Load the Roster onto the Team
-    teams.each do |team|
-      teamId = team.id
-      roster = Roster.eager_load(:profile => :rating).where(:team_id => teamId).order('profiles.last_name')
-      team_name = roster.first().team.name
-      @team_names.push(team_name)
-      values = Hash.new
-      values[:roster] = roster
-      values[:rating] = calculate_team_ratings(roster) 
-      valuesByTeamName[team_name] = values
-      @valuesByTeamName = valuesByTeamName
-    end 
+    values = get_rosters_and_ratings(teams)
+    @team_names = values[:team_names]
+    @valuesByTeamName =values[:by_name]
 
     respond_to do |format|
       # TODO (Paige) Support rendering Ratings 
