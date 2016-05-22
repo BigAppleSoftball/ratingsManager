@@ -33,23 +33,23 @@ class DivisionsController < ApplicationController
   end
 
   def show_nagaaa_ratings
-    division_id = params[:id].to_i
+    show_division_ratings(params[:id].to_i)
+  end
+
+  def show_asana_ratings
+    show_division_ratings(params[:id].to_i, true)
+  end
+
+
+  #
+  # Takes values to render ratings for given divisions
+  #
+  def show_division_ratings(division_id, isAsana = false)
     @division = Division.find(division_id)
     # get all the teams in the division
     teams = Team.where(:division_id => @division.id)
-    values = get_rosters_and_ratings(teams)
-    @team_names = values[:team_names]
-    @valuesByTeamName =values[:by_name]
-
-    respond_to do |format|
-      # TODO (Paige) Support rendering Ratings 
-      format.html { render layout: 'plain', template: 'divisions/ratings' }
-      format.xls do
-        response.headers['Content-Type'] = "application/vnd.ms-excel"
-        response.headers['Content-Disposition'] = "attachment; filename=\"#{@division.full_name}.xls\""
-        render 'ratings.xls.haml'
-      end
-    end
+    filename = @division.full_name
+    show_ratings(teams, isAsana, filename)
   end
 
   # POST /divisions

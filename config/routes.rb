@@ -62,6 +62,7 @@ Rails.application.routes.draw do
   get '/get_divisions_by_season', to:'seasons#get_divisions_by_season'
   get '/season/:seasonId/games', to:'seasons#games'
   get '/season/:id/nagaaa/ratings', to:'seasons#show_nagaaa_ratings'
+  get '/season/:id/asana/ratings', to:'seasons#show_asana_ratings'
 
   # sessions
   match '/signup',  to: 'profiles#new', via: 'get'
@@ -150,6 +151,7 @@ Rails.application.routes.draw do
   # divisions
   get 'teamsnap/divisions/import', to: 'teamsnap#import_divisions'
   get '/divisions/:id/ratings', to:'divisions#show_nagaaa_ratings'
+  get '/divisions/asana/:id/ratings', to:'divisions#show_asana_ratings'
 
   # profiles
   get 'pickup', to: 'profiles#pickup_players'

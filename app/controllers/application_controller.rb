@@ -288,7 +288,7 @@ class ApplicationController < ActionController::Base
   #
   # Returns a hashmap that stores rosters and ratings values by team name
   #
-  def get_rosters_and_ratings(teams)
+  def get_rosters_and_ratings(teams, isAsana = false)
     byName = Hash.new
     byName[:team_names] = Array.new
     byName[:by_name] = Hash.new
@@ -296,7 +296,11 @@ class ApplicationController < ActionController::Base
     # Load the Roster onto the Team
     teams.each do |team|
       teamId = team.id
-      roster = Roster.eager_load(:profile => :rating).where(:team_id => teamId).order('profiles.last_name')
+      if isAsana
+        roster = Roster.eager_load(:profile => :rating).where(:team_id => teamId).order('profiles.last_name')
+      else
+        roster = Roster.eager_load(:profile => :rating).where(:team_id => teamId).order('profiles.last_name')
+      end
       team_name = roster.first().team.name
       byName[:team_names].push(team_name)
       values = Hash.new
@@ -352,6 +356,34 @@ class ApplicationController < ActionController::Base
     table[:total_columns] = total_columns
     table[:is_asana] = true
     table
+  end
+
+  #
+  # Takes values to render ratings for given divisions
+  #
+  def show_ratings(teams, isAsana = false, filename = "ratings")
+
+    if isAsana
+      values = get_rosters_and_ratings(teams, true)
+      @tableValues = asana_export_values
+      @isAsana = true
+    else
+      values = get_rosters_and_ratings(teams)
+      @tableValues = nagaaa_export_values
+    end
+
+    @team_names = values[:team_names]
+    @valuesByTeamName =values[:by_name]
+
+    respond_to do |format|
+      # TODO (Paige) Support rendering Ratings 
+      format.html { render layout: 'plain', template: 'divisions/ratings' }
+      format.xls do
+        response.headers['Content-Type'] = "application/vnd.ms-excel"
+        response.headers['Content-Disposition'] = "attachment; filename=\"#{filename}.xls\""
+        render 'ratings.xls.haml'
+      end
+    end
   end
 private
 

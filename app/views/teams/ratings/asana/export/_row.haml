@@ -6,7 +6,7 @@
     - if !rating.present?
       - bgcolor = col_colors[:none]
     %td{:bgcolor => bgcolor}="#{roster.team.name}"
-    %td{:bgcolor => bgcolor}=roster.team.division.description
+    %td{:bgcolor => bgcolor}=get_division_short_name(roster.team.division.description)
     %td{:bgcolor => bgcolor}=profile.last_name
     %td{:bgcolor => bgcolor}=profile.first_name
     %td{:bgcolor => bgcolor}=profile.email

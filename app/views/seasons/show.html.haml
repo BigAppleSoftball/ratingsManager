@@ -8,6 +8,7 @@
     = link_to '+ Add Division', new_division_path(:season_id => @season.id), :class => 'btn btn-default'
     = link_to raw('<i class="fa fa-upload"></i> Import Teamsnap Divisions'), '/teamsnap/divisions/import', {:class => 'btn btn-default'}
     = link_to raw('<i class="fa fa-download"></i> Download NAGAAA Ratings'), "/season/#{@season.id}/nagaaa/ratings.xls", {:class => 'btn btn-default'}
+    = link_to raw('<i class="fa fa-download"></i> Download ASANA Ratings'), "/season/#{@season.id}/asana/ratings.xls", {:class => 'btn btn-default'}
 
 - @divisions.each do |division|
   = render '/divisions/division', :division => division

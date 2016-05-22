@@ -18,6 +18,7 @@
         %li= link_to raw("<i class='fa fa-trash'></i> Delete Division"),@division, :method => :delete, :data => { :confirm => 'Deleting a Division Will Delete all related teams, games, rosters & game attendances. You cannot undo this. Are you sure?' }, :class => 'btn btn-danger', :title => 'Delete'
       - if @CanEditRatings && !@division.is_coed
         = link_to raw("<i class='fa fa-line-chart'></i> View ASANA Ratings"), "/asana_ratings_by_division/#{@division.id}",  {:class => 'btn btn-primary'}
+        = link_to raw("<i class='fa fa-download'></i> Download ASANA Ratings"), "/divisions/asana/#{@division.id}/ratings.xls",  {:class => 'btn btn-default'}
       - if @division.is_coed
         = link_to raw("<i class='fa fa-download'></i> Download Excel"), "/divisions/#{@division.id}/ratings.xls", {:class => 'btn btn-default'}
         = link_to 'View Division Ratings', "/divisions/#{@division.id}/ratings", {:class => 'btn btn-default'}

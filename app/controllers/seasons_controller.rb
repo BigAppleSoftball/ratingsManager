@@ -110,6 +110,39 @@ class SeasonsController < ApplicationController
     end
   end
 
+  def show_nagaaa_ratings
+    show_season_ratings(params[:id].to_i)
+  end
+
+  def show_asana_ratings
+    show_season_ratings(params[:id].to_i, true)
+  end
+
+  #
+  # Takes values to render ratings for given Season
+  #
+  def show_season_ratings(season_id, isAsana = false)
+    @season = Season.find(season_id)
+    if isAsana
+      # get all the Women's divisions in a season
+      divisionIds = Division.where(:season_id => season_id, :is_coed => false).pluck(:id)
+    else
+      # get all the divisions in a season
+      divisionIds = Division.where(:season_id => season_id, :is_coed => true).pluck(:id)
+    end
+
+
+    # get all the teams in the division
+    teams = Team.where(:division_id => divisionIds)
+    if isAsana 
+      filename = 'ASANA_'
+    else
+      filename = 'NAGAAA_'
+    end
+    filename += @season.description
+    show_ratings(teams, isAsana, filename)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_season
