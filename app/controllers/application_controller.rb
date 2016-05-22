@@ -306,6 +306,53 @@ class ApplicationController < ActionController::Base
     end 
     byName
   end
+
+  #
+  # Stores lightened colors of rattings sections for use in 
+  # excel exports
+  #
+  def get_col_colors
+    col_colors = Hash.new 
+    col_colors[:throwing] = '#ccffff'
+    col_colors[:hitting] = '#ffcccc'
+    col_colors[:running] = '#ccccff'
+    col_colors[:fielding] = '#ccffcc'
+    col_colors[:none] = '#eeeeee'
+    col_colors[:fundamentals] = '#C1C1C0'
+    col_colors[:experience] = '#969696'
+    col_colors
+  end
+
+  def nagaaa_export_values
+    table = Hash.new
+    questions = Hash.new
+    questions[:throwing] = 5
+    questions[:fielding] = 9
+    questions[:running] = 4
+    questions[:hitting] = 9
+    total_columns = 27 + 8
+    table[:col_colors] = get_col_colors
+    table[:questions] = questions
+    table[:total_columns] = total_columns
+    table
+  end
+
+  def asana_export_values
+    table = Hash.new
+    questions = Hash.new
+    questions[:throwing] = 4
+    questions[:fielding] = 6
+    questions[:running] = 3
+    questions[:hitting] = 6
+    questions[:fundamentals] = 1
+    questions[:experience] = 2
+    total_columns = 22 + 8
+    table[:col_colors] = get_col_colors
+    table[:questions] = questions
+    table[:total_columns] = total_columns
+    table[:is_asana] = true
+    table
+  end
 private
 
   # Finds the User with the ID stored in the session with the key

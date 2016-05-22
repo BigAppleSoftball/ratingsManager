@@ -2,5 +2,5 @@
 
 - @team_names.each do |team_name|
   - teamData = @valuesByTeamName[team_name]
-  = render :partial => "teams/ratings/nagaaa/export/table", :locals => {:teamRoster => teamData[:roster], :team_rating => teamData[:rating]}
+  = render :partial => "teams/ratings/shared/export/table", :locals => {:teamRoster => teamData[:roster], :team_rating => teamData[:rating], :table_values => nagaaa_export_values, :isAsana => true}
   

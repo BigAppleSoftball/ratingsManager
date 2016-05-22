@@ -93,6 +93,7 @@ class TeamsController < ApplicationController
     @teamRating = calculate_team_ratings(@teamsRosters) 
     @CanEditRatings = has_permissions?(@permissions[:CanEditAllRatings])
     @CanApproveRatings = has_permissions?(@permissions[:CanApproveRatings])
+    @tableValues = nagaaa_export_values
     respond_to do |format|
       format.html { render 'ratings' }
       format.csv do
@@ -113,12 +114,19 @@ class TeamsController < ApplicationController
     @isAsana = true
     team_id = params[:teamid]
     @team = Team.find(team_id)
+    @tableValues = asana_export_values
+    # TODO (Need to Calculate Team Ratings)
     @teamRoster = Roster.eager_load(:profile => :asana_ratings).where(:team_id => team_id).order('profiles.last_name')
     respond_to do |format|
       format.html { render 'show_asana_ratings' }
       format.csv do
         response.headers['Content-Disposition'] = "attachment; filename=#{@team.name}-#{@team.division.full_name}-asana.csv"
         render 'teams/ratings/asana/export.csv.haml'
+      end
+      format.xls do
+        response.headers['Content-Type'] = "application/vnd.ms-excel"
+        response.headers['Content-Disposition'] = "attachment; filename=\"#{@team.name}_#{@team.division.full_name}.xls\""
+        render 'ratings.xls.haml'
       end
     end
   end

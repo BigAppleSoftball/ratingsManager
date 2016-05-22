@@ -1,0 +1,24 @@
+- content_for :panel_head do
+  %h1
+    = @season.description
+    - if !@season.is_active
+      %span.inactive-season (archived season)
+
+%table.table.table-striped.table-bordered.table-condensed
+  %tr
+    %th=sortable  'nagaaa_id', 'Nagaaa ID', false, true
+    %th= sortable 'last_name', 'Name', false, true
+    %th= sortable 'total', 'Rating', false, true
+    %th= sortable 'division', 'Division', false, true
+    %th= sortable 'team', 'Team', false, true
+  - @team_names.each do |team_name|
+    - @valuesByTeamName[team_name][:roster].each do |roster|
+      - rating = roster.profile.rating
+      %tr
+        %td=roster.profile.nagaaa_id
+        %td=roster.profile.name
+        %td
+          - if rating.present?
+            = rating.total
+        %td=roster.team.division.description
+        %td=roster.team.name
