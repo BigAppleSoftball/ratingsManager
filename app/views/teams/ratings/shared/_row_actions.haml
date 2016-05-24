@@ -1,8 +1,8 @@
 = link_to raw('<i class="fa fa-eye"></i><span></span>'), player_rating, {:title => 'View Rating', :class=>'btn btn-default btn-sm'}
 - if @CanApproveRatings
-  %a.btn.btn-sm.js-approve-rating{:title => 'Approve Rating', :class => "#{player_rating.is_approved ? 'btn-success' : 'btn-default'}"}
+  %a.btn.btn-sm.btn-default.js-approve-rating.approve-btn{:title => 'Approve Rating'}
     %i.fa.fa-check
     -#Approve
-  %a.btn.btn-sm.btn-default.js-reject-rating{:title => 'Reject Rating', :class => "#{(!player_rating.is_approved.nil? && !player_rating.is_approved) ? 'btn-danger' : 'btn-default'}"}
+  %a.btn.btn-sm.btn-default.js-reject-rating.reject-btn{:title => 'Reject Rating'}
     %i.fa.fa-ban
     -#Reject

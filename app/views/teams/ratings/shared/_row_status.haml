@@ -1,10 +1,10 @@
 - if player_rating.present?
-  - if player_rating.is_approved
+  .approved-status
     %i.fa.fa-check
     %span.medium-large-screen-only Approved
-  - elsif player_rating.is_approved == false
+  .rejected-status
     %i.fa.fa-ban
     %span.medium-large-screen-only Rejected
-  - else
+  .pending-status
     %i.fa.fa-refresh
     %span.medium-large-screen-only Pending

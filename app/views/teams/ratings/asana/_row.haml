@@ -5,9 +5,11 @@
   - if player_rating.present?
     - rating_id = player_rating.id
     - if player_rating.is_approved == true
-      - rating_class = 'success'
+      - rating_class = 'success is-approved'
     - elsif player_rating.is_approved == false
-      - rating_class = 'danger'
+      - rating_class = 'danger is-rejected'
+    - else 
+      -rating_class = 'is-pending'
   %tr.js-rating-row{:data => {'player_id' => profile.id, :asana_rating_id => rating_id}, :class => "js-player-row-#{profile.id} js-rating-row-#{rating_id} #{rating_class}"}
     %td
       %strong=link_to profile.name, profile
