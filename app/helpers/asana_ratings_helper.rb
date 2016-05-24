@@ -88,7 +88,7 @@ module AsanaRatingsHelper
     '22. Did the player play on a team that was a runner-up in Last year\'s ASANA World Series?'
   end
 
-  def q_response(value)
+  def asana_response(value)
     if (value == 0) 
       '0 - Never'
     elsif (value == 1)
