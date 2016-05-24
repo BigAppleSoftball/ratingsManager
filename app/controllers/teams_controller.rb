@@ -109,11 +109,12 @@ class TeamsController < ApplicationController
   end
 
   def show_asana_ratings
-    @CanEditRatings = has_permissions?(@permissions[:CanEditAllRatings])
+    
     @CanApproveRatings = has_permissions?(@permissions[:CanApproveRatings])
     @isAsana = true
     team_id = params[:teamid]
     @team = Team.find(team_id)
+    @CanEditRatings = has_permissions?(@permissions[:CanEditAllRatings]) || is_team_rep(@team)
     @tableValues = asana_export_values
     # TODO (Need to Calculate Team Ratings)
     @teamRoster = Roster.eager_load(:profile => :asana_ratings).where(:team_id => team_id).order('profiles.last_name')
@@ -193,6 +194,9 @@ class TeamsController < ApplicationController
     end
   end
 
+  def is_team_rep(team)
+    return is_team_manager?(team.id) || is_division_rep?(team.division.id)
+  end
   private
     def get_form_presets
       @profiles = Profile.select('first_name, last_name, id').all
