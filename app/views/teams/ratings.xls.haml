@@ -1,1 +1,8 @@
-= render :partial => "teams/ratings/shared/export/table", :locals => {:teamRoster => @teamRoster, :team_rating => @teamRating, :table_values => @tableValues}
+%table.table.table-bordered.table-condensed
+  %thead
+    - if @tableValues[:is_asana]
+      = render :partial => "teams/ratings/asana/export/head", :locals => {:team => @team, :col_colors => @tableValues[:col_colors], :questions => @tableValues[:questions] }
+    - else
+      = render :partial => "teams/ratings/nagaaa/export/head", :locals => {:team => @team, :col_colors => @tableValues[:col_colors], :questions => @tableValues[:questions] }
+  %tbody
+    = render :partial => "teams/ratings/shared/export/table", :locals => {:teamRoster => @teamRoster, :team_rating => @teamRating, :table_values => @tableValues}
