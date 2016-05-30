@@ -1,0 +1,51 @@
+- content_for :panel_head do
+  %h1 
+    NAGAAA Ratings
+
+.table-filter
+  = will_paginate @profiles
+  = form_tag '/rating/list/', :method => 'get', :id => "ratings_search", :class => 'form-inline' do
+    .form-group
+      = text_field_tag :search, params[:search], {class: 'form-control search-input', placeholder: 'Search by Name, Email, Team, or Division'}
+      = submit_tag "Search", :name => nil, :class => 'btn btn-primary'
+  %br
+
+  .alert.alert-info
+    Note: Players from Women's Teams are only shown if a NAGAAA rating is found, searching by a Women's Only team will not return NAGAAA rated players currently playing in women's divisions, search for their name instead.
+%table.table-striped.table.table-bordered
+  %thead
+    %tr
+      %th= sortable 'profiles.first_name', 'First Name', true
+      %th= sortable 'profiles.last_name', 'Last Name', true
+      %th= sortable 'profiles.email', 'Email', true
+      %th= sortable 'teams.name', 'Last Team', true
+      %th= sortable 'division.description', 'Last division', true
+      %th= sortable 'ratings.total', 'Rating Total'
+  %tbody
+    - if @profiles.empty?
+      %tr
+        %td{:colspan => '6'} No Results Found
+    - else
+      - @profiles.each do |profile|
+        %tr
+          %td= highlight(profile.first_name, @search_params)
+          %td= highlight(profile.last_name, @search_params)
+          %td= profile.email
+          %td
+            - roster = profile.rosters.last
+            - if roster.team.present?
+              = highlight(roster.team.name, @search_params)
+          %td
+            -if roster.team.present? && roster.team.division.present?
+              = highlight(roster.team.division.description, @search_params)
+              = roster.team.division.season.description
+          %td
+            - if profile.rating.present?
+              =profile.rating.total
+            - else
+              = '--'
+
+.table-filter
+  = will_paginate @profiles
+
+

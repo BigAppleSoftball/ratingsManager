@@ -100,6 +100,7 @@ Rails.application.routes.draw do
   resources :asana_ratings
   post '/ratings/update', to:'ratings#update_player'
   post '/ratings/new', to:'ratings#new_player'
+  get '/rating/list/', to: 'ratings#list'
   get '/rating/duplicates', to:'ratings#show_duplicates'
   get '/rating/duplicates/remove', to:'ratings#remove_duplicates'
   get '/asana_ratings_by_division/:divisionId', to:'asana_ratings#index_by_division'

@@ -206,8 +206,6 @@ class ProfilesController < ApplicationController
 
   def export_players
     division_ids = [params[:divisions]]
-    ap '----------------------------'
-    ap division_ids
     division_ids.each do |division_id|
       ap division_id.to_i
     end
