@@ -92,15 +92,15 @@ module AsanaRatingsHelper
     if (value == 0) 
       '0 - Never'
     elsif (value == 1)
-      '1 - Rarely'
+      '1 - Rarely (10%)'
     elsif (value == 2)
-      '2 - Sometimes'
+      '2 - Sometimes (25%)'
     elsif (value == 3)
-      '3 - Half the Time'
+      '3 - Half the Time (50%)'
     elsif (value == 4)
-      '4 - Usually'
+      '4 - Usually (75%)'
     elsif (value == 5)
-      '5 - Always'
+      '5 - Always (90%+)'
     end
   end
 
@@ -124,12 +124,12 @@ module AsanaRatingsHelper
 
   def ratings_options
     [
-      ['0 - Never', 0], 
-      ['1 - Rarely', 1], 
-      ['2 - Sometimes', 2], 
-      ['3 - Half the Time', 3], 
-      ['4 - Usually', 4], 
-      ['5 - Always', 5]
+      ['0 - Never (0%)', 0], 
+      ['1 - Rarely (10%)', 1], 
+      ['2 - Sometimes (25%)', 2], 
+      ['3 - Half the Time (50%)', 3], 
+      ['4 - Usually (75%)', 4], 
+      ['5 - Always (90%+)', 5]
     ]
   end
 
