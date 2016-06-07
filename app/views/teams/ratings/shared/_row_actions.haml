@@ -1,4 +1,7 @@
-= link_to raw('<i class="fa fa-eye"></i><span></span>'), player_rating, {:title => 'View Rating', :class=>'btn btn-default btn-sm'}
+-if @CanEditRatings
+  = link_to raw('<i class="fa fa-pencil"></i><span></span>'), edit_asana_rating_path(player_rating), {:title => 'Edit Rating', :class=>'btn btn-default btn-sm'}          
+-else
+  = link_to raw('<i class="fa fa-eye"></i><span></span>'), player_rating, {:title => 'View Rating', :class=>'btn btn-default btn-sm'}
 - if @CanApproveRatings
   %a.btn.btn-sm.btn-default.js-approve-rating.approve-btn{:title => 'Approve Rating'}
     %i.fa.fa-check

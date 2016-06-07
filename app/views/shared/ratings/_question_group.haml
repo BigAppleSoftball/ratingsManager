@@ -2,4 +2,4 @@
   - questions.each do |qt|
     %li.list-group-item
       %h4=qt[:question]
-      .col-sm-3=f.select(qt[:rating], qt[:options],{}, :class=> "chosen-select")
+      .col-sm-4=f.select(qt[:rating], qt[:options],{}, :class=> "chosen-select")
