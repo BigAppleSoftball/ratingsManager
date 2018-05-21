@@ -14,6 +14,13 @@
       %p
         This Rating has been Rejected by 
         %strong=link_to @approved_profile.name, @approved_profile
+  .rating_details
+    %h4
+      %b Rating Total:
+      = @asana_rating.total
+    %h4
+      %b Rating Class:
+      = @asana_rating.classification
 
 
 = render layout: 'shared/rating_group', locals: {rating_title: 'Throwing', rating_class: 'throwing'} do

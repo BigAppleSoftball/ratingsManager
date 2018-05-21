@@ -5,6 +5,11 @@
       %ul
         - @profile.errors.full_messages.each do |msg|
           %li= msg
+  - if is_admin?
+    .emp-action-container
+      .form-group
+        =f.label :nagaaa_id, {:class => 'col-sm-2 control-label'}
+        .col-sm-10= f.number_field :nagaaa_id, {:class => 'form-control'} 
   .form-group
     = f.label :first_name, {:class => 'col-sm-2 control-label'}
     .col-sm-10

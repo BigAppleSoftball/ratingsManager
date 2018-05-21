@@ -1,0 +1,10 @@
+%ul
+  = @divisions.each do |division|
+    = division.teams.each do |team|
+      = team.rosters.each do |roster|
+        %li
+          - if roster.profile
+            = roster.profile.name
+            = roster.profile.email
+            = team.name
+            = get_division_short_name(division.description)

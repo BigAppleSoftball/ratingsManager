@@ -5,46 +5,29 @@
   - if player_rating.present?
     - rating_id = player_rating.id
     - if player_rating.is_approved == true
-      - rating_class = 'success'
+      - rating_class = 'success is-approved'
     - elsif player_rating.is_approved == false
-      - rating_class = 'danger'
+      - rating_class = 'danger is-rejected'
+    - else 
+      -rating_class = 'is-pending'
   %tr.js-rating-row{:data => {'player_id' => profile.id, :asana_rating_id => rating_id}, :class => "js-player-row-#{profile.id} js-rating-row-#{rating_id} #{rating_class}"}
     %td
       %strong=link_to profile.name, profile
     %td.center-column.medium-large-screen-only
       %span=profile.dob
     - if player_rating
-      %td.center-column
-        .edit-btn.js-total-btn=player_rating.total
+      %td.center-column=player_rating.total
+      %td.center-column=player_rating.classification
       %td.center-column.throwing-column=player_rating.throwing_total
       %td.center-column.fielding-column=player_rating.fielding_total
       %td.center-column.batting-column=player_rating.baserunning_total
       %td.center-column.baserunning-column=player_rating.batting_total
       %td.center-column.fundamentals-column=player_rating.fundamentals_total
       %td.center-column.experience-column=player_rating.experience_total
-      %td 
-        - if player_rating.present?
-          - if player_rating.is_approved
-            %i.fa.fa-check
-            %span.medium-large-screen-only Approved
-          - elsif player_rating.is_approved == false
-            %i.fa.fa-ban
-            %span.medium-large-screen-only Rejected
-          - else
-            %i.fa.fa-refresh
-            %span.medium-large-screen-only Pending
-      %td.center-column
-        .dropdown
-          = link_to raw('<i class="fa fa-eye"></i><span></span>'), player_rating, {:title => 'View Rating', :class=>'btn btn-default btn-sm'}
-          - if @CanApproveRatings
-            %a.btn.btn-sm.js-approve-rating{:title => 'Approve Rating', :class => "#{player_rating.is_approved ? 'btn-success' : 'btn-default'}"}
-              %i.fa.fa-check
-              -#Approve
-            %a.btn.btn-sm.btn-default.js-reject-rating{:title => 'Reject Rating', :class => "#{(!player_rating.is_approved.nil? && !player_rating.is_approved) ? 'btn-danger' : 'btn-default'}"}
-              %i.fa.fa-ban
-              -#Reject
+      %td=render :partial => "teams/ratings/shared/row_status", :locals => {:player_rating => player_rating}
+      %td.center-column= render :partial => "teams/ratings/shared/row_actions", :locals => {:player_rating => player_rating}
     - else
-      %td.warning.no-ranking-warning.center-column{:colspan => '7'}
+      %td.warning.no-ranking-warning.center-column{:colspan => '10'}
         No Rating Found.
         - if @CanEditRatings
           = link_to '+ Add Rating', "/asana_rating_to_profile/#{profile.id}", {:class => 'btn btn-sm btn-default'}

@@ -61,6 +61,8 @@ Rails.application.routes.draw do
   # seasons
   get '/get_divisions_by_season', to:'seasons#get_divisions_by_season'
   get '/season/:seasonId/games', to:'seasons#games'
+  get '/season/:id/nagaaa/ratings', to:'seasons#show_nagaaa_ratings'
+  get '/season/:id/asana/ratings', to:'seasons#show_asana_ratings'
 
   # sessions
   match '/signup',  to: 'profiles#new', via: 'get'
@@ -98,8 +100,10 @@ Rails.application.routes.draw do
   resources :asana_ratings
   post '/ratings/update', to:'ratings#update_player'
   post '/ratings/new', to:'ratings#new_player'
+  get '/rating/list/', to: 'ratings#list'
   get '/rating/duplicates', to:'ratings#show_duplicates'
   get '/rating/duplicates/remove', to:'ratings#remove_duplicates'
+  get '/asana_ratings_by_division/:divisionId', to:'asana_ratings#index_by_division'
 
 
 
@@ -147,9 +151,13 @@ Rails.application.routes.draw do
 
   # divisions
   get 'teamsnap/divisions/import', to: 'teamsnap#import_divisions'
+  get '/divisions/:id/ratings', to:'divisions#show_nagaaa_ratings'
+  get '/divisions/asana/:id/ratings', to:'divisions#show_asana_ratings'
 
   # profiles
   get 'pickup', to: 'profiles#pickup_players'
+  get 'pickup/export', to:'profiles#export_pickup'
+  post 'pickup/export_players', to: 'profiles#export_players'
   get 'profile_details', to: 'profiles#details'
 
   get "/404", :to => "errors#error_404"

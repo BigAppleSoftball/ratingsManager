@@ -12,6 +12,7 @@ class DivisionsController < ApplicationController
   # GET /divisions/1
   # GET /divisions/1.json
   def show
+    @CanEditRatings = has_permissions?(@permissions[:CanEditAllRatings])
   end
 
   # GET /divisions/new
@@ -29,6 +30,26 @@ class DivisionsController < ApplicationController
   # GET /divisions/1/edit
   def edit
     @seasons = Season.all
+  end
+
+  def show_nagaaa_ratings
+    show_division_ratings(params[:id].to_i)
+  end
+
+  def show_asana_ratings
+    show_division_ratings(params[:id].to_i, true)
+  end
+
+
+  #
+  # Takes values to render ratings for given divisions
+  #
+  def show_division_ratings(division_id, isAsana = false)
+    @division = Division.find(division_id)
+    # get all the teams in the division
+    teams = Team.where(:division_id => @division.id)
+    filename = @division.full_name
+    show_ratings(teams, isAsana, filename)
   end
 
   # POST /divisions

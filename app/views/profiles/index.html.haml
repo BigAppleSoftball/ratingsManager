@@ -13,6 +13,7 @@
 %table.table.table-striped.table-bordered.table-condensed
   %tr
     %th= sortable 'id', 'Id', false, true
+    %th NAGAAA ID
     %th= sortable 'last_name', 'Name', true
     %th= sortable 'email', 'Email', true
     %th.actions-column
@@ -21,6 +22,7 @@
   - @profiles.each do |profile|
     %tr
       %td= profile.id
+      %td= profile.nagaaa_id
       %td
         %strong= link_to profile.name, profile
         - if profile.is_admin
@@ -39,5 +41,5 @@
         %td
           =link_to raw("<i class='fa fa-user-secret'></i> Impersonate"), impersonate_engine.impersonate_user_path(profile), {:class => 'btn btn-default'}
           -if profile.last_log_in.blank?
-            = link_to raw("<i class='fa fa-paper-plane-o'></i> Send Welcome Email"),profile_welcome_email_path(profile), {:class => 'btn btn-default'}
+            = link_to raw("<i class='fa fa-paper-plane-o'></i> Send Welcome"),profile_welcome_email_path(profile), {:class => 'btn btn-default'}
           

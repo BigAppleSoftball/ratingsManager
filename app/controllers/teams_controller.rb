@@ -90,29 +90,44 @@ class TeamsController < ApplicationController
     @team = Team.find_by(:id => team_id)
     teamsRosters = Roster.eager_load(:profile => :rating).where(:team_id => team_id).order('profiles.last_name')
     @teamsRosters = teamsRosters
-    @ratings_json = get_roster_json(teamsRosters).to_json
     @teamRating = calculate_team_ratings(@teamsRosters) 
+    @CanEditRatings = has_permissions?(@permissions[:CanEditAllRatings])
+    @CanApproveRatings = has_permissions?(@permissions[:CanApproveRatings])
+    @tableValues = nagaaa_export_values
     respond_to do |format|
       format.html { render 'ratings' }
       format.csv do
         response.headers['Content-Disposition'] = "attachment; filename=#{@team.name}-#{@team.division.full_name}.csv"
         render 'ratings.csv.haml'
       end
+      format.xls do
+        response.headers['Content-Type'] = "application/vnd.ms-excel"
+        response.headers['Content-Disposition'] = "attachment; filename=\"#{@team.name}_#{@team.division.full_name}.xls\""
+        render 'ratings.xls.haml'
+      end
     end
   end
 
   def show_asana_ratings
-    @CanEditRatings = has_permissions?(@permissions[:CanEditAllRatings])
+    
     @CanApproveRatings = has_permissions?(@permissions[:CanApproveRatings])
     @isAsana = true
     team_id = params[:teamid]
     @team = Team.find(team_id)
+    @CanEditRatings = has_permissions?(@permissions[:CanEditAllRatings]) || is_team_rep(@team)
+    @tableValues = asana_export_values
+    # TODO (Need to Calculate Team Ratings)
     @teamRoster = Roster.eager_load(:profile => :asana_ratings).where(:team_id => team_id).order('profiles.last_name')
     respond_to do |format|
       format.html { render 'show_asana_ratings' }
       format.csv do
         response.headers['Content-Disposition'] = "attachment; filename=#{@team.name}-#{@team.division.full_name}-asana.csv"
         render 'teams/ratings/asana/export.csv.haml'
+      end
+      format.xls do
+        response.headers['Content-Type'] = "application/vnd.ms-excel"
+        response.headers['Content-Disposition'] = "attachment; filename=\"#{@team.name}_#{@team.division.full_name}.xls\""
+        render 'ratings.xls.haml'
       end
     end
   end
@@ -124,11 +139,10 @@ class TeamsController < ApplicationController
   def run_asana_import
     file = params[:file]['csv']
     teamId = params[:teamId]
-    ap teamId
     if !(file.nil?)
       # process csv
       CSV.foreach(file.path, headers: true) do |row|
-        ap row
+
       end
     end
   end
@@ -180,21 +194,9 @@ class TeamsController < ApplicationController
     end
   end
 
-  #
-  # Team rating is the sum of the top ten player ratings
-  #
-  def calculate_team_ratings(roster)
-    ratings = Array.new
-    roster.each do|player|
-      if (player && player.profile && player.profile.rating)
-        ratings.push(player.profile.rating.total)
-      end
-    end
-    
-    top_ratings = ratings.sort.reverse.take(10)
-    top_ratings.sum
+  def is_team_rep(team)
+    return is_team_manager?(team.id) || is_division_rep?(team.division.id)
   end
-
   private
     def get_form_presets
       @profiles = Profile.select('first_name, last_name, id').all

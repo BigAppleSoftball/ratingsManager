@@ -58,7 +58,6 @@ module ApplicationHelper
 
   def sortable(column, title = nil, isAlphabet = false, isNum = false)
     title ||= column.titleize
-
     css_class = column == sort_column ? "current-column #{sort_direction}" : 'sortable-column'
     direction = column == sort_column && sort_direction == 'asc' ? 'desc' : 'asc'
 
@@ -183,4 +182,5 @@ module ApplicationHelper
       division_name
     end
   end
+
 end

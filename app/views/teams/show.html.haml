@@ -9,19 +9,20 @@
             = @team.teamsnap_id
             )
       %h4= link_to "#{@team.division.season.description} #{@team.division.description}", @team.division
-      .team-rating
-        %strong Team Rating:
-        = @team_rating
-        .small-text
-          (Team rating is calculated by summing up the ratings of the top 
-          %strong TEN
-          players)
+      - if @team.division.is_coed
+        .team-rating
+          %strong Team Rating:
+          = @team_rating
+          .small-text
+            (Team rating is calculated by summing up the ratings of the top 
+            %strong TEN
+            players)
     .col-md-2.team-admin-container
       = render partial: "teams/managers_list", locals: { team: @team}
       = render partial: "teams/reps_list", locals: { team: @team}
     .col-md-3
       %ul.btn-list
-        - if is_admin? || is_team_manager?(@team.id) || is_division_rep?(@team.division.id)
+        - if is_admin? || is_team_rep(@team)
           - if is_admin?
             %li= link_to raw("<i class='fa fa-trash'></i> Delete Team"), @team, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-danger', :title => 'Delete'
           - if !(@team && @team.division && @team.division.season && !@team.division.season.is_editable_season?)

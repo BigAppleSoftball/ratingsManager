@@ -1,0 +1,13 @@
+- content_for :panel_head do
+  %h1 Export Pickup Players
+
+
+= form_tag '/pickup/export_players', multipart: true do
+  %select.chosen-select.form-control.js-division-selector{:name => "divisions", :multiple => true, :data => {:placeholder => "Select Divisions"}}
+    %option
+    -@seasons.each do |season|
+      %optgroup{:label => season.description}
+        - season.divisions.each do |division|
+          %option{:value => "#{division.id}"}=division.description
+  
+  %input.btn.btn-primary{:type => 'submit', :value => 'Export Pickup Players'}

@@ -87,6 +87,62 @@ class SeasonsController < ApplicationController
     #@games = Game.eager_load(:home_team => {:divisions => :season}, :away_team, :field).where('season.id = ?', season_id)
   end
 
+  def show_nagaaa_ratings
+    season_id = params[:id].to_i
+    @season = Season.find(season_id)
+    # get all the divisions in a season
+    divisionIds = Division.where(:season_id => season_id, :is_coed => true).pluck(:id)
+
+    # get all the teams in the division
+    teams = Team.where(:division_id => divisionIds)
+    values = get_rosters_and_ratings(teams)
+    @team_names = values[:team_names]
+    @valuesByTeamName =values[:by_name]
+
+    respond_to do |format|
+      # TODO (Paige) Support rendering Ratings 
+      format.html { render layout: 'plain', template: 'divisions/ratings' }
+      format.xls do
+        response.headers['Content-Type'] = "application/vnd.ms-excel"
+        response.headers['Content-Disposition'] = "attachment; filename=\"#{@season.description}.xls\""
+        render 'ratings.xls.haml'
+      end
+    end
+  end
+
+  def show_nagaaa_ratings
+    show_season_ratings(params[:id].to_i)
+  end
+
+  def show_asana_ratings
+    show_season_ratings(params[:id].to_i, true)
+  end
+
+  #
+  # Takes values to render ratings for given Season
+  #
+  def show_season_ratings(season_id, isAsana = false)
+    @season = Season.find(season_id)
+    if isAsana
+      # get all the Women's divisions in a season
+      divisionIds = Division.where(:season_id => season_id, :is_coed => false).pluck(:id)
+    else
+      # get all the divisions in a season
+      divisionIds = Division.where(:season_id => season_id, :is_coed => true).pluck(:id)
+    end
+
+
+    # get all the teams in the division
+    teams = Team.where(:division_id => divisionIds)
+    if isAsana 
+      filename = 'ASANA_'
+    else
+      filename = 'NAGAAA_'
+    end
+    filename += @season.description
+    show_ratings(teams, isAsana, filename)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_season

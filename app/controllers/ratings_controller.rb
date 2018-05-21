@@ -72,9 +72,42 @@ class RatingsController < ApplicationController
   def index
     @active_season = Season.includes(:divisions => {:teams => {:rosters => {:profile => {:rating => :profile}}}}).where(:is_active => true).last
     
+
     respond_to do |format|
       format.html
       format.csv
+    end
+  end
+
+  def list
+    if !params[:search].nil?
+      @search_params = params[:search]
+      search_params = "%#{@search_params}%"
+      profiles_count = Profile
+        .select('distinct(profiles.id), profiles.first_name, profiles.last_name, profiles.email')
+        .joins('LEFT JOIN ratings ON profiles.id = ratings.profile_id')
+        .joins( :rosters => {:team => { :division => :season}})
+        .where('concat_ws(\' \',profiles.first_name,profiles.last_name) LIKE ? OR profiles.email LIKE ? OR teams.name LIKE ? OR divisions.description LIKE ?', search_params, search_params, search_params, search_params)
+        .where('divisions.is_coed = ?', true).count(distinct: true)
+
+      @profiles = Profile.select('distinct(profiles.id), profiles.first_name, profiles.last_name, profiles.email')
+        .joins('LEFT JOIN ratings ON profiles.id = ratings.profile_id')
+        .joins( :rosters => {:team => { :division => :season}})
+        .where('concat_ws(\' \',profiles.first_name,profiles.last_name) LIKE ? OR profiles.email LIKE ? OR teams.name LIKE ? OR divisions.description LIKE ?', search_params, search_params, search_params, search_params)
+        .where('divisions.is_coed = ?', true)
+        .order(sort_column + " " + sort_direction)
+        .paginate(:per_page => 50,:page => params[:page], :total_entries => profiles_count)
+    else
+      profiles_count = Profile.select('distinct(profiles.id), profiles.first_name, profiles.last_name, profiles.email')
+        .joins('LEFT JOIN ratings ON profiles.id = ratings.profile_id')
+        .joins( :rosters => {:team => { :division => :season}})
+        .where('divisions.is_coed = ?', true).count(distinct: true)
+      @profiles = Profile.select('distinct(profiles.id), profiles.first_name, profiles.last_name, profiles.email')
+        .joins('LEFT JOIN ratings ON profiles.id = ratings.profile_id')
+        .joins( :rosters => {:team => { :division => :season}})
+        .where('divisions.is_coed = ?', true)
+        .order(sort_column + " " + sort_direction)
+        .paginate(:per_page => 50,:page => params[:page], :total_entries => profiles_count)
     end
   end
 
@@ -89,7 +122,6 @@ class RatingsController < ApplicationController
     ratings = Rating.all.order(:profile_id)
     profile_ids = ratings.pluck(:profile_id)
     duplicate_profile_ids = profile_ids.group_by {|e| e}.select { |k,v| v.size > 1}.keys
-    ap duplicate_profile_ids
     @profile_ids = duplicate_profile_ids
 
     @profile_ids.each do |profile_id|

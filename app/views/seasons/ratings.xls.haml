@@ -1,0 +1,11 @@
+%table.table.table-bordered.table-condensed
+  %thead
+    - if table_values[:is_asana]
+      = render :partial => "teams/ratings/asana/export/head", :locals => {:team => @team, :col_colors => table_values[:col_colors], :questions => table_values[:questions] }
+    - else
+      = render :partial => "teams/ratings/nagaaa/export/head", :locals => {:team => @team, :col_colors => table_values[:col_colors], :questions => table_values[:questions] }
+  %tbody
+    - @team_names.each do |team_name|
+      - teamData = @valuesByTeamName[team_name]
+      = render :partial => "teams/ratings/shared/export/table", :locals => {:teamRoster => teamData[:roster], :team_rating => teamData[:rating], :table_values => @tableValues}
+  

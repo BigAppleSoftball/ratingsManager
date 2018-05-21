@@ -6,5 +6,8 @@
     %h4 Upload a CSV
     = form_tag '/import/upload', multipart: true do
       = render 'shared/forms/season_selector', {:selected_season => nil, :seasons => @seasons, :name=> 'seasons'}
+      %br
+      %br
       = file_field(:file, 'csv')
-      = submit_tag "Import CSV"
+      %br
+      = submit_tag "Import CSV", {:class => 'btn btn-default'}

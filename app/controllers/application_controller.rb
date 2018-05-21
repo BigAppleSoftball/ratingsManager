@@ -269,6 +269,122 @@ class ApplicationController < ActionController::Base
   def authenticate_user!
     current_user.is_admin?
   end
+
+  #
+  # Team rating is the sum of the top ten player ratings
+  #
+  def calculate_team_ratings(roster)
+    ratings = Array.new
+    roster.each do|player|
+      if (player && player.profile && player.profile.rating)
+        ratings.push(player.profile.rating.total)
+      end
+    end
+    
+    top_ratings = ratings.sort.reverse.take(10)
+    top_ratings.sum
+  end
+
+  #
+  # Returns a hashmap that stores rosters and ratings values by team name
+  #
+  def get_rosters_and_ratings(teams, isAsana = false)
+    byName = Hash.new
+    byName[:team_names] = Array.new
+    byName[:by_name] = Hash.new
+
+    # Load the Roster onto the Team
+    teams.each do |team|
+      teamId = team.id
+      if isAsana
+        roster = Roster.eager_load(:profile => :rating).where(:team_id => teamId).order('profiles.last_name')
+      else
+        roster = Roster.eager_load(:profile => :rating).where(:team_id => teamId).order('profiles.last_name')
+      end
+      team_name = roster.first().team.name
+      byName[:team_names].push(team_name)
+      values = Hash.new
+      values[:roster] = roster
+      values[:rating] = calculate_team_ratings(roster) 
+      byName[:by_name][team_name] = values
+    end 
+    byName
+  end
+
+  #
+  # Stores lightened colors of rattings sections for use in 
+  # excel exports
+  #
+  def get_col_colors
+    col_colors = Hash.new 
+    col_colors[:throwing] = '#ccffff'
+    col_colors[:hitting] = '#ffcccc'
+    col_colors[:running] = '#ccccff'
+    col_colors[:fielding] = '#ccffcc'
+    col_colors[:none] = '#eeeeee'
+    col_colors[:fundamentals] = '#C1C1C0'
+    col_colors[:experience] = '#969696'
+    col_colors
+  end
+
+  def nagaaa_export_values
+    table = Hash.new
+    questions = Hash.new
+    questions[:throwing] = 5
+    questions[:fielding] = 9
+    questions[:running] = 4
+    questions[:hitting] = 9
+    total_columns = 27 + 8
+    table[:col_colors] = get_col_colors
+    table[:questions] = questions
+    table[:total_columns] = total_columns
+    table
+  end
+
+  def asana_export_values
+    table = Hash.new
+    questions = Hash.new
+    questions[:throwing] = 4
+    questions[:fielding] = 6
+    questions[:running] = 3
+    questions[:hitting] = 6
+    questions[:fundamentals] = 1
+    questions[:experience] = 2
+    total_columns = 22 + 8
+    table[:col_colors] = get_col_colors
+    table[:questions] = questions
+    table[:total_columns] = total_columns
+    table[:is_asana] = true
+    table
+  end
+
+  #
+  # Takes values to render ratings for given divisions
+  #
+  def show_ratings(teams, isAsana = false, filename = "ratings")
+
+    if isAsana
+      values = get_rosters_and_ratings(teams, true)
+      @tableValues = asana_export_values
+      @isAsana = true
+    else
+      values = get_rosters_and_ratings(teams)
+      @tableValues = nagaaa_export_values
+    end
+
+    @team_names = values[:team_names]
+    @valuesByTeamName =values[:by_name]
+
+    respond_to do |format|
+      # TODO (Paige) Support rendering Ratings 
+      format.html { render layout: 'plain', template: 'divisions/ratings' }
+      format.xls do
+        response.headers['Content-Type'] = "application/vnd.ms-excel"
+        response.headers['Content-Disposition'] = "attachment; filename=\"#{filename}.xls\""
+        render 'ratings.xls.haml'
+      end
+    end
+  end
 private
 
   # Finds the User with the ID stored in the session with the key

@@ -7,16 +7,22 @@
       %span=profile.dob
     - if player_rating
       %td.center-column
-        .edit-btn.js-total-btn=raw("<span class='js-value'>#{player_rating.total}</span>")
+        %span=profile.nagaaa_id
       %td.center-column
-        .btn.btn-primary.edit-btn.js-throwing-btn=raw("<span class='js-value'>#{player_rating.throwing_total}</span> <i class='fa fa-pencil fa-lg'></i>")
+        .edit-btn=player_rating.total
       %td.center-column
-        .btn.btn-success.edit-btn.js-fielding-btn=raw("<span class='js-value'>#{player_rating.fielding_total}</span> <i class='fa fa-pencil fa-lg'></i>")
+        .btn.btn-primary.edit-btn=player_rating.throwing_total
       %td.center-column
-        .btn.btn-warning.edit-btn.js-baserunning-btn=raw("<span class='js-value'>#{player_rating.baserunning_total}</span> <i class='fa fa-pencil fa-lg'></i>")
+        .btn.btn-success.edit-btn=player_rating.fielding_total
       %td.center-column
-        .btn.btn-danger.edit-btn.js-hitting-btn=raw("<span class='js-value'>#{player_rating.hitting_total}</span> <i class='fa fa-pencil fa-lg'></i>")
+        .btn.btn-warning.edit-btn=player_rating.baserunning_total
+      %td.center-column
+        .btn.btn-danger.edit-btn=player_rating.hitting_total
+      %td.center-column=render :partial => "teams/ratings/shared/row_status", :locals => {:player_rating => player_rating}
+      %td
+        =render :partial => "teams/ratings/shared/row_actions", :locals => {:player_rating => player_rating}
     - else
-      %td.warning.no-ranking-warning.center-column{:colspan => '5'}
+      %td.warning.no-ranking-warning.center-column{:colspan => '8'}
         No Rating Found.
-        =link_to '+ Add Rating', '#', {:class => 'btn btn-default js-add-player-ranking'}
+        - if @CanEditRatings
+          = link_to '+ Add Rating', "/nagaaa_rating_to_profile/#{profile.id}", {:class => 'btn btn-sm btn-default'}

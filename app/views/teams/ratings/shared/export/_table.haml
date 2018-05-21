@@ -1,0 +1,6 @@
+- if table_values[:is_asana]
+  - teamRoster.each do |roster|
+    = render :partial => "teams/ratings/asana/export/row", :locals => {:roster => roster, :col_colors => table_values[:col_colors], :questions => table_values[:questions], :team_rating => team_rating}
+- else
+  - teamRoster.each do |roster|
+    = render :partial => "teams/ratings/nagaaa/export/row", :locals => {:roster => roster, :col_colors => table_values[:col_colors], :questions => table_values[:questions], :team_rating => team_rating}

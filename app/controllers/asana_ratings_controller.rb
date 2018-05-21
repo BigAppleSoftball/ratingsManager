@@ -4,7 +4,16 @@ class AsanaRatingsController < ApplicationController
   # GET /asana_ratings
   # GET /asana_ratings.json
   def index
-    @asana_ratings = AsanaRating.all
+    @asana_ratings = AsanaRating.eager_load(:profile).order('profiles.last_name').all
+  end
+
+  def index_by_division
+    division_id = params[:divisionId]
+    @division = Division.find(division_id)
+    # get all the teams in the division
+    @teams = Team.includes(:rosters => {:profile => :asana_ratings}).where(:division_id => @division.id).order('teams.name ASC').order('profiles.last_name')
+    # get all the players on the teams in the division
+
   end
 
   # GET /asana_ratings/1
@@ -90,12 +99,12 @@ class AsanaRatingsController < ApplicationController
     questions.push(create_question(question_2, :rating_2))
     questions.push(create_question(question_3, :rating_3))
     questions.push(create_question(question_4, :rating_4))
-    questions.push(create_question(question_5, :rating_5))
     questions
   end
 
   def get_fielding_questions
     questions = Array.new
+    questions.push(create_question(question_5, :rating_5))
     questions.push(create_question(question_6, :rating_6))
     questions.push(create_question(question_7, :rating_7))
     questions.push(create_question(question_8, :rating_8))

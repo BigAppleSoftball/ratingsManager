@@ -269,11 +269,11 @@
   PlayerRatings.prototype.onApproveRejectSuccess = function(data) {
     var $ratingRow = $('.js-rating-row-' + data.ratingId);
     if (data.isApproved === 'true') {
-      $ratingRow.removeClass('danger info');
-      $ratingRow.addClass('success');
+      $ratingRow.removeClass('danger info is-rejected is-pending');
+      $ratingRow.addClass('success is-approved');
     } else {
-      $ratingRow.removeClass('success info');
-      $ratingRow.addClass('danger');
+      $ratingRow.removeClass('success info is-pending is-approved');
+      $ratingRow.addClass('danger is-rejected');
     }
   };
 

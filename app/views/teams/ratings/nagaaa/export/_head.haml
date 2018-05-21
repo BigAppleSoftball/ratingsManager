@@ -1,0 +1,58 @@
+%tr
+  %td{:colspan => '8'}
+  %td{:colspan => questions[:throwing], 
+      :bgcolor => col_colors[:throwing],
+      :align => 'center' } 
+    %b
+      Throwing
+  %td{:colspan => questions[:fielding], 
+      :bgcolor => col_colors[:fielding],
+      :align => 'center'} 
+    %b
+      Fielding
+  %td{:colspan => questions[:running], 
+      :bgcolor => col_colors[:running],
+      :align => 'center'} 
+    %b
+      Baserunning
+  %td{:colspan => questions[:hitting], 
+    :bgcolor => col_colors[:hitting],
+    :align => 'center'} 
+    %b
+      Hitting
+%tr
+  %td{:align => 'center'} 
+    %b NAGAAA ID
+  %td
+    %b Team (Rating)
+  %td
+    %b Division
+  %td{:align => 'center'} 
+    %b Last Name
+  %td{:align => 'center'} 
+    %b First Name
+  %td{:align => 'center'}
+    %b Email
+  %td{:align => 'center'}
+    %b DOB
+  %td{:align => 'center'}
+    %b Rating
+  - # Print out the number of each question
+  - count = 0
+  - (1..questions[:throwing]).each do |i|
+    - count+= 1
+    %td{:bgcolor => col_colors[:throwing],:align => 'center'}
+      %b=count
+  - (1..questions[:fielding]).each do |i|
+    - count+= 1
+    %td{:bgcolor => col_colors[:fielding], :align => 'center'}
+      %b=count
+  - (1..questions[:running]).each do |i|
+    - count += 1
+    %td{:bgcolor => col_colors[:running], :align => 'center'}
+      %b=count
+  - (1..questions[:hitting]).each do |i|
+    - count += 1
+    %td{:bgcolor => col_colors[:hitting], :align => 'center'}
+      %b=count
+

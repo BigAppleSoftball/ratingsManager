@@ -1,0 +1,46 @@
+- profile = roster.profile
+%tr
+  - if profile.present?
+    - rating = profile.asana_ratings.first
+    - bgcolor = '#ffffff'
+    - if !rating.present?
+      - bgcolor = col_colors[:none]
+    %td{:bgcolor => bgcolor}="#{roster.team.name}"
+    %td{:bgcolor => bgcolor}=get_division_short_name(roster.team.division.description)
+    %td{:bgcolor => bgcolor}=profile.last_name
+    %td{:bgcolor => bgcolor}=profile.first_name
+    %td{:bgcolor => bgcolor}=profile.email
+    %td{:bgcolor => bgcolor}=profile.dob
+    - if rating.present?
+      %td{:align => 'center'}
+        %b=rating.classification
+      %td{:align => 'center'}
+        %b=rating.total
+      - count = 0
+      - (1..questions[:throwing]).each do |i|
+        - count+= 1
+        %td{:bgcolor => col_colors[:throwing],:align => 'center'}
+          =rating["rating_#{count}"]
+      - (1..questions[:fielding]).each do |i|
+        - count+= 1
+        %td{:bgcolor => col_colors[:fielding], :align => 'center'}
+          =rating["rating_#{count}"]
+      - (1..questions[:hitting]).each do |i|
+        - count += 1
+        %td{:bgcolor => col_colors[:hitting], :align => 'center'}
+          =rating["rating_#{count}"]
+      - (1..questions[:running]).each do |i|
+        - count += 1
+        %td{:bgcolor => col_colors[:running], :align => 'center'}
+          =rating["rating_#{count}"]
+      - (1..questions[:fundamentals]).each do |i|
+        - count += 1
+        %td{:bgcolor => col_colors[:fundamentals], :align => 'center'}
+          =rating["rating_#{count}"]
+      - (1..questions[:experience]).each do |i|
+        - count += 1
+        %td{:bgcolor => col_colors[:experience], :align => 'center'}
+          =rating["rating_#{count}"]
+
+    - else
+      = render :partial => "teams/ratings/asana/export/empty_rating", :locals => {:questions => questions, :col_colors => col_colors}

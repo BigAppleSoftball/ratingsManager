@@ -1,5 +1,5 @@
 %ul.list-group
   - questions.each do |qt|
     %li.list-group-item
-      %h4=qt[:question].first
-      .col-sm-3=f.select(qt[:rating], qt[:options],{}, :class=> "chosen-select")
+      %h4=qt[:question]
+      .col-sm-4=f.select(qt[:rating], qt[:options],{}, :class=> "chosen-select")

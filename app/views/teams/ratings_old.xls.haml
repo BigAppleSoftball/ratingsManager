@@ -1,0 +1,61 @@
+= raw('<?xml version="1.0"?>')
+= raw('<?mso-application progid="Excel.Sheet"?>')
+%Workbook{:xmlns => "urn:schemas-microsoft-com:office:spreadsheet", "xmlns:c" => "urn:schemas-microsoft-com:office:component:spreadsheet", "xmlns:html" => "http://www.w3.org/TR/REC-html40", "xmlns:o" => "urn:schemas-microsoft-com:office:office", "xmlns:ss" => "urn:schemas-microsoft-com:office:spreadsheet", "xmlns:x" => "urn:schemas-microsoft-com:office:excel", "xmlns:x2" => "http://schemas.microsoft.com/office/excel/2003/xml", "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance"}
+  %OfficeDocumentSettings{:xmlns => "urn:schemas-microsoft-com:office:office"}
+    %Colors
+      %Color
+        %Index 3
+        %RGB #c0c0c0
+      %Color
+        %Index 4
+        %RGB #ccffff
+      %Color
+        %Index 5
+        %RGB #dddddd
+      %Color
+        %Index 6
+        %RGB #ff99cc
+      %Color
+        %Index 7
+        %RGB #ffccff
+    %ExcelWorkbook{:xmlns => "urn:schemas-microsoft-com:office:excel"}
+      %WindowHeight 9000
+      %WindowWidth 13860
+      %WindowTopX 240
+      %WindowTopY 75
+      %ProtectStructure False
+      %ProtectWindows False
+    %Styles
+      %Style{"ss:ID" => "Default", "ss:Name" => "Default"}
+      %Style{"ss:ID" => "Result", "ss:Name" => "Result"}
+        %Font{"ss:Bold" => "1", "ss:Italic" => "1", "ss:Underline" => "Single"}
+  %Worksheet{'ss:Name'=>@team.name}
+    %Table
+      %Row
+        %Cell
+          %Data{'ss:Type'=>"String"} NAGAAA ID
+        %Cell
+          %Data{'ss:Type'=>"String"} Name
+        %Cell
+          %Data{'ss:Type'=>"String"} DOB
+        %Cell
+          %Data{'ss:Type'=>"String"} Rating
+      
+      - @teamsRosters.each do |roster|
+        - profile = roster.profile
+        - if profile.present?
+          - rating = profile.rating
+          %Row
+            %Cell
+              %Data{'ss:Type'=>"Number"}=profile.nagaaa_id
+            %Cell
+              %Data{'ss:Type'=>"String"}="#{profile.last_name}, #{profile.first_name}"
+            %Cell
+              %Data{'ss:Type'=>"String"}=profile.dob
+          -if rating.present?
+            %Cell
+              %Data{'ss:Type'=>"Number"}=rating.total
+          - else
+            %Cell
+              %Data N/A
+            

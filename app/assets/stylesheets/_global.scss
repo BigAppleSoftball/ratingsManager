@@ -230,3 +230,43 @@ a:hover {
   @extend .fa-external-link;
 }
 
+// Ratings Table
+.ratings-table {
+  .rejected-status {
+    display: none;
+  }
+  .pending-status {
+    display: none;
+  }
+
+  .approved-status {
+    display: none;
+  }
+
+  .is-approved {
+    .approved-status {
+      display: block;
+    }
+
+    .approve-btn {
+      @extend .btn-success;
+    }
+  }
+
+  .is-pending {
+    .pending-status {
+      display: block;
+    }
+  }
+
+  .is-rejected {
+    .rejected-status {
+      display: block ;
+    }
+
+    .reject-btn {
+      @extend .btn-danger;
+    }
+  }
+}
+

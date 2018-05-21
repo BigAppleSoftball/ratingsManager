@@ -156,7 +156,7 @@ defense?',
     ['occasionally hit a ball over a 300’ fence?']
   end
 
-  def question_response(value)
+  def q_response(value)
     if value == 1 
       '1 - Yes'
     else
@@ -169,5 +169,15 @@ defense?',
       ['0 - No', 0], 
       ['1 - Yes', 1]
     ]
+  end
+
+
+  # sortable Columns for view
+  def sort_column
+    params[:sort].present? ? params[:sort] : "profiles.last_name"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end

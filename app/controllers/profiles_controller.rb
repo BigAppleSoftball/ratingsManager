@@ -160,7 +160,11 @@ class ProfilesController < ApplicationController
         end
       end
     end
-    @divisions = ['Dima', 'Fitzpatrick', 'Panarace', 'Sachs', 'Mousseau', 'Green-Batten']
+    @divisions = get_all_divisions
+  end
+
+  def get_all_divisions
+    ['Dima', 'Fitzpatrick', 'Panarace', 'Sachs', 'Mousseau', 'Green-Batten']
   end
 
   #
@@ -190,6 +194,25 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def export_pickup
+    @seasons = Season.eager_load(:divisions).where('seasons.is_active' => true)
+    respond_to do |format|
+      format.html do
+        response.headers['Content-Disposition'] = "attachment; filename=pickup_players.csv"
+        render 'ratings.csv.haml'
+      end
+    end
+  end
+
+  def export_players
+    division_ids = [params[:divisions]]
+    division_ids.each do |division_id|
+      ap division_id.to_i
+    end
+    ## 
+    @divisions = Division.eager_load(:teams => {:rosters => :profile}).where(id: division_ids).order('profiles.last_name ASC')
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_profile
@@ -202,7 +225,7 @@ class ProfilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def profile_params
-      params.require(:profile).permit(:profile_code, :first_name, :last_name, :email, :display_name, :player_number, :gender, :shirt_size, :address, :state, :zip, :phone, :position, :dob, :team_id, :long_image_url, :password, :password_confirmation, :is_admin, :permissions, :address2, :city, :is_pickup_player, :emergency_contact_name, :emergency_contact_relationship, :emergency_contact_phone)
+      params.require(:profile).permit(:profile_code, :first_name, :last_name, :email, :display_name, :player_number, :gender, :shirt_size, :address, :state, :zip, :phone, :position, :dob, :team_id, :long_image_url, :password, :password_confirmation, :is_admin, :permissions, :address2, :city, :is_pickup_player, :emergency_contact_name, :emergency_contact_relationship, :emergency_contact_phone, :nagaaa_id)
     end
 
     def sort_column

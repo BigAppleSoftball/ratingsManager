@@ -1,49 +1,21 @@
-%h1 Listing asana_ratings
+- content_for :panel_head do
+  %h1 All ASANA Ratings
 
-%table
+%table.table-striped.table.table-bordered.table-condensed
   %thead
     %tr
       %th Profile
-      %th Is approved
-      %th Approved profile
-      %th Rating 1
-      %th Rating 2
-      %th Rating 3
-      %th Rating 4
-      %th Rating 5
-      %th Rating 6
-      %th Rating 7
-      %th Rating 8
-      %th Rating 9
-      %th Rating 10
-      %th Rating 11
-      %th Rating 12
-      %th
-      %th
-      %th
+      %th Approved?
+      %th Rating Total
+      %th Rating Classification
+      %th Actions
 
   %tbody
     - @asana_ratings.each do |asana_rating|
       %tr
-        %td= asana_rating.profile_id
-        %td= asana_rating.is_approved
-        %td= asana_rating.approved_profile_id
-        %td= asana_rating.rating_1
-        %td= asana_rating.rating_2
-        %td= asana_rating.rating_3
-        %td= asana_rating.rating_4
-        %td= asana_rating.rating_5
-        %td= asana_rating.rating_6
-        %td= asana_rating.rating_7
-        %td= asana_rating.rating_8
-        %td= asana_rating.rating_9
-        %td= asana_rating.rating_10
-        %td= asana_rating.rating_11
-        %td= asana_rating.rating_12
-        %td= link_to 'Show', asana_rating
-        %td= link_to 'Edit', edit_asana_rating_path(asana_rating)
-        %td= link_to 'Destroy', asana_rating, :method => :delete, :data => { :confirm => 'Are you sure?' }
+        %td= link_to "#{asana_rating.profile.last_name}, #{asana_rating.profile.first_name}", asana_rating.profile
+        %td.center-column=render :partial => "teams/ratings/shared/row_status", :locals => {:player_rating => asana_rating}
+        %td.center-column= asana_rating.total
+        %td.center-column= asana_rating.classification
+        %td.center-column= render partial: "shared/actions/edit", locals: { editPath: edit_asana_rating_path(asana_rating), editText: ''}
 
-%br
-
-= link_to 'New Asana rating', new_asana_rating_path
