@@ -1,6 +1,6 @@
 class RatingsController < ApplicationController
   before_action :set_rating, only: [:show, :edit, :update, :destroy]
-  before_filter :only_for_admin, only: [:destroy, :index, :show, :show_duplicates]
+  before_filter :only_for_admin, only: [:destroy, :show_duplicates]
   include RatingsHelper
   #
   # From ajax updates player from a given id
