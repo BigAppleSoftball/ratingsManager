@@ -37,7 +37,7 @@ module SessionsHelper
   # Checks to see if the current user is the given profile id
   #
   def is_current_user?(profile_id)
-    is_logged_in? && (is_profile_id == current_profile.id)
+    false
   end
 
   def signed_in?
@@ -117,28 +117,30 @@ module SessionsHelper
   # Checks to see if the user is an adminstrative user (admin, rep or manager)
   #
   def is_admin_user?
-    is_logged_in? && (is_admin? || is_manager? || is_division_rep?)
+    false
+    #is_logged_in? && (is_admin? || is_manager? || is_division_rep?)
   end
 
   #
   # check to see if the user is logged int
   #
   def is_logged_in?
-    current_profile.present?
+    true
+    #current_profile.present?
   end
   
   #
   # if given user is th logged in user
   #
   def is_current_user?(user_id)
-    is_logged_in? && current_profile.id == user_id
+    false
+    #is_logged_in? && current_profile.id == user_id
   end
 
 
   def is_current_user_or_admin?(user_id)
-    ap user_id
-    ap current_profile.id
-    is_logged_in? && current_profile.id == user_id || is_admin?
+    false
+    #is_logged_in? && current_profile.id == user_id || is_admin?
   end
 
   #
